@@ -2,7 +2,7 @@
 
 细细整理了过去接触过的那些前端技术，发现前端演进是段特别有意思的历史。人们总是在过去就做出未来需要的框架，而现在流行的是过去的过去发明过的。如，响应式设计不得不提到的一个缺点是：**他只是将原本在模板层做的事，放到了样式（CSS）层来完成**。
 
-复杂度同力一样不会消失，也不会凭空产生，它总是从一个物体转移到另一个物体或一种形式转为另一种形式。如果六、七年前的移动网络和今天一样快，那么直接上的技术就是响应式设计，APP、SPA就不会流行开来。我们可以预见未来某些领域会变得更好，但是更需要的是改变现状。
+复杂度同力一样不会消失，也不会凭空产生，它总是从一个物体转移到另一个物体或一种形式转为另一种形式。如果六、七年前的移动网络和今天一样快，那么直接上的技术就是响应式设计，APP、SPA就不http://repractise.phodal.com/http://repractise.phodal.com/img/frontend会流行开来。我们可以预见未来某些领域会变得更好，但是更需要的是改变现状。
 
 ###什么是前端？
 
@@ -161,12 +161,12 @@ public ModelAndView processUserDisable(HttpServletRequest request, ModelMap mode
 
 在多数时候，Controller不应该直接与数据层的一部分，而将业务逻辑放在Controller层又是一种错误，这时就有了Service层，如下图：
 
-![Service MVC](img/frontend/service-mvc.png)
+![Service MVC](http://repractise.phodal.com/img/frontend/service-mvc.png)
 
 然而对于Domain相关的Service应该放在哪一层，总会有不同的意见：
 
-![MS Player](img/frontend/mvcplayer.gif)
-![MS MVC](img/frontend/ms-mvc.png)
+![MS Player](http://repractise.phodal.com/img/frontend/mvcplayer.gif)
+![MS MVC](http://repractise.phodal.com/img/frontend/ms-mvc.png)
 
 Domain（业务）是一个相当复杂的层级，这里是业务的核心。一个合理的Controller只应该做自己应该做的事，它不应该处理业务相关的代码：
 
@@ -255,7 +255,7 @@ View层是一直在变化的层级，人们的品味一直在更新，有时甚�
 
 Wap出现了，并带来了更多的挑战。随后，分辨率从1024x768变成了176×208，开发人员不得不面向这些挑战。当时所需要做的仅仅修改View层，而View层随着iPhone又发现了变化。
 
-![WAP 网站](img/frontend/wap.gif)
+![WAP 网站](http://repractise.phodal.com/img/frontend/wap.gif)
 
 这是一个短暂的历史，PM还不他们需要为手机用户制作怎样的一个网站？于是他们把桌面版的网站搬了过去变成了移动版。由于网络的原因，每次都需要重新加载页面带来了不好的用户体验。
 
@@ -310,7 +310,7 @@ Wap出现了，并带来了更多的挑战。随后，分辨率从1024x768变成
 
 人们所做的只是**重载View层**。这也是一个有效的SEO策略，上面的代码是我博客过去的代码。对于桌面版和移动版都是不同的模板和JS、CSS。
 
-![移动版网页](img/frontend/mobile-web.png)
+![移动版网页](http://repractise.phodal.com/img/frontend/mobile-web.png)
 
 在这一时期，桌面版和移动版的代码可能在同一个代码库中。他们使用相同的代码，调用相同的逻辑，只是View层不同了。但是，每次改动我们都要维护两份代码。
 
@@ -322,7 +322,7 @@ Wap出现了，并带来了更多的挑战。随后，分辨率从1024x768变成
 
 我们是开发一个结合了第一和第二系统的最佳特性的第三个系统，还是继续臃肿下去。我想你已经有答案了。随后我们就有了APP API，构建出了博客的APP。
 
-![应用](img/frontend/mobile-app.jpg)
+![应用](http://repractise.phodal.com/img/frontend/mobile-app.jpg)
 
 在开始的时候，人们越来越喜欢用APP，因为与移动版网页相比，更响应速度更加快，而且流畅。对于服务器来说，也是一件好事，因为请求变少了。
 
@@ -372,11 +372,11 @@ define([
 
 一些团队便将Services抽成多个Services，美其名为微服务。传统架构下的API从下图
 
-![API Gateway](img/frontend/mobile-app.jpg)
+![API Gateway](http://repractise.phodal.com/img/frontend/mobile-app.jpg)
 
 变成了直接调用的微服务：
 
-![Micro Services](img/frontend/microservices.png)
+![Micro Services](http://repractise.phodal.com/img/frontend/microservices.png)
 
 对于后台开发者来说，这是一件大快人心的大好事，但是对于应用端/前端来说并非如此。调用的服务变多了，在应用程序端进行功能测试变得更复杂，需要Mock的API变多了。
 
@@ -438,7 +438,7 @@ define([
 
 响应式设计不得不提到的一个缺点是：**他只是将原本在模板层做的事，放到了样式（CSS）层**。你还是在针对着不同的设备进行设计，两种没有什么多大的不同。复杂度不会消失，也不会凭空产生，它只会从一个物体转移到另一个物体或一种形式转为另一种形式。
 
-如React，将一小部分复杂度交由人来消化，将一部分交给了React自己来消化。在用Spring MVC之前，也许我们还在用CGI编程，而Spring降低了这部分复杂度，但是同React一样降低了新手的复杂度。
+如React，将一小部分复杂度交由人来消化，将一部分交给了React自己来消化。在用Spring MVC之前，也许我们还在用CGI编程，而Spring降低了这部分复杂度。但是同React一样降低的复杂度只是对于新手。
 
 ##RePractise
 
