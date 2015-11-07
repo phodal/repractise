@@ -311,17 +311,17 @@ show_other = show_other &amp; &quot;{&quot;</code></pre></div>
 &lt;li itemprop=<span class="st">&quot;breadcrumb&quot;</span>&gt;&lt;span{<span class="kw">if</span><span class="ot">(</span>newest<span class="ot">(</span><span class="kw">$v</span><span class="ot">[</span><span class="st">&#39;addtime&#39;</span><span class="ot">],</span><span class="dv">24</span><span class="ot">))</span>} style=<span class="st">&quot;color:red&quot;</span>{/<span class="kw">if</span>}&gt;<span class="ot">[</span>{fun <span class="fu">date</span><span class="ot">(</span><span class="st">&#39;Y-m-d&#39;</span><span class="ot">,</span><span class="kw">$v</span><span class="ot">[</span><span class="st">&#39;addtime&#39;</span><span class="ot">])</span>}<span class="ot">]</span>&lt;/span&gt;&lt;a href=<span class="st">&quot;</span><span class="kw">{$v[&#39;url&#39;]}</span><span class="st">&quot;</span> style=<span class="st">&quot;</span><span class="kw">{$v[&#39;style&#39;]}</span><span class="st">&quot;</span> target=<span class="st">&quot;_blank&quot;</span>&gt;{<span class="kw">$v</span><span class="ot">[</span><span class="st">&#39;title&#39;</span><span class="ot">]</span>}&lt;/a&gt;&lt;/li&gt;
 {/<span class="kw">foreach</span>}</code></pre></div>
 <p>有时像Django这一类，自称为Model-Template-View的框架，更容易让人理解其意图：</p>
-<pre><code>{% for blog_post in blog_posts.object_list %}
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html">{% for blog_post in blog_posts.object_list %}
 {% block blog_post_list_post_title %}
-&lt;section class=&quot;section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp mdl-cell--11-col blog-list&quot;&gt;
+<span class="kw">&lt;section</span><span class="ot"> class=</span><span class="st">&quot;section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp mdl-cell--11-col blog-list&quot;</span><span class="kw">&gt;</span>
 {% editable blog_post.title %}
-&lt;div class=&quot;mdl-card__title mdl-card--border mdl-card--expand&quot;&gt;
-    &lt;h2 class=&quot;mdl-card__title-text&quot;&gt;
-        &lt;a href=&quot;{{ blog_post.get_absolute_url }}&quot;  itemprop=&quot;headline&quot;&gt;{{ blog_post.title }} › &lt;/a&gt;
-    &lt;/h2&gt;
-&lt;/div&gt;
+<span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;mdl-card__title mdl-card--border mdl-card--expand&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;h2</span><span class="ot"> class=</span><span class="st">&quot;mdl-card__title-text&quot;</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;{{ blog_post.get_absolute_url }}&quot;</span><span class="ot">  itemprop=</span><span class="st">&quot;headline&quot;</span><span class="kw">&gt;</span>{{ blog_post.title }} › <span class="kw">&lt;/a&gt;</span>
+    <span class="kw">&lt;/h2&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
 {% endeditable %}
-{% endblock %}</code></pre>
+{% endblock %}</code></pre></div>
 <p>作为一个前端人员，我们真正在接触的是View层和Template层，但是MVC并没有说明这些。</p>
 <h3 id="从桌面版到移动版">从桌面版到移动版</h3>
 <p>Wap出现了，并带来了更多的挑战。随后，分辨率从1024x768变成了176×208，开发人员不得不面向这些挑战。当时所需要做的仅仅修改View层，而View层随着iPhone又发现了变化。</p>
@@ -342,33 +342,33 @@ show_other = show_other &amp; &quot;{&quot;</code></pre></div>
     {% endfor %}
 <span class="kw">&lt;/ul&gt;</span></code></pre></div>
 <p>而下面就是桌面版本的片段：</p>
-<pre><code>{% for blog_post in blog_posts.object_list %}
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html">{% for blog_post in blog_posts.object_list %}
 {% block blog_post_list_post_title %}
 {% editable blog_post.title %}
-&lt;h2&gt;
-    &lt;a href=&quot;{{ blog_post.get_absolute_url }}&quot;&gt;{{ blog_post.title }}&lt;/a&gt;
-&lt;/h2&gt;
+<span class="kw">&lt;h2&gt;</span>
+    <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;{{ blog_post.get_absolute_url }}&quot;</span><span class="kw">&gt;</span>{{ blog_post.title }}<span class="kw">&lt;/a&gt;</span>
+<span class="kw">&lt;/h2&gt;</span>
 {% endeditable %}
 {% endblock %}
 {% block blog_post_list_post_metainfo %}
 {% editable blog_post.publish_date %}
-&lt;h6 class=&quot;post-meta&quot;&gt;
+<span class="kw">&lt;h6</span><span class="ot"> class=</span><span class="st">&quot;post-meta&quot;</span><span class="kw">&gt;</span>
     {% trans &quot;Posted by&quot; %}:
     {% with blog_post.user as author %}
-    &lt;a href=&quot;{% url &quot;blog_post_list_author&quot; author %}&quot;&gt;{{ author.get_full_name|default:author.username }}&lt;/a&gt;
+    <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;{% url &quot;</span><span class="er">blog_post_list_author&quot;</span><span class="ot"> author</span> <span class="er">%}&quot;</span><span class="kw">&gt;</span>{{ author.get_full_name|default:author.username }}<span class="kw">&lt;/a&gt;</span>
     {% endwith %}
     {% with blog_post.categories.all as categories %}
     {% if categories %}
     {% trans &quot;in&quot; %}
     {% for category in categories %}
-    &lt;a href=&quot;{% url &quot;blog_post_list_category&quot; category.slug %}&quot;&gt;{{ category }}&lt;/a&gt;{% if not forloop.last %}, {% endif %}
+    <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;{% url &quot;</span><span class="er">blog_post_list_category&quot;</span><span class="ot"> category.slug</span> <span class="er">%}&quot;</span><span class="kw">&gt;</span>{{ category }}<span class="kw">&lt;/a&gt;</span>{% if not forloop.last %}, {% endif %}
     {% endfor %}
     {% endif %}
     {% endwith %}
     {% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}
-&lt;/h6&gt;
+<span class="kw">&lt;/h6&gt;</span>
 {% endeditable %}
-{% endblock %}</code></pre>
+{% endblock %}</code></pre></div>
 <p>人们所做的只是<strong>重载View层</strong>。这也是一个有效的SEO策略，上面的代码是我博客过去的代码。对于桌面版和移动版都是不同的模板和JS、CSS。</p>
 <figure>
 <img src="http://repractise.phodal.com/img/frontend/mobile-web.png" alt="移动版网页" /><figcaption>移动版网页</figcaption>
@@ -428,30 +428,30 @@ show_other = show_other &amp; &quot;{&quot;</code></pre></div>
 <p>这时候遇到问题的不仅仅只在前端，在App端，小的团队已经无法承受开发成本。人们更将更多的注意力放到了Hybird应用上。Hybird应用解决了一些小团队在开发初期遇到的问题，这部分应用便交给了前端开发者。</p>
 <p>前端开发人员先熟悉了单纯的JS + CSS + HTML，又熟悉了Router + PageView + API的结构，现在他们又需要在做手机APP。这时候只好用熟悉的jQuer Mobile + Cordova。</p>
 <p>随后，人们先从Cordova + jQuery Mobile，变成了Cordova + Angluar的 Ionic。在那之前，一些团队可能已经用Angluar代换了Backbone。接着，我们可以直接将我们的Angluar代码从前端移到APP，如下是的博客APP的代码：</p>
-<pre><code>  .controller(&#39;BlogCtrl&#39;, function ($scope, Blog) {
-    $scope.blogs = null;
-    $scope.blogOffset = 0;
-    //
-    $scope.doRefresh = function () {
-      Blog.async(&#39;https://www.phodal.com/api/v1/app/?format=json&#39;).then(function (results) {
-        $scope.blogs = results.objects;
-      });
-      $scope.$broadcast(&#39;scroll.refreshComplete&#39;);
-      $scope.$apply()
-    };
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">  .<span class="at">controller</span>(<span class="st">&#39;BlogCtrl&#39;</span><span class="op">,</span> <span class="kw">function</span> ($scope<span class="op">,</span> Blog) <span class="op">{</span>
+    <span class="va">$scope</span>.<span class="at">blogs</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span>
+    <span class="va">$scope</span>.<span class="at">blogOffset</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>
+    <span class="co">//</span>
+    <span class="va">$scope</span>.<span class="at">doRefresh</span> <span class="op">=</span> <span class="kw">function</span> () <span class="op">{</span>
+      <span class="va">Blog</span>.<span class="at">async</span>(<span class="st">&#39;https://www.phodal.com/api/v1/app/?format=json&#39;</span>).<span class="at">then</span>(<span class="kw">function</span> (results) <span class="op">{</span>
+        <span class="va">$scope</span>.<span class="at">blogs</span> <span class="op">=</span> <span class="va">results</span>.<span class="at">objects</span><span class="op">;</span>
+      <span class="op">}</span>)<span class="op">;</span>
+      <span class="va">$scope</span>.<span class="at">$broadcast</span>(<span class="st">&#39;scroll.refreshComplete&#39;</span>)<span class="op">;</span>
+      <span class="va">$scope</span>.<span class="at">$apply</span>()
+    <span class="op">};</span>
 
-    Blog.async(&#39;https://www.phodal.com/api/v1/app/?format=json&#39;).then(function (results) {
-      $scope.blogs = results.objects;
-    });
+    <span class="va">Blog</span>.<span class="at">async</span>(<span class="st">&#39;https://www.phodal.com/api/v1/app/?format=json&#39;</span>).<span class="at">then</span>(<span class="kw">function</span> (results) <span class="op">{</span>
+      <span class="va">$scope</span>.<span class="at">blogs</span> <span class="op">=</span> <span class="va">results</span>.<span class="at">objects</span><span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
 
-    $scope.loadMore = function() {
-      $scope.blogOffset = $scope.blogOffset + 1;
-      Blog.async(&#39;https://www.phodal.com/api/v1/app/?limit=10&amp;offset=&#39;+ $scope.blogOffset * 20 +  &#39;&amp;format=json&#39;).then(function (results) {
-        Array.prototype.push.apply($scope.blogs, results.objects);
-        $scope.$broadcast(&#39;scroll.infiniteScrollComplete&#39;);
-      })
-    };
-  })</code></pre>
+    <span class="va">$scope</span>.<span class="at">loadMore</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+      <span class="va">$scope</span>.<span class="at">blogOffset</span> <span class="op">=</span> <span class="va">$scope</span>.<span class="at">blogOffset</span> <span class="op">+</span> <span class="dv">1</span><span class="op">;</span>
+      <span class="va">Blog</span>.<span class="at">async</span>(<span class="st">&#39;https://www.phodal.com/api/v1/app/?limit=10&amp;offset=&#39;</span><span class="op">+</span> <span class="va">$scope</span>.<span class="at">blogOffset</span> <span class="op">*</span> <span class="dv">20</span> <span class="op">+</span>  <span class="st">&#39;&amp;format=json&#39;</span>).<span class="at">then</span>(<span class="kw">function</span> (results) <span class="op">{</span>
+        <span class="va">Array</span>.<span class="va">prototype</span>.<span class="va">push</span>.<span class="at">apply</span>(<span class="va">$scope</span>.<span class="at">blogs</span><span class="op">,</span> <span class="va">results</span>.<span class="at">objects</span>)<span class="op">;</span>
+        <span class="va">$scope</span>.<span class="at">$broadcast</span>(<span class="st">&#39;scroll.infiniteScrollComplete&#39;</span>)<span class="op">;</span>
+      <span class="op">}</span>)
+    <span class="op">};</span>
+  <span class="op">}</span>)</code></pre></div>
 <p>结果<strong>时间轴又错</strong>了，人们总是<strong>超前一个时期做错了一个在未来是正确的决定</strong>。人们遇到了网页版的用户授权问题，就发明了JWK——Json Web Token。</p>
 <p>这下问题来了，WebView在一些早期的Android手机上出现了性能问题。接着出现了两个不同的解决方案：</p>
 <ol type="1">

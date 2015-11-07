@@ -302,7 +302,7 @@ View层是一直在变化的层级，人们的品味一直在更新，有时甚�
 
 有时像Django这一类，自称为Model-Template-View的框架，更容易让人理解其意图：
 
-```
+```html
 {% for blog_post in blog_posts.object_list %}
 {% block blog_post_list_post_title %}
 <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp mdl-cell--11-col blog-list">
@@ -345,7 +345,7 @@ Wap出现了，并带来了更多的挑战。随后，分辨率从1024x768变成
 
 而下面就是桌面版本的片段：
 
-```
+```html
 {% for blog_post in blog_posts.object_list %}
 {% block blog_post_list_post_title %}
 {% editable blog_post.title %}
@@ -455,7 +455,7 @@ define([
 
 随后，人们先从Cordova + jQuery Mobile，变成了Cordova + Angluar的 Ionic。在那之前，一些团队可能已经用Angluar代换了Backbone。接着，我们可以直接将我们的Angluar代码从前端移到APP，如下是的博客APP的代码：
 
-```
+```javascript
   .controller('BlogCtrl', function ($scope, Blog) {
     $scope.blogs = null;
     $scope.blogOffset = 0;
