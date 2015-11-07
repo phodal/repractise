@@ -78,7 +78,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#从桌面版到移动版">从桌面版到移动版</a></li>
 <li><a href="#app与过渡期api">APP与过渡期API</a></li>
 <li><a href="#过渡期spa">过渡期SPA</a></li>
-<li><a href="#model-viewmodel-templateinteractio">Model-ViewModel-TemplateInteractio</a></li>
+<li><a href="#hybird与viewmodel">Hybird与ViewModel</a></li>
+<li><a href="#一次构建跨平台运行">一次构建，跨平台运行</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#易读">易读</a></li>
@@ -375,9 +376,85 @@ show_other = show_other &amp; &quot;{&quot;</code></pre></div>
 <img src="img/frontend/mobile-app.jpg" alt="应用" /><figcaption>应用</figcaption>
 </figure>
 <p>在开始的时候，人们越来越喜欢用APP，因为与移动版网页相比，更响应速度更加快，而且流畅。对于服务器来说，也是一件好事，因为请求变少了。</p>
+<p>但是并非所有的人都会下载APP——有时只想看看上面有没有需要的东西。</p>
+<p>有了APP我们就有了API，我们就开始设想要有一个好好的移动版。</p>
 <h3 id="过渡期spa">过渡期SPA</h3>
-<p>Backbone诞生于2010年，和响应式设计出现在同一个年代里，但是他们似乎在同一个时代里火了起来。如果CSS3早点流行开来，似乎就没有Backbone啥事了。</p>
-<h3 id="model-viewmodel-templateinteractio">Model-ViewModel-TemplateInteractio</h3>
+<p>Backbone诞生于2010年，和响应式设计出现在同一个年代里，但是他们似乎在同一个时代里火了起来。如果CSS3早点流行开来，似乎就没有Backbone啥事了。但是移动网络还是限制了响应式的流行，只是在今天这些都有所变化。</p>
+<p>我们用Ajax向后台请求API，然后Mustache Render出来。因为JavaScript在模块化上的缺陷，所以我们就用Require.JS来进行模块化。</p>
+<p>下面的代码就是我在尝试对我的博客进行SPA设计时的代码：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">define</span>([
+    <span class="st">&#39;zepto&#39;</span><span class="op">,</span>
+    <span class="st">&#39;underscore&#39;</span><span class="op">,</span>
+    <span class="st">&#39;mustache&#39;</span><span class="op">,</span>
+    <span class="st">&#39;js/ProductsView&#39;</span><span class="op">,</span>
+    <span class="st">&#39;json!/configure.json&#39;</span><span class="op">,</span>
+    <span class="st">&#39;text!/templates/blog_details.html&#39;</span><span class="op">,</span>
+    <span class="st">&#39;js/renderBlog&#39;</span>
+]<span class="op">,</span><span class="kw">function</span>($<span class="op">,</span> _<span class="op">,</span> Mustache<span class="op">,</span> ProductsView<span class="op">,</span> configure<span class="op">,</span> blogDetailsTemplate<span class="op">,</span> GetBlog)<span class="op">{</span>
+
+    <span class="kw">var</span> BlogDetailsView <span class="op">=</span> <span class="va">Backbone</span>.<span class="va">View</span>.<span class="at">extend</span> (<span class="op">{</span>
+        <span class="dt">el</span><span class="op">:</span> <span class="at">$</span>(<span class="st">&quot;#content&quot;</span>)<span class="op">,</span>
+
+        <span class="dt">initialize</span><span class="op">:</span> <span class="kw">function</span> () <span class="op">{</span>
+            <span class="kw">this</span>.<span class="at">params</span> <span class="op">=</span> <span class="st">&#39;#content&#39;</span><span class="op">;</span>
+        <span class="op">},</span>
+
+        <span class="dt">getBlog</span><span class="op">:</span> <span class="kw">function</span>(slug) <span class="op">{</span>
+            <span class="kw">var</span> getblog <span class="op">=</span> <span class="kw">new</span> <span class="at">GetBlog</span>(<span class="kw">this</span>.<span class="at">params</span><span class="op">,</span> configure[<span class="st">&#39;blogPostUrl&#39;</span>] <span class="op">+</span> slug<span class="op">,</span> blogDetailsTemplate)<span class="op">;</span>
+            <span class="va">getblog</span>.<span class="at">renderBlog</span>()<span class="op">;</span>
+        <span class="op">}</span>
+    <span class="op">}</span>)<span class="op">;</span>
+
+    <span class="cf">return</span> BlogDetailsView<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>从API获取数据，结合Template来Render出Page。但是这无法改变我们需要Client Side Render和Server Side Render的两种Render方式，除非我们可以像淘宝一样不需要考虑SEO。</p>
+<p>这时，我们还是基于经典的MVC模式。只是数据的获取方式变成了Ajax，这时我们犯了一个错误——将大量的业务逻辑放在前端。一夜之前，我们又回到了过去。</p>
+<p>我们离开了JSP，将View层变成了Template与Controller。而原有的Services层并不是只承担其原来的责任，这些Services开始向ViewModel改变。</p>
+<p>一些团队便将Services抽成多个Services，美其名为微服务。传统架构下的API从下图</p>
+<figure>
+<img src="img/frontend/mobile-app.jpg" alt="API Gateway" /><figcaption>API Gateway</figcaption>
+</figure>
+<p>变成了直接调用的微服务：</p>
+<figure>
+<img src="img/frontend/microservices.png" alt="Micro Services" /><figcaption>Micro Services</figcaption>
+</figure>
+<p>对于后台开发者来说，这是一件大快人心的大好事，但是对于应用端/前端来说并非如此。调用的服务变多了，在应用程序端进行功能测试变得更复杂，需要Mock的API变多了。</p>
+<h3 id="hybird与viewmodel">Hybird与ViewModel</h3>
+<p>这时候遇到问题的不仅仅只在前端，在App端，小的团队已经无法承受开发成本。人们更将更多的注意力放到了Hybird应用上。Hybird应用解决了一些小团队在开发初期遇到的问题，这部分应用便交给了前端开发者。</p>
+<p>前端开发人员先熟悉了单纯的JS + CSS + HTML，又熟悉了Router + PageView + API的结构，现在他们又需要在做手机APP。这时候只好用熟悉的jQuer Mobile + Cordova。</p>
+<p>随后，人们先从Cordova + jQuery Mobile，变成了Cordova + Angluar的 Ionic。在那之前，一些团队可能已经用Angluar代换了Backbone。接着，我们可以直接将我们的Angluar代码从前端移到APP，如下是的博客APP的代码：</p>
+<pre><code>  .controller(&#39;BlogCtrl&#39;, function ($scope, Blog) {
+    $scope.blogs = null;
+    $scope.blogOffset = 0;
+    //
+    $scope.doRefresh = function () {
+      Blog.async(&#39;https://www.phodal.com/api/v1/app/?format=json&#39;).then(function (results) {
+        $scope.blogs = results.objects;
+      });
+      $scope.$broadcast(&#39;scroll.refreshComplete&#39;);
+      $scope.$apply()
+    };
+
+    Blog.async(&#39;https://www.phodal.com/api/v1/app/?format=json&#39;).then(function (results) {
+      $scope.blogs = results.objects;
+    });
+
+    $scope.loadMore = function() {
+      $scope.blogOffset = $scope.blogOffset + 1;
+      Blog.async(&#39;https://www.phodal.com/api/v1/app/?limit=10&amp;offset=&#39;+ $scope.blogOffset * 20 +  &#39;&amp;format=json&#39;).then(function (results) {
+        Array.prototype.push.apply($scope.blogs, results.objects);
+        $scope.$broadcast(&#39;scroll.infiniteScrollComplete&#39;);
+      })
+    };
+  })</code></pre>
+<p>结果<strong>时间轴又错</strong>了，人们总是<strong>超前一个时期做错了一个在未来是正确的决定</strong>。</p>
+<p>这下问题来了，WebView在一些早期的Android手机上出现了性能问题。接着出现了两个不同的解决方案：</p>
+<ol type="1">
+<li>React Native</li>
+<li>新的WebView——Crosswalk</li>
+</ol>
+<p>开发人员开始欢呼React Native这样的框架。但是，他们并没有遇见到<strong>人们正在厌恶APP</strong>，APP在我们的迭代里更新着，可能是一星期，可能是两星期，又或者是一个月。谁说APP内自更新不是一件坏事，但是APP的提醒无时无刻不在干扰着人们的生活，噪声越来越多。<strong>不要和用户争夺他们手机的使用权</strong></p>
+<h3 id="一次构建跨平台运行">一次构建，跨平台运行</h3>
 <h1 id="易读">易读</h1>
 </body>
 </html>
