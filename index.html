@@ -9,6 +9,43 @@
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width">
 </head>
@@ -23,6 +60,324 @@
 <iframe src="http://ghbtns.com/github-btn.html?user=phodal&repo=github-roam&type=watch&count=true"
   allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"></iframe>
 <div>
+<nav id="TOC">
+<ul>
+<li><a href="#引言">引言</a><ul>
+<li><a href="#re-practise">Re-Practise</a></li>
+<li><a href="#技术与业务">技术与业务</a></li>
+<li><a href="#资讯爆炸">资讯爆炸</a></li>
+<li><a href="#结">结</a></li>
+</ul></li>
+<li><a href="#lost">Lost</a></li>
+<li><a href="#介绍">介绍</a></li>
+<li><a href="#前端">前端</a><ul>
+<li><a href="#什么是前端">什么是前端？</a></li>
+<li><a href="#前端发展的历史">前端发展的历史</a><ul>
+<li><a href="#数据-模板-样式混合">数据-模板-样式混合</a></li>
+<li><a href="#model-view-controller">Model-View-Controller</a></li>
+<li><a href="#从桌面版到移动版">从桌面版到移动版</a></li>
+<li><a href="#app与过渡期api">APP与过渡期API</a></li>
+<li><a href="#过渡期spa">过渡期SPA</a></li>
+<li><a href="#model-viewmodel-templateinteractio">Model-ViewModel-TemplateInteractio</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#易读">易读</a></li>
+</ul>
+</nav>
+<h1 id="引言">引言</h1>
+<p>回到一年前的今天(2014.09.29)，一边在准备着去沙漠之旅，一边在准备国庆后的印度培训。</p>
+<p>当时我还在用我的Lumia 920，上面没有各式各样的软件，除了我最需要的地图、相机。所以，我需要为我的手机写一个应用，用于在地图上显示图片信息及照片。</p>
+<p>今天Github已经可以支持geojson了，于是你可以看到我在之前生成的geojson在地图上的效果<a href="https://github.com/phodal-archive/onmap/blob/master/gps.geojson">gps.geojson</a>。</p>
+<h2 id="re-practise">Re-Practise</h2>
+<p>在过去的近一年时期里，花费了很多时间在提高代码质量与构建架构知识。试着学习某一方面的架构知识，应用到某个熟悉领域。</p>
+<ol type="1">
+<li><p>所谓的一万小时天才理论一直在说明练习的重要性，你需要不断地去练习。但是并不是说你练习了一万小时之后就可以让你成为一个专家，而练习是必须的。</p></li>
+<li><p>让我想起了在大学时代学的PID算法，虽然我没有掌握好控制领域的相关理论及算法，但是我对各种调节还算有点印象。简单地来说，我们需要不断调整自己的方向。</p></li>
+</ol>
+<p>现在还存在的那些互联网公司或者说开源项目，我们会发现两个不算有趣的规律：</p>
+<ol type="1">
+<li>一个一直在运行的软件。</li>
+<li>尝试了几个产品，最后找到了一个合适的方向。</li>
+</ol>
+<p>我发现我属于不断尝试地类型。一直想构建一个开源软件，但是似乎一直没有找对合理的用户？但是，我们会发现上述地两者都在不断地retry，不断地retry归根于那些人在不断的repractise。与之成为反例的便是：</p>
+<ol type="1">
+<li>一个成功发布几次的软件，但是最后失败了</li>
+<li>尝试了不同的几个产品，但是失败了</li>
+</ol>
+<p>所谓的失败，就是你离开人世了。所以，在我们还活着的时候，我们总会有机会去尝试。在那之前，我们都是在不断地re-practise。</p>
+<p>这让我想到了Linux，这算是一个不错地软件，从一开始就存活到了现在。但是有多少开源软件就没有这么幸运，时间在淘汰越来越多的过去想法。人们创造事物的能力也越来越强，但是那只是因为创造变得越来越简单。</p>
+<p>在我们看到的那些走上人生巅峰的CEO，还都在不断地re-practise。</p>
+<h2 id="技术与业务">技术与业务</h2>
+<p>于是，我又再次回到了这样一个现实的问题。技术可以不断地练习，不断地调整方向。但是技术地成本在不断地降低，代码的长度在不断地降低。整个技术的门槛越来越低，新出现的技术总会让新生代的程序员获利。但是不可避免地，业务地复杂度并没有因此而降低。这就是一个复杂的话题，难道业务真的很复杂吗？</p>
+<p>人们总会提及写好CSS很难，但是写好Java就是一件容易的事。因为每天我们都在用Java、JavaScript去写代码，但是我们并没有花费时间去学。</p>
+<p>因为我们一直将我们的时候花费的所谓的业务上，我们可以不断地将一些重复的代码抽象成一个库。但是我们并没有花费过多的时间去整理我们的业务，作为程序员，我们切换工作很容易只是因为相同的技术栈。作为一些营销人员，他们从一个领域到一个新的领域，不需要过多的学习，因为本身是相通的。</p>
+<p>技术本身是如此，业务本身也是如此。</p>
+<p>从技术到业务是一条难走通的路？</p>
+<h2 id="资讯爆炸">资讯爆炸</h2>
+<p>回顾到最近出现的各种资讯程序——开发者头条、极客头条、掘金、博乐头条等等，他们帮助我们的是丰富我们的信息，而不是简化我们的信息。</p>
+<p>作为一个开发人员，过去我们并不需要关注那么多的内容。如果我们没有关注那么多的点，那么我们就可以集中于我们的想法里。实现上，我们需要的是一个更智能的时代。</p>
+<p>业务本身是一种重复，技术本身也是重复的。只是在某个特定的时刻，一个好的技术可以帮助我们更好地Re-Practise。如推荐算法本身依赖于人为对信息进行分类，但是我们需要去区分大量地信息。而人本身的经历是足够有险的，这时候就需要机器来帮我们做很多事。</p>
+<h2 id="结">结</h2>
+<p>今天我在用MX5，但是发现不及Lumia 1020来得安静。功能越强大的同时，意味着我在上面花费的时间会更多。事情有好的一面总会有不好的一面，不好的一面也就意味着有机会寻找好的一面。</p>
+<p>我们需要摒弃一些东西，以重新纠正我们的方向。于是，我需要再次回到Lumia 1020上。</p>
+<h1 id="lost">Lost</h1>
+<blockquote>
+<p>一开始就输在起跑线上</p>
+</blockquote>
+<blockquote>
+<p>输了，才需要加倍努力</p>
+</blockquote>
+<h1 id="介绍">介绍</h1>
+<h1 id="前端">前端</h1>
+<h3 id="什么是前端">什么是前端？</h3>
+<p>维基百科是这样说的：前端Front-end和后端back-end是描述进程开始和结束的通用词汇。前端作用于采集输入信息，后端进行处理。计算机程序的界面样式，视觉呈现属于前端。</p>
+<p>这种的说法给人一种很模糊的感觉，但是他说得又很对，它负责视觉展示。在MVC结构或者MVP中，负责视觉显示的部分只有View层，而今天大多数所谓的View层已经超越了View层。View层是一个很神奇的概念，但是而今的View层已经发现了很大的变化。</p>
+<p>你引入了React、Backbone、Angluar，你的架构变成了MVVM、MVP、MVC。尽管发生了一些架构上的变化，但是项目的开发并没有因此而发生变化。这其中涉及到了一些职责的问题，如果某一个层级中有太多的职责，那么它是不是加重了一些人的负担。</p>
+<h2 id="前端发展的历史">前端发展的历史</h2>
+<p>过去一直想整理一篇文章来说说前端发展的历史，但是想了想这些历史已经被人们所熟知。后来发现并非如此，只是因为关注的一些人都是有历史的，后来发现事情并非如此。</p>
+<h3 id="数据-模板-样式混合">数据-模板-样式混合</h3>
+<p>在有限的前端经验里，我还是经历了那段用Table来作样式的年代。大学期间曾经有偿帮一些公司或者个人维护、开发一些CMS，而Table是当时帮某个网站更新样式接触到的——ASP.Net（maybe)。当时，我们启动这个CMS，用的是一个名为<code>aspweb.exe</code>的程序。于是，在我的移动硬盘里找到了下面的代码。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;TABLE</span><span class="ot"> cellSpacing=</span><span class="st">0</span><span class="ot"> cellPadding=</span><span class="st">0</span><span class="ot"> width=</span><span class="st">910</span><span class="ot"> align=</span><span class="st">center</span><span class="ot"> border=</span><span class="st">0</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;TBODY&gt;</span>
+  <span class="kw">&lt;TR&gt;</span>
+    <span class="kw">&lt;TD</span><span class="ot"> vAlign=</span><span class="st">top</span><span class="ot"> width=</span><span class="st">188</span><span class="kw">&gt;&lt;TABLE</span><span class="ot"> cellSpacing=</span><span class="st">0</span><span class="ot"> cellPadding=</span><span class="st">0</span><span class="ot"> width=</span><span class="st">184</span><span class="ot"> align=</span><span class="st">center</span><span class="ot"> border=</span><span class="st">0</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;TBODY&gt;</span>
+        <span class="kw">&lt;TR&gt;</span>
+          <span class="kw">&lt;TD&gt;&lt;IMG</span><span class="ot"> src=</span><span class="st">&quot;Images/xxx.gif&quot;</span><span class="ot"> width=</span><span class="st">184</span><span class="kw">&gt;&lt;/TD&gt;&lt;/TR&gt;</span>
+        <span class="kw">&lt;TR&gt;</span>
+          <span class="kw">&lt;TD&gt;</span>
+            <span class="kw">&lt;TABLE</span><span class="ot"> cellSpacing=</span><span class="st">0</span><span class="ot"> cellPadding=</span><span class="st">0</span><span class="ot"> width=</span><span class="st">184</span><span class="ot"> align=</span><span class="st">center</span> 
+<span class="ot">            background=</span><span class="st">Images/xxx.gif</span><span class="ot"> border=</span><span class="st">0</span><span class="kw">&gt;</span></code></pre></div>
+<p>虽然，我也已经在HEAD里找到了现代的雏形——DIV + CSS，而这还是一个Table的年代。</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;LINK</span><span class="ot"> href=</span><span class="st">&quot;img/xxx.css&quot;</span><span class="ot"> type=</span><span class="st">text/css</span><span class="ot"> rel=</span><span class="st">stylesheet</span><span class="kw">&gt;</span></code></pre></div>
+<p><strong>人们一直在说前端很难，问题是你学过么！！！</strong>也许，你也一直在说CSS不好写，但是CSS真的不好写么？人们总在说JS很难用，但是你学过么？只在用的时候才去学，那肯定很难。<strong>你不曾花时间去学习一门语言，但是却能直接写出可以work的代码，正是在说明他们容易上手么？</strong>如果你看过一些有经验的Ruby、Scala、Emacs Lisp开发者写出来的代码，我想会得到相同的结论。有一些语言可以使写程序的人Happy，但是看的人可能就不会Happy。做事的方法不止一种，但是不是所有的人都要用那种方法去做。</p>
+<p>过去的那些程序员都是<strong>真正的全栈程序员</strong>，这些程序员不仅仅做了前端的活，然后还有数据库的工作。</p>
+<div class="sourceCode"><pre class="sourceCode asp"><code class="sourceCode asp">Set rs = Server.CreateObject(&quot;ADODB.Recordset&quot;)
+sql = &quot;select id,title,username,email,qq,adddate,content,Re_content,home,face,sex from Fl_Book where ispassed=1 order by id desc&quot;
+rs.open sql, Conn, 1, 1
+fl.SqlQueryNum = fl.SqlQueryNum + 1</code></pre></div>
+<p>在这个ASP文件里，它从数据库里查找出了数据，然后Render出HTML。如果可以看到版本的历史，那么我想我会看到有一个作者将style=“”的代码一个个放到css文件中。</p>
+<p>在这里的代码里也免不了有动态生成JavaScript代码的方法：</p>
+<div class="sourceCode"><pre class="sourceCode asp"><code class="sourceCode asp">show_other = &quot;<span class="kw">&lt;SCRIPT</span><span class="ot"> language=</span><span class="st">javascript</span><span class="kw">&gt;</span>&quot;
+show_other = show_other &amp; &quot;function checkform()&quot;
+show_other = show_other &amp; &quot;{&quot;
+show_other = show_other &amp; &quot;if (document.add.title.value==&#39;&#39;)&quot;
+show_other = show_other &amp; &quot;{&quot;</code></pre></div>
+<p>请尽情嘲笑，然后再看段代码：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> React <span class="im">from</span> <span class="st">&quot;react&quot;</span><span class="op">;</span>
+<span class="im">import</span> <span class="op">{</span> getData <span class="op">}</span> <span class="im">from</span> <span class="st">&quot;../../common/request&quot;</span><span class="op">;</span>
+<span class="im">import</span> styles <span class="im">from</span> <span class="st">&quot;./style.css&quot;</span><span class="op">;</span>
 
+
+<span class="im">export</span> <span class="im">default</span> <span class="kw">class</span> HomePage <span class="kw">extends</span> <span class="va">React</span>.<span class="at">Component</span> <span class="op">{</span>
+  <span class="at">componentWillMount</span>() <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;[HomePage] will mount with server response: &quot;</span><span class="op">,</span> <span class="kw">this</span>.<span class="va">props</span>.<span class="va">data</span>.<span class="at">home</span>)<span class="op">;</span>
+  <span class="op">}</span>
+
+  <span class="at">render</span>() <span class="op">{</span>
+    <span class="kw">let</span> <span class="op">{</span> title <span class="op">}</span> <span class="op">=</span> <span class="kw">this</span>.<span class="va">props</span>.<span class="va">data</span>.<span class="at">home</span><span class="op">;</span>
+
+    <span class="cf">return</span> (
+      <span class="op">&lt;</span>div className<span class="op">={</span><span class="va">styles</span>.<span class="at">content</span><span class="op">}&gt;</span>
+        <span class="op">&lt;</span>h1<span class="op">&gt;{</span>title<span class="op">}&lt;</span><span class="ss">/h1&gt;</span>
+<span class="ss">        &lt;p className={styles.welcomeText}&gt;Thanks for joining!&lt;/p</span><span class="op">&gt;</span>
+      <span class="op">&lt;</span><span class="ss">/div&gt;</span>
+<span class="ss">    </span><span class="sc">)</span><span class="ss">;</span>
+<span class="ss">  }</span>
+
+<span class="ss">  static fetchData = function</span><span class="sc">(</span><span class="ss">params</span><span class="sc">)</span><span class="ss"> {</span>
+<span class="ss">    return getData</span><span class="sc">(</span><span class="ss">&quot;/home</span><span class="st">&quot;);</span>
+  <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+<p>10年前和10年后的代码，似乎没有太多的变化。有所不同的是数据层已经被独立出去了，如果你的component也混合了数据层，即直接查询数据库而不是调用数据层接口，那么你就需要好好思考下这个问题。你只是在追随潮流，还是在改变。用一个View层更换一个View层，用一个Router换一个Router的意义在哪？</p>
+<h3 id="model-view-controller">Model-View-Controller</h3>
+<p>人们在不断地反思这其中复杂的过程，整理了一些好的架构模式，其中不得不提到的是我司Martin Folwer的《企业应用架构模式》。这本书译版出版的时候是2004年，那时对于系统的分层是</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">层次</th>
+<th style="text-align: left;">职责</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">表现层</td>
+<td style="text-align: left;">提供服务、显示信息、用户请求、HTTP请求和命令行调用。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">领域层</td>
+<td style="text-align: left;">逻辑处理，系统中真正的核心。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">数据层</td>
+<td style="text-align: left;">与数据库、消息系统、事物管理器和其他软件包通讯。</td>
+</tr>
+</tbody>
+</table>
+<p>化身于当时最流行的Spring，就是MVC。人们有了iBatis这样的数据持久层框架，即ORM，对象关系映射。于是，你的package就会有这样的几个文件夹：</p>
+<pre><code>|____mappers
+|____model
+|____service
+|____utils
+|____controller</code></pre>
+<p>在mappers这一层，我们所做的莫过于如下所示的数据库相关查询：</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="fu">@Insert</span>(
+        <span class="st">&quot;INSERT INTO users(username, password, enabled) &quot;</span> +
+                <span class="st">&quot;VALUES (#{userName}, #{passwordHash}, #{enabled})&quot;</span>
+)
+<span class="fu">@Options</span>(keyProperty = <span class="st">&quot;id&quot;</span>, keyColumn = <span class="st">&quot;id&quot;</span>, useGeneratedKeys = <span class="kw">true</span>)
+<span class="dt">void</span> <span class="fu">insert</span>(User user);</code></pre></div>
+<p>model文件夹和mappers文件夹都是数据层的一部分，只是两者间的职责不同，如：</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> String <span class="fu">getUserName</span>() {
+    <span class="kw">return</span> userName;
+}
+
+<span class="kw">public</span> <span class="dt">void</span> <span class="fu">setUserName</span>(String userName) {
+    <span class="kw">this</span>.<span class="fu">userName</span> = userName;
+}</code></pre></div>
+<p>而他们最后都需要在Controller，又或者称为ModelAndView中处理：</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="fu">@RequestMapping</span>(value = {<span class="st">&quot;/disableUser&quot;</span>}, method = RequestMethod.<span class="fu">POST</span>)
+<span class="kw">public</span> ModelAndView <span class="fu">processUserDisable</span>(HttpServletRequest request, ModelMap model) {
+    String userName = request.<span class="fu">getParameter</span>(<span class="st">&quot;userName&quot;</span>);
+    User user = userService.<span class="fu">getByUsername</span>(userName);
+    userService.<span class="fu">disable</span>(user);
+    Map&lt;String,User&gt; map = <span class="kw">new</span> HashMap&lt;String,User&gt;();
+    Map &lt;User,String&gt; usersWithRoles= userService.<span class="fu">getAllUsersWithRole</span>();
+    model.<span class="fu">put</span>(<span class="st">&quot;usersWithRoles&quot;</span>,usersWithRoles);
+    <span class="kw">return</span> <span class="kw">new</span> <span class="fu">ModelAndView</span>(<span class="st">&quot;redirect:users&quot;</span>,map);
+}</code></pre></div>
+<p>在多数时候，Controller不应该直接与数据层的一部分，而将业务逻辑放在Controller层又是一种错误，这时就会有Service层。就有了下图：</p>
+<figure>
+<img src="img/frontend/service-mvc.png" alt="Service MVC" /><figcaption>Service MVC</figcaption>
+</figure>
+<p>然而，人们对于Domain相关的Service应该放在哪一层都有不同意见：</p>
+<p><img src="img/frontend/mvcplayer.gif" alt="MS Player" /> <img src="img/frontend/ms-mvc.png" alt="MS MVC" /></p>
+<p>Domain（业务）是一个相当复杂的层级，这里是业务的核心。一个合理的Controller只应该做自己应该做的事，它不应该处理业务相关的代码：</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">if</span> (isNewnameEmpty == <span class="kw">false</span> &amp;&amp; newuser == <span class="kw">null</span>){
+    user.<span class="fu">setUserName</span>(newUsername);
+    List&lt;Post&gt; myPosts = postService.<span class="fu">findMainPostByAuthorNameSortedByCreateTime</span>(principal.<span class="fu">getName</span>());
+
+    <span class="kw">for</span> (<span class="dt">int</span> k = <span class="dv">0</span>;k &lt; myPosts.<span class="fu">size</span>();k++){
+        Post post = myPosts.<span class="fu">get</span>(k);
+        post.<span class="fu">setAuthorName</span>(newUsername);
+        postService.<span class="fu">save</span>(post);
+    }
+    userService.<span class="fu">update</span>(user);
+    Authentication oldAuthentication = SecurityContextHolder.<span class="fu">getContext</span>().<span class="fu">getAuthentication</span>();
+    Authentication authentication = <span class="kw">null</span>;
+    <span class="kw">if</span>(oldAuthentication == <span class="kw">null</span>){
+        authentication = <span class="kw">new</span> <span class="fu">UsernamePasswordAuthenticationToken</span>(newUsername,user.<span class="fu">getPasswordHash</span>());
+    }<span class="kw">else</span>{
+        authentication = <span class="kw">new</span> <span class="fu">UsernamePasswordAuthenticationToken</span>(newUsername,user.<span class="fu">getPasswordHash</span>(),oldAuthentication.<span class="fu">getAuthorities</span>());
+    }
+    SecurityContextHolder.<span class="fu">getContext</span>().<span class="fu">setAuthentication</span>(authentication);
+    map.<span class="fu">clear</span>();
+    map.<span class="fu">put</span>(<span class="st">&quot;user&quot;</span>,user);
+    model.<span class="fu">addAttribute</span>(<span class="st">&quot;myPosts&quot;</span>, myPosts);
+    model.<span class="fu">addAttribute</span>(<span class="st">&quot;namesuccess&quot;</span>, <span class="st">&quot;User Profile updated successfully&quot;</span>);
+    <span class="kw">return</span> <span class="kw">new</span> <span class="fu">ModelAndView</span>(<span class="st">&quot;user/profile&quot;</span>, map);
+}</code></pre></div>
+<p>我们在Controller层应该做的事是：</p>
+<ol type="1">
+<li>处理请求的参数</li>
+<li>渲染和重定向</li>
+<li>选择Model和Service</li>
+<li>处理Session和Cookies</li>
+</ol>
+<p>业务是善变的，昨天我们可能还和对手竞争谁先推出新功能，但是今天可能已经合并了。我们很难预见业务变化，但是我们应该能预见Controller不容易变。在一些设计里面，这部分可能就会变成Command模式来处理。</p>
+<p>View层是一直在变化的层级，人们的品味一直在更新，有时甚至可能因为竞争对手而产生变化。在已经取得一定市场的情况下，Model-Service-Controller通常都不太会变动，甚至不敢变动。企业意识到创新两面的，要么带来死亡，要么占领多一点的市场。但是对手通常都比你想象中的要聪明，所以开创新的业务是一个更好的选择。</p>
+<p>在高速发展期的企业比发展初期的企业比，更需要前端开发人员。在用户基数不够、业务待定的情形中，View只要可用并美观就行了。这时，可能就会有大量的业务代码放在View层：</p>
+<div class="sourceCode"><pre class="sourceCode jsp"><code class="sourceCode jsp"><span class="kw">&lt;c:choose&gt;</span>
+    <span class="kw">&lt;c:when</span><span class="ot"> test</span>=<span class="dt">&quot;</span>${ hasError }<span class="dt">&quot;</span><span class="kw">&gt;</span>
+    &lt;p<span class="ot"> class</span>=<span class="dt">&quot;prompt-error&quot;</span>&gt;
+        ${errors.username} ${errors.password}
+    &lt;/p&gt;
+    <span class="kw">&lt;/c:when&gt;</span>
+    <span class="kw">&lt;c:otherwise&gt;</span>
+    &lt;p<span class="ot"> class</span>=<span class="dt">&quot;prompt&quot;</span>&gt;
+        Woohoo, User &lt;span<span class="ot"> class</span>=<span class="dt">&quot;username&quot;</span>&gt;${user.userName}&lt;/span&gt; has been created successfully!
+    &lt;/p&gt;
+    <span class="kw">&lt;/c:otherwise&gt;</span>
+<span class="kw">&lt;/c:choose&gt;</span> </code></pre></div>
+<p>不同的情形下，人们都会对此有争议，但是符合当前的业务便是最好的选择。然后作为一个前端开发人员，我在过去需要修改JSP、PHP文件，但是我需要去了解这些Template，</p>
+<div class="sourceCode"><pre class="sourceCode php"><code class="sourceCode php">{<span class="kw">foreach</span> <span class="kw">$lists</span> <span class="kw">as</span> <span class="kw">$v</span>}
+&lt;li itemprop=<span class="st">&quot;breadcrumb&quot;</span>&gt;&lt;span{<span class="kw">if</span><span class="ot">(</span>newest<span class="ot">(</span><span class="kw">$v</span><span class="ot">[</span><span class="st">&#39;addtime&#39;</span><span class="ot">],</span><span class="dv">24</span><span class="ot">))</span>} style=<span class="st">&quot;color:red&quot;</span>{/<span class="kw">if</span>}&gt;<span class="ot">[</span>{fun <span class="fu">date</span><span class="ot">(</span><span class="st">&#39;Y-m-d&#39;</span><span class="ot">,</span><span class="kw">$v</span><span class="ot">[</span><span class="st">&#39;addtime&#39;</span><span class="ot">])</span>}<span class="ot">]</span>&lt;/span&gt;&lt;a href=<span class="st">&quot;</span><span class="kw">{$v[&#39;url&#39;]}</span><span class="st">&quot;</span> style=<span class="st">&quot;</span><span class="kw">{$v[&#39;style&#39;]}</span><span class="st">&quot;</span> target=<span class="st">&quot;_blank&quot;</span>&gt;{<span class="kw">$v</span><span class="ot">[</span><span class="st">&#39;title&#39;</span><span class="ot">]</span>}&lt;/a&gt;&lt;/li&gt;
+{/<span class="kw">foreach</span>}</code></pre></div>
+<p>所以，有时像Django这一类，自称为Model-Template-View的框架，更容易让人理解其意图：</p>
+<pre><code>{% for blog_post in blog_posts.object_list %}
+{% block blog_post_list_post_title %}
+&lt;section class=&quot;section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp mdl-cell--11-col blog-list&quot;&gt;
+{% editable blog_post.title %}
+&lt;div class=&quot;mdl-card__title mdl-card--border mdl-card--expand&quot;&gt;
+    &lt;h2 class=&quot;mdl-card__title-text&quot;&gt;
+        &lt;a href=&quot;{{ blog_post.get_absolute_url }}&quot;  itemprop=&quot;headline&quot;&gt;{{ blog_post.title }} › &lt;/a&gt;
+    &lt;/h2&gt;
+&lt;/div&gt;
+{% endeditable %}
+{% endblock %}</code></pre>
+<p>作为一个前端人员，我们真正在接触的是View层和Template层，但是MVC并没有说明这些。</p>
+<h3 id="从桌面版到移动版">从桌面版到移动版</h3>
+<p>Wap是的出现，带来了更多的挑战。分辨率从1024x768变成了176×208，开发人员不得不面向这些挑战。当时所需要做的仅仅修改View层，而View层随着iPhone又发现了变化。</p>
+<figure>
+<img src="img/frontend/wap.gif" alt="WAP 网站" /><figcaption>WAP 网站</figcaption>
+</figure>
+<p>这是一个短暂的历史，人们并不知道他们需要为手机用户制作这样的一个网站，于是他们把桌面版的网站搬了过去变成了移动版，而没有Ajax请求，需要等待网络作出响应。</p>
+<p>幸运的是，人们很快意味到了这个问题，于是就有了SPA。有意思的是，如果当时的移动网络可以更快的话，我想很多SPA框架就不存在了。</p>
+<p>先说说jQuery Mobile，在那之前，先让我们来看看两个不同版本的代码，下面是一个给手机版本的blog详情页：</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;ul</span><span class="ot"> data-role=</span><span class="st">&quot;listview&quot;</span><span class="ot"> data-inset=</span><span class="st">&quot;true&quot;</span><span class="ot"> data-splittheme=</span><span class="st">&quot;a&quot;</span><span class="kw">&gt;</span>
+    {% for blog_post in blog_posts.object_list %}
+        <span class="kw">&lt;li&gt;</span>
+        {% editable blog_post.title blog_post.publish_date %}
+        <span class="kw">&lt;h2</span><span class="ot"> class=</span><span class="st">&quot;blog-post-title&quot;</span><span class="kw">&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;{% url &quot;</span><span class="er">blog_post_detail&quot;</span><span class="ot"> blog_post.slug</span> <span class="er">%}&quot;</span><span class="kw">&gt;</span>{{ blog_post.title }}<span class="kw">&lt;/a&gt;&lt;/h2&gt;</span>
+        <span class="kw">&lt;em</span><span class="ot"> class=</span><span class="st">&quot;since&quot;</span><span class="kw">&gt;</span>{% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}<span class="kw">&lt;/em&gt;</span>
+        {% endeditable %}
+        <span class="kw">&lt;/li&gt;</span>
+    {% endfor %}
+<span class="kw">&lt;/ul&gt;</span></code></pre></div>
+<p>而下面就是桌面版本的片段：</p>
+<pre><code>{% for blog_post in blog_posts.object_list %}
+{% block blog_post_list_post_title %}
+{% editable blog_post.title %}
+&lt;h2&gt;
+    &lt;a href=&quot;{{ blog_post.get_absolute_url }}&quot;&gt;{{ blog_post.title }}&lt;/a&gt;
+&lt;/h2&gt;
+{% endeditable %}
+{% endblock %}
+{% block blog_post_list_post_metainfo %}
+{% editable blog_post.publish_date %}
+&lt;h6 class=&quot;post-meta&quot;&gt;
+    {% trans &quot;Posted by&quot; %}:
+    {% with blog_post.user as author %}
+    &lt;a href=&quot;{% url &quot;blog_post_list_author&quot; author %}&quot;&gt;{{ author.get_full_name|default:author.username }}&lt;/a&gt;
+    {% endwith %}
+    {% with blog_post.categories.all as categories %}
+    {% if categories %}
+    {% trans &quot;in&quot; %}
+    {% for category in categories %}
+    &lt;a href=&quot;{% url &quot;blog_post_list_category&quot; category.slug %}&quot;&gt;{{ category }}&lt;/a&gt;{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    {% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}
+&lt;/h6&gt;
+{% endeditable %}
+{% endblock %}</code></pre>
+<p>人们所做的只是<strong>重载View层</strong>，这也是一个有效的SEO策略。上面的代码是我博客过去的代码，有两个不同的版本。</p>
+<figure>
+<img src="img/frontend/mobile-web.png" alt="移动版网页" /><figcaption>移动版网页</figcaption>
+</figure>
+<p>在这一时期，桌面版和移动版的代码可能在同一个代码库中。他们使用相同的代码，调用相同的逻辑，只是View层不同了。但是，每次改动我们都要维护两份代码。</p>
+<p>随后，人们发现了一种更友好的移动版应用——APP。</p>
+<h3 id="app与过渡期api">APP与过渡期API</h3>
+<p>这是一个艰难的时刻，过去我们的很多API都是在原来的代码库中构建的，即在桌面版和移动版一起。我们已经在这个代码库中开发了越来越多的功能，系统开发变得臃肿。如《Linux》中所说，这是一个伟大的系统，但是它臃肿而又缓慢。我们是开发一个结合了第一和第二系统的最佳特性的第三个系统，还是继续臃肿下去。我想你已经有答案了。</p>
+<p>随后我们就有了APP API，构建出了博客的APP。</p>
+<figure>
+<img src="img/frontend/mobile-app.jpg" alt="应用" /><figcaption>应用</figcaption>
+</figure>
+<p>在开始的时候，人们越来越喜欢用APP，因为与移动版网页相比，更响应速度更加快，而且流畅。对于服务器来说，也是一件好事，因为请求变少了。</p>
+<h3 id="过渡期spa">过渡期SPA</h3>
+<p>Backbone诞生于2010年，和响应式设计出现在同一个年代里，但是他们似乎在同一个时代里火了起来。如果CSS3早点流行开来，似乎就没有Backbone啥事了。</p>
+<h3 id="model-viewmodel-templateinteractio">Model-ViewModel-TemplateInteractio</h3>
+<h1 id="易读">易读</h1>
 </body>
 </html>

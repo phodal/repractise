@@ -153,9 +153,174 @@ public ModelAndView processUserDisable(HttpServletRequest request, ModelMap mode
 
 ![Service MVC](img/frontend/service-mvc.png)
 
-然而，人们对于Service应该放在哪一层都有不同意见：
+然而，人们对于Domain相关的Service应该放在哪一层都有不同意见：
 
 ![MS Player](img/frontend/mvcplayer.gif)
 ![MS MVC](img/frontend/ms-mvc.png)
 
-最后，我们的View层出现了，
+Domain（业务）是一个相当复杂的层级，这里是业务的核心。一个合理的Controller只应该做自己应该做的事，它不应该处理业务相关的代码：
+
+```java
+if (isNewnameEmpty == false && newuser == null){
+    user.setUserName(newUsername);
+    List<Post> myPosts = postService.findMainPostByAuthorNameSortedByCreateTime(principal.getName());
+
+    for (int k = 0;k < myPosts.size();k++){
+        Post post = myPosts.get(k);
+        post.setAuthorName(newUsername);
+        postService.save(post);
+    }
+    userService.update(user);
+    Authentication oldAuthentication = SecurityContextHolder.getContext().getAuthentication();
+    Authentication authentication = null;
+    if(oldAuthentication == null){
+        authentication = new UsernamePasswordAuthenticationToken(newUsername,user.getPasswordHash());
+    }else{
+        authentication = new UsernamePasswordAuthenticationToken(newUsername,user.getPasswordHash(),oldAuthentication.getAuthorities());
+    }
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+    map.clear();
+    map.put("user",user);
+    model.addAttribute("myPosts", myPosts);
+    model.addAttribute("namesuccess", "User Profile updated successfully");
+    return new ModelAndView("user/profile", map);
+}
+```
+
+我们在Controller层应该做的事是：
+
+1. 处理请求的参数
+2. 渲染和重定向
+3. 选择Model和Service
+4. 处理Session和Cookies
+
+业务是善变的，昨天我们可能还和对手竞争谁先推出新功能，但是今天可能已经合并了。我们很难预见业务变化，但是我们应该能预见Controller不容易变。在一些设计里面，这部分可能就会变成Command模式来处理。
+
+View层是一直在变化的层级，人们的品味一直在更新，有时甚至可能因为竞争对手而产生变化。在已经取得一定市场的情况下，Model-Service-Controller通常都不太会变动，甚至不敢变动。企业意识到创新两面的，要么带来死亡，要么占领多一点的市场。但是对手通常都比你想象中的要聪明，所以开创新的业务是一个更好的选择。
+
+在高速发展期的企业比发展初期的企业比，更需要前端开发人员。在用户基数不够、业务待定的情形中，View只要可用并美观就行了。这时，可能就会有大量的业务代码放在View层：
+
+```jsp
+<c:choose>
+    <c:when test="${ hasError }">
+    <p class="prompt-error">
+        ${errors.username} ${errors.password}
+    </p>
+    </c:when>
+    <c:otherwise>
+    <p class="prompt">
+        Woohoo, User <span class="username">${user.userName}</span> has been created successfully!
+    </p>
+    </c:otherwise>
+</c:choose>	
+```
+
+不同的情形下，人们都会对此有争议，但是符合当前的业务便是最好的选择。然后作为一个前端开发人员，我在过去需要修改JSP、PHP文件，但是我需要去了解这些Template，
+
+```php
+{foreach $lists as $v}
+<li itemprop="breadcrumb"><span{if(newest($v['addtime'],24))} style="color:red"{/if}>[{fun date('Y-m-d',$v['addtime'])}]</span><a href="{$v['url']}" style="{$v['style']}" target="_blank">{$v['title']}</a></li>
+{/foreach}
+```       
+
+所以，有时像Django这一类，自称为Model-Template-View的框架，更容易让人理解其意图：
+
+```
+{% for blog_post in blog_posts.object_list %}
+{% block blog_post_list_post_title %}
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp mdl-cell--11-col blog-list">
+{% editable blog_post.title %}
+<div class="mdl-card__title mdl-card--border mdl-card--expand">
+    <h2 class="mdl-card__title-text">
+        <a href="{{ blog_post.get_absolute_url }}"  itemprop="headline">{{ blog_post.title }} › </a>
+    </h2>
+</div>
+{% endeditable %}
+{% endblock %}
+```
+
+作为一个前端人员，我们真正在接触的是View层和Template层，但是MVC并没有说明这些。
+
+###从桌面版到移动版
+
+Wap是的出现，带来了更多的挑战。分辨率从1024x768变成了176×208，开发人员不得不面向这些挑战。当时所需要做的仅仅修改View层，而View层随着iPhone又发现了变化。
+
+![WAP 网站](img/frontend/wap.gif)
+
+这是一个短暂的历史，人们并不知道他们需要为手机用户制作这样的一个网站，于是他们把桌面版的网站搬了过去变成了移动版，而没有Ajax请求，需要等待网络作出响应。
+
+幸运的是，人们很快意味到了这个问题，于是就有了SPA。有意思的是，如果当时的移动网络可以更快的话，我想很多SPA框架就不存在了。
+
+先说说jQuery Mobile，在那之前，先让我们来看看两个不同版本的代码，下面是一个给手机版本的blog详情页：
+
+```html
+<ul data-role="listview" data-inset="true" data-splittheme="a">
+    {% for blog_post in blog_posts.object_list %}
+		<li>
+        {% editable blog_post.title blog_post.publish_date %}
+        <h2 class="blog-post-title"><a href="{% url "blog_post_detail" blog_post.slug %}">{{ blog_post.title }}</a></h2>
+        <em class="since">{% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}</em>
+        {% endeditable %}
+        </li>
+    {% endfor %}
+</ul>
+```
+
+而下面就是桌面版本的片段：
+
+```
+{% for blog_post in blog_posts.object_list %}
+{% block blog_post_list_post_title %}
+{% editable blog_post.title %}
+<h2>
+    <a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a>
+</h2>
+{% endeditable %}
+{% endblock %}
+{% block blog_post_list_post_metainfo %}
+{% editable blog_post.publish_date %}
+<h6 class="post-meta">
+    {% trans "Posted by" %}:
+    {% with blog_post.user as author %}
+    <a href="{% url "blog_post_list_author" author %}">{{ author.get_full_name|default:author.username }}</a>
+    {% endwith %}
+    {% with blog_post.categories.all as categories %}
+    {% if categories %}
+    {% trans "in" %}
+    {% for category in categories %}
+    <a href="{% url "blog_post_list_category" category.slug %}">{{ category }}</a>{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    {% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}
+</h6>
+{% endeditable %}
+{% endblock %}
+```
+
+人们所做的只是**重载View层**，这也是一个有效的SEO策略。上面的代码是我博客过去的代码，有两个不同的版本。
+
+![移动版网页](img/frontend/mobile-web.png)
+
+在这一时期，桌面版和移动版的代码可能在同一个代码库中。他们使用相同的代码，调用相同的逻辑，只是View层不同了。但是，每次改动我们都要维护两份代码。
+
+随后，人们发现了一种更友好的移动版应用——APP。
+
+###APP与过渡期API
+
+这是一个艰难的时刻，过去我们的很多API都是在原来的代码库中构建的，即在桌面版和移动版一起。我们已经在这个代码库中开发了越来越多的功能，系统开发变得臃肿。如《Linux\Unix设计思想》中所说，这是一个伟大的系统，但是它臃肿而又缓慢。我们是开发一个结合了第一和第二系统的最佳特性的第三个系统，还是继续臃肿下去。我想你已经有答案了。
+
+随后我们就有了APP API，构建出了博客的APP。
+
+![应用](img/frontend/mobile-app.jpg)
+
+在开始的时候，人们越来越喜欢用APP，因为与移动版网页相比，更响应速度更加快，而且流畅。对于服务器来说，也是一件好事，因为请求变少了。
+
+###过渡期SPA
+
+Backbone诞生于2010年，和响应式设计出现在同一个年代里，但是他们似乎在同一个时代里火了起来。如果CSS3早点流行开来，似乎就没有Backbone啥事了。
+
+
+
+###Model-ViewModel-TemplateInteractio
+
