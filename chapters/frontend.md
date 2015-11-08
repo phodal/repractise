@@ -372,7 +372,7 @@ define([
 
 一些团队便将Services抽成多个Services，美其名为微服务。传统架构下的API从下图
 
-![API Gateway](img/frontend/mobile-app.jpg)
+![API Gateway](img/frontend/api-gateway.png)
 
 变成了直接调用的微服务：
 
