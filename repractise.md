@@ -71,7 +71,7 @@
 
 关注微信公众号:
 
-![Baimizhou](http://repractise.phodal.com/img/frontend/baimizhou.png)
+![Baimizhou](http://repractise.phodal.com/img/frontend/baimizhou.jpg)
 
 #RePractise前端篇: 前端演进史
 
