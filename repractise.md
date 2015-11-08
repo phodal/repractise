@@ -77,9 +77,9 @@
 
 维基百科是这样说的：前端Front-end和后端back-end是描述进程开始和结束的通用词汇。前端作用于采集输入信息，后端进行处理。计算机程序的界面样式，视觉呈现属于前端。
 
-这种说法给人一种很模糊的感觉，但是他说得又很对，它负责视觉展示。在MVC结构或者MVP中，负责视觉显示的部分只有View层，而今天大多数所谓的View层已经超越了View层。View层是一个很神奇的概念，但是而今的View层已经发生了很大的变化。
+这种说法给人一种很模糊的感觉，但是他说得又很对，它负责视觉展示。在MVC结构或者MVP中，负责视觉显示的部分只有View层，而今天大多数所谓的View层已经超越了View层。前端是一个很神奇的概念，但是而今的前端已经发生了很大的变化。
 
-你引入了React、Backbone、Angluar，你的架构变成了MVVM、MVP、MVC。尽管发生了一些架构上的变化，但是项目的开发并没有因此而发生变化。这其中涉及到了一些职责的问题，如果某一个层级中有太多的职责，那么它是不是加重了一些人的负担？
+你引入了Backbone、Angluar，你的架构变成了MVP、MVVM。尽管发生了一些架构上的变化，但是项目的开发并没有因此而发生变化。这其中涉及到了一些职责的问题，如果某一个层级中有太多的职责，那么它是不是加重了一些人的负担？
 
 ##前端演进史
 
@@ -119,7 +119,7 @@
 
 过去的那些程序员都是**真正的全栈程序员**，这些程序员不仅仅做了前端的活，还做了数据库的工作。
 
-```asp
+```sql
 Set rs = Server.CreateObject("ADODB.Recordset")
 sql = "select id,title,username,email,qq,adddate,content,Re_content,home,face,sex from Fl_Book where ispassed=1 order by id desc"
 rs.open sql, Conn, 1, 1
@@ -130,7 +130,7 @@ fl.SqlQueryNum = fl.SqlQueryNum + 1
 
 在这里的代码里也免不了有动态生成JavaScript代码的方法：
 
-```asp
+```javascript
 show_other = "<SCRIPT language=javascript>"
 show_other = show_other & "function checkform()"
 show_other = show_other & "{"
@@ -234,7 +234,8 @@ public ModelAndView processUserDisable(HttpServletRequest request, ModelMap mode
 
 然而对于Domain相关的Service应该放在哪一层，总会有不同的意见：
 
-![MS Player](img/frontend/mvcplayer.gif)
+![MVC Player](img/frontend/mvcplayer.gif)
+
 ![MS MVC](img/frontend/ms-mvc.png)
 
 Domain（业务）是一个相当复杂的层级，这里是业务的核心。一个合理的Controller只应该做自己应该做的事，它不应该处理业务相关的代码：
@@ -387,7 +388,7 @@ Wap出现了，并带来了更多的挑战。随后，分辨率从1024x768变成
 
 ###APP与过渡期API
 
-这是一个艰难的时刻，过去我们的很多API都是在原来的代码库中构建的，即桌面版和移动版一起。我们已经在这个代码库中开发了越来越多的功能，系统开发变得臃肿。如《Linux\Unix设计思想》中所说，这是一个伟大的系统，但是它臃肿而又缓慢。
+这是一个艰难的时刻，过去我们的很多API都是在原来的代码库中构建的，即桌面版和移动版一起。我们已经在这个代码库中开发了越来越多的功能，系统开发变得臃肿。如《Linux/Unix设计思想》中所说，这是一个伟大的系统，但是它臃肿而又缓慢。
 
 我们是选择重新开发一个结合第一和第二系统的最佳特性的第三个系统，还是继续臃肿下去。我想你已经有答案了。随后我们就有了APP API，构建出了博客的APP。
 
@@ -447,7 +448,7 @@ define([
 
 一些团队便将Services抽成多个Services，美其名为微服务。传统架构下的API从下图
 
-![API Gateway](img/frontend/mobile-app.jpg)
+![API Gateway](img/frontend/api-gateway.png)
 
 变成了直接调用的微服务：
 
@@ -532,5 +533,11 @@ React，将一小部分复杂度交由人来消化，将另外一部分交给了
 其次，你可以考虑用混合Micro Services优势的Monolithic Service来分解业务。如果可以举一个成功的例子，那么就是Linux，一个混合内核的“Service”。
 
 最后，Keep Learning。我们总需要在适当的时候做出改变，尽管我们觉得一个Web应用代码库中含桌面版和移动版代码会很不错，但是在那个时候需要做出改变。
+
+对于复杂的应用来说，其架构肯定不是只有纯MVP或者纯MVVM这么简单的。如果一个应用混合了MVVM、MVP和MVC，那么他也变成了MVC——因为他直接访问了Model层。但是如果细分来看，只有访问了Model层的那一部分才是MVC模式。
+
+模式，是人们对于某个解决方案的描述。在一段代码中可能有各种各样的设计模式，更何况是架构。
+
+
 
 #易读

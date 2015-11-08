@@ -136,8 +136,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>如果六、七年前的移动网络速度和今天一样快，那么直接上的技术就是响应式设计，APP、SPA就不会流行得这么快。尽管我们可以预见未来这些领域会变得更好，但是更需要的是改变现状。改变现状的同时也需要预见未来的需求。</p>
 <h3 id="什么是前端">什么是前端？</h3>
 <p>维基百科是这样说的：前端Front-end和后端back-end是描述进程开始和结束的通用词汇。前端作用于采集输入信息，后端进行处理。计算机程序的界面样式，视觉呈现属于前端。</p>
-<p>这种说法给人一种很模糊的感觉，但是他说得又很对，它负责视觉展示。在MVC结构或者MVP中，负责视觉显示的部分只有View层，而今天大多数所谓的View层已经超越了View层。View层是一个很神奇的概念，但是而今的View层已经发生了很大的变化。</p>
-<p>你引入了React、Backbone、Angluar，你的架构变成了MVVM、MVP、MVC。尽管发生了一些架构上的变化，但是项目的开发并没有因此而发生变化。这其中涉及到了一些职责的问题，如果某一个层级中有太多的职责，那么它是不是加重了一些人的负担？</p>
+<p>这种说法给人一种很模糊的感觉，但是他说得又很对，它负责视觉展示。在MVC结构或者MVP中，负责视觉显示的部分只有View层，而今天大多数所谓的View层已经超越了View层。前端是一个很神奇的概念，但是而今的前端已经发生了很大的变化。</p>
+<p>你引入了Backbone、Angluar，你的架构变成了MVP、MVVM。尽管发生了一些架构上的变化，但是项目的开发并没有因此而发生变化。这其中涉及到了一些职责的问题，如果某一个层级中有太多的职责，那么它是不是加重了一些人的负担？</p>
 <h2 id="前端演进史">前端演进史</h2>
 <p>过去一直想整理一篇文章来说说前端发展的历史，但是想着这些历史已经被人们所熟知。后来发现并非如此，大抵是幸存者偏见——关注到的都知道这些历史。</p>
 <h3 id="数据-模板-样式混合">数据-模板-样式混合</h3>
@@ -160,17 +160,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><strong>人们一直在说前端很难，问题是你学过么？？？</strong></p>
 <p>也许，你也一直在说CSS不好写，但是CSS真的不好写么？人们总在说JS很难用，但是你学过么？只在需要的时候才去学，那肯定很难。<strong>你不曾花时间去学习一门语言，但是却能直接写出可以work的代码，说明他们容易上手</strong>。如果你看过一些有经验的Ruby、Scala、Emacs Lisp开发者写出来的代码，我想会得到相同的结论。有一些语言可以让写程序的人Happy，但是看的人可能就不Happy了。做事的方法不止一种，但是不是所有的人都要用那种方法去做。</p>
 <p>过去的那些程序员都是<strong>真正的全栈程序员</strong>，这些程序员不仅仅做了前端的活，还做了数据库的工作。</p>
-<div class="sourceCode"><pre class="sourceCode asp"><code class="sourceCode asp">Set rs = Server.CreateObject(&quot;ADODB.Recordset&quot;)
-sql = &quot;select id,title,username,email,qq,adddate,content,Re_content,home,face,sex from Fl_Book where ispassed=1 order by id desc&quot;
-rs.open sql, Conn, 1, 1
-fl.SqlQueryNum = fl.SqlQueryNum + 1</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">Set</span> rs = Server.CreateObject(<span class="ot">&quot;ADODB.Recordset&quot;</span>)
+sql = <span class="ot">&quot;select id,title,username,email,qq,adddate,content,Re_content,home,face,sex from Fl_Book where ispassed=1 order by id desc&quot;</span>
+rs.open sql, Conn, <span class="dv">1</span>, <span class="dv">1</span>
+fl.SqlQueryNum = fl.SqlQueryNum + <span class="dv">1</span></code></pre></div>
 <p>在这个ASP文件里，它从数据库里查找出了数据，然后Render出HTML。如果可以看到历史版本，那么我想我会看到有一个作者将style=“”的代码一个个放到css文件中。</p>
 <p>在这里的代码里也免不了有动态生成JavaScript代码的方法：</p>
-<div class="sourceCode"><pre class="sourceCode asp"><code class="sourceCode asp">show_other = &quot;<span class="kw">&lt;SCRIPT</span><span class="ot"> language=</span><span class="st">javascript</span><span class="kw">&gt;</span>&quot;
-show_other = show_other &amp; &quot;function checkform()&quot;
-show_other = show_other &amp; &quot;{&quot;
-show_other = show_other &amp; &quot;if (document.add.title.value==&#39;&#39;)&quot;
-show_other = show_other &amp; &quot;{&quot;</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">show_other <span class="op">=</span> <span class="st">&quot;&lt;SCRIPT language=javascript&gt;&quot;</span>
+show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <span class="st">&quot;function checkform()&quot;</span>
+show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <span class="st">&quot;{&quot;</span>
+show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <span class="st">&quot;if (document.add.title.value==&#39;&#39;)&quot;</span>
+show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <span class="st">&quot;{&quot;</span></code></pre></div>
 <p>请尽情嘲笑，然后再看一段代码：</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> React <span class="im">from</span> <span class="st">&quot;react&quot;</span><span class="op">;</span>
 <span class="im">import</span> <span class="op">{</span> getData <span class="op">}</span> <span class="im">from</span> <span class="st">&quot;../../common/request&quot;</span><span class="op">;</span>
@@ -259,7 +259,12 @@ show_other = show_other &amp; &quot;{&quot;</code></pre></div>
 <img src="img/frontend/service-mvc.png" alt="Service MVC" /><figcaption>Service MVC</figcaption>
 </figure>
 <p>然而对于Domain相关的Service应该放在哪一层，总会有不同的意见：</p>
-<p><img src="img/frontend/mvcplayer.gif" alt="MS Player" /> <img src="img/frontend/ms-mvc.png" alt="MS MVC" /></p>
+<figure>
+<img src="img/frontend/mvcplayer.gif" alt="MVC Player" /><figcaption>MVC Player</figcaption>
+</figure>
+<figure>
+<img src="img/frontend/ms-mvc.png" alt="MS MVC" /><figcaption>MS MVC</figcaption>
+</figure>
 <p>Domain（业务）是一个相当复杂的层级，这里是业务的核心。一个合理的Controller只应该做自己应该做的事，它不应该处理业务相关的代码：</p>
 <div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">if</span> (isNewnameEmpty == <span class="kw">false</span> &amp;&amp; newuser == <span class="kw">null</span>){
     user.<span class="fu">setUserName</span>(newUsername);
@@ -377,7 +382,7 @@ show_other = show_other &amp; &quot;{&quot;</code></pre></div>
 <p>在这一时期，桌面版和移动版的代码可能在同一个代码库中。他们使用相同的代码，调用相同的逻辑，只是View层不同了。但是，每次改动我们都要维护两份代码。</p>
 <p>随后，人们发现了一种更友好的移动版应用——APP。</p>
 <h3 id="app与过渡期api">APP与过渡期API</h3>
-<p>这是一个艰难的时刻，过去我们的很多API都是在原来的代码库中构建的，即桌面版和移动版一起。我们已经在这个代码库中开发了越来越多的功能，系统开发变得臃肿。如《Linux》中所说，这是一个伟大的系统，但是它臃肿而又缓慢。</p>
+<p>这是一个艰难的时刻，过去我们的很多API都是在原来的代码库中构建的，即桌面版和移动版一起。我们已经在这个代码库中开发了越来越多的功能，系统开发变得臃肿。如《Linux/Unix设计思想》中所说，这是一个伟大的系统，但是它臃肿而又缓慢。</p>
 <p>我们是选择重新开发一个结合第一和第二系统的最佳特性的第三个系统，还是继续臃肿下去。我想你已经有答案了。随后我们就有了APP API，构建出了博客的APP。</p>
 <figure>
 <img src="img/frontend/mobile-app.jpg" alt="应用" /><figcaption>应用</figcaption>
@@ -421,7 +426,7 @@ show_other = show_other &amp; &quot;{&quot;</code></pre></div>
 <p>一夜之前，我们又回到了过去。我们离开了JSP，将View层变成了Template与Controller。而原有的Services层并不是只承担其原来的责任，这些Services开始向ViewModel改变。</p>
 <p>一些团队便将Services抽成多个Services，美其名为微服务。传统架构下的API从下图</p>
 <figure>
-<img src="img/frontend/mobile-app.jpg" alt="API Gateway" /><figcaption>API Gateway</figcaption>
+<img src="img/frontend/api-gateway.png" alt="API Gateway" /><figcaption>API Gateway</figcaption>
 </figure>
 <p>变成了直接调用的微服务：</p>
 <figure>
@@ -480,6 +485,8 @@ show_other = show_other &amp; &quot;{&quot;</code></pre></div>
 <p>首先，你应该考虑的是一种可以让View层解耦于Domain或者Service层。今天，桌面、平板、手机并不是唯一用户设备，虽然你可能在明年统一了这三个平台，现在新的设备的出现又将设备分成两种类型——桌面版和手机版。一开始桌面版和手机版是不同的版本，后来你又需要合并这两个设备。</p>
 <p>其次，你可以考虑用混合Micro Services优势的Monolithic Service来分解业务。如果可以举一个成功的例子，那么就是Linux，一个混合内核的“Service”。</p>
 <p>最后，Keep Learning。我们总需要在适当的时候做出改变，尽管我们觉得一个Web应用代码库中含桌面版和移动版代码会很不错，但是在那个时候需要做出改变。</p>
+<p>对于复杂的应用来说，其架构肯定不是只有纯MVP或者纯MVVM这么简单的。如果一个应用混合了MVVM、MVP和MVC，那么他也变成了MVC——因为他直接访问了Model层。但是如果细分来看，只有访问了Model层的那一部分才是MVC模式。</p>
+<p>模式，是人们对于某个解决方案的描述。在一段代码中可能有各种各样的设计模式，更何况是架构。</p>
 <h1 id="易读">易读</h1>
 </body>
 </html>
