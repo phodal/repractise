@@ -2,7 +2,9 @@
 
 细细整理了过去接触过的那些前端技术，发现前端演进是段特别有意思的历史。人们总是在过去就做出未来需要的框架，而现在流行的是过去的过去发明过的。如，响应式设计不得不提到的一个缺点是：**他只是将原本在模板层做的事，放到了样式（CSS）层来完成**。
 
-复杂度同力一样不会消失，也不会凭空产生，它总是从一个物体转移到另一个物体或一种形式转为另一种形式。如果六、七年前的移动网络速度和今天一样快，那么直接上的技术就是响应式设计，APP、SPA就不会流行开来。我们可以预见未来某些领域会变得更好，但是更需要的是改变现状。
+复杂度同力一样不会消失，也不会凭空产生，它总是从一个物体转移到另一个物体或一种形式转为另一种形式。
+
+如果六、七年前的移动网络速度和今天一样快，那么直接上的技术就是响应式设计，APP、SPA就不会流行得这么快。尽管我们可以预见未来这些领域会变得更好，但是更需要的是改变现状。改变现状的同时也需要预见未来的需求。
 
 ###什么是前端？
 
@@ -50,7 +52,7 @@
 
 过去的那些程序员都是**真正的全栈程序员**，这些程序员不仅仅做了前端的活，还做了数据库的工作。
 
-```sql
+```asp
 Set rs = Server.CreateObject("ADODB.Recordset")
 sql = "select id,title,username,email,qq,adddate,content,Re_content,home,face,sex from Fl_Book where ispassed=1 order by id desc"
 rs.open sql, Conn, 1, 1
@@ -318,7 +320,7 @@ Wap出现了，并带来了更多的挑战。随后，分辨率从1024x768变成
 
 ###APP与过渡期API
 
-这是一个艰难的时刻，过去我们的很多API都是在原来的代码库中构建的，即桌面版和移动版一起。我们已经在这个代码库中开发了越来越多的功能，系统开发变得臃肿。如《Linux/Unix设计思想》中所说，这是一个伟大的系统，但是它臃肿而又缓慢。
+这是一个艰难的时刻，过去我们的很多API都是在原来的代码库中构建的，即桌面版和移动版一起。我们已经在这个代码库中开发了越来越多的功能，系统开发变得臃肿。如《Linux\Unix设计思想》中所说，这是一个伟大的系统，但是它臃肿而又缓慢。
 
 我们是选择重新开发一个结合第一和第二系统的最佳特性的第三个系统，还是继续臃肿下去。我想你已经有答案了。随后我们就有了APP API，构建出了博客的APP。
 
@@ -368,11 +370,17 @@ define([
 
 从API获取数据，结合Template来Render出Page。但是这无法改变我们需要Client Side Render和Server Side Render的两种Render方式，除非我们可以像淘宝一样不需要考虑SEO——因为它不那么依靠搜索引擎带来流量。
 
-这时，我们还是基于经典的MVC模式。只是数据的获取方式变成了Ajax，我们就犯了一个错误——将大量的业务逻辑放在前端。一夜之前，我们又回到了过去。我们离开了JSP，将View层变成了Template与Controller。而原有的Services层并不是只承担其原来的责任，这些Services开始向ViewModel改变。
+这时，我们还是基于类MVC模式。只是数据的获取方式变成了Ajax，我们就犯了一个错误——将大量的业务逻辑放在前端。这时候我们已经不能再从View层直接访问Model层，从安全的角度来说有点危险。
+
+如果你的View层还可以直接访问Model层，那么说明你的架构还是MVC模式。之前我在Github上构建一个Side Project的时候直接用View层访问了Model层，由于Model层是一个ElasticSearch的搜索引擎，它提供了JSON API，这使得我要在View层处理数据——即业务逻辑。将上述的JSON API放入Controller，尽管会加重这一层的复杂度，但是业务逻辑就不再放置于View层。
+
+如果你在你的View层和Model层总有一层接口，那么你采用的就是MVP模式——MVC模式的衍生（PS：为了区别别的事情，总会有人取个表意的名称）。
+
+一夜之前，我们又回到了过去。我们离开了JSP，将View层变成了Template与Controller。而原有的Services层并不是只承担其原来的责任，这些Services开始向ViewModel改变。
 
 一些团队便将Services抽成多个Services，美其名为微服务。传统架构下的API从下图
 
-![API Gateway](img/frontend/api-gateway.png)
+![API Gateway](img/frontend/mobile-app.jpg)
 
 变成了直接调用的微服务：
 
@@ -386,7 +394,9 @@ define([
 
 前端开发人员先熟悉了单纯的JS + CSS + HTML，又熟悉了Router + PageView + API的结构，现在他们又需要做手机APP。这时候只好用熟悉的jQuer Mobile + Cordova。
 
-随后，人们先从Cordova + jQuery Mobile，变成了Cordova + Angluar的 Ionic。在那之前，一些团队可能已经用Angluar代换了Backbone。接着，我们可以直接将我们的Angluar代码从前端移到APP，比如下面这种博客APP的代码：
+随后，人们先从Cordova + jQuery Mobile，变成了Cordova + Angluar的 Ionic。在那之前，一些团队可能已经用Angluar代换了Backbone。他们需要更好的交互，需要data binding。
+
+接着，我们可以直接将我们的Angluar代码从前端移到APP，比如下面这种博客APP的代码：
 
 ```javascript
   .controller('BlogCtrl', function ($scope, Blog) {
@@ -415,9 +425,9 @@ define([
   })
 ```  
 
-结果**时间轴又错了**，人们总是**超前一个时期做错了一个在未来是正确的决定**。人们遇到了网页版的用户授权问题，就发明了JWK——Json Web Token。
+结果**时间轴又错了**，人们总是**超前一个时期做错了一个在未来是正确的决定**。人们遇到了网页版的用户授权问题，于是发明了JWK——Json Web Token。
 
-这下问题来了，WebView在一些早期的Android手机上出现了性能问题。接着出现了两个不同的解决方案：
+然而，由于WebView在一些早期的Android手机上出现了性能问题，人们开始考虑替换方案。接着出现了两个不同的解决方案：
 
 1. React Native
 2. 新的WebView——Crosswalk
@@ -438,7 +448,7 @@ define([
 
 响应式设计不得不提到的一个缺点是：**他只是将原本在模板层做的事，放到了样式（CSS）层**。你还是在针对着不同的设备进行设计，两种没有什么多大的不同。复杂度不会消失，也不会凭空产生，它只会从一个物体转移到另一个物体或一种形式转为另一种形式。
 
-如React，将一小部分复杂度交由人来消化，将一部分交给了React自己来消化。在用Spring MVC之前，也许我们还在用CGI编程，而Spring降低了这部分复杂度。但是同React一样降低的复杂度只是对于新手。
+React，将一小部分复杂度交由人来消化，将另外一部分交给了React自己来消化。在用Spring MVC之前，也许我们还在用CGI编程，而Spring降低了这部分复杂度，但是这和React一样降低的只是新手的复杂度。在我们不能以某种语言的方式写某相关的代码时，这会带来诸多麻烦。
 
 ##RePractise
 
