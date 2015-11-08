@@ -50,7 +50,7 @@
 
 过去的那些程序员都是**真正的全栈程序员**，这些程序员不仅仅做了前端的活，还做了数据库的工作。
 
-```asp
+```sql
 Set rs = Server.CreateObject("ADODB.Recordset")
 sql = "select id,title,username,email,qq,adddate,content,Re_content,home,face,sex from Fl_Book where ispassed=1 order by id desc"
 rs.open sql, Conn, 1, 1

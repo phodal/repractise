@@ -159,10 +159,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><strong>人们一直在说前端很难，问题是你学过么？？？</strong></p>
 <p>也许，你也一直在说CSS不好写，但是CSS真的不好写么？人们总在说JS很难用，但是你学过么？只在需要的时候才去学，那肯定很难。<strong>你不曾花时间去学习一门语言，但是却能直接写出可以work的代码，说明他们容易上手</strong>。如果你看过一些有经验的Ruby、Scala、Emacs Lisp开发者写出来的代码，我想会得到相同的结论。有一些语言可以让写程序的人Happy，但是看的人可能就不Happy了。做事的方法不止一种，但是不是所有的人都要用那种方法去做。</p>
 <p>过去的那些程序员都是<strong>真正的全栈程序员</strong>，这些程序员不仅仅做了前端的活，还做了数据库的工作。</p>
-<div class="sourceCode"><pre class="sourceCode asp"><code class="sourceCode asp">Set rs = Server.CreateObject(&quot;ADODB.Recordset&quot;)
-sql = &quot;select id,title,username,email,qq,adddate,content,Re_content,home,face,sex from Fl_Book where ispassed=1 order by id desc&quot;
-rs.open sql, Conn, 1, 1
-fl.SqlQueryNum = fl.SqlQueryNum + 1</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">Set</span> rs = Server.CreateObject(<span class="ot">&quot;ADODB.Recordset&quot;</span>)
+sql = <span class="ot">&quot;select id,title,username,email,qq,adddate,content,Re_content,home,face,sex from Fl_Book where ispassed=1 order by id desc&quot;</span>
+rs.open sql, Conn, <span class="dv">1</span>, <span class="dv">1</span>
+fl.SqlQueryNum = fl.SqlQueryNum + <span class="dv">1</span></code></pre></div>
 <p>在这个ASP文件里，它从数据库里查找出了数据，然后Render出HTML。如果可以看到历史版本，那么我想我会看到有一个作者将style=“”的代码一个个放到css文件中。</p>
 <p>在这里的代码里也免不了有动态生成JavaScript代码的方法：</p>
 <div class="sourceCode"><pre class="sourceCode asp"><code class="sourceCode asp">show_other = &quot;<span class="kw">&lt;SCRIPT</span><span class="ot"> language=</span><span class="st">javascript</span><span class="kw">&gt;</span>&quot;
