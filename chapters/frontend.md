@@ -1,7 +1,3 @@
-关注微信公众号:
-
-![Baimizhou](http://repractise.phodal.com/img/frontend/baimizhou.jpg)
-
 #RePractise前端篇: 前端演进史
 
 细细整理了过去接触过的那些前端技术，发现前端演进是段特别有意思的历史。人们总是在过去就做出未来需要的框架，而现在流行的是过去的过去发明过的。如，响应式设计不得不提到的一个缺点是：**他只是将原本在模板层做的事，放到了样式（CSS）层来完成**。
@@ -399,9 +395,9 @@ define([
 
 前端开发人员先熟悉了单纯的JS + CSS + HTML，又熟悉了Router + PageView + API的结构，现在他们又需要做手机APP。这时候只好用熟悉的jQuer Mobile + Cordova。
 
-随后，人们先从Cordova + jQuery Mobile，变成了Cordova + Angluar的 Ionic。在那之前，一些团队可能已经用Angluar代换了Backbone。他们需要更好的交互，需要data binding。
+随后，人们先从Cordova + jQuery Mobile，变成了Cordova + Angular的 Ionic。在那之前，一些团队可能已经用Angular代换了Backbone。他们需要更好的交互，需要data binding。
 
-接着，我们可以直接将我们的Angluar代码从前端移到APP，比如下面这种博客APP的代码：
+接着，我们可以直接将我们的Angular代码从前端移到APP，比如下面这种博客APP的代码：
 
 ```javascript
   .controller('BlogCtrl', function ($scope, Blog) {
@@ -430,7 +426,7 @@ define([
   })
 ```  
 
-结果**时间轴又错了**，人们总是**超前一个时期做错了一个在未来是正确的决定**。人们遇到了网页版的用户授权问题，于是发明了JWK——Json Web Token。
+结果**时间轴又错了**，人们总是**超前一个时期做错了一个在未来是正确的决定**。人们遇到了网页版的用户授权问题，于是发明了JWT——Json Web Token。
 
 然而，由于WebView在一些早期的Android手机上出现了性能问题，人们开始考虑替换方案。接着出现了两个不同的解决方案：
 
