@@ -6,8 +6,6 @@
 
 ##动态CMS
 
-越来越多的开发人员开始在使用Github Pages作为他们的博客，这是一个很有意思的转变。主要的原因是这是免费的，并且基本上可以保证24x7小时是可用的——当且仅当Github发现故障的时候才会不可访问。
-
 ###CMS简介
 
 CMS是Content Management System的缩写，意为"内容管理系统".它可以做很多的事情，但是总的来说就是Page和Blog——即我们要创建一些页面可以用于写一些About US、Contact Me，以及持续更新的博客或者新闻，以及其他子系统——通常更新不活跃。通过对这些博客或者新闻进行分类，我们就可以有不同的信息内容，如下图：
@@ -78,6 +76,55 @@ CMS一直就是这样一个紧耦合的系统。
 
 这时候，我更愿意选择后者——毕竟紧耦合一个系统总会在后期带来足够多的麻烦。而且基于数据库构建一个只读的RESTful API并不是一个复杂的过程，而且也危险。这时候的瓶颈就是数据库，但是似乎数据库都是多数系统的瓶颈。人们想出了各种各样的技术来解决这个瓶颈。
 
-##静态站点生成器
+于是之前我试着用Node.js + RESTify将我的博客重构成了一个SPA，当然这个时候CMS还在运行着。出于SEO的原因我并没有在最后采用这个方案，因为[我网站](https://www.phodal.com)的主要流量来源是Google和是百度。但是我在另外的网站里混合了SPA与MPA，其中的性能与应用是相当的，除了第一次加载页面的时候会带来一些延时。
+
+除了Node.js + RESTify，也试了试Python + Falcon（一个高性能的RESTful框架）。这个API理论上也应该可以给APP直接使用，并且可以直接拿来生成静态页面。
+
+###静态站点生成器
+
+如React一样解决DOM性能的问题就是跳过DOM这个坑，要跳过动态网站的性能问题就是让网站变成静态。
+
+越来越多的开发人员开始在使用Github Pages作为他们的博客，这是一个很有意思的转变。主要的原因是这是免费的，并且基本上可以保证24x7小时是可用的——当且仅当Github发现故障的时候才会不可访问。
+
+在这一类静态站点生成器(Github)里面，比较流行的有下面的内容（数据来源： [http://segmentfault.com/a/1190000002476681](http://segmentfault.com/a/1190000002476681)）:
+
+1. Jekyll / OctoPress。Jekyll和OctoPress是最流行的静态博客系统。
+2. Hexo。Hexo是NodeJS编写的静态博客系统，其生成速度快，主题数量相对也比较丰富。是OctoPress的优秀替代者。
+3. Sculpin。Sculpin是PHP的静态站点系统。Hexo和Octopress专注于博客，而有时候我们的需求不仅仅是博客，而是有类似CMS的页面生成需求。Sculpin是一个泛用途的静态站点生成系统，在支持博客常见的分页、分类tag等同时，也能较好地支持非博客的一般页面生成。
+4. Hugo。Hugo是GO语言编写的静态站点系统。其生成速度快，且在较好支持博客和非博客内容的同时提供了比较完备的主题系统。无论是自己写主题还是套用别人的主题都比较顺手。
+
+通常这一类的工具里会有下面的内容：
+
+1. 模板
+2. 支持Markdown
+3. 元数据
+
+如Hexo这样的框架甚至提供了``一键部署``的功能。
+
+在我们写了相关的代码之后，随后要做的就是生成HTML。对于个人博客来说，这是一个非常不错的系统，但是对于一些企业级的系统来说，我们的要求就更高了。如下图是Carrot采用的架构：
+
+![Editor Develoepr](http://repractise.phodal.com/img/cms/carrot.png)
+
+这与我们在项目上的系统架构目前相似。作为一个博主，通常来说我们修改博客的主题的频率会比较低， 可能是半年一次。如果你经常修改博客的主题，你博客上的文章一定是相当的少。
+
+上图中的编辑者通过一个名为Contentful CMS来创建他们的内容，接着生成RESTful API。而类似的事情，我们也可以用Wordpress + RESTful 插件来完成。如果做得好，那么我想这个API也可以直接给APP使用。
+
+上图中的开发者需要不断地将修改的主题或者类似的东西PUSH到版本管理系统上，接着会有webhook监测到他们的变化，然后编译出新的静态页面。
+
+最后他们编译到了一起，然后部署到生产环境。通常来说，这会是一个CDN，你可以使用CloudFront服务。与动态网站相比，静态网站很容易直接部署到CDN，并可以直接从离用户近的本地缓存提供服务。除此，直接使用AWS S3的静态网站托管也是一个非常不错的选择。
+
+
+
+##其他
+
+参考文章:
+
+1. [静态网站生成器将会成为下一个大热门](http://www.infoq.com/cn/news/2015/11/LAMP-CDN)
+2. [EditingPublishingSeparation](http://martinfowler.com/bliki/EditingPublishingSeparation.html)
+3. [An Incremental Approach to Content Management Using Git 1](https://www.thoughtworks.com/insights/blog/incremental-approach-content-management-using-git)
+4. [Part 2: Implementing Content Management and Publication Using Git](https://www.thoughtworks.com/insights/blog/implementing-content-management-and-publication-using-git)
+
+
+
 
 
