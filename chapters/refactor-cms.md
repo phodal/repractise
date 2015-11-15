@@ -12,7 +12,7 @@
 
 CMS是Content Management System的缩写，意为"内容管理系统".它可以做很多的事情，但是总的来说就是Page和Blog——即我们要创建一些页面可以用于写一些About US、Contact Me，以及持续更新的博客或者新闻，以及其他子系统——通常更新不活跃。通过对这些博客或者新闻进行分类，我们就可以有不同的信息内容，如下图：
 
-![不同分类的内容](http://repractise.phodal.com/img/cms/cms-blogs.jpg)
+![不同分类的内容](http://repractise.phodal.com/img/cms/cms-blogs.png)
 
 CMS是政府和企业都需要的系统，他们有很多的信息需要公开，并且需要对其组织进行宣传。在我有限的CMS交付经验里（大学时期），一般第一次交付CMS的时候，已经创建了大部分页面。有时候这些页面可能直接存储在数据库中，后来发现这不是一个好的方案，于是很多页面变成了静态页面。随后，在CMS的生命周期里就是更新内容。
 
@@ -30,19 +30,41 @@ WordPress和Drupal这一类的系统都属于发布系统，而其后台可以�
  - 子系统。由于这属于定制化的系统，并不方便进行总结。
  - ...
 
-CMS一直就是这样一个紧耦合的系统。下图似乎是Drupal的模块图
-
-![Drupal 框架](http://repractise.phodal.com/img/cms/drupal-modular.png)
+CMS一直就是这样一个紧耦合的系统。
 
 ###CMS架构与Django
 
-说起，我一直是一个CMS党。主要原因还在于我可以随心所欲地去修改网站的内容，修改网站的架构。我一直在使用一个名为Django的Python Web框架，它是一个MTV框架，从框架本身来上看它和别的系统没有太大的区别。
+说起来，我一直是一个CMS党。主要原因还在于我可以随心所欲地去修改网站的内容，修改网站的架构。好的CMS总的来说都有其架构图，下图似乎是Drupal的模块图
 
-![Django Architecture](http://repractise.phodal.com/img/cms/django-architecture.png)
+![Drupal 框架](http://repractise.phodal.com/img/cms/drupal-modular.png)
+
+一般来说，其底层都会有：
+
+ - ORM
+ - User Management
+ - I18n / L10n
+ - Templates
+
+我一直在使用一个名为Django的Python Web框架，它最初是被开发来用于管理劳伦斯出版集团旗下的一些以新闻内容为主的网站的，即是CMS（内容管理系统）软件。它是一个MTV框架——与多数的框架并没有太大的区别。
+
+
+层次                     | 职责
+------------------------|---------------
+模型（Model），即数据存取层 | 处理与数据相关的所有事务：如何存取、如何验证有效性、包含哪些行为以及数据之间的关系等。
+模板(Template)，即表现层   | 处理与表现相关的决定： 如何在页面或其他类型文档中进行显示。
+视图（View），即业务逻辑层   | 存取模型及调取恰当模板的相关逻辑。模型与模板之间的桥梁。
+
+从框架本身来上看它和别的系统没有太大的区别。
+
+![Django Architecture](http://repractise.phodal.com/img/cms/django-architecture.jpg)
 
 但是如果我们已经有多外模块（即Django中app的概念），那么系统的架构就有所不同了。
 
 ![Django App架构 ](http://repractise.phodal.com/img/cms/django-apps.jpg)
+
+这就是为何我喜欢用这个CMS的原因了，我的每个子系统都以APP的形式提供服务——博客是一个app，sitemap是一个app，api是一个app。系统直接解耦为类似于混合服务的架构，即不像微服务一样多语言化，又不会有宏应用的紧耦合问题。
+
+
 
 ##静态站点生成器
 
