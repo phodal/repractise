@@ -136,9 +136,11 @@ So，so，这些开发人员做了些什么：
 5. 允许内容通过内容服务更新
 6. 使用Github API
 
-这意味着什么？
+于是，有了一个名为[Hacienda](https://github.com/haciendaio/hacienda)的框架用于管理内容，并存储为JSON。这意味着什么？
 
+![基于Github的编辑-发布-开发分离](http://repractise.phodal.com/img/cms/github-edit-publish-code.png)
 
+因为使用了Git，我们可以了解到一个文件内容的历史版本，相比于WordPress来说更直观，而且更容易 上手。
 
 ##其他
 
