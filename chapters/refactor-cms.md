@@ -68,7 +68,7 @@ CMS一直就是这样一个紧耦合的系统。
 
 我们的编辑和发布系统在某种意义上紧耦合在一起了，当用户访问量特别大的时候，这样会让我们的应用变得特定慢。有时候编辑甚至发布不了新的东西，如下图引示:
 
-![发布-编辑](http://repractise.phodal.com/img/cms/editor-publisher.jpg)
+![发布-编辑](http://repractise.phodal.com/img/cms/editor-publisher.png)
 
 或者你认识出了上图是源自Martin Folwer的[编辑-发布分离](http://martinfowler.com/bliki/EditingPublishingSeparation.html)
 
