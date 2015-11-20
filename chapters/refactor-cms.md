@@ -175,7 +175,7 @@ So，so，这些开发人员做了些什么：
 
 So，这一个过程是如何进行的。
 
-###用户场景
+####用户场景
 
 整个过程的Pipeline如下所示：
 
@@ -320,7 +320,57 @@ grunt.registerTask('dev', ['default', 'connect:server', 'watch:site']);
 
 用于开发阶段这样的代码就够了，这个和你使用WebPack + React 似乎相差不了多少。
 
-###编辑-发布-开发分离
+###Content
+
+在使用Github和Travis CI完成Content的时候，发现没有一个好的Webhook。虽然我们的Content只能存储一些数据，但是放一个trigger脚本也是可以原谅的。
+
+```javascript
+var Travis = require('travis-ci');
+
+var repo = "phodal-archive/echeveria-deploy";
+
+var travis = new Travis({
+    version: '2.0.0'
+});
+
+travis.authenticate({
+    github_token: process.env.GH_TOKEN
+
+}, function (err, res) {
+    if (err) {
+        return console.error(err);
+    }
+
+    travis.repos(repo.split('/')[0], repo.split('/')[1]).builds.get(function (err, res) {
+        if (err) {
+            return console.error(err);
+        }
+
+        travis.requests.post({
+            build_id: res.builds[0].id
+        }, function (err, res) {
+            if (err) {
+                return console.error(err);
+            }
+            console.log(res.flash[0].notice);
+        });
+    });
+});
+```
+
+这里主要依赖于Travis CI来完成这部分功能，这时候我们还需要一个编辑器。
+
+####编辑器
+
+为了实现之前说到的``编辑-发布-开发分离``的CMS，我还是花了两天的时间打造了一个面向普通用户的编辑器。效果截图如下所示：
+
+![编辑器](http://repractise.phodal.com/img/cms/editor.png)
+
+作为一个普通用户，这是一个很简单的软件。除了Electron + Node.js + React作了一个140M左右的软件，尽管打包完只有40M左右 ，但是还是会把用户吓跑的。不过作为一个快速构建的原型已经很不错了——构建速度很快、并且运行良好。
+
+尽管这个界面看上去还是稍微复杂了一下，还在试着想办法将链接名和日期去掉——问题是为什么会有这两个东西？
+
+##编辑-发布-开发分离
 
 在这种情形中，编辑能否完成工作就不依赖于网站——脱稿又少了 个借口。这时候网站出错的概率太小了——你不需要一个缓存服务器、HTTP服务器，由于没有动态生成的内容，你也不需要守护进程。这些内容都是静态文件，你可以将他们放在任何可以提供静态文件托管的地方——CloudFront、S3等等。或者你再相信自己的服务器，Nginx可是全球第二好（第一还没出现）的静态文件服务器。
 
@@ -337,17 +387,7 @@ So，你可能会担心如果这时候修改的东西有问题了怎么办。
 
 最后，重新放上之前的静态文件。
 
-###编辑器
-
-为了实现之前说到的``编辑-发布-开发分离``的CMS，我还是花了两天的时间打造了一个面向普通用户的编辑器。效果截图如下所示：
-
-![Echeveria Editor][1]
-
-作为一个普通用户，这是一个很简单的软件。除了Electron + Node.js + React作了一个140M左右的软件，尽管打包完只有40M左右 ，但是还是会把用户吓跑的。不过作为一个快速构建的原型已经很不错了——构建速度很快、并且运行良好。
-
-尽管这个界面看上去还是稍微复杂了一下，还在试着想办法将链接名和日期去掉——问题是为什么会有这两个东西？
-
-##从Schema到数据库
+###从Schema到数据库
 
 我们在我们数据库中定义好了Schema——对一个数据库的结构描述。在《[编辑-发布-开发分离](https://www.phodal.com/blog/editing-publishing-coding-seperate/)
 》一文中我们说到了echeveria-content的一个数据文件如下所示：
@@ -398,12 +438,6 @@ repo.write('master', 'contents/' + data.url + '.json', stringifyData, 'Robot: ad
 
 ##git作为NoSQL数据库
 
-在控制台中运行一下 ``man git``你会得到下面的结果:
-
-![Man Git][2]
-
-这个答案看起来很有意思——不过这看上去似乎无关主题。
-
 不同的数据库会以不同的形式存储到文件中去。blob是git中最为基本的存储单位，我们的每个content都是一个blob。redis可以以rdb文件的形式存储到文件系统中。完成一个CMS，我们并不需要那么多的查询功能。
 
 > 这些上千年的组织机构，只想让人们知道他们想要说的东西。
@@ -419,8 +453,6 @@ repo.write('master', 'contents/' + data.url + '.json', stringifyData, 'Robot: ad
 我想其中只有两点对于我来说是比较重要的``集群``与``数据格式``。但是集群和数据格式都不是我们要考虑的问题。。。
 
 我们也不存在数据格式的问题、开源的问题，什么问题都没有。。除了，我们之前说到的查询——但是这是可以解决的问题，我们甚至可以返回不同的历史版本的。在这一点上git做得很好，他不会像WordPress那样存储多个版本。
-
-###git + JSON文件
 
 JSON文件 + Nginx就可以变成这样一个合理的API，甚至是运行方式。我们可以对其进行增、删、改、查，尽管就当前来说查需要一个额外的软件来执行，但是为了实现一个用得比较少的功能，而去花费大把的时间可能就是在浪费。
 
