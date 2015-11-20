@@ -288,11 +288,73 @@ git的“API”提供了丰富的增、删、改功能——你需要commit就�
 
 ![编辑器](http://repractise.phodal.com/img/cms/editor.png)
 
-作为一个普通用户，这是一个很简单的软件。除了Electron + Node.js + React作了一个140M左右的软件，尽管打包完只有40M左右 ，但是还是会把用户吓跑的。不过作为一个快速构建的原型已经很不错了——构建速度很快、并且运行良好。
+作为一个普通用户，这是一个很简单的软件。除了Electron + Node.js + React作了一个140M左右的软件，尽管压缩完只有40M左右 ，但是还是会把用户吓跑的。不过作为一个快速构建的原型已经很不错了——构建速度很快、并且运行良好。
+
+- Electron
+- React
+- Material UI
+- Alloy Editor 
 
 尽管这个界面看上去还是稍微复杂了一下，还在试着想办法将链接名和日期去掉——问题是为什么会有这两个东西？
 
+Webpack 打包
 
+```
+  if (process.env.HOT) {
+    mainWindow.loadUrl('file://' + __dirname + '/app/hot-dev-app.html');
+  } else {
+    mainWindow.loadUrl('file://' + __dirname + '/app/app.html');
+  }
+```
+
+上传代码
+
+```javascript
+repo.write('master', 'content/' + data.url + '.json', stringifyData, 'Robot: add article ' + data.title, options, function (err, data) {
+  if(data.commit){
+    that.setState({message: "上传成功" + JSON.stringify(data)});
+    that.refs.snackbar.show();
+    that.setState({
+      sending: 0
+    });
+  }
+});
+```    
+
+Content -> CI -> Content -> Website / API
 
 ##移动应用
 
+![移动应用](http://repractise.phodal.com/img/cms/app.png)
+
+获取全部文章
+
+```javascript
+  .controller('ArticleListsCtrl', function ($scope, Blog) {
+    $scope.articles = null;
+    $scope.blogOffset = 0;
+    $scope.doRefresh = function () {
+      Blog.async('http://deploy.baimizhou.net/api/blog/articles.json').then(function (results) {
+        $scope.articles = results;
+      });
+      $scope.$broadcast('scroll.refreshComplete');
+      $scope.$apply()
+    };
+    Blog.async('http://deploy.baimizhou.net/api/blog/articles.json').then(function (results) {
+      $scope.articles = results;
+    });
+  })
+```
+
+获取特定文章
+
+```javascript
+  .controller('ArticleCtrl', function ($scope, $stateParams, $sanitize, $sce, Blog) {
+    $scope.article = {};
+    Blog.async('http://deploy.baimizhou.net/api/' + $stateParams.slug + '.json').then(function (results) {
+      $scope.article = results;
+      $scope.htmlContent = $sce.trustAsHtml($scope.article.articleHTML);
+    });
+
+  });
+```
