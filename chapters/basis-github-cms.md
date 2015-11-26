@@ -282,7 +282,11 @@ git的“API”提供了丰富的增、删、改功能——你需要commit就�
 1. git commit
 2. git push
 
-##编辑器
+于是，就会有一个很忙的Travis-Github Robot在默默地为你工作。
+
+![Robot提交代码](http://repractise.phodal.com/img/basis/robot-commit.png)
+
+##一键发布：编辑器
 
 为了实现之前说到的``编辑-发布-开发分离``的CMS，我还是花了两天的时间打造了一个面向普通用户的编辑器。效果截图如下所示：
 
@@ -321,13 +325,85 @@ repo.write('master', 'content/' + data.url + '.json', stringifyData, 'Robot: add
 });
 ```    
 
-Content -> CI -> Content -> Website / API
+当我们点下发送的时侯，这个内容就直接提交到了Content Repo下，如上上图所示。
+
+当我们向Content Push代码的时候，就会运行一下Trigger脚本：
+
+```yml
+after_success:
+  - node trigger-build.js
+```  
+
+脚本的代码如下所示：
+
+```javascript
+var Travis = require('travis-ci');
+
+var repo = "phodal-archive/echeveria-deploy";
+var travis = new Travis({
+    version: '2.0.0'
+});
+
+travis.authenticate({
+    github_token: process.env.GH_TOKEN
+
+}, function (err, res) {
+    if (err) {
+        return console.error(err);
+    }
+    travis.repos(repo.split('/')[0], repo.split('/')[1]).builds.get(function (err, res) {
+        if (err) {
+            return console.error(err);
+        }
+
+        travis.requests.post({
+            build_id: res.builds[0].id
+        }, function (err, res) {
+            if (err) {
+                return console.error(err);
+            }
+            console.log(res.flash[0].notice);
+        });
+    });
+});
+```
+
+由于，我们在这个过程我们的Content提交的是JSON数据，我们可以直接用这些数据做一个APP。
+
 
 ##移动应用
 
-![移动应用](http://repractise.phodal.com/img/cms/app.png)
+为了快速开发，这里我们使用了Ionic + ngCordova来开发 ，最后效果图如下所示：
 
-获取全部文章
+![移动应用](http://repractise.phodal.com/img/basis/app.png)
+
+在这个代码库里，主要由两部分组成：
+
+1. 获取全部文章
+2. 获取特定文章
+
+为了获取全部文章就意味着，我们在Builder里，需要一个task来合并JSON文件，并删掉其中的一些无用的内容，如articleHTML和article。最后，将生成一个名为articles.json。
+
+```javascript
+if (!grunt.file.exists(src))
+    throw "JSON source file \"" + chalk.red(src) + "\" not found.";
+else {
+    var fragment;
+    grunt.log.debug("reading JSON source file \"" + chalk.green(src) + "\"");
+    try {
+        fragment = grunt.file.readJSON(src);
+    }
+    catch (e) {
+        grunt.fail.warn(e);
+    }
+    fragment.description = sanitizeHtml(fragment.article).substring(0, 200);
+    delete fragment.article;
+    delete fragment.articleHTML;
+    json.push(fragment);
+}
+```                    
+
+接着，我们就可以获取所有的文章然后显示~~。在这里又顺便加了一个pullToRefresh。
 
 ```javascript
   .controller('ArticleListsCtrl', function ($scope, Blog) {
@@ -346,7 +422,16 @@ Content -> CI -> Content -> Website / API
   })
 ```
 
-获取特定文章
+最后，当我们点击特定的url，将跳转到相应的页面：
+
+```html
+<ion-item class="item item-icon-right" ng-repeat="article in articles" type="item-text-wrap" href="#/app/article/{{article.url}}">
+  <h2>{{article.title}}</h2>
+  <i class="icon ion-ios-arrow-right"></i>
+</ion-item>
+```      
+
+就会交由相应的Controller来处理。
 
 ```javascript
   .controller('ArticleCtrl', function ($scope, $stateParams, $sanitize, $sce, Blog) {
@@ -358,3 +443,21 @@ Content -> CI -> Content -> Website / API
 
   });
 ```
+
+##小结
+
+尽管没有一个更成熟的环境可以探索这其中的问题，但是我想对于当前这种情况来说，它是非常棒的解决方案。我们面向的不是那些技术人员，而是一般的用户。他们能熟练使用的是：编辑器和APP。
+
+1. 不会因为后台的升级来困扰他们，也不会受其他组件的影响。
+2. 开发人员不需要担心，某个功能影响了编辑器的使用。
+3. Ops不再担心网站的性能问题——然后要么转为DevOps、要么被Fire。
+
+###其他
+
+最后的代码库：
+
+1. Content: [https://github.com/phodal-archive/echeveria-content](https://github.com/phodal-archive/echeveria-content)
+2. Code: [https://github.com/phodal-archive/echeveria-deploy](https://github.com/phodal-archive/echeveria-deploy)
+3. 移动应用: [https://github.com/phodal-archive/echeveria-mobile](https://github.com/phodal-archive/echeveria-mobile)
+4. 桌面应用: [https://github.com/phodal/echeveria-editor](https://github.com/phodal/echeveria-editor)
+5. Github Pages: [https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages](https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages)
