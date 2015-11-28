@@ -41,7 +41,7 @@ So，在开始的时候我们需要有一个统一的ID，来标识我们的身�
 
 对于像我这样一个个默默无闻地人来说，用户可能会有下面几种不同的方法来知道我: 
 
-![live example](http://repractise.phodal.com/img/cms/live.jpg)
+![live example](http://repractise.phodal.com/img/impact/live.jpg)
 
 - 用户 -> 搜索{谷歌,百度,必应} -> 博客 -> {Weibo,Github}
 - 用户 -> 微博 -> {Github, 博客}
@@ -71,7 +71,7 @@ So，在开始的时候我们需要有一个统一的ID，来标识我们的身�
 
 以用户搜索的过程来说，用户是``有目的的进行搜索``。换句话说，在我们日常工作的时候，我们只关心和我们工作相关的内容。而在受众来，正常情况下，技术型的博文、笔记可以带来流量的主要原因是: ``大部分人都是初学者``。
 
-![70 percent](http://repractise.phodal.com/img/cms/70.jpg)
+![70 percent](http://repractise.phodal.com/img/impact/70.jpg)
 
 理论性的内容，更适合更高级别的开发者，这样的受众较少。
 
