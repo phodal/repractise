@@ -101,7 +101,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li><a href="#模式与设计">模式与设计</a></li>
 <li><a href="#易读">易读</a></li>
-<li><a href="#重构篇">重构篇</a></li>
+<li><a href="#重构篇">重构篇</a><ul>
+<li><a href="#网站重构">网站重构</a><ul>
+<li><a href="#基础网站重构">基础网站重构</a></li>
+<li><a href="#高级网站重构">高级网站重构</a></li>
+<li><a href="#网站重构目的">网站重构目的</a></li>
+</ul></li>
+<li><a href="#代码重构">代码重构</a></li>
+<li><a href="#使用工具重构">使用工具重构</a><ul>
+<li><a href="#重构之提炼函数">重构之提炼函数</a></li>
+<li><a href="#重构之内联函数">重构之内联函数</a></li>
+<li><a href="#重构之以查询取代临时变量">重构之以查询取代临时变量</a></li>
+</ul></li>
+<li><a href="#借助工具重构">借助工具重构</a><ul>
+<li><a href="#code-climate">Code Climate</a></li>
+</ul></li>
+</ul></li>
 <li><a href="#架构篇一-cms的重构与演进">架构篇一: CMS的重构与演进</a><ul>
 <li><a href="#动态cms">动态CMS</a><ul>
 <li><a href="#cms简介">CMS简介</a></li>
@@ -710,6 +725,469 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <h1 id="模式与设计">模式与设计</h1>
 <h1 id="易读">易读</h1>
 <h1 id="重构篇">重构篇</h1>
+<h2 id="网站重构">网站重构</h2>
+<p>与上述相似的是:在不改变外部行为的前提下，简化结构、添加可读性，而在网站前端保持一致的行为。也就是说是在不改变UI的情况下，对网站进行优化，在扩展的同时保持一致的UI。</p>
+<h3 id="基础网站重构">基础网站重构</h3>
+<p>过去人们所说的<code>网站重构</code></p>
+<blockquote>
+<p>把“未采用CSS，大量使用HTML进行定位、布局，或者虽然已经采用CSS，但是未遵循HTML结构化标准的站点”变成“让标记回归标记的原本意义。通过在HTML文档中使用结构化的标记以及用CSS控制页面表现，使页面的实际内容与它们呈现的格式相分离的站点。”的过程就是网站重构(Website Reconstruction)</p>
+</blockquote>
+<p>依照我做过的一些案例，对于传统的网站来说重构通常是</p>
+<ul>
+<li>表格(table)布局改为DIV+CSS</li>
+<li>使网站前端兼容于现代浏览器(针对于不合规范的CSS、如对IE6有效的)</li>
+<li>对于移动平台的优化</li>
+<li>针对于SEO进行优化</li>
+</ul>
+<h3 id="高级网站重构">高级网站重构</h3>
+<p>过去的网站重构</p>
+<blockquote>
+<p>所谓的网站重构就是“DIV+CSS”，想法固然极度局限。但也不是另一部分的人认为是“XHTML+CSS”，因为“XHTML+CSS”只是页面重构。</p>
+</blockquote>
+<p>而真正的网站重构</p>
+<blockquote>
+<p>应包含结构、行为、表现三层次的分离以及优化，行内分工优化，以及以技术与数据、人文为主导的交互优化等。</p>
+</blockquote>
+<p>深层次的网站重构应该考虑的方面</p>
+<ul>
+<li>减少代码间的耦合</li>
+<li>让代码保持弹性</li>
+<li>严格按规范编写代码</li>
+<li>设计可扩展的API</li>
+<li>代替旧有的框架、语言(如VB)</li>
+<li>增强用户体验</li>
+</ul>
+<p>通常来说对于速度的优化也包含在重构中</p>
+<ul>
+<li>压缩JS、CSS、image等前端资源(通常是由服务器来解决)</li>
+<li>程序的性能优化(如数据读写)</li>
+<li>采用CDN来加速资源加载</li>
+<li>对于JS DOM的优化</li>
+<li>HTTP服务器的文件缓存</li>
+</ul>
+<p>可以应用的的方面</p>
+<ul>
+<li><a href="http://www.phodal.com/blog/nginx-with-ngx-pagespeed-module-improve-website-cache/">使用Ngx_pagespeed优化前端</a></li>
+<li>解耦复杂的模块</li>
+<li>对缓存进行优化</li>
+<li>针对于内容创建或预留API</li>
+<li>需要添加新API，如(weChat等的支持)</li>
+<li>用新的语言、框架代码旧的框架(如VB.NET，C#.NET)</li>
+</ul>
+<h3 id="网站重构目的">网站重构目的</h3>
+<p>希望自己的网站</p>
+<ul>
+<li>成本变得更低</li>
+<li>运行得更好</li>
+<li>访问者更多</li>
+<li>维护愈加简单</li>
+<li>功能更强</li>
+</ul>
+<h2 id="代码重构">代码重构</h2>
+<h2 id="使用工具重构">使用工具重构</h2>
+<h3 id="重构之提炼函数">重构之提炼函数</h3>
+<p>Intellij IDEA带了一些有意思的快捷键，或者说自己之前不在意这些快捷键的存在。重构作为单独的一个菜单，显然也突显了其功能的重要性，说说<strong>提炼函数</strong>，或者说提出方法。</p>
+<p>快捷键</p>
+<p>Mac: <code>alt</code>+<code>command</code>+<code>M</code></p>
+<p>Windows/Linux: <code>Ctrl</code>+<code>Alt</code>+<code>M</code></p>
+<p>鼠标: Refactor | Extract | Method</p>
+<h4 id="重构之前">重构之前</h4>
+<p>以重构一书代码为例，重构之前的代码</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> extract {
+    <span class="kw">private</span> String _name;
+
+    <span class="dt">void</span> <span class="fu">printOwing</span>(<span class="dt">double</span> amount){
+        <span class="fu">printBanner</span>();
+        
+        System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;name:&quot;</span> + _name);
+        System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;amount&quot;</span> + amount);
+    }
+
+    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">printBanner</span>() {
+    }
+}</code></pre></div>
+<h4 id="重构">重构</h4>
+<p>选中</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;name:&quot;</span> + _name);
+System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;amount&quot;</span> + amount);</code></pre></div>
+<p>按下上述的快捷键，会弹出下面的对话框</p>
+<figure>
+<img src="http://repractise.phodal.com/img/refactor/extract-method.png" alt="Extrct Method" /><figcaption>Extrct Method</figcaption>
+</figure>
+<p>输入</p>
+<pre><code> printDetails</code></pre>
+<p>那么重构就完成了。</p>
+<h4 id="重构之后">重构之后</h4>
+<p>IDE就可以将方法提出来</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> extract {
+    <span class="kw">private</span> String _name;
+
+    <span class="dt">void</span> <span class="fu">printOwing</span>(<span class="dt">double</span> amount){
+        <span class="fu">printBanner</span>();
+        <span class="fu">printDetails</span>(amount);
+    }
+
+    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">printDetails</span>(<span class="dt">double</span> amount) {
+        System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;name:&quot;</span> + _name);
+        System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;amount&quot;</span> + amount);
+    }
+
+    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">printBanner</span>() {
+    }
+}</code></pre></div>
+<h4 id="重构-1">重构</h4>
+<p>还有一种就以Intellij IDEA的示例为例，这像是在说其的智能。</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> extract {
+    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">method</span>() {
+        <span class="dt">int</span> one = <span class="dv">1</span>;
+        <span class="dt">int</span> two = <span class="dv">2</span>;
+        <span class="dt">int</span> three = one + two;
+        <span class="dt">int</span> four = one + three;
+    }
+}</code></pre></div>
+<p>只是这次要选中的只有一行，</p>
+<p>`<code>int three = one + two;</code></p>
+<p>以便于其的智能，它便很愉快地告诉你它又找到了一个重复</p>
+<pre><code> IDE has detected 1 code fragments in this file that can be replaced with a call to extracted method...</code></pre>
+<p>便返回了这样一个结果</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> extract {
+
+    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">method</span>() {
+        <span class="dt">int</span> one = <span class="dv">1</span>;
+        <span class="dt">int</span> two = <span class="dv">2</span>;
+        <span class="dt">int</span> three = <span class="fu">add</span>(one, two);
+        <span class="dt">int</span> four = <span class="fu">add</span>(one, three);
+    }
+
+    <span class="kw">private</span> <span class="dt">int</span> <span class="fu">add</span>(<span class="dt">int</span> one, <span class="dt">int</span> two) {
+        <span class="kw">return</span> one + two;
+    }
+
+}</code></pre></div>
+<p>然而我们就可以很愉快地继续和它玩耍了。当然这其中还会有一些更复杂的情形，当学会了这一个剩下的也不难了。</p>
+<h3 id="重构之内联函数">重构之内联函数</h3>
+<p>继续走这重构一书的复习之路，接着便是内联，除了内联变量，当然还有内联函数。</p>
+<p>快捷键</p>
+<p>Mac: <code>alt</code>+<code>command</code>+<code>M</code></p>
+<p>Windows/Linux: <code>Ctrl</code>+<code>Alt</code>+<code>M</code></p>
+<p>鼠标: Refactor | Inline</p>
+<h4 id="重构之前-1">重构之前</h4>
+<p>以之前的<a href="http://www.phodal.com/blog/intellij-idea-refactor-extract-method/">提炼函数</a>为例</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> extract {
+
+    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">method</span>() {
+        <span class="dt">int</span> one = <span class="dv">1</span>;
+        <span class="dt">int</span> two = <span class="dv">2</span>;
+        <span class="dt">int</span> three = <span class="fu">add</span>(one, two);
+        <span class="dt">int</span> four = <span class="fu">add</span>(one, three);
+    }
+
+    <span class="kw">private</span> <span class="dt">int</span> <span class="fu">add</span>(<span class="dt">int</span> one, <span class="dt">int</span> two) {
+        <span class="kw">return</span> one + two;
+    }
+
+}</code></pre></div>
+<p>在<code>add(one,two)</code>很愉快地按上个快捷键吧，就会弹出</p>
+<figure>
+<img src="http://repractise.phodal.com/img/refactor/inline.jpg" alt="Inline Method" /><figcaption>Inline Method</figcaption>
+</figure>
+<p>再轻轻地回车，Refactor就这么结束了。。</p>
+<h4 id="intellij-idea-内联临时变量">Intellij Idea 内联临时变量</h4>
+<p>以书中的代码为例</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="dt">double</span> basePrice = anOrder.<span class="fu">basePrice</span>();
+<span class="kw">return</span> (basePrice &gt; <span class="dv">1000</span>);</code></pre></div>
+<p>同样的，按下<code>Command</code>+<code>alt</code>+<code>N</code></p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">return</span> (anOrder.<span class="fu">basePrice</span>() &gt; <span class="dv">1000</span>);</code></pre></div>
+<p>对于python之类的语言也是如此</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> inline_method():
+    baseprice <span class="op">=</span> anOrder.basePrice()
+    <span class="cf">return</span> baseprice <span class="op">&gt;</span> <span class="dv">1000</span></code></pre></div>
+<h3 id="重构之以查询取代临时变量">重构之以查询取代临时变量</h3>
+<p>继续看看有木有什么木有试过的功能，从之前的<a href="http://www.phodal.com/blog/intellij-idea-refactor-inline-method/">内联函数</a>、<a href="http://www.phodal.com/blog/intellij-idea-refactor-extract-method/">提炼函数</a>再到现在的<a href="http://www.phodal.com/blog/intellij-idea-refactor-replace-temp-with-query">Replace Temp With Query</a>(以查询取代临时变量)</p>
+<p>快捷键</p>
+<p>Mac: 木有</p>
+<p>Windows/Linux: 木有</p>
+<p>或者: <code>Shift</code>+<code>alt</code>+<code>command</code>+<code>T</code> 再选择 <code>Replace Temp with Query</code></p>
+<p>鼠标: <strong>Refactor</strong> | <code>Replace Temp with Query</code></p>
+<h4 id="重构之前-2">重构之前</h4>
+<p>过多的临时变量会让我们写出更长的函数，函数不应该太多，以便使功能单一。这也是重构的另外的目的所在，只有函数专注于其功能，才会更容易读懂。</p>
+<p>以书中的代码为例</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">import java.lang.System;</span>
+
+<span class="kw">public</span> <span class="kw">class</span> replaceTemp {
+    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">count</span>() {
+        <span class="dt">double</span> basePrice = _quantity * _itemPrice;
+        <span class="kw">if</span> (basePrice &gt; <span class="dv">1000</span>) {
+            <span class="kw">return</span> basePrice * <span class="fl">0.95</span>;
+        } <span class="kw">else</span> {
+            <span class="kw">return</span> basePrice * <span class="fl">0.98</span>;
+        }
+    }
+}</code></pre></div>
+<h4 id="重构-2">重构</h4>
+<p>选中<code>basePrice</code>很愉快地拿鼠标点上面的重构</p>
+<figure>
+<img src="http://repractise.phodal.com/img/refactor/replace.jpg" alt="Replace Temp With Query" /><figcaption>Replace Temp With Query</figcaption>
+</figure>
+<p>便会返回</p>
+<pre><code>import java.lang.System;
+
+public class replaceTemp {
+    public void count() {
+        if (basePrice() &gt; 1000) {
+            return basePrice() * 0.95;
+        } else {
+            return basePrice() * 0.98;
+        }
+    }
+
+    private double basePrice() {
+        return _quantity * _itemPrice;
+    }
+}</code></pre>
+<p>而实际上我们也可以</p>
+<ol type="1">
+<li><p>选中</p>
+<p>_quantity * _itemPrice</p></li>
+<li><p>对其进行<code>Extrace Method</code></p></li>
+<li><p>选择<code>basePrice</code>再<code>Inline Method</code></p></li>
+</ol>
+<p>在Intellij IDEA的文档中对此是这样的例子</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> replaceTemp {
+
+    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">method</span>() {
+        String str = <span class="st">&quot;str&quot;</span>;
+        String aString = <span class="fu">returnString</span>().<span class="fu">concat</span>(str);
+        System.<span class="fu">out</span>.<span class="fu">println</span>(aString);
+    }
+
+}</code></pre></div>
+<p>接着我们选中<code>aString</code>，再打开重构菜单，或者</p>
+<p><code>Command</code>+<code>Alt</code>+<code>Shift</code>+<code>T</code> 再选中Replace Temp with Query</p>
+<p>便会有下面的结果:</p>
+<p>java import java.lang.String;</p>
+<p>public class replaceTemp {</p>
+<pre><code>public void method() {
+    String str = &quot;str&quot;;
+    System.out.println(aString(str));
+}
+
+private String aString(String str) {
+    return returnString().concat(str);
+}</code></pre>
+<p>} ```</p>
+<h2 id="借助工具重构">借助工具重构</h2>
+<ul>
+<li>当你写了一大堆代码,你没有意识到里面有一大堆重复。</li>
+<li>当你写了一大堆测试,却不知道覆盖率有多少。</li>
+</ul>
+<p>这就是个问题了，于是偶然间看到了一个叫code climate的网站。</p>
+<h3 id="code-climate">Code Climate</h3>
+<blockquote>
+<p>Code Climate consolidates the results from a suite of static analysis tools into a single, real-time report, giving your team the information it needs to identify hotspots, evaluate new approaches, and improve code quality.</p>
+</blockquote>
+<p>Code Climate整合一组静态分析工具的结果到一个单一的，实时的报告，让您的团队需要识别热点，探讨新的方法，提高代码质量的信息。</p>
+<p>简单地来说:</p>
+<ul>
+<li>对我们的代码评分</li>
+<li>找出代码中的坏味道</li>
+</ul>
+<p>于是，我们先来了个例子</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Rating</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Complexity</th>
+<th style="text-align: left;">Duplication</th>
+<th style="text-align: left;">Churn</th>
+<th style="text-align: left;">C/M</th>
+<th style="text-align: left;">Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">lib/coap/coap_request_handler.js</td>
+<td style="text-align: left;">24</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">2.6</td>
+<td style="text-align: left;">46.4%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">lib/coap/coap_result_helper.js</td>
+<td style="text-align: left;">14</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">3.4</td>
+<td style="text-align: left;">80.0%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">lib/coap/coap_server.js</td>
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">5.2</td>
+<td style="text-align: left;">44.0%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">lib/database/db_factory.js</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">3.8</td>
+<td style="text-align: left;">92.3%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">lib/database/iot_db.js</td>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">1.0</td>
+<td style="text-align: left;">58.8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">lib/database/mongodb_helper.js</td>
+<td style="text-align: left;">63</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">4.5</td>
+<td style="text-align: left;">35.0%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">lib/database/sqlite_helper.js</td>
+<td style="text-align: left;">32</td>
+<td style="text-align: left;">86</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">4.5</td>
+<td style="text-align: left;">35.0%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: left;">lib/rest/rest_helper.js</td>
+<td style="text-align: left;">19</td>
+<td style="text-align: left;">62</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">4.7</td>
+<td style="text-align: left;">37.5%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">lib/rest/rest_server.js</td>
+<td style="text-align: left;">17</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">8.6</td>
+<td style="text-align: left;">88.9%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">lib/url_handler.js</td>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">2.2</td>
+<td style="text-align: left;">94.1%</td>
+</tr>
+</tbody>
+</table>
+<p>分享得到的最后的结果是:</p>
+<figure>
+<img src="http://repractise.phodal.com/img/refactor/coverage.png" alt="Coverage" /><figcaption>Coverage</figcaption>
+</figure>
+<h4 id="代码的坏味道">代码的坏味道</h4>
+<p>于是我们就打开<code>lib/database/sqlite_helper.js</code>，因为其中有两个坏味道</p>
+<blockquote>
+<p>Similar code found in two :expression_statement nodes (mass = 86)</p>
+</blockquote>
+<p>在代码的 <code>lib/database/sqlite_helper.js:58…61 &lt; &gt;</code></p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">deleteData</span> <span class="op">=</span> <span class="kw">function</span> (url<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
+    <span class="kw">var</span> sql_command <span class="op">=</span> <span class="st">&quot;DELETE FROM  &quot;</span> <span class="op">+</span> <span class="va">config</span>.<span class="at">table_name</span> <span class="op">+</span> <span class="st">&quot;  where &quot;</span> <span class="op">+</span> <span class="va">URLHandler</span>.<span class="at">getKeyFromURL</span>(url) <span class="op">+</span> <span class="st">&quot;=&quot;</span> <span class="op">+</span> <span class="va">URLHandler</span>.<span class="at">getValueFromURL</span>(url)<span class="op">;</span>
+    <span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">basic</span>(sql_command<span class="op">,</span> callback)<span class="op">;</span></code></pre></div>
+<p>lib/database/sqlite_helper.js:64…67 &lt; &gt;</p>
+<p>与</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">getData</span> <span class="op">=</span> <span class="kw">function</span> (url<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
+    <span class="kw">var</span> sql_command <span class="op">=</span> <span class="st">&quot;SELECT * FROM  &quot;</span> <span class="op">+</span> <span class="va">config</span>.<span class="at">table_name</span> <span class="op">+</span> <span class="st">&quot;  where &quot;</span> <span class="op">+</span> <span class="va">URLHandler</span>.<span class="at">getKeyFromURL</span>(url) <span class="op">+</span> <span class="st">&quot;=&quot;</span> <span class="op">+</span> <span class="va">URLHandler</span>.<span class="at">getValueFromURL</span>(url)<span class="op">;</span>
+    <span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">basic</span>(sql_command<span class="op">,</span> callback)<span class="op">;</span></code></pre></div>
+<p>只是这是之前修改过的重复。。</p>
+<p>原来的代码是这样的</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">postData</span> <span class="op">=</span> <span class="kw">function</span> (block<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
+    <span class="kw">var</span> db <span class="op">=</span> <span class="kw">new</span> <span class="va">sqlite3</span>.<span class="at">Database</span>(<span class="va">config</span>.<span class="at">db_name</span>)<span class="op">;</span>
+    <span class="kw">var</span> str <span class="op">=</span> <span class="kw">this</span>.<span class="at">parseData</span>(<span class="va">config</span>.<span class="at">keys</span>)<span class="op">;</span>
+    <span class="kw">var</span> string <span class="op">=</span> <span class="kw">this</span>.<span class="at">parseData</span>(block)<span class="op">;</span>
+
+    <span class="kw">var</span> sql_command <span class="op">=</span> <span class="st">&quot;insert or replace into &quot;</span> <span class="op">+</span> <span class="va">config</span>.<span class="at">table_name</span> <span class="op">+</span> <span class="st">&quot; (&quot;</span> <span class="op">+</span> str <span class="op">+</span> <span class="st">&quot;) VALUES (&quot;</span> <span class="op">+</span> string <span class="op">+</span> <span class="st">&quot;);&quot;</span><span class="op">;</span>
+    <span class="va">db</span>.<span class="at">all</span>(sql_command<span class="op">,</span> <span class="kw">function</span> (err) <span class="op">{</span>
+        <span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">errorHandler</span>(err)<span class="op">;</span>
+        <span class="va">db</span>.<span class="at">close</span>()<span class="op">;</span>
+        <span class="at">callback</span>()<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+<span class="op">};</span>
+
+<span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">deleteData</span> <span class="op">=</span> <span class="kw">function</span> (url<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
+    <span class="kw">var</span> db <span class="op">=</span> <span class="kw">new</span> <span class="va">sqlite3</span>.<span class="at">Database</span>(<span class="va">config</span>.<span class="at">db_name</span>)<span class="op">;</span>
+    <span class="kw">var</span> sql_command <span class="op">=</span> <span class="st">&quot;DELETE FROM  &quot;</span> <span class="op">+</span> <span class="va">config</span>.<span class="at">table_name</span> <span class="op">+</span> <span class="st">&quot;  where &quot;</span> <span class="op">+</span> <span class="va">URLHandler</span>.<span class="at">getKeyFromURL</span>(url) <span class="op">+</span> <span class="st">&quot;=&quot;</span> <span class="op">+</span> <span class="va">URLHandler</span>.<span class="at">getValueFromURL</span>(url)<span class="op">;</span>
+    <span class="va">db</span>.<span class="at">all</span>(sql_command<span class="op">,</span> <span class="kw">function</span> (err) <span class="op">{</span>
+        <span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">errorHandler</span>(err)<span class="op">;</span>
+        <span class="va">db</span>.<span class="at">close</span>()<span class="op">;</span>
+        <span class="at">callback</span>()<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+<span class="op">};</span>
+
+<span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">getData</span> <span class="op">=</span> <span class="kw">function</span> (url<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
+    <span class="kw">var</span> db <span class="op">=</span> <span class="kw">new</span> <span class="va">sqlite3</span>.<span class="at">Database</span>(<span class="va">config</span>.<span class="at">db_name</span>)<span class="op">;</span>
+    <span class="kw">var</span> sql_command <span class="op">=</span> <span class="st">&quot;SELECT * FROM  &quot;</span> <span class="op">+</span> <span class="va">config</span>.<span class="at">table_name</span> <span class="op">+</span> <span class="st">&quot;  where &quot;</span> <span class="op">+</span> <span class="va">URLHandler</span>.<span class="at">getKeyFromURL</span>(url) <span class="op">+</span> <span class="st">&quot;=&quot;</span> <span class="op">+</span> <span class="va">URLHandler</span>.<span class="at">getValueFromURL</span>(url)<span class="op">;</span>
+    <span class="va">db</span>.<span class="at">all</span>(sql_command<span class="op">,</span> <span class="kw">function</span> (err<span class="op">,</span> rows) <span class="op">{</span>
+        <span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">errorHandler</span>(err)<span class="op">;</span>
+        <span class="va">db</span>.<span class="at">close</span>()<span class="op">;</span>
+        <span class="at">callback</span>(<span class="va">JSON</span>.<span class="at">stringify</span>(rows))<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+<span class="op">};</span></code></pre></div>
+<p>说的也是大量的重复，重构完的代码</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">basic</span> <span class="op">=</span> <span class="kw">function</span>(sql<span class="op">,</span> db_callback)<span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
+    <span class="kw">var</span> db <span class="op">=</span> <span class="kw">new</span> <span class="va">sqlite3</span>.<span class="at">Database</span>(<span class="va">config</span>.<span class="at">db_name</span>)<span class="op">;</span>
+    <span class="va">db</span>.<span class="at">all</span>(sql<span class="op">,</span> <span class="kw">function</span> (err<span class="op">,</span> rows) <span class="op">{</span>
+        <span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">errorHandler</span>(err)<span class="op">;</span>
+        <span class="va">db</span>.<span class="at">close</span>()<span class="op">;</span>
+        <span class="at">db_callback</span>(<span class="va">JSON</span>.<span class="at">stringify</span>(rows))<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+
+<span class="op">};</span>
+
+<span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">postData</span> <span class="op">=</span> <span class="kw">function</span> (block<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
+    <span class="kw">var</span> str <span class="op">=</span> <span class="kw">this</span>.<span class="at">parseData</span>(<span class="va">config</span>.<span class="at">keys</span>)<span class="op">;</span>
+    <span class="kw">var</span> string <span class="op">=</span> <span class="kw">this</span>.<span class="at">parseData</span>(block)<span class="op">;</span>
+
+    <span class="kw">var</span> sql_command <span class="op">=</span> <span class="st">&quot;insert or replace into &quot;</span> <span class="op">+</span> <span class="va">config</span>.<span class="at">table_name</span> <span class="op">+</span> <span class="st">&quot; (&quot;</span> <span class="op">+</span> str <span class="op">+</span> <span class="st">&quot;) VALUES (&quot;</span> <span class="op">+</span> string <span class="op">+</span> <span class="st">&quot;);&quot;</span><span class="op">;</span>
+    <span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">basic</span>(sql_command<span class="op">,</span> callback)<span class="op">;</span>
+<span class="op">};</span>
+
+<span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">deleteData</span> <span class="op">=</span> <span class="kw">function</span> (url<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
+    <span class="kw">var</span> sql_command <span class="op">=</span> <span class="st">&quot;DELETE FROM  &quot;</span> <span class="op">+</span> <span class="va">config</span>.<span class="at">table_name</span> <span class="op">+</span> <span class="st">&quot;  where &quot;</span> <span class="op">+</span> <span class="va">URLHandler</span>.<span class="at">getKeyFromURL</span>(url) <span class="op">+</span> <span class="st">&quot;=&quot;</span> <span class="op">+</span> <span class="va">URLHandler</span>.<span class="at">getValueFromURL</span>(url)<span class="op">;</span>
+    <span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">basic</span>(sql_command<span class="op">,</span> callback)<span class="op">;</span>
+<span class="op">};</span>
+
+<span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">getData</span> <span class="op">=</span> <span class="kw">function</span> (url<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
+    <span class="kw">var</span> sql_command <span class="op">=</span> <span class="st">&quot;SELECT * FROM  &quot;</span> <span class="op">+</span> <span class="va">config</span>.<span class="at">table_name</span> <span class="op">+</span> <span class="st">&quot;  where &quot;</span> <span class="op">+</span> <span class="va">URLHandler</span>.<span class="at">getKeyFromURL</span>(url) <span class="op">+</span> <span class="st">&quot;=&quot;</span> <span class="op">+</span> <span class="va">URLHandler</span>.<span class="at">getValueFromURL</span>(url)<span class="op">;</span>
+    <span class="va">SQLiteHelper</span>.<span class="va">prototype</span>.<span class="at">basic</span>(sql_command<span class="op">,</span> callback)<span class="op">;</span>
+<span class="op">};</span></code></pre></div>
+<p>重构完后的代码比原来还长，这似乎是个问题~~</p>
 <h1 id="架构篇一-cms的重构与演进">架构篇一: CMS的重构与演进</h1>
 <p>重构系统是一项非常具有挑战性的事情。通常来说，在我们的系统是第二个系统的时候才需要重构，即这个系统本身已经很臃肿。我们花费了太量的时间在代码间的逻辑，开发新的功能变得越来越慢。这不仅仅可能只是因为我们之前的架构没有设计好，而且在我们开发的过程中没有保持着原先设计时的一些原则。如果是这样的情况，那么这就是一个复杂的过程。</p>
 <p>还有一种情况是我们发现了一种更符合我们当前业务的框架。</p>
