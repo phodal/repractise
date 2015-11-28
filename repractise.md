@@ -51,8 +51,6 @@
 
 业务本身是一种重复，技术本身也是重复的。只是在某个特定的时刻，一个好的技术可以帮助我们更好地Re-Practise。如推荐算法本身依赖于人为对信息进行分类，但是我们需要去区分大量地信息。而人本身的经历是足够有险的，这时候就需要机器来帮我们做很多事。
 
-##小结
-
 今天我在用MX5，但是发现不及Lumia 1020来得安静。功能越强大的同时，意味着我在上面花费的时间会更多。事情有好的一面总会有不好的一面，不好的一面也就意味着有机会寻找好的一面。
 
 我们需要摒弃一些东西，以重新纠正我们的方向。于是，我需要再次回到Lumia 1020上。
@@ -63,493 +61,13 @@
 
 > 输了，才需要加倍努力
 
-#时间的力量：从小工到能手
-
-工作的日子里，每天都会八点多到公司，边点东西边看看Google Analytics，看看昨天博客有多少访问量，吃完了就写写代码刷刷Github。到了九点多，人差不多来齐了——我们不打卡，就开始了上午的工作。中午的时候会趁着午休的小间隙翻译点书，或者写点代码，写会文章。晚上吃完饭，走到家里休息会儿就八点了。看看书，写写代码，一天就过去了。
-
-生活似乎变成了流水帐，不会发生什么特别大的变化，没有特别大的故事。日复一日的单调而又不无聊，周末也是码码字、写写代码、看看书，玩局《文明》、看部电影或者陪女朋友出去吃好吃的就过去了。
-
-##上即是下，输出即是输入
-
-在你写过了很多的代码之后，你也许也发现了一些神奇的事情——即使你写了再多代码，你的能力并没有多少提升。人们通常称之称为瓶颈。这不禁让人想起经济危机的时候，有的国家发起了战争，有的国家开始变革，有的则无为而治，每况愈下。有时候我们发现不了我们有更好的选择。
-
-###写作
-
-###编程
-
-##阅读
-
 #介绍
-
-#构建基于Github的CMS
-
-或许你也用过Hexo / Jekyll / Octopress这样的静态博客，他们的原理都是类似的。我们有一个代码库用于生成静态页面，然后这些静态页面会被PUSH到Github Pages上。
-
-从我们设计系统的角度来说，我们会在Github上有三个主要代码库：
-
-1. Content。用于存放编辑器生成的JSON文件，这样我们就可以GET这些资源，并用Backbone / Angular / React 这些前端框架来搭建SPA。
-2. Code。开发者在这里存放他们的代码，如主题、静态文件生成器、资源文件等等。
-3. Builder。在这里它是运行于Travis CI上的一些脚本文件，用于Clone代码，并执行Code中的脚本。
-
-以及一些额外的服务，当且仅当你有一些额外的功能需求的时候。
-
-1. Extend Service。当我们需要搜索服务时，我们就需要这样的一些服务。如我正考虑使用Python的whoosh来完成这个功能，这时候我计划用Flask框架，但是只是计划中——因为没有合适的中间件。
-2. Editor。相比于前面的那些知识这一步适合更重要，也就是为什么生成的格式是JSON而不是Markdown的原理。对于非程序员来说，要熟练掌握Markdown不是一件容易的事。于是，一个考虑中的方案就是使用 Electron + Node.js来生成API，最后通过GitHub API V3来实现上传。
-3. Mobile App。
-
-So，这一个过程是如何进行的。
-
-###用户场景
-
-整个过程的Pipeline如下所示：
-
-1. 编辑使用他们的编辑器来编辑的内容并点击发布，然后这个内容就可以通过GitHub API上传到Content这个Repo里。
-2. 这时候需要有一个WebHooks监测到了Content代码库的变化，便运行Builder这个代码库的Travis CI。
-3. 这个Builder脚本首先，会设置一些基本的git配置。然后clone Content和Code的代码，接着运行构建命令，生成新的内容。
-4. 然后Builder Commit内容，并PUSH内容。
-
-在这种情形中，编辑能否完成工作就不依赖于网站——脱稿又少了 个借口。这时候网站出错的概率太小了——你不需要一个缓存服务器、HTTP服务器，由于没有动态生成的内容，你也不需要守护进程。这些内容都是静态文件，你可以将他们放在任何可以提供静态文件托管的地方——CloudFront、S3等等。或者你再相信自己的服务器，Nginx可是全球第二好（第一还没出现）的静态文件服务器。
-
-开发人员只在需要的时候去修改网站的一些内容。So，你可能会担心如果这时候修改的东西有问题了怎么办。
-
-1. 使用这种模式就意味着你需要有测试来覆盖这些构建工具、生成工具。
-2. 相比于自己的代码，别人的CMS更可靠？
-
-需要注意的是如果你上一次构建成功，你生成的文件都是正常的，那么你只需要回滚开发相关的代码即可。旧的代码仍然可以工作得很好。其次，由于生成的是静态文件，查错的成本就比较低。最后，重新放上之前的静态文件。
-
-##Code: 生成静态页面
-
-Assemble是一个使用Node.js，Grunt.js，Gulp，Yeoman 等来实现的静态网页生成系统。这样的生成器有很多，Zurb Foundation, Zurb Ink, Less.js / lesscss.org, Topcoat, Web Experience Toolkit等组织都使用这个工具来生成。这个工具似乎上个Release在一年多以前，现在正在开始0.6。虽然，这并不重要，但是还是顺便一说。
-
-我们所要做的就是在我们的``Gruntfile.js``中写相应的生成代码。
-
-```javascript
-	assemble: {
-      options: {
-        flatten: true,
-        partials: ['templates/includes/*.hbs'],
-        layoutdir: 'templates/layouts',
-        data: 'content/blogs.json',
-        layout: 'default.hbs'
-      },
-      site: {
-        files: {'dest/': ['templates/*.hbs']}
-      },
-      blogs: {
-        options: {
-          flatten: true,
-          layoutdir: 'templates/layouts',
-          data: 'content/*.json',
-          partials: ['templates/includes/*.hbs'],
-          pages: pages
-        },
-        files: [
-          { dest: './dest/blog/', src: '!*' }
-        ]
-      }
-    }
-```    
-
-配置中的site用于生成页面相关的内容，blogs则可以根据json文件的文件名生成对就的html文件存储到blog目录中。
-
-生成后的目录结果如下图所示：
-
-```
- .
-├── about.html
-├── blog
-│   ├── blog-posts.html
-│   └── blogs.html
-├── blog.html
-├── css
-│   ├── images
-│   │   └── banner.jpg
-│   └── style.css
-├── index.html
-└── js
-    ├── jquery.min.js
-    └── script.js
-
-7 directories, 30 files
-```
-
-这里的静态文件内容就是最后我们要发布的内容。
-
-还需要做的一件事情就是：
-
-```javascript
-grunt.registerTask('dev', ['default', 'connect:server', 'watch:site']);
-```
-
-用于开发阶段这样的代码就够了，这个和你使用WebPack + React 似乎相差不了多少。
-
-
-##Builder: 构建生成工具
-
-Github与Travis之间，可以做一个自动部署的工具。相信已经有很多人在Github上玩过这样的东西——先在Github上生成Token，然后用travis加密：
-
-```bash
-travis encrypt-file ssh_key --add
-```
-
-加密后的Key就会保存到``.travis.yml``文件里，然后就可以在Travis CI上push你的代码到Github上了。
-
-接着，你需要创建个deploy脚本，并且在``after_success``执行它：
-
-```yml
-after_success:
-  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash deploy.sh
-```
-
-在这个脚本里，你所需要做的就是clone content和code中的代码，并执行code中的生成脚本，生成新的内容后，提交代码。
-
-```
-#!/bin/bash
-
-set -o errexit -o nounset
-
-rev=$(git rev-parse --short HEAD)
-
-cd stage/
-
-git init
-git config user.name "Robot"
-git config user.email "robot@phodal.com"
-
-git remote add upstream "https://$GH_TOKEN@github.com/phodal-archive/echeveria-deploy.git"
-git fetch upstream
-git reset upstream/gh-pages
-
-git clone https://github.com/phodal-archive/echeveria-deploy code
-git clone https://github.com/phodal-archive/echeveria-content content
-pwd
-cp -a content/contents code/content
-
-cd code
-
-npm install
-npm install grunt-cli -g
-grunt 
-mv dest/* ../
-cd ../
-rm -rf code
-rm -rf content
-
-touch .
-
-if [ ! -f CNAME ]; then
-    echo "deploy.baimizhou.net" > CNAME
-fi
-
-git add -A .
-git commit -m "rebuild pages at ${rev}"
-git push -q upstream HEAD:gh-pages
-```
-
-这就是这个builder做的事情——其中最主要的一个任务是``grunt``，它所做的就是:
-
-```javascript
-grunt.registerTask('default', ['clean', 'assemble', 'copy']);
-```
-##Content：JSON格式
-
-在使用Github和Travis CI完成Content的时候，发现没有一个好的Webhook。虽然我们的Content只能存储一些数据，但是放一个trigger脚本也是可以原谅的。
-
-```javascript
-var Travis = require('travis-ci');
-
-var repo = "phodal-archive/echeveria-deploy";
-
-var travis = new Travis({
-    version: '2.0.0'
-});
-
-travis.authenticate({
-    github_token: process.env.GH_TOKEN
-
-}, function (err, res) {
-    if (err) {
-        return console.error(err);
-    }
-
-    travis.repos(repo.split('/')[0], repo.split('/')[1]).builds.get(function (err, res) {
-        if (err) {
-            return console.error(err);
-        }
-
-        travis.requests.post({
-            build_id: res.builds[0].id
-        }, function (err, res) {
-            if (err) {
-                return console.error(err);
-            }
-            console.log(res.flash[0].notice);
-        });
-    });
-});
-```
-
-这里主要依赖于Travis CI来完成这部分功能，这时候我们还需要数据。
-
-###从Schema到数据库
-
-我们在我们数据库中定义好了Schema——对一个数据库的结构描述。在《[编辑-发布-开发分离](https://www.phodal.com/blog/editing-publishing-coding-seperate/)
-》一文中我们说到了echeveria-content的一个数据文件如下所示：
-
-```javascript
-  {
-    "title": "白米粥",
-    "author": "白米粥",
-    "url": "baimizhou",
-    "date": "2015-10-21",
-    "description": "# Blog post \n  > This is an example blog post \n Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-    "blogpost": "# Blog post \n  > This is an example blog post \n Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \n Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  }
-```
-
-比起之前的直接生成静态页面这里的数据就是更有意思地一步了，我们从数据库读取数据就是为了生成一个JSON文件。何不直接以JSON的形式存储文件呢？
-
-我们都定义了这每篇文章的基本元素:
-
-1. title
-2. author
-3. date
-4. description
-5. content
-6. url
-
-即使我们使用NoSQL我们也很难逃离这种模式。我们定义这些数据，为了在使用的时候更方便。存储这些数据只是这个过程中的一部分，下部分就是取出这些数据并对他们进行过滤，取出我们需要的数据。
-
-Web的骨架就是这么简单，当然APP也是如此。难的地方在于存储怎样的数据，返回怎样的数据。不同的网站存储着不同的数据，如淘宝存储的是商品的信息，Google存储着各种网站的数据——人们需要不同的方式去存储这些数据，为了更好地存储衍生了更多的数据存储方案——于是有了GFS、Haystack等等。运营型网站想尽办法为最后一公里努力着，成长型的网站一直在想着怎样更好的返回数据，从更好的用户体验到机器学习。而数据则是这个过程中不变的东西。
-
-尽管，我已经想了很多办法去尽可能减少元素——在最开始的版本里只有标题和内容。然而为了满足我们在数据库中定义的结构，不得不造出来这么多对于一般用户不友好的字段。如链接名是为了存储的文件名而存在的，即这个链接名在最后会变成文件名：
-
-```javascript
-repo.write('master', 'contents/' + data.url + '.json', stringifyData, 'Robot: add article ' + data.title, options, function (err, data) {
-      if(data.commit){
-        that.setState({message: "上传成功" + JSON.stringify(data)});
-        that.refs.snackbar.show();
-        that.setState({
-          sending: 0
-        });
-      }
-    });
-```    
-
-然后，上面的数据就会变成一个对象存储到“数据库”中。
-
-今天 ，仍然有很多人用Word、Excel来存储数据。因为对于他们来说，这些软件更为直接，他们简单地操作一下就可以对数据进行排序、筛选。数据以怎样的形式存储并不重要，重要的是他们都以文件的形式存储着。
-
-###git作为NoSQL数据库
-
-不同的数据库会以不同的形式存储到文件中去。blob是git中最为基本的存储单位，我们的每个content都是一个blob。redis可以以rdb文件的形式存储到文件系统中。完成一个CMS，我们并不需要那么多的查询功能。
-
-> 这些上千年的组织机构，只想让人们知道他们想要说的东西。
-
-我们使用NoSQL是因为：
-
-1. 不使用关系模型
-2. 在集群中运行良好
-3. 开源
-4. 无模式
-5. 数据交换格式
-
-我想其中只有两点对于我来说是比较重要的``集群``与``数据格式``。但是集群和数据格式都不是我们要考虑的问题。。。
-
-我们也不存在数据格式的问题、开源的问题，什么问题都没有。。除了，我们之前说到的查询——但是这是可以解决的问题，我们甚至可以返回不同的历史版本的。在这一点上git做得很好，他不会像WordPress那样存储多个版本。
-
-JSON文件 + Nginx就可以变成这样一个合理的API，甚至是运行方式。我们可以对其进行增、删、改、查，尽管就当前来说查需要一个额外的软件来执行，但是为了实现一个用得比较少的功能，而去花费大把的时间可能就是在浪费。
-
-git的“API”提供了丰富的增、删、改功能——你需要commit就可以了。我们所要做的就是:
-
-1. git commit
-2. git push
-
-于是，就会有一个很忙的Travis-Github Robot在默默地为你工作。
-
-![Robot提交代码](http://repractise.phodal.com/img/basis/robot-commit.png)
-
-##一键发布：编辑器
-
-为了实现之前说到的``编辑-发布-开发分离``的CMS，我还是花了两天的时间打造了一个面向普通用户的编辑器。效果截图如下所示：
-
-![编辑器](http://repractise.phodal.com/img/cms/editor.png)
-
-作为一个普通用户，这是一个很简单的软件。除了Electron + Node.js + React作了一个140M左右的软件，尽管压缩完只有40M左右 ，但是还是会把用户吓跑的。不过作为一个快速构建的原型已经很不错了——构建速度很快、并且运行良好。
-
-- Electron
-- React
-- Material UI
-- Alloy Editor 
-
-尽管这个界面看上去还是稍微复杂了一下，还在试着想办法将链接名和日期去掉——问题是为什么会有这两个东西？
-
-Webpack 打包
-
-```
-  if (process.env.HOT) {
-    mainWindow.loadUrl('file://' + __dirname + '/app/hot-dev-app.html');
-  } else {
-    mainWindow.loadUrl('file://' + __dirname + '/app/app.html');
-  }
-```
-
-上传代码
-
-```javascript
-repo.write('master', 'content/' + data.url + '.json', stringifyData, 'Robot: add article ' + data.title, options, function (err, data) {
-  if(data.commit){
-    that.setState({message: "上传成功" + JSON.stringify(data)});
-    that.refs.snackbar.show();
-    that.setState({
-      sending: 0
-    });
-  }
-});
-```    
-
-当我们点下发送的时侯，这个内容就直接提交到了Content Repo下，如上上图所示。
-
-当我们向Content Push代码的时候，就会运行一下Trigger脚本：
-
-```yml
-after_success:
-  - node trigger-build.js
-```  
-
-脚本的代码如下所示：
-
-```javascript
-var Travis = require('travis-ci');
-
-var repo = "phodal-archive/echeveria-deploy";
-var travis = new Travis({
-    version: '2.0.0'
-});
-
-travis.authenticate({
-    github_token: process.env.GH_TOKEN
-
-}, function (err, res) {
-    if (err) {
-        return console.error(err);
-    }
-    travis.repos(repo.split('/')[0], repo.split('/')[1]).builds.get(function (err, res) {
-        if (err) {
-            return console.error(err);
-        }
-
-        travis.requests.post({
-            build_id: res.builds[0].id
-        }, function (err, res) {
-            if (err) {
-                return console.error(err);
-            }
-            console.log(res.flash[0].notice);
-        });
-    });
-});
-```
-
-由于，我们在这个过程我们的Content提交的是JSON数据，我们可以直接用这些数据做一个APP。
-
-
-##移动应用
-
-为了快速开发，这里我们使用了Ionic + ngCordova来开发 ，最后效果图如下所示：
-
-![移动应用](http://repractise.phodal.com/img/basis/app.png)
-
-在这个代码库里，主要由两部分组成：
-
-1. 获取全部文章
-2. 获取特定文章
-
-为了获取全部文章就意味着，我们在Builder里，需要一个task来合并JSON文件，并删掉其中的一些无用的内容，如articleHTML和article。最后，将生成一个名为articles.json。
-
-```javascript
-if (!grunt.file.exists(src))
-    throw "JSON source file \"" + chalk.red(src) + "\" not found.";
-else {
-    var fragment;
-    grunt.log.debug("reading JSON source file \"" + chalk.green(src) + "\"");
-    try {
-        fragment = grunt.file.readJSON(src);
-    }
-    catch (e) {
-        grunt.fail.warn(e);
-    }
-    fragment.description = sanitizeHtml(fragment.article).substring(0, 200);
-    delete fragment.article;
-    delete fragment.articleHTML;
-    json.push(fragment);
-}
-```                    
-
-接着，我们就可以获取所有的文章然后显示~~。在这里又顺便加了一个pullToRefresh。
-
-```javascript
-  .controller('ArticleListsCtrl', function ($scope, Blog) {
-    $scope.articles = null;
-    $scope.blogOffset = 0;
-    $scope.doRefresh = function () {
-      Blog.async('http://deploy.baimizhou.net/api/blog/articles.json').then(function (results) {
-        $scope.articles = results;
-      });
-      $scope.$broadcast('scroll.refreshComplete');
-      $scope.$apply()
-    };
-    Blog.async('http://deploy.baimizhou.net/api/blog/articles.json').then(function (results) {
-      $scope.articles = results;
-    });
-  })
-```
-
-最后，当我们点击特定的url，将跳转到相应的页面：
-
-```html
-<ion-item class="item item-icon-right" ng-repeat="article in articles" type="item-text-wrap" href="#/app/article/{{article.url}}">
-  <h2>{{article.title}}</h2>
-  <i class="icon ion-ios-arrow-right"></i>
-</ion-item>
-```      
-
-就会交由相应的Controller来处理。
-
-```javascript
-  .controller('ArticleCtrl', function ($scope, $stateParams, $sanitize, $sce, Blog) {
-    $scope.article = {};
-    Blog.async('http://deploy.baimizhou.net/api/' + $stateParams.slug + '.json').then(function (results) {
-      $scope.article = results;
-      $scope.htmlContent = $sce.trustAsHtml($scope.article.articleHTML);
-    });
-
-  });
-```
-
-##小结
-
-尽管没有一个更成熟的环境可以探索这其中的问题，但是我想对于当前这种情况来说，它是非常棒的解决方案。我们面向的不是那些技术人员，而是一般的用户。他们能熟练使用的是：编辑器和APP。
-
-1. 不会因为后台的升级来困扰他们，也不会受其他组件的影响。
-2. 开发人员不需要担心，某个功能影响了编辑器的使用。
-3. Ops不再担心网站的性能问题——然后要么转为DevOps、要么被Fire。
-
-###其他
-
-最后的代码库：
-
-1. Content: [https://github.com/phodal-archive/echeveria-content](https://github.com/phodal-archive/echeveria-content)
-2. Code: [https://github.com/phodal-archive/echeveria-deploy](https://github.com/phodal-archive/echeveria-deploy)
-3. 移动应用: [https://github.com/phodal-archive/echeveria-mobile](https://github.com/phodal-archive/echeveria-mobile)
-4. 桌面应用: [https://github.com/phodal/echeveria-editor](https://github.com/phodal/echeveria-editor)
-5. Github Pages: [https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages](https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages)
 
 #构建篇：Build
 
 构建是一个很大的话题，特别是对于传统软件来说，对于Web应用也是相当重要的。
 
-#RePractise前端篇: 前端演进史
+#前端篇: 前端演进史
 
 细细整理了过去接触过的那些前端技术，发现前端演进是段特别有意思的历史。人们总是在过去就做出未来需要的框架，而现在流行的是过去的过去发明过的。如，响应式设计不得不提到的一个缺点是：**他只是将原本在模板层做的事，放到了样式（CSS）层来完成**。
 
@@ -1024,7 +542,164 @@ React，将一小部分复杂度交由人来消化，将另外一部分交给了
 
 
 
-#RePractise前端篇: 数据-表现-领域
+#个人篇：影响力
+
+> 影响力，让梦想离你更近。
+
+试想一下，有一天你开发了一个新的语言。它比现有的某某主流软件，运行效率将提高了50%，开发效率提高了100%。接着，你在github上release了0.1，但是由于出现某个开发难题，你需要别人的帮助。而这时，你找不到有效的途径去找到那些真正会用它的人。接着出现了一个新的语言可以达到一样的效果，而这个项目就死于腹中，我记得[mruby](https://github.com/mruby/mruby)刚刚只写了一个``README.md``的时候，就获得了上千个star。
+
+##如何提高影响力，为自己代言
+
+![impact](http://repractise.phodal.com/img/impact/impact.jpg)
+
+每个人都可以是一个品牌，对于一个程序员来说，我们的ID就是我们的品牌。而构成品牌的有多个要素:
+
+- 博客
+- Github
+- Weibo(or Twitter)
+- StackOverflow(or SegmentFault, Zhihu)
+
+等等。
+
+###搭建一个跨平台的平台
+
+> 连接各个平台的核心是我们的ID。
+
+第一个平台指的是不同的网站，如我们的博客、Github、知乎等等，第二个平台指的是我们的影响力。
+
+So，在开始的时候我们需要有一个统一的ID，来标识我们的身份:我是谁，你在xx网站上看到的那个xx就是我。刚开始的时候，我在CSDN、Github上的ID(gmszone)和我的博客的域名(Phodal)是不一样的，因为当时的域名(gmszone.com)握在别人的手上，于是我便想办法将两个ID改了过来（ps: github提供迁移)。后来，Phodal就成了我的发声平台:
+
+- [http://www.phodal.com/](http://www.phodal.com/)
+- [http://weibo.com/phodal](http://weibo.com/phodal)
+- [http://www.zhihu.com/people/phodal](http://www.zhihu.com/people/phodal)
+- [http://github.com/phodal](http://github.com/phodal)
+- [http://segmentfault.com/u/phodal](http://segmentfault.com/u/phodal)
+- [http://www.douban.com/people/phodal/](http://www.douban.com/people/phodal/)
+- ...
+
+于是，这时就可以开始使用跨平台的平台了。
+
+##构建平台
+
+> 小博客也会有成长的一天。
+
+对于像我这样一个个默默无闻地人来说，用户可能会有下面几种不同的方法来知道我: 
+
+![live example](http://repractise.phodal.com/img/cms/live.jpg)
+
+- 用户 -> 搜索{谷歌,百度,必应} -> 博客 -> {Weibo,Github}
+- 用户 -> 微博 -> {Github, 博客}
+- 用户 —> Github -> 博客
+- 用户 -> {知乎, SegmentFault} -> {Weibo,Github,博客}
+
+###博客
+
+刚开始在CSDN上写博客的时候，一开始的访问量很少，慢慢地就多了。有一天发现这样的博客不是自己想要的，于是建了自己的博客，一开始的流量是0。像CSDN这样的网站推荐一些文章到首页，如果能这样便是幸运的。在经历大半年的几乎零流量之后，开始慢慢增长了。到了今天，一共有470篇博客(有一些是出于测试SEO目的写成多篇文章)。一天的PageView大平均有五百左右，主要来源是搜索引擎，百度200左右，谷歌50左右，必应10左右。
+
+####用户故事
+
+对于一个程序员来说，必须在某种程度上熟悉怎么搜索自己想要的内容，即**关键字**。如我们想要知道如何在OpenWRT OS上用Python，那么我们会搜索``OpenWRT Python``。于是，这个时候我们博客的标题带有OpenWRT Python，那么我们可能就中奖了。
+
+故事，告诉我们**好的标题很重要**。**重复这个主题**也很重要，会有一个更好的排名。至于，如何更好地排到第一，就是SEO(搜索引擎优化)的话题了。
+
+####笔记
+
+一开始要写一个博客是比较难的，没有流量、没有评论。所以，一个好的切入点是: ``笔记``。最好是那种网上很少的内容的笔记，虽说很多人不愿意去做这个，但是这是一个很好的方向。
+
+一个技术博客里面的内容应该是两种类型:
+
+- 技术
+- 理论
+
+技术型可以带来流量，理论型的可以带来评论。理想的话，两者会相辅相成的，但是在我们刚处于学习期的时候。那么那些Note，可以给我们带来一些流量，也带来一些信心。如果，只是想着一开始我就只写一些长篇大论的话，那么只是就是拿了80%的时间做了20%的事。
+
+以用户搜索的过程来说，用户是``有目的的进行搜索``。换句话说，在我们日常工作的时候，我们只关心和我们工作相关的内容。而在受众来，正常情况下，技术型的博文、笔记可以带来流量的主要原因是: ``大部分人都是初学者``。
+
+![70 percent](http://repractise.phodal.com/img/cms/70.jpg)
+
+理论性的内容，更适合更高级别的开发者，这样的受众较少。
+
+####上头条
+
+而在今天有其他的平台，可以借用来推销自己的:
+
+- 开发者头条
+- 极客头条
+- 掘金稀土
+- ...
+
+网上的IT新闻、博客都是互相Copy，对于一些软文(如本文)来说。这也是期触及率高的原因，通常来说这样可以带来大量的流量。记得在原文中留个原文链接，附张图片(自己博客的图片)来保证:Google把原文指向你的博客，而不是免费为别人打工。
+
+####提升
+
+除了是一个很好的展示平台，也是一个很好的测试平台。作为一个Web Developer，测试过
+
+- Nginx Log分析(~600M)
+- New Relic
+- SEO
+- AutoComplete
+- 重构网站
+- ...
+
+###Github
+
+将自己尝试的不同技术栈的内容丢到Github上，加上适当地文档、博客，就变成了一个很好的Demo。然而，不止于此，越来越多地人开始在Github寻找人才，因为他们乐于付出，也乐于分离。曾经因为Github上的项目:
+
+- 申请WebStorm开源License
+- Review英文版书籍
+- ...(有些不方便透露)
+
+而在Github上的项目其实不仅仅只有一些库:
+
+ - 库和框架: 和``jQuery`` 
+ - 系统: 如``Linux``、``hhvm``、``docker``
+ - 配置集: 如``dotfiles``
+ - 辅助工具: 如``oh-my-zsh``
+ - 工具: 如``Homewbrew``和``Bower``
+ - 资料收集: 如``free programming books``，``You-Dont-Know-JS``，``Font-Awesome``
+ - 其他:简历如``Resume``，``博客``
+
+所以，可以尝试不同的切入点使用Github。
+
+在某种程度上来说，一个人在Gihub上的粉丝数量会帮助他的项目在初期获取更多的人气。这样就有助于其下一步开展项目，当然也会在某种程度上更好看Blabla。
+
+####提升
+
+之前写过一篇[《如何通过github提升自己》](http://www.phodal.com/blog/use-github-grow-self/)中说到了一些细节，大致上还是那些东西，Github与Trello、Travis-CI、Coveralls、SauceLabs、Code Climate，配合得很好。已经可以接近于我们在一些项目上用到的功能，因此拿他们搭建一个好的开发环境完全不是问题。
+
+- Travis CI:支持Node.js、Python、Ruby、PHP等二十几种语言，也支持MySQL、PostgreSQL、MongoDB、Redis等数据库。
+- Coveralls:可以用来查看代码的测试覆盖率。
+- SauceLabs:可以用来跑Selenium功能测试等等
+- Code Climate:查看代码的坏味道。
+
+在我们试着去保证测试覆盖率、代码质量等等的时候，我们就可以学到一些知识，如使用不同语言测试框架的Mock、Stub、FakeServer等等。
+
+###扩大影响力
+
+上面的两部分属于打造平台部分，而如Weibo、知乎等则属于扩大影响力。
+
+在某种时候，博客、Github都更像是个人的平台。如Weibo、知乎、SegmentFault、CSDN等等的开发者社区，也可以为自己的博客、Github带来流量，而这一些都是互相促进的。如果我们在其中的一个网站上表现得很好的话，那么在另外一个网站上我们也很容易聚集同样的粉丝。如，我最常用的一个作法是: 将自己写得相对比较好的一些博客复制到CSDN、SegemntFault、图灵社区等等，并适当地推到CSDN首页、开发者头条等等。
+
+由于写作的开发人员是有限的，所以通常在某某头条上的推荐，会成为某博客园上的新闻，接着会有成群接队的小站开始Copy。同时，这些文章又会推到他们的微博上，接着还可能是微信平台。毕竟，对于大部分的网络来说，大部分的流量是流向他们的网站的，所以他们不太会在乎其中的外链等等。故而，通常来说: 不是某某东西突然火了，而是突然没有别的新闻了。通常来说一个好的作法是，试着将你的博客分享到微博上，然后@那些愿意帮你分享的平台。这样，你可以有更多的阅读、更多的粉丝，当然好的内容是前提。
+
+其中还有若干其它的好处:
+
+- 更大的曝光率，会带来更多的机会
+- 更有机会参与一些未公开互联网产品的试用
+- 各种精美小礼物
+- 翻译、出版机会
+
+##TODO
+
+只需要简单地几步就可以开始提高我们的影响力:
+
+- 在不同的网站上使用一个ID
+- 创建一个博客
+- 开始创作内容、提交代码、分享
+- 持续Impact
+
+
+#前端篇: 数据-表现-领域
 
 无论是MVC、MVP或者MVVP，都离不开这些基本的要素：数据、表现、领域。
 
@@ -1080,7 +755,9 @@ User.sync({force: true}).then(function () {
 
 #易读
 
-#Repractise架构篇一: CMS的重构与演进
+#重构篇
+
+#架构篇一: CMS的重构与演进
 
 重构系统是一项非常具有挑战性的事情。通常来说，在我们的系统是第二个系统的时候才需要重构，即这个系统本身已经很臃肿。我们花费了太量的时间在代码间的逻辑，开发新的功能变得越来越慢。这不仅仅可能只是因为我们之前的架构没有设计好，而且在我们开发的过程中没有保持着原先设计时的一些原则。如果是这样的情况，那么这就是一个复杂的过程。
 
@@ -1256,4 +933,482 @@ So，so，这些开发人员做了些什么：
 
 
 
-#重构
+#架构篇二：构建基于Git为数据中心的CMS
+
+或许你也用过Hexo / Jekyll / Octopress这样的静态博客，他们的原理都是类似的。我们有一个代码库用于生成静态页面，然后这些静态页面会被PUSH到Github Pages上。
+
+从我们设计系统的角度来说，我们会在Github上有三个主要代码库：
+
+1. Content。用于存放编辑器生成的JSON文件，这样我们就可以GET这些资源，并用Backbone / Angular / React 这些前端框架来搭建SPA。
+2. Code。开发者在这里存放他们的代码，如主题、静态文件生成器、资源文件等等。
+3. Builder。在这里它是运行于Travis CI上的一些脚本文件，用于Clone代码，并执行Code中的脚本。
+
+以及一些额外的服务，当且仅当你有一些额外的功能需求的时候。
+
+1. Extend Service。当我们需要搜索服务时，我们就需要这样的一些服务。如我正考虑使用Python的whoosh来完成这个功能，这时候我计划用Flask框架，但是只是计划中——因为没有合适的中间件。
+2. Editor。相比于前面的那些知识这一步适合更重要，也就是为什么生成的格式是JSON而不是Markdown的原理。对于非程序员来说，要熟练掌握Markdown不是一件容易的事。于是，一个考虑中的方案就是使用 Electron + Node.js来生成API，最后通过GitHub API V3来实现上传。
+3. Mobile App。
+
+So，这一个过程是如何进行的。
+
+###用户场景
+
+整个过程的Pipeline如下所示：
+
+1. 编辑使用他们的编辑器来编辑的内容并点击发布，然后这个内容就可以通过GitHub API上传到Content这个Repo里。
+2. 这时候需要有一个WebHooks监测到了Content代码库的变化，便运行Builder这个代码库的Travis CI。
+3. 这个Builder脚本首先，会设置一些基本的git配置。然后clone Content和Code的代码，接着运行构建命令，生成新的内容。
+4. 然后Builder Commit内容，并PUSH内容。
+
+在这种情形中，编辑能否完成工作就不依赖于网站——脱稿又少了 个借口。这时候网站出错的概率太小了——你不需要一个缓存服务器、HTTP服务器，由于没有动态生成的内容，你也不需要守护进程。这些内容都是静态文件，你可以将他们放在任何可以提供静态文件托管的地方——CloudFront、S3等等。或者你再相信自己的服务器，Nginx可是全球第二好（第一还没出现）的静态文件服务器。
+
+开发人员只在需要的时候去修改网站的一些内容。So，你可能会担心如果这时候修改的东西有问题了怎么办。
+
+1. 使用这种模式就意味着你需要有测试来覆盖这些构建工具、生成工具。
+2. 相比于自己的代码，别人的CMS更可靠？
+
+需要注意的是如果你上一次构建成功，你生成的文件都是正常的，那么你只需要回滚开发相关的代码即可。旧的代码仍然可以工作得很好。其次，由于生成的是静态文件，查错的成本就比较低。最后，重新放上之前的静态文件。
+
+##Code: 生成静态页面
+
+Assemble是一个使用Node.js，Grunt.js，Gulp，Yeoman 等来实现的静态网页生成系统。这样的生成器有很多，Zurb Foundation, Zurb Ink, Less.js / lesscss.org, Topcoat, Web Experience Toolkit等组织都使用这个工具来生成。这个工具似乎上个Release在一年多以前，现在正在开始0.6。虽然，这并不重要，但是还是顺便一说。
+
+我们所要做的就是在我们的``Gruntfile.js``中写相应的生成代码。
+
+```javascript
+	assemble: {
+      options: {
+        flatten: true,
+        partials: ['templates/includes/*.hbs'],
+        layoutdir: 'templates/layouts',
+        data: 'content/blogs.json',
+        layout: 'default.hbs'
+      },
+      site: {
+        files: {'dest/': ['templates/*.hbs']}
+      },
+      blogs: {
+        options: {
+          flatten: true,
+          layoutdir: 'templates/layouts',
+          data: 'content/*.json',
+          partials: ['templates/includes/*.hbs'],
+          pages: pages
+        },
+        files: [
+          { dest: './dest/blog/', src: '!*' }
+        ]
+      }
+    }
+```    
+
+配置中的site用于生成页面相关的内容，blogs则可以根据json文件的文件名生成对就的html文件存储到blog目录中。
+
+生成后的目录结果如下图所示：
+
+```
+ .
+├── about.html
+├── blog
+│   ├── blog-posts.html
+│   └── blogs.html
+├── blog.html
+├── css
+│   ├── images
+│   │   └── banner.jpg
+│   └── style.css
+├── index.html
+└── js
+    ├── jquery.min.js
+    └── script.js
+
+7 directories, 30 files
+```
+
+这里的静态文件内容就是最后我们要发布的内容。
+
+还需要做的一件事情就是：
+
+```javascript
+grunt.registerTask('dev', ['default', 'connect:server', 'watch:site']);
+```
+
+用于开发阶段这样的代码就够了，这个和你使用WebPack + React 似乎相差不了多少。
+
+
+##Builder: 构建生成工具
+
+Github与Travis之间，可以做一个自动部署的工具。相信已经有很多人在Github上玩过这样的东西——先在Github上生成Token，然后用travis加密：
+
+```bash
+travis encrypt-file ssh_key --add
+```
+
+加密后的Key就会保存到``.travis.yml``文件里，然后就可以在Travis CI上push你的代码到Github上了。
+
+接着，你需要创建个deploy脚本，并且在``after_success``执行它：
+
+```yml
+after_success:
+  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash deploy.sh
+```
+
+在这个脚本里，你所需要做的就是clone content和code中的代码，并执行code中的生成脚本，生成新的内容后，提交代码。
+
+```
+#!/bin/bash
+
+set -o errexit -o nounset
+
+rev=$(git rev-parse --short HEAD)
+
+cd stage/
+
+git init
+git config user.name "Robot"
+git config user.email "robot@phodal.com"
+
+git remote add upstream "https://$GH_TOKEN@github.com/phodal-archive/echeveria-deploy.git"
+git fetch upstream
+git reset upstream/gh-pages
+
+git clone https://github.com/phodal-archive/echeveria-deploy code
+git clone https://github.com/phodal-archive/echeveria-content content
+pwd
+cp -a content/contents code/content
+
+cd code
+
+npm install
+npm install grunt-cli -g
+grunt 
+mv dest/* ../
+cd ../
+rm -rf code
+rm -rf content
+
+touch .
+
+if [ ! -f CNAME ]; then
+    echo "deploy.baimizhou.net" > CNAME
+fi
+
+git add -A .
+git commit -m "rebuild pages at ${rev}"
+git push -q upstream HEAD:gh-pages
+```
+
+这就是这个builder做的事情——其中最主要的一个任务是``grunt``，它所做的就是:
+
+```javascript
+grunt.registerTask('default', ['clean', 'assemble', 'copy']);
+```
+##Content：JSON格式
+
+在使用Github和Travis CI完成Content的时候，发现没有一个好的Webhook。虽然我们的Content只能存储一些数据，但是放一个trigger脚本也是可以原谅的。
+
+```javascript
+var Travis = require('travis-ci');
+
+var repo = "phodal-archive/echeveria-deploy";
+
+var travis = new Travis({
+    version: '2.0.0'
+});
+
+travis.authenticate({
+    github_token: process.env.GH_TOKEN
+
+}, function (err, res) {
+    if (err) {
+        return console.error(err);
+    }
+
+    travis.repos(repo.split('/')[0], repo.split('/')[1]).builds.get(function (err, res) {
+        if (err) {
+            return console.error(err);
+        }
+
+        travis.requests.post({
+            build_id: res.builds[0].id
+        }, function (err, res) {
+            if (err) {
+                return console.error(err);
+            }
+            console.log(res.flash[0].notice);
+        });
+    });
+});
+```
+
+这里主要依赖于Travis CI来完成这部分功能，这时候我们还需要数据。
+
+###从Schema到数据库
+
+我们在我们数据库中定义好了Schema——对一个数据库的结构描述。在《[编辑-发布-开发分离](https://www.phodal.com/blog/editing-publishing-coding-seperate/)
+》一文中我们说到了echeveria-content的一个数据文件如下所示：
+
+```javascript
+  {
+    "title": "白米粥",
+    "author": "白米粥",
+    "url": "baimizhou",
+    "date": "2015-10-21",
+    "description": "# Blog post \n  > This is an example blog post \n Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+    "blogpost": "# Blog post \n  > This is an example blog post \n Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \n Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  }
+```
+
+比起之前的直接生成静态页面这里的数据就是更有意思地一步了，我们从数据库读取数据就是为了生成一个JSON文件。何不直接以JSON的形式存储文件呢？
+
+我们都定义了这每篇文章的基本元素:
+
+1. title
+2. author
+3. date
+4. description
+5. content
+6. url
+
+即使我们使用NoSQL我们也很难逃离这种模式。我们定义这些数据，为了在使用的时候更方便。存储这些数据只是这个过程中的一部分，下部分就是取出这些数据并对他们进行过滤，取出我们需要的数据。
+
+Web的骨架就是这么简单，当然APP也是如此。难的地方在于存储怎样的数据，返回怎样的数据。不同的网站存储着不同的数据，如淘宝存储的是商品的信息，Google存储着各种网站的数据——人们需要不同的方式去存储这些数据，为了更好地存储衍生了更多的数据存储方案——于是有了GFS、Haystack等等。运营型网站想尽办法为最后一公里努力着，成长型的网站一直在想着怎样更好的返回数据，从更好的用户体验到机器学习。而数据则是这个过程中不变的东西。
+
+尽管，我已经想了很多办法去尽可能减少元素——在最开始的版本里只有标题和内容。然而为了满足我们在数据库中定义的结构，不得不造出来这么多对于一般用户不友好的字段。如链接名是为了存储的文件名而存在的，即这个链接名在最后会变成文件名：
+
+```javascript
+repo.write('master', 'contents/' + data.url + '.json', stringifyData, 'Robot: add article ' + data.title, options, function (err, data) {
+      if(data.commit){
+        that.setState({message: "上传成功" + JSON.stringify(data)});
+        that.refs.snackbar.show();
+        that.setState({
+          sending: 0
+        });
+      }
+    });
+```    
+
+然后，上面的数据就会变成一个对象存储到“数据库”中。
+
+今天 ，仍然有很多人用Word、Excel来存储数据。因为对于他们来说，这些软件更为直接，他们简单地操作一下就可以对数据进行排序、筛选。数据以怎样的形式存储并不重要，重要的是他们都以文件的形式存储着。
+
+###git作为NoSQL数据库
+
+不同的数据库会以不同的形式存储到文件中去。blob是git中最为基本的存储单位，我们的每个content都是一个blob。redis可以以rdb文件的形式存储到文件系统中。完成一个CMS，我们并不需要那么多的查询功能。
+
+> 这些上千年的组织机构，只想让人们知道他们想要说的东西。
+
+我们使用NoSQL是因为：
+
+1. 不使用关系模型
+2. 在集群中运行良好
+3. 开源
+4. 无模式
+5. 数据交换格式
+
+我想其中只有两点对于我来说是比较重要的``集群``与``数据格式``。但是集群和数据格式都不是我们要考虑的问题。。。
+
+我们也不存在数据格式的问题、开源的问题，什么问题都没有。。除了，我们之前说到的查询——但是这是可以解决的问题，我们甚至可以返回不同的历史版本的。在这一点上git做得很好，他不会像WordPress那样存储多个版本。
+
+JSON文件 + Nginx就可以变成这样一个合理的API，甚至是运行方式。我们可以对其进行增、删、改、查，尽管就当前来说查需要一个额外的软件来执行，但是为了实现一个用得比较少的功能，而去花费大把的时间可能就是在浪费。
+
+git的“API”提供了丰富的增、删、改功能——你需要commit就可以了。我们所要做的就是:
+
+1. git commit
+2. git push
+
+于是，就会有一个很忙的Travis-Github Robot在默默地为你工作。
+
+![Robot提交代码](http://repractise.phodal.com/img/basis/robot-commit.png)
+
+##一键发布：编辑器
+
+为了实现之前说到的``编辑-发布-开发分离``的CMS，我还是花了两天的时间打造了一个面向普通用户的编辑器。效果截图如下所示：
+
+![编辑器](http://repractise.phodal.com/img/cms/editor.png)
+
+作为一个普通用户，这是一个很简单的软件。除了Electron + Node.js + React作了一个140M左右的软件，尽管压缩完只有40M左右 ，但是还是会把用户吓跑的。不过作为一个快速构建的原型已经很不错了——构建速度很快、并且运行良好。
+
+- Electron
+- React
+- Material UI
+- Alloy Editor 
+
+尽管这个界面看上去还是稍微复杂了一下，还在试着想办法将链接名和日期去掉——问题是为什么会有这两个东西？
+
+Webpack 打包
+
+```
+  if (process.env.HOT) {
+    mainWindow.loadUrl('file://' + __dirname + '/app/hot-dev-app.html');
+  } else {
+    mainWindow.loadUrl('file://' + __dirname + '/app/app.html');
+  }
+```
+
+上传代码
+
+```javascript
+repo.write('master', 'content/' + data.url + '.json', stringifyData, 'Robot: add article ' + data.title, options, function (err, data) {
+  if(data.commit){
+    that.setState({message: "上传成功" + JSON.stringify(data)});
+    that.refs.snackbar.show();
+    that.setState({
+      sending: 0
+    });
+  }
+});
+```    
+
+当我们点下发送的时侯，这个内容就直接提交到了Content Repo下，如上上图所示。
+
+当我们向Content Push代码的时候，就会运行一下Trigger脚本：
+
+```yml
+after_success:
+  - node trigger-build.js
+```  
+
+脚本的代码如下所示：
+
+```javascript
+var Travis = require('travis-ci');
+
+var repo = "phodal-archive/echeveria-deploy";
+var travis = new Travis({
+    version: '2.0.0'
+});
+
+travis.authenticate({
+    github_token: process.env.GH_TOKEN
+
+}, function (err, res) {
+    if (err) {
+        return console.error(err);
+    }
+    travis.repos(repo.split('/')[0], repo.split('/')[1]).builds.get(function (err, res) {
+        if (err) {
+            return console.error(err);
+        }
+
+        travis.requests.post({
+            build_id: res.builds[0].id
+        }, function (err, res) {
+            if (err) {
+                return console.error(err);
+            }
+            console.log(res.flash[0].notice);
+        });
+    });
+});
+```
+
+由于，我们在这个过程我们的Content提交的是JSON数据，我们可以直接用这些数据做一个APP。
+
+
+##移动应用
+
+为了快速开发，这里我们使用了Ionic + ngCordova来开发 ，最后效果图如下所示：
+
+![移动应用](http://repractise.phodal.com/img/basis/app.png)
+
+在这个代码库里，主要由两部分组成：
+
+1. 获取全部文章
+2. 获取特定文章
+
+为了获取全部文章就意味着，我们在Builder里，需要一个task来合并JSON文件，并删掉其中的一些无用的内容，如articleHTML和article。最后，将生成一个名为articles.json。
+
+```javascript
+if (!grunt.file.exists(src))
+    throw "JSON source file \"" + chalk.red(src) + "\" not found.";
+else {
+    var fragment;
+    grunt.log.debug("reading JSON source file \"" + chalk.green(src) + "\"");
+    try {
+        fragment = grunt.file.readJSON(src);
+    }
+    catch (e) {
+        grunt.fail.warn(e);
+    }
+    fragment.description = sanitizeHtml(fragment.article).substring(0, 200);
+    delete fragment.article;
+    delete fragment.articleHTML;
+    json.push(fragment);
+}
+```                    
+
+接着，我们就可以获取所有的文章然后显示~~。在这里又顺便加了一个pullToRefresh。
+
+```javascript
+  .controller('ArticleListsCtrl', function ($scope, Blog) {
+    $scope.articles = null;
+    $scope.blogOffset = 0;
+    $scope.doRefresh = function () {
+      Blog.async('http://deploy.baimizhou.net/api/blog/articles.json').then(function (results) {
+        $scope.articles = results;
+      });
+      $scope.$broadcast('scroll.refreshComplete');
+      $scope.$apply()
+    };
+    Blog.async('http://deploy.baimizhou.net/api/blog/articles.json').then(function (results) {
+      $scope.articles = results;
+    });
+  })
+```
+
+最后，当我们点击特定的url，将跳转到相应的页面：
+
+```html
+<ion-item class="item item-icon-right" ng-repeat="article in articles" type="item-text-wrap" href="#/app/article/{{article.url}}">
+  <h2>{{article.title}}</h2>
+  <i class="icon ion-ios-arrow-right"></i>
+</ion-item>
+```      
+
+就会交由相应的Controller来处理。
+
+```javascript
+  .controller('ArticleCtrl', function ($scope, $stateParams, $sanitize, $sce, Blog) {
+    $scope.article = {};
+    Blog.async('http://deploy.baimizhou.net/api/' + $stateParams.slug + '.json').then(function (results) {
+      $scope.article = results;
+      $scope.htmlContent = $sce.trustAsHtml($scope.article.articleHTML);
+    });
+
+  });
+```
+
+##小结
+
+尽管没有一个更成熟的环境可以探索这其中的问题，但是我想对于当前这种情况来说，它是非常棒的解决方案。我们面向的不是那些技术人员，而是一般的用户。他们能熟练使用的是：编辑器和APP。
+
+1. 不会因为后台的升级来困扰他们，也不会受其他组件的影响。
+2. 开发人员不需要担心，某个功能影响了编辑器的使用。
+3. Ops不再担心网站的性能问题——然后要么转为DevOps、要么被Fire。
+
+###其他
+
+最后的代码库：
+
+1. Content: [https://github.com/phodal-archive/echeveria-content](https://github.com/phodal-archive/echeveria-content)
+2. Code: [https://github.com/phodal-archive/echeveria-deploy](https://github.com/phodal-archive/echeveria-deploy)
+3. 移动应用: [https://github.com/phodal-archive/echeveria-mobile](https://github.com/phodal-archive/echeveria-mobile)
+4. 桌面应用: [https://github.com/phodal/echeveria-editor](https://github.com/phodal/echeveria-editor)
+5. Github Pages: [https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages](https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages)
+
+#个人篇：从小工到能手
+
+工作的日子里，每天都会八点多到公司，边点东西边看看Google Analytics，看看昨天博客有多少访问量，吃完了就写写代码刷刷Github。到了九点多，人差不多来齐了——我们不打卡，就开始了上午的工作。中午的时候会趁着午休的小间隙翻译点书，或者写点代码，写会文章。晚上吃完饭，走到家里休息会儿就八点了。看看书，写写代码，一天就过去了。
+
+生活似乎变成了流水帐，不会发生什么特别大的变化，没有特别大的故事。日复一日的单调而又不无聊，周末也是码码字、写写代码、看看书，玩局《文明》、看部电影或者陪女朋友出去吃好吃的就过去了。
+
+##上即是下，输出即是输入
+
+在你写过了很多的代码之后，你也许也发现了一些神奇的事情——即使你写了再多代码，你的能力并没有多少提升。人们通常称之称为瓶颈。这不禁让人想起经济危机的时候，有的国家发起了战争，有的国家开始变革，有的则无为而治，每况愈下。有时候我们发现不了我们有更好的选择。
+
+###写作
+
+###编程
+
+##阅读
