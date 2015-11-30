@@ -63,796 +63,6 @@
 
 #介绍
 
-#扩展篇
-
-##每个程序员必知之SEO
-
-似乎因为受这篇文章的影响 [http://katemats.com/what-every-programmer-should-know-about-seo/](http://katemats.com/what-every-programmer-should-know-about-seo/) 于是我也觉得我应该写一个[每个程序员必知之SEO](http://www.phodal.com/blog/every-programmer-should-know-how-seo/)，作为一个擅长前端兼SEO的设计师。
-
-####搜索引擎是如何工作的
-
-> 如果你有时间，可以读一下谷歌的框架：
-
-[http://infolab.stanford.edu/~backrub/google.html](http://infolab.stanford.edu/~backrub/google.html)
-
-> 这是一个老的，有些过时纸，但非常平易近人，甚至在我们中间的非白皮书的读者图标微笑什么每个程序员都应该知道的关于搜索引擎优化和他们绝对概念的解释更详细，我只提一笔带过。
-
-搜索时发生什么了 ？
-
- - 用户输入查询内容
- - 查询处理以及分词技术
- - 确定搜索意图及返回相关、新鲜的内容
-
-![search-engine-arch][1]
-
-为什么需要SEO ？
-
-这是一个有趣的问题，答案总会来源于``为网站带来更多的流量``。
-
-###爬虫与索引
-
-我们先看看来自谷歌的爬虫工作的一点内容
-
- > 抓取是 Googlebot 发现新网页并更新这些网页以将网页添加到 Google 索引中的过程。
-
-> 我们使用许多计算机来获取（或"抓取"）网站上的大量网页。执行获取任务的程序叫做 Googlebot（也被称为漫游器或信息采集软件）。Googlebot 使用算法来进行抓取：计算机程序会确定要抓取的网站、抓取频率以及从每个网站中获取的网页数量。
-
-> Google 的抓取过程是根据网页网址的列表进行的，该列表是在之前进行的抓取过程中形成的，且随着网站管理员所提供的站点地图数据不断进行扩充。Googlebot 在访问每个网站时，会检测每个网页上的链接，并将这些链接添加到它要抓取的网页列表中。新建立的网站、对现有网站所进行的更改以及无效链接都会被记录下 来，并用于更新 Google 索引。
-
-也就是如原文所说:
-
-> 谷歌的爬虫(又或者说蛛蛛)能够抓取你整个网站索引的所有页。
-
-**为什么谷歌上可以搜索整个互联网的内容**？因为，他解析并存储了。而更有意思的是，他会为同样的内容建立一个索引或者说分类，按照一定的相关性，针对于某个关键词的内容。
-
-PageRank对于一个网站来说是相当重要的，只是这个相比也比较复杂。包括其他网站链接向你的网站，以及流量，当然还有域名等等。
-
-###什么样的网站需要SEO？
-
-下图是我的博客的流量来源
-
-![What Site Need SEO][2]
-
-正常情况下除了像``腾讯``这类的``QQ空间``自我封闭的网站外都需要SEO，或者不希望泄露一些用户隐私如``Facebook``、``人人``等等
-
-
- - 如果你和我的网站一样需要靠搜索带来流量
- - 如果你只有很少的用户访问，却有很多的内容。
- - 如果你是为一个公司、企业工作为以带来业务。
- - 。。。
-
-
-SEO与编程的不同之处 ？
-
-SEO与编程的最大不同之处在于
-
-编程的核心是技术，SEO的核心是内容。？
-
-内容才是SEO最重要的组成部分，这也就是腾讯复制不了的东西。
-
-###SEO基础知识
-
-####确保网站是可以被索引的
-
-一些常见的页面不能被访问的原因
-
- - 隐藏在需要提交的表格中的链接
- - 不能解析的JavaScript脚本中的链接
- - Flash、Java和其他插件中的链接
- - PowerPoint和PDF文件中的链接
- - 指向被meta Robtots标签、rel="NoFollow"和robots.txt屏蔽的页面的链接
- - 页面上有上几百个链接
- - frame(框架结构)和iframe里的链接
-
-对于现在的网站来还有下面的原因，通过来说是因为内容是动态生成的，而不是静态的
- 
- - 网站通过WebSocket的方法渲染内容
- - 使用诸如Mustache之类的JS模板引擎
-
-####什么样的网页可以被索引
-
- - 确保页面可以在没有JavaScript下能被渲染。对于现在JavaScript语言的使用越来越多的情况下，在使用JS模板引擎的时候也应该注意这样的问题。
- - 在用户禁用了JavaScript的情况下，保证所有的链接和页面是可以访问的。
- - 确保爬虫可以看到所有的内容。那些用JS动态加载出来的对于爬虫来说是不友好的
- - 使用描述性的锚文本的网页
- - 限制的页面上的链接数量。除去一些分类网站、导航网站之类有固定流量，要不容易被认为垃圾网站。
- - 确保页面能被索引。有一指向它的URL
- - URL应该遵循最佳实践。如blog/how-to-driver有更好的可读性
-
-####在正确的地方使用正确的关键词
-
- - 把关键词放URL中
- - 关键词应该是页面的标签
- - 带有H1标签
- - 图片文件名、ALT属性带有关键词。
- - 页面文字
- - 加粗文字
- - Descripiton标签
-
-###内容
-
-对于技术博客而言，内容才是最需要考虑的因素。
-
-可以考虑一下这篇文章，虽然其主题是以SEO为主
-[用户体验与网站内容](http://www.phodal.com/blog/user-experience-writing-web-content/)
-
-不可忽略的一些因素是内容才是最优质的部分，没有内容一切SEO都是无意义的。
-
-复制内容问题 ？
-
-一个以用户角度考虑的问题
-
-用户需要看到多元化的搜索结果 ？
-
-所以对于搜索引擎来说，复制带来的结果：
-
- - 搜索引擎爬虫对每个网站都有设定的爬行预算，每一次爬行都只能爬行trpgr页面数
- - 连向复制内容页面的链接也浪费了它们的链接权重。
- - 没有一个搜索引擎详细解释他们的算法怎样选择显示页面的哪个版本。
-
-于是上文说到的作者给了下面的这些建议:
-
- > 避免从网上复制的内容（除非你有很多其他的内容汇总，以使它看起来不同 - 我们做头条，对我们的产品页面的新闻片段的方式） 。这当然强烈适用于在自己的网站页面以及。内容重复可以混淆搜索引擎哪些页面是权威（它也可能会导致罚款，如果你只是复制粘贴别人的内容也行） ，然后你可以有你自己的网页互相竞争排名！
-
- > 如果你必须有重复的内容，利用相对=规范，让搜索引擎知道哪个URL是一个他们应该被视为权威。但是，如果你的页面是另一个在网络上找到一个副本？那么开始想出一些策略来增加更多的文字和信息来区分你的网页，因为这样重复的内容是决不可能得到好的排名。
-
-——待续。
-
-####保持更新
-
-谷歌对于一个一直在更新的博客来说会有一个好的排名，当然只是相对的。
-
-对于一个技术博客作者来说，一直更新的好处不仅可以让我们不断地学习更多的内容。也可以保持一个良好的习惯，而对于企业来说更是如此。如果我们每天去更新我们的博客，那么搜索引擎对于我们网站的收录也会变得越来越加频繁。那么，对于我们的排名及点击量来说也算是一个好事，当我们可以获得足够的排名靠前时，我们的PR值也在不断地提高。
-
-更多内容可以参考:[Google Fresh Factor](http://www.seomoz.org/blog/google-fresh-factor)
-
-####网站速度
-
-> 谷歌曾表示在他们的算法页面加载速度问题，所以一定要确保你已经调整您的网站，都服从最佳做法，以使事情迅速
-
-过去的一个月里，我试着提高自己的网站的速度，有一个相对好的速度，但是受限于``域名解析速度``以及``VPS``。
-
-[网站速度分析与traceroute
-](http://www.phodal.com/blog/use-traceroute-analyse-person-homepage-speed/)
-
-[UX与网站速度优化——博客速度优化小记
-](http://www.phodal.com/blog/ux-and-improve-website-load-speed/)
-
-[Nginx ngx_pagespeed nginx前端优化模块编译](http://www.phodal.com/blog/nginx-with-ngx-pagespeed-module-improve-website-cache/)
-
-####保持耐心
-
-> 这是有道理的，如果你在需要的谷歌机器人抓取更新的页面，然后处理每一个页面，并更新与新内容对应的索引的时间因素。
-
-> 而这可能是相当长一段时间，当你正在处理的内容PB级。
-
-SEO是一个长期的过程，很少有网站可以在短期内有一个很好的位置，除非是一个热门的网站，然而在它被发现之前也会一个过程。
-
-####链接
-
-在某种意义上，这个是提高PR值，及网站流量的另外一个核心，除了内容以外的核心。
-
- - 链接建设是SEO的基础部分。除非你有一个异常强大的品牌，不需要干什么就能吸引到链接。
- - 链接建设永不停止。这是不间断营销网站的过程
-
-关于链接的内容有太多，而且当前没有一个好的方法获取链接虽然在我的网站已经有了
-
-Links to Your Site
-
-Total links
-
-``5,880``
-
-
->同时寻求更多的链接是更有利更相关的链接可以帮助一样多。如果你有你的内容的分销合作伙伴，或者你建立一个小工具，或其他任何人都会把链接回你的网站在网络上 - 你可以通过确保各个环节都有最佳的关键字锚文本大大提高链路的相关性。您还应该确保所有链接到您的网站指向你的主域（ http://www.yourdomain.com ，像http://widget.yourdomain.com不是一个子域） 。另外，你要尽可能多的联系，以包含适当的替代文字。你的想法。
-
- > 另外，也许不太明显的方式，建立链接（或者至少流量）是使用社交媒体 - 所以设置你的Facebook ，Twitter和谷歌，每当你有新的链接一定要分享。这些通道也可以作为一个有效的渠道，推动更多的流量到您的网站。
-
-由社交渠道带来的流量在现在已经越来越重要了，对于一些以内容为主导的网站，而且处于发展初期，可以迅速带来流量，可以参考一下这篇文章
-
-[寻ta分析与网站内容](http://www.phodal.com/blog/xunta-analytics-and-website-content/)
-
-
-一些更简单的办法就是交换链接，总之这个话题有些沉重，可能会带来一些负面的影响，如黑帽SEO。。。。
-
-**参考来源**:
-
-《SEO艺术》(The Art of SEO)
-
-#架构篇二：构建基于Git为数据中心的CMS
-
-或许你也用过Hexo / Jekyll / Octopress这样的静态博客，他们的原理都是类似的。我们有一个代码库用于生成静态页面，然后这些静态页面会被PUSH到Github Pages上。
-
-从我们设计系统的角度来说，我们会在Github上有三个主要代码库：
-
-1. Content。用于存放编辑器生成的JSON文件，这样我们就可以GET这些资源，并用Backbone / Angular / React 这些前端框架来搭建SPA。
-2. Code。开发者在这里存放他们的代码，如主题、静态文件生成器、资源文件等等。
-3. Builder。在这里它是运行于Travis CI上的一些脚本文件，用于Clone代码，并执行Code中的脚本。
-
-以及一些额外的服务，当且仅当你有一些额外的功能需求的时候。
-
-1. Extend Service。当我们需要搜索服务时，我们就需要这样的一些服务。如我正考虑使用Python的whoosh来完成这个功能，这时候我计划用Flask框架，但是只是计划中——因为没有合适的中间件。
-2. Editor。相比于前面的那些知识这一步适合更重要，也就是为什么生成的格式是JSON而不是Markdown的原理。对于非程序员来说，要熟练掌握Markdown不是一件容易的事。于是，一个考虑中的方案就是使用 Electron + Node.js来生成API，最后通过GitHub API V3来实现上传。
-3. Mobile App。
-
-So，这一个过程是如何进行的。
-
-###用户场景
-
-整个过程的Pipeline如下所示：
-
-1. 编辑使用他们的编辑器来编辑的内容并点击发布，然后这个内容就可以通过GitHub API上传到Content这个Repo里。
-2. 这时候需要有一个WebHooks监测到了Content代码库的变化，便运行Builder这个代码库的Travis CI。
-3. 这个Builder脚本首先，会设置一些基本的git配置。然后clone Content和Code的代码，接着运行构建命令，生成新的内容。
-4. 然后Builder Commit内容，并PUSH内容。
-
-在这种情形中，编辑能否完成工作就不依赖于网站——脱稿又少了 个借口。这时候网站出错的概率太小了——你不需要一个缓存服务器、HTTP服务器，由于没有动态生成的内容，你也不需要守护进程。这些内容都是静态文件，你可以将他们放在任何可以提供静态文件托管的地方——CloudFront、S3等等。或者你再相信自己的服务器，Nginx可是全球第二好（第一还没出现）的静态文件服务器。
-
-开发人员只在需要的时候去修改网站的一些内容。So，你可能会担心如果这时候修改的东西有问题了怎么办。
-
-1. 使用这种模式就意味着你需要有测试来覆盖这些构建工具、生成工具。
-2. 相比于自己的代码，别人的CMS更可靠？
-
-需要注意的是如果你上一次构建成功，你生成的文件都是正常的，那么你只需要回滚开发相关的代码即可。旧的代码仍然可以工作得很好。其次，由于生成的是静态文件，查错的成本就比较低。最后，重新放上之前的静态文件。
-
-##Code: 生成静态页面
-
-Assemble是一个使用Node.js，Grunt.js，Gulp，Yeoman 等来实现的静态网页生成系统。这样的生成器有很多，Zurb Foundation, Zurb Ink, Less.js / lesscss.org, Topcoat, Web Experience Toolkit等组织都使用这个工具来生成。这个工具似乎上个Release在一年多以前，现在正在开始0.6。虽然，这并不重要，但是还是顺便一说。
-
-我们所要做的就是在我们的``Gruntfile.js``中写相应的生成代码。
-
-```javascript
-	assemble: {
-      options: {
-        flatten: true,
-        partials: ['templates/includes/*.hbs'],
-        layoutdir: 'templates/layouts',
-        data: 'content/blogs.json',
-        layout: 'default.hbs'
-      },
-      site: {
-        files: {'dest/': ['templates/*.hbs']}
-      },
-      blogs: {
-        options: {
-          flatten: true,
-          layoutdir: 'templates/layouts',
-          data: 'content/*.json',
-          partials: ['templates/includes/*.hbs'],
-          pages: pages
-        },
-        files: [
-          { dest: './dest/blog/', src: '!*' }
-        ]
-      }
-    }
-```    
-
-配置中的site用于生成页面相关的内容，blogs则可以根据json文件的文件名生成对就的html文件存储到blog目录中。
-
-生成后的目录结果如下图所示：
-
-```
- .
-├── about.html
-├── blog
-│   ├── blog-posts.html
-│   └── blogs.html
-├── blog.html
-├── css
-│   ├── images
-│   │   └── banner.jpg
-│   └── style.css
-├── index.html
-└── js
-    ├── jquery.min.js
-    └── script.js
-
-7 directories, 30 files
-```
-
-这里的静态文件内容就是最后我们要发布的内容。
-
-还需要做的一件事情就是：
-
-```javascript
-grunt.registerTask('dev', ['default', 'connect:server', 'watch:site']);
-```
-
-用于开发阶段这样的代码就够了，这个和你使用WebPack + React 似乎相差不了多少。
-
-
-##Builder: 构建生成工具
-
-Github与Travis之间，可以做一个自动部署的工具。相信已经有很多人在Github上玩过这样的东西——先在Github上生成Token，然后用travis加密：
-
-```bash
-travis encrypt-file ssh_key --add
-```
-
-加密后的Key就会保存到``.travis.yml``文件里，然后就可以在Travis CI上push你的代码到Github上了。
-
-接着，你需要创建个deploy脚本，并且在``after_success``执行它：
-
-```yml
-after_success:
-  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash deploy.sh
-```
-
-在这个脚本里，你所需要做的就是clone content和code中的代码，并执行code中的生成脚本，生成新的内容后，提交代码。
-
-```
-#!/bin/bash
-
-set -o errexit -o nounset
-
-rev=$(git rev-parse --short HEAD)
-
-cd stage/
-
-git init
-git config user.name "Robot"
-git config user.email "robot@phodal.com"
-
-git remote add upstream "https://$GH_TOKEN@github.com/phodal-archive/echeveria-deploy.git"
-git fetch upstream
-git reset upstream/gh-pages
-
-git clone https://github.com/phodal-archive/echeveria-deploy code
-git clone https://github.com/phodal-archive/echeveria-content content
-pwd
-cp -a content/contents code/content
-
-cd code
-
-npm install
-npm install grunt-cli -g
-grunt 
-mv dest/* ../
-cd ../
-rm -rf code
-rm -rf content
-
-touch .
-
-if [ ! -f CNAME ]; then
-    echo "deploy.baimizhou.net" > CNAME
-fi
-
-git add -A .
-git commit -m "rebuild pages at ${rev}"
-git push -q upstream HEAD:gh-pages
-```
-
-这就是这个builder做的事情——其中最主要的一个任务是``grunt``，它所做的就是:
-
-```javascript
-grunt.registerTask('default', ['clean', 'assemble', 'copy']);
-```
-##Content：JSON格式
-
-在使用Github和Travis CI完成Content的时候，发现没有一个好的Webhook。虽然我们的Content只能存储一些数据，但是放一个trigger脚本也是可以原谅的。
-
-```javascript
-var Travis = require('travis-ci');
-
-var repo = "phodal-archive/echeveria-deploy";
-
-var travis = new Travis({
-    version: '2.0.0'
-});
-
-travis.authenticate({
-    github_token: process.env.GH_TOKEN
-
-}, function (err, res) {
-    if (err) {
-        return console.error(err);
-    }
-
-    travis.repos(repo.split('/')[0], repo.split('/')[1]).builds.get(function (err, res) {
-        if (err) {
-            return console.error(err);
-        }
-
-        travis.requests.post({
-            build_id: res.builds[0].id
-        }, function (err, res) {
-            if (err) {
-                return console.error(err);
-            }
-            console.log(res.flash[0].notice);
-        });
-    });
-});
-```
-
-这里主要依赖于Travis CI来完成这部分功能，这时候我们还需要数据。
-
-###从Schema到数据库
-
-我们在我们数据库中定义好了Schema——对一个数据库的结构描述。在《[编辑-发布-开发分离](https://www.phodal.com/blog/editing-publishing-coding-seperate/)
-》一文中我们说到了echeveria-content的一个数据文件如下所示：
-
-```javascript
-  {
-    "title": "白米粥",
-    "author": "白米粥",
-    "url": "baimizhou",
-    "date": "2015-10-21",
-    "description": "# Blog post \n  > This is an example blog post \n Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-    "blogpost": "# Blog post \n  > This is an example blog post \n Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \n Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  }
-```
-
-比起之前的直接生成静态页面这里的数据就是更有意思地一步了，我们从数据库读取数据就是为了生成一个JSON文件。何不直接以JSON的形式存储文件呢？
-
-我们都定义了这每篇文章的基本元素:
-
-1. title
-2. author
-3. date
-4. description
-5. content
-6. url
-
-即使我们使用NoSQL我们也很难逃离这种模式。我们定义这些数据，为了在使用的时候更方便。存储这些数据只是这个过程中的一部分，下部分就是取出这些数据并对他们进行过滤，取出我们需要的数据。
-
-Web的骨架就是这么简单，当然APP也是如此。难的地方在于存储怎样的数据，返回怎样的数据。不同的网站存储着不同的数据，如淘宝存储的是商品的信息，Google存储着各种网站的数据——人们需要不同的方式去存储这些数据，为了更好地存储衍生了更多的数据存储方案——于是有了GFS、Haystack等等。运营型网站想尽办法为最后一公里努力着，成长型的网站一直在想着怎样更好的返回数据，从更好的用户体验到机器学习。而数据则是这个过程中不变的东西。
-
-尽管，我已经想了很多办法去尽可能减少元素——在最开始的版本里只有标题和内容。然而为了满足我们在数据库中定义的结构，不得不造出来这么多对于一般用户不友好的字段。如链接名是为了存储的文件名而存在的，即这个链接名在最后会变成文件名：
-
-```javascript
-repo.write('master', 'contents/' + data.url + '.json', stringifyData, 'Robot: add article ' + data.title, options, function (err, data) {
-      if(data.commit){
-        that.setState({message: "上传成功" + JSON.stringify(data)});
-        that.refs.snackbar.show();
-        that.setState({
-          sending: 0
-        });
-      }
-    });
-```    
-
-然后，上面的数据就会变成一个对象存储到“数据库”中。
-
-今天 ，仍然有很多人用Word、Excel来存储数据。因为对于他们来说，这些软件更为直接，他们简单地操作一下就可以对数据进行排序、筛选。数据以怎样的形式存储并不重要，重要的是他们都以文件的形式存储着。
-
-###git作为NoSQL数据库
-
-不同的数据库会以不同的形式存储到文件中去。blob是git中最为基本的存储单位，我们的每个content都是一个blob。redis可以以rdb文件的形式存储到文件系统中。完成一个CMS，我们并不需要那么多的查询功能。
-
-> 这些上千年的组织机构，只想让人们知道他们想要说的东西。
-
-我们使用NoSQL是因为：
-
-1. 不使用关系模型
-2. 在集群中运行良好
-3. 开源
-4. 无模式
-5. 数据交换格式
-
-我想其中只有两点对于我来说是比较重要的``集群``与``数据格式``。但是集群和数据格式都不是我们要考虑的问题。。。
-
-我们也不存在数据格式的问题、开源的问题，什么问题都没有。。除了，我们之前说到的查询——但是这是可以解决的问题，我们甚至可以返回不同的历史版本的。在这一点上git做得很好，他不会像WordPress那样存储多个版本。
-
-JSON文件 + Nginx就可以变成这样一个合理的API，甚至是运行方式。我们可以对其进行增、删、改、查，尽管就当前来说查需要一个额外的软件来执行，但是为了实现一个用得比较少的功能，而去花费大把的时间可能就是在浪费。
-
-git的“API”提供了丰富的增、删、改功能——你需要commit就可以了。我们所要做的就是:
-
-1. git commit
-2. git push
-
-于是，就会有一个很忙的Travis-Github Robot在默默地为你工作。
-
-![Robot提交代码](http://repractise.phodal.com/img/basis/robot-commit.png)
-
-##一键发布：编辑器
-
-为了实现之前说到的``编辑-发布-开发分离``的CMS，我还是花了两天的时间打造了一个面向普通用户的编辑器。效果截图如下所示：
-
-![编辑器](http://repractise.phodal.com/img/cms/editor.png)
-
-作为一个普通用户，这是一个很简单的软件。除了Electron + Node.js + React作了一个140M左右的软件，尽管压缩完只有40M左右 ，但是还是会把用户吓跑的。不过作为一个快速构建的原型已经很不错了——构建速度很快、并且运行良好。
-
-- Electron
-- React
-- Material UI
-- Alloy Editor 
-
-尽管这个界面看上去还是稍微复杂了一下，还在试着想办法将链接名和日期去掉——问题是为什么会有这两个东西？
-
-Webpack 打包
-
-```
-  if (process.env.HOT) {
-    mainWindow.loadUrl('file://' + __dirname + '/app/hot-dev-app.html');
-  } else {
-    mainWindow.loadUrl('file://' + __dirname + '/app/app.html');
-  }
-```
-
-上传代码
-
-```javascript
-repo.write('master', 'content/' + data.url + '.json', stringifyData, 'Robot: add article ' + data.title, options, function (err, data) {
-  if(data.commit){
-    that.setState({message: "上传成功" + JSON.stringify(data)});
-    that.refs.snackbar.show();
-    that.setState({
-      sending: 0
-    });
-  }
-});
-```    
-
-当我们点下发送的时侯，这个内容就直接提交到了Content Repo下，如上上图所示。
-
-当我们向Content Push代码的时候，就会运行一下Trigger脚本：
-
-```yml
-after_success:
-  - node trigger-build.js
-```  
-
-脚本的代码如下所示：
-
-```javascript
-var Travis = require('travis-ci');
-
-var repo = "phodal-archive/echeveria-deploy";
-var travis = new Travis({
-    version: '2.0.0'
-});
-
-travis.authenticate({
-    github_token: process.env.GH_TOKEN
-
-}, function (err, res) {
-    if (err) {
-        return console.error(err);
-    }
-    travis.repos(repo.split('/')[0], repo.split('/')[1]).builds.get(function (err, res) {
-        if (err) {
-            return console.error(err);
-        }
-
-        travis.requests.post({
-            build_id: res.builds[0].id
-        }, function (err, res) {
-            if (err) {
-                return console.error(err);
-            }
-            console.log(res.flash[0].notice);
-        });
-    });
-});
-```
-
-由于，我们在这个过程我们的Content提交的是JSON数据，我们可以直接用这些数据做一个APP。
-
-
-##移动应用
-
-为了快速开发，这里我们使用了Ionic + ngCordova来开发 ，最后效果图如下所示：
-
-![移动应用](http://repractise.phodal.com/img/basis/app.png)
-
-在这个代码库里，主要由两部分组成：
-
-1. 获取全部文章
-2. 获取特定文章
-
-为了获取全部文章就意味着，我们在Builder里，需要一个task来合并JSON文件，并删掉其中的一些无用的内容，如articleHTML和article。最后，将生成一个名为articles.json。
-
-```javascript
-if (!grunt.file.exists(src))
-    throw "JSON source file \"" + chalk.red(src) + "\" not found.";
-else {
-    var fragment;
-    grunt.log.debug("reading JSON source file \"" + chalk.green(src) + "\"");
-    try {
-        fragment = grunt.file.readJSON(src);
-    }
-    catch (e) {
-        grunt.fail.warn(e);
-    }
-    fragment.description = sanitizeHtml(fragment.article).substring(0, 200);
-    delete fragment.article;
-    delete fragment.articleHTML;
-    json.push(fragment);
-}
-```                    
-
-接着，我们就可以获取所有的文章然后显示~~。在这里又顺便加了一个pullToRefresh。
-
-```javascript
-  .controller('ArticleListsCtrl', function ($scope, Blog) {
-    $scope.articles = null;
-    $scope.blogOffset = 0;
-    $scope.doRefresh = function () {
-      Blog.async('http://deploy.baimizhou.net/api/blog/articles.json').then(function (results) {
-        $scope.articles = results;
-      });
-      $scope.$broadcast('scroll.refreshComplete');
-      $scope.$apply()
-    };
-    Blog.async('http://deploy.baimizhou.net/api/blog/articles.json').then(function (results) {
-      $scope.articles = results;
-    });
-  })
-```
-
-最后，当我们点击特定的url，将跳转到相应的页面：
-
-```html
-<ion-item class="item item-icon-right" ng-repeat="article in articles" type="item-text-wrap" href="#/app/article/{{article.url}}">
-  <h2>{{article.title}}</h2>
-  <i class="icon ion-ios-arrow-right"></i>
-</ion-item>
-```      
-
-就会交由相应的Controller来处理。
-
-```javascript
-  .controller('ArticleCtrl', function ($scope, $stateParams, $sanitize, $sce, Blog) {
-    $scope.article = {};
-    Blog.async('http://deploy.baimizhou.net/api/' + $stateParams.slug + '.json').then(function (results) {
-      $scope.article = results;
-      $scope.htmlContent = $sce.trustAsHtml($scope.article.articleHTML);
-    });
-
-  });
-```
-
-##小结
-
-尽管没有一个更成熟的环境可以探索这其中的问题，但是我想对于当前这种情况来说，它是非常棒的解决方案。我们面向的不是那些技术人员，而是一般的用户。他们能熟练使用的是：编辑器和APP。
-
-1. 不会因为后台的升级来困扰他们，也不会受其他组件的影响。
-2. 开发人员不需要担心，某个功能影响了编辑器的使用。
-3. Ops不再担心网站的性能问题——然后要么转为DevOps、要么被Fire。
-
-###其他
-
-最后的代码库：
-
-1. Content: [https://github.com/phodal-archive/echeveria-content](https://github.com/phodal-archive/echeveria-content)
-2. Code: [https://github.com/phodal-archive/echeveria-deploy](https://github.com/phodal-archive/echeveria-deploy)
-3. 移动应用: [https://github.com/phodal-archive/echeveria-mobile](https://github.com/phodal-archive/echeveria-mobile)
-4. 桌面应用: [https://github.com/phodal/echeveria-editor](https://github.com/phodal/echeveria-editor)
-5. Github Pages: [https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages](https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages)
-
-#构建篇：Build
-
-构建是一个很大的话题，特别是对于传统软件来说，对于Web应用也是相当重要的。
-
-在构建上，Ruby比Python会强大些。
-Ruby用的是Rake，Python兴许是scons，如果是用于python的话可以用shovel，这个Python就没有和一个好的标准，
-
-Rakefile算是Ruby的一个标准。
-
-##Rake简介##
-
-> Make 是一个 UNIX® 的本机实用程序，是为管理软件编译过程而设计的。它十分通用，足以用于许多其他环境中，即使它已用于将文档编译成书，维护 Web 站点以及裁减发行版。但是，make 也有自身的约束。它具有自己的语法，这取决于制表符的（tabbed）和非制表符的（nontabbed）空白空间。许多其他工具已经进行了扩展，可以弥 补 make 的一些不足，如 Aegis 和 Ant，但这两者也都具有自己的问题。
-
-> Make 以及类似的工具都有改进的余地，但是它们都不可能让 Ruby 黑客十分开心。您从这里要去哪里？幸好，可以使用一些 Ruby 选项。Rant 是一个由 Stefan Lang 编写的工具（请参阅 参考资料）。Rant 仍处于开发周期的初级阶段，因此它可能还没有成熟到足以适用于每个人。Jim Weirich 编写的 Rake 是一个在 Ruby 社区中广泛使用的成熟系统。
-
-> Rake 是用 Ruby 编写的，并使用 Ruby 作为它的语法，因此学习曲线很短。Rake 使用 Ruby 的元编程功能来扩展语言，使之更利落地适应自动化任务。Rake 附带的 rdoc 中列出了一些优点（请注意，前两个是诸如 make 的其他任务自动化工具所共有的）：
-
- - 用户可以用先决条件指定任务。
- - Rake 支持规则模式来合并隐式任务。
- - Rake 是轻量级的。它可以用其他项目发布为单个文件。依靠 Rake 的项目不需要在目标系统上安装 Rake。
-
-###简单的Rakefile
-
-    task :default do
-      puts "Simple Rakefile Example"
-    end
-
-运行结果
-
-    Simple Rakefile Example
-    [Finished in 0.2s]
-
-##Shovel##
-
-官方是这么介绍的
-
-> Shovel is like Rake for python. Turn python functions into tasks simply, and access and invoke them from the command line. 'Nuff said. New Shovel also now has support for invoking the same tasks in the browser you'd normally run from the command line, without any modification to your shovel scripts.
-
-那么就
-
-    git clone https://github.com/seomoz/shovel.git
-    cd shovel
-    python setup.py install 
-
-与用官方的示例，有一个foo.py
-
-    from shovel import task
-    
-    @task
-    def howdy(times=1):
-        '''Just prints "Howdy" as many times as requests.
-        
-        Examples:
-            shovel foo.howdy 10
-            http://localhost:3000/foo.howdy?15'''
-        print('\n'.join(['Howdy'] * int(times)))
-
-shovel一下
-        shovel foo.howdy 10
-
-###构建C语言的Hello,World: Makefile
-
-C代码
-
-    #include
-    
-    int main(){
-    	printf("Hello,world\n");
-    	return 0;
-    }
-
-一个简单的makefile示例
-
-    hello:c 
-    	gcc hello.c -o hello
-    clean:
-    	rm hello
-
-执行：
-
-    make
-
-就会生成hello的可执行文件，再执行
-
-    make clean
-
-清理。
-
-###Rakefile
-
-    task :default =&gt; :make
-    
-    file 'hello.o' =&gt; 'hello.c' do  
-        `gcc -c hello.c`  
-    end  
-      
-    task :make =&gt; 'hello.o' do  
-        `gcc hello.o -o hello`  
-    end  
-      
-    task :clean do  
-        `rm -f *.o hello`  
-    end  
-
-再Rake一下，似乎Ruby中的 Rake用来作构建工具很强大，当然还有其他语言的也可以，旨在可以替代Makefile
-
-###Scons
-
-新建一个SConstruct
-
-    Program('hello.c')
-
-Program('hello.c')
-
-    scons
-
-，过程如下
-
-    phodal@linux-dlkp:~/helloworld&gt; scons
-    scons: Reading SConscript files ...
-    scons: done reading SConscript files.
-    scons: Building targets ...
-    gcc -o hello.o -c hello.c
-    gcc -o hello hello.o
-    scons: done building targets.
-
-总结
-
-    Rakefile
-
 #前端篇: 前端演进史
 
 细细整理了过去接触过的那些前端技术，发现前端演进是段特别有意思的历史。人们总是在过去就做出未来需要的框架，而现在流行的是过去的过去发明过的。如，响应式设计不得不提到的一个缺点是：**他只是将原本在模板层做的事，放到了样式（CSS）层来完成**。
@@ -1328,163 +538,6 @@ React，将一小部分复杂度交由人来消化，将另外一部分交给了
 
 
 
-#个人篇：影响力
-
-> 影响力，让梦想离你更近。
-
-试想一下，有一天你开发了一个新的语言。它比现有的某某主流软件，运行效率将提高了50%，开发效率提高了100%。接着，你在github上release了0.1，但是由于出现某个开发难题，你需要别人的帮助。而这时，你找不到有效的途径去找到那些真正会用它的人。接着出现了一个新的语言可以达到一样的效果，而这个项目就死于腹中，我记得[mruby](https://github.com/mruby/mruby)刚刚只写了一个``README.md``的时候，就获得了上千个star。
-
-##如何提高影响力，为自己代言
-
-![impact](http://repractise.phodal.com/img/impact/impact.jpg)
-
-每个人都可以是一个品牌，对于一个程序员来说，我们的ID就是我们的品牌。而构成品牌的有多个要素:
-
-- 博客
-- Github
-- Weibo(or Twitter)
-- StackOverflow(or SegmentFault, Zhihu)
-
-等等。
-
-###搭建一个跨平台的平台
-
-> 连接各个平台的核心是我们的ID。
-
-第一个平台指的是不同的网站，如我们的博客、Github、知乎等等，第二个平台指的是我们的影响力。
-
-So，在开始的时候我们需要有一个统一的ID，来标识我们的身份:我是谁，你在xx网站上看到的那个xx就是我。刚开始的时候，我在CSDN、Github上的ID(gmszone)和我的博客的域名(Phodal)是不一样的，因为当时的域名(gmszone.com)握在别人的手上，于是我便想办法将两个ID改了过来（ps: github提供迁移)。后来，Phodal就成了我的发声平台:
-
-- [http://www.phodal.com/](http://www.phodal.com/)
-- [http://weibo.com/phodal](http://weibo.com/phodal)
-- [http://www.zhihu.com/people/phodal](http://www.zhihu.com/people/phodal)
-- [http://github.com/phodal](http://github.com/phodal)
-- [http://segmentfault.com/u/phodal](http://segmentfault.com/u/phodal)
-- [http://www.douban.com/people/phodal/](http://www.douban.com/people/phodal/)
-- ...
-
-于是，这时就可以开始使用跨平台的平台了。
-
-##构建平台
-
-> 小博客也会有成长的一天。
-
-对于像我这样一个个默默无闻地人来说，用户可能会有下面几种不同的方法来知道我: 
-
-![live example](http://repractise.phodal.com/img/impact/live.jpg)
-
-- 用户 -> 搜索{谷歌,百度,必应} -> 博客 -> {Weibo,Github}
-- 用户 -> 微博 -> {Github, 博客}
-- 用户 —> Github -> 博客
-- 用户 -> {知乎, SegmentFault} -> {Weibo,Github,博客}
-
-###博客
-
-刚开始在CSDN上写博客的时候，一开始的访问量很少，慢慢地就多了。有一天发现这样的博客不是自己想要的，于是建了自己的博客，一开始的流量是0。像CSDN这样的网站推荐一些文章到首页，如果能这样便是幸运的。在经历大半年的几乎零流量之后，开始慢慢增长了。到了今天，一共有470篇博客(有一些是出于测试SEO目的写成多篇文章)。一天的PageView大平均有五百左右，主要来源是搜索引擎，百度200左右，谷歌50左右，必应10左右。
-
-####用户故事
-
-对于一个程序员来说，必须在某种程度上熟悉怎么搜索自己想要的内容，即**关键字**。如我们想要知道如何在OpenWRT OS上用Python，那么我们会搜索``OpenWRT Python``。于是，这个时候我们博客的标题带有OpenWRT Python，那么我们可能就中奖了。
-
-故事，告诉我们**好的标题很重要**。**重复这个主题**也很重要，会有一个更好的排名。至于，如何更好地排到第一，就是SEO(搜索引擎优化)的话题了。
-
-####笔记
-
-一开始要写一个博客是比较难的，没有流量、没有评论。所以，一个好的切入点是: ``笔记``。最好是那种网上很少的内容的笔记，虽说很多人不愿意去做这个，但是这是一个很好的方向。
-
-一个技术博客里面的内容应该是两种类型:
-
-- 技术
-- 理论
-
-技术型可以带来流量，理论型的可以带来评论。理想的话，两者会相辅相成的，但是在我们刚处于学习期的时候。那么那些Note，可以给我们带来一些流量，也带来一些信心。如果，只是想着一开始我就只写一些长篇大论的话，那么只是就是拿了80%的时间做了20%的事。
-
-以用户搜索的过程来说，用户是``有目的的进行搜索``。换句话说，在我们日常工作的时候，我们只关心和我们工作相关的内容。而在受众来，正常情况下，技术型的博文、笔记可以带来流量的主要原因是: ``大部分人都是初学者``。
-
-![70 percent](http://repractise.phodal.com/img/impact/70.jpg)
-
-理论性的内容，更适合更高级别的开发者，这样的受众较少。
-
-####上头条
-
-而在今天有其他的平台，可以借用来推销自己的:
-
-- 开发者头条
-- 极客头条
-- 掘金稀土
-- ...
-
-网上的IT新闻、博客都是互相Copy，对于一些软文(如本文)来说。这也是期触及率高的原因，通常来说这样可以带来大量的流量。记得在原文中留个原文链接，附张图片(自己博客的图片)来保证:Google把原文指向你的博客，而不是免费为别人打工。
-
-####提升
-
-除了是一个很好的展示平台，也是一个很好的测试平台。作为一个Web Developer，测试过
-
-- Nginx Log分析(~600M)
-- New Relic
-- SEO
-- AutoComplete
-- 重构网站
-- ...
-
-###Github
-
-将自己尝试的不同技术栈的内容丢到Github上，加上适当地文档、博客，就变成了一个很好的Demo。然而，不止于此，越来越多地人开始在Github寻找人才，因为他们乐于付出，也乐于分离。曾经因为Github上的项目:
-
-- 申请WebStorm开源License
-- Review英文版书籍
-- ...(有些不方便透露)
-
-而在Github上的项目其实不仅仅只有一些库:
-
- - 库和框架: 和``jQuery`` 
- - 系统: 如``Linux``、``hhvm``、``docker``
- - 配置集: 如``dotfiles``
- - 辅助工具: 如``oh-my-zsh``
- - 工具: 如``Homewbrew``和``Bower``
- - 资料收集: 如``free programming books``，``You-Dont-Know-JS``，``Font-Awesome``
- - 其他:简历如``Resume``，``博客``
-
-所以，可以尝试不同的切入点使用Github。
-
-在某种程度上来说，一个人在Gihub上的粉丝数量会帮助他的项目在初期获取更多的人气。这样就有助于其下一步开展项目，当然也会在某种程度上更好看Blabla。
-
-####提升
-
-之前写过一篇[《如何通过github提升自己》](http://www.phodal.com/blog/use-github-grow-self/)中说到了一些细节，大致上还是那些东西，Github与Trello、Travis-CI、Coveralls、SauceLabs、Code Climate，配合得很好。已经可以接近于我们在一些项目上用到的功能，因此拿他们搭建一个好的开发环境完全不是问题。
-
-- Travis CI:支持Node.js、Python、Ruby、PHP等二十几种语言，也支持MySQL、PostgreSQL、MongoDB、Redis等数据库。
-- Coveralls:可以用来查看代码的测试覆盖率。
-- SauceLabs:可以用来跑Selenium功能测试等等
-- Code Climate:查看代码的坏味道。
-
-在我们试着去保证测试覆盖率、代码质量等等的时候，我们就可以学到一些知识，如使用不同语言测试框架的Mock、Stub、FakeServer等等。
-
-###扩大影响力
-
-上面的两部分属于打造平台部分，而如Weibo、知乎等则属于扩大影响力。
-
-在某种时候，博客、Github都更像是个人的平台。如Weibo、知乎、SegmentFault、CSDN等等的开发者社区，也可以为自己的博客、Github带来流量，而这一些都是互相促进的。如果我们在其中的一个网站上表现得很好的话，那么在另外一个网站上我们也很容易聚集同样的粉丝。如，我最常用的一个作法是: 将自己写得相对比较好的一些博客复制到CSDN、SegemntFault、图灵社区等等，并适当地推到CSDN首页、开发者头条等等。
-
-由于写作的开发人员是有限的，所以通常在某某头条上的推荐，会成为某博客园上的新闻，接着会有成群接队的小站开始Copy。同时，这些文章又会推到他们的微博上，接着还可能是微信平台。毕竟，对于大部分的网络来说，大部分的流量是流向他们的网站的，所以他们不太会在乎其中的外链等等。故而，通常来说: 不是某某东西突然火了，而是突然没有别的新闻了。通常来说一个好的作法是，试着将你的博客分享到微博上，然后@那些愿意帮你分享的平台。这样，你可以有更多的阅读、更多的粉丝，当然好的内容是前提。
-
-其中还有若干其它的好处:
-
-- 更大的曝光率，会带来更多的机会
-- 更有机会参与一些未公开互联网产品的试用
-- 各种精美小礼物
-- 翻译、出版机会
-
-##TODO
-
-只需要简单地几步就可以开始提高我们的影响力:
-
-- 在不同的网站上使用一个ID
-- 创建一个博客
-- 开始创作内容、提交代码、分享
-- 持续Impact
-
-
 #前端篇: 数据-表现-领域
 
 无论是MVC、MVP或者MVVP，都离不开这些基本的要素：数据、表现、领域。
@@ -1535,568 +588,6 @@ User.sync({force: true}).then(function () {
 像如MongoDB这类的数据库，也是存在数据模型，但说的却是嵌入子文档。在业务量大的情况下，数据库在考验公司的技术能力，想想便觉得Amazon RDS挺好的。
 
 如果是
-
-#模式、设计与架构
-
-设计模式算是在OO中比较有趣的东西，特别是对于如我之类的用得不是很多的，虽然有时候也会用上，但是并不知道用的是怎样的模式。之前了解了几天的设计模式，实际上也就是将平常经常用到的一些东西进行了总结，如此而已，学习设计模式的另外一个重要的意义在于，我们使用了设计模式的时候我们会知道自己使用了，并且还会知道用了是怎样的设计模式。
-
-至于设计模式这个东西和有些东西一样，是发现的而不是发明的，换句话说，我们可以将经常合到一起的几种模式用一个新的模式来命名，它是复合模式，但是也可以用别的模式来命名。
-
-设计模式算是简化了我们在面向对象设计时候的诸多不足，这个在系统设计的初期有时候会有一定的作用，不过多数时候对于我来说，会用上他的时候，多半是在重构的时候，因为不是很熟悉。
-
-
-##观察者模式
-
-观察者模式又叫做发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。
-
-观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。这个主题对象在状态上发生变化时，会通知所有观察者对象，使它们能够自动更新自己。
-
-一个软件系统常常要求在某一个对象的状态发生变化的时候，某些其它的对象做出相应的改变。做到这一点的设计方案有很多，但是为了使系统能够易于复用，应该选择低耦合度的设计方案。减少对象之间的耦合有利于系统的复用，但是同时设计师需要使这些低耦合度的对象之间能够维持行动的协调一致，保证高度的协作（Collaboration）。观察者模式是满足这一要求的各种设计方案中最重要的一种。
-
-简单的来说，就是当我们监测到一个元素变化的时候，另外的元素依照此而改变。
-
-
-###Ruby观察者模式
-
-Ruby中为实现Observer模式提供了名为observer的库，observer库提供了Observer模块。
-其API如下所示
-
-方法名  | 功 能 
--------|-----------------
-add_observer(observer)   |               添加观察者
-delete_observer(observer) |            删除特定观察者
-delete_observer            |                     删除观察者
-count_observer              |                    观察者的数目
-change(state=true)           |                 设置更新标志为真
-changed?                      |                        检查更新标志
-notify_observer(*arg)          |              通知更新，如果更新标志为真，调用观察者带参数arg的方法
-
-####Ruby观察者简单示例
-
-这里要做的就是获取一个json数据，将这个数据更新出来。
-
-获取json数据，同时解析。
-
-```ruby
-require 'net/http'
-require 'rubygems'
-require 'json'
-
-class GetData
-  attr_reader:res,:parsed
-
-  def initialize(uri)
-    uri=URI(uri)
-    @res=Net::HTTP.get(uri)
-    @parsed=JSON.parse(res)
-  end
-
-  def id
-    @parsed[0]["id"]
-  end
-
-  def sensors1
-    @parsed[0]["sensors1"].round(2)
-  end
-
-  def sensors2
-    @parsed[0]["sensors2"].round(2)
-  end
-
-  def temperature
-    @parsed[0]["temperature"].round(2)
-  end
-
-  def led1
-    @parsed[0]["led1"]
-  end
-
-end
-```
-
-下面这个也就是重点，和观察者相关的，就是被观察者，由这个获取数据。
-通过changed ，同时用notify_observer方法告诉观察者
-
-```ruby
-require 'rubygems'
-require 'thread'
-require 'observer'
-require 'getdata'
-require 'ledstatus'
-
-class Led 
-	include Observable
-	
-    attr_reader:data
-	def initialize
-		@uri='http://www.xianuniversity.com/athome/1'
-	end
-	def getdata
-		loop do 
-			changed()
-	   		data=GetData.new(@uri)
-	   		changed
-	   		notify_observers(data.id,data.sensors1,data.sensors2,data.temperature,data.led1)
-	   		sleep 1
-	   	end
-	end
-end
-```
-
-然后让我们新建一个观察者
-
-```ruby
-class LedStatus
-  def update(arg,sensors1,sensors2,temperature,led1)
-    puts "id:#{arg},sensors1:#{sensors1},sensors2:#{sensors2},temperature:#{temperature},led1:#{led1}"
-  end
-end
-```
-
-测试
-
-```ruby
-require 'spec_helper'
-
-describe LedStatus do
-  let(:ledstatus){LedStatus.new()}
-
-  describe "Observable" do
-    it "Should have a result" do 
-      led=Led.new
-      led.add_observer(ledstatus)
-      led.getdata
-    end
-  end
-end
-```
-
-测试结果如下所示
-
-```bash
-phodal@linux-dlkp:~/tw/observer&gt; rake
-/usr/bin/ruby1.9 -S rspec ./spec/getdata_spec.rb ./spec/ledstatus_spec.rb
-id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
-id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
-id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
-id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
-id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
-id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
-```
-
-使用Ruby自带的Observer库的优点是，让我们可以简化相互之间的依赖性。同时，也能简化程序的结构，相比于自己写observer的情况下。
-
-##Node.js 简单工厂模式
-
-> 从设计模式的类型上来说，简单工厂模式是属于创建型模式，又叫做静态工厂方法（Static Factory Method）模式，但不属于23种GOF设计模式之一。简单工厂模式是由一个工厂对象决定创建出哪一种产品类的实例。简单工厂模式是工厂模式家族中最简单实用的模式，可以理解为是不同工厂模式的一个特殊实现，学习了此模式可以为后面的很多中模式打下基础。
-
-当我发现我在代码中重复写了很多个if来判断选择那个数据库的时候。于是，我就想着似乎这就可以用这个简单工厂模式来实现SQLite3与MongoDB的选择。
-
-###MongoDB Helper与SQLite Helper类重复
-
-对于我们的类来说是下面这样子的:
-
-```javascript
-function MongoDBHelper() {
-    'use strict';
-    return;
-}
-
-MongoDBHelper.deleteData = function (url, callback) {
-    'use strict';
-    ...    
-};
-
-MongoDBHelper.getData = function (url, callback) {
-    'use strict';
-    ...
-};
-
-MongoDBHelper.postData = function (block, callback) {
-    'use strict';
-    ...
-};
-
-MongoDBHelper.init = function () {
-    'use strict';
-    ...
-};
-
-module.exports = MongoDBHelper;
-```
-
-然而，我们可以发现的是，对于我们的SQLiteHelper来说也是类似的
-
-```javascript
-SQLiteHelper.init = function () {
-    'use strict';
-    ...
-};
-
-SQLiteHelper.postData = function (block, callback) {
-    'use strict';   
-    ...
-};
-
-SQLiteHelper.deleteData = function (url, callback) {
-    'use strict';
-    ...
-};
-
-SQLiteHelper.getData = function (url, db_callback) {
-    'use strict';
-    ...
-};
-
-module.exports = SQLiteHelper;
-```
-
-想来想去觉得写一个父类似乎是没有多大意义的，于是用了简单工厂模式来解决这个问题。
-
-总之，就是我们可以用简单工厂模式来做一个DB Factory，于是便有了
-
-```javascript
-var MongoDBHelper   = require("./mongodb_helper");
-var SQLiteHelper    = require("./sqlite_helper");
-var config          = require('../../iot').config;
-
-function DB_Factory() {
-    'use strict';
-    return;
-}
-
-DB_Factory.prototype.DBClass = SQLiteHelper;
-
-DB_Factory.prototype.selectDB = function () {
-    'use strict';
-    if (config.db === 'sqlite3') {
-        this.DBClass = SQLiteHelper;
-    } else if (config.db === "mongodb") {
-        this.DBClass = MongoDBHelper;
-    }
-    return this.DBClass;
-};
-
-module.exports = DB_Factory;
-```
-
-这样我们在使用的时候，便可以:
-
-```javascript
-var DB_Factory      = require("./lib/database/db_factory");
-
-var db_factory = new DB_Factory();
-var database = db_factory.selectDB();
-database.init();
-```
-
-由于是直接由配置中读取进去的，这里的selectDB就不需要参数。
-
-##Java Template Method(模板方法)
-
-原本对于设计模式的写作还不在当前的计划中，然而因为在写TWU作业的时候，觉得代码写得不好，于是慢慢试着一点点重构，重新看着设计模式。也开始记录这一点点的方法，至少这些步骤是必要的。
-
-###从基本的App说起
-
-对于一个基本的C/C++/Java/Python的Application来说，他只需要有一个Main函数就够了。对于一个好一点的APP来说，他可能是下面的步骤，
-
-```c
-main(){
-	init();
-	while(!condition()){
-   		do();
-	}
-}
-```
-
-上面的代码是我在学51/AVR等各式嵌入式设备时，经常是按上面的写法写的，对于一个更符合人性的App来说他应该会有一个退出函数。
-
-```c
-main(){
-	init();
-	while(!condition()){
-   		do();
-	}
-	exit();
-}
-```
-
-于是很幸运地我找到了这样的一个例子。
-
-过去看过Arduino的代码，了解过他是如何工作的，对于一个Arduino的代码来说，必要的两个函数就是。
-
-```cpp
-void setup() {
-}
-
-void loop() {
-}
-```
-
-setup()函数相当于上面的init()，而loop()函数刚相当于上面的do()。似乎这就是我们想要的东西，看看Arduino目录中的Arduino.h就会发现，如下的代码(删减部分代码)
-
-```cpp
-#include <Arduino.h>
-
-int main(void)
-{
-	init();
-	setup();	    
-	for (;;) {
-		loop();
-		if (serialEventRun) serialEventRun();
-	}
-        
-	return 0;
-}
-```
-
-代码中的for(;;)看上去似乎比while(True)容易理解得多，这也就是为什么嵌入式中经常用到的是for(;;)，从某种意义上来说两者是等价的。再有不同的地方，就是gcc规定了,main()函数不能是void。so,两者是差不多的。只是没有，并没有在上面看到模板方法，等等。我们在上面所做的事情，便是创建一个框架。
-
-##Template Method
-
-> **模板方法**： 在一方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。
-
-对于我来说，我就是在基本的App中遇到的情况是一样的，在我的例子中，一开始我的代码是这样写的。
-
-```java
-public static void main(String[] args) throws IOException {
-    initLibrary();
-    while(!isQuit){
-        loop();
-    }
-    exit;
-}
-
-protected void initLibrary(); {
-    System.out.println(welcomeMessage);
-}
-
-protected void loop() {
-    String key = "";
-    Scanner sc = new Scanner(System.in);
-    key = sc.nextLine();
-
-    System.out.println(results);
-    if(key.equals("Quit")){
-        setQuit();
-    }
-}
-
-protected void exit() {
-    System.out.println("Quit Library");
-}
-```
-
-只是这样写感觉很是别扭，看上去一点高大上的感觉，也木有。于是，打开书，找找灵感，就在《敏捷软件开发》一书中找到了类似的案例。Template Method模式可以分离能用的算法和具体的上下文，而我们通用的算法便是。
-
-```c
-main(){
-	init();
-	while(!condition()){
-   		do();
-	}
-	exit();
-}
-```
-
-看上去正好似乎我们当前的案例，于是便照猫画虎地来了一遍。
-
-###Template Method实战
-
-创建了一个名为App的抽象基类，
-
-```java
-public abstract class App {
-    private boolean isQuit = false;
-
-    protected abstract void loop();
-    protected abstract void exit();
-
-    private boolean quit() {
-        return isQuit;
-    }
-
-    protected boolean setQuit() {
-        return isQuit = true;
-    }
-
-    protected abstract void init();
-
-    public void run(){
-        init();
-        while(!quit()){
-            loop();
-        }
-        exit();
-    }
-}
-```
-
-而这个也和书中的一样，是一个通用的主循环应用程序。从应用的run函数中，可以看到主循环。而所有的工作也都交付给抽象方法，于是我们的LibraryApp就变成了
-
-
-```java
-public class LibraryApp extends App {
-    private static String welcomeMessage = "Welcome to Biblioteca library";
-
-    public static void main(String[] args) throws IOException {
-        (new LibraryApp()).run();
-    }
-
-    protected void init() {
-        System.out.println(welcomeMessage);
-    }
-
-    protected void loop() {
-        String key = "";
-        Scanner sc = new Scanner(System.in);
-        key = sc.nextLine();
-
-        if(key.equals("Quit")){
-            setQuit();
-        }
-    }
-
-    protected void exit() {
-        System.out.println("Quit Library");
-    }
-}
-```
-
-然而，如书中所说``这是一个很好的用于示范TEMPLATE METHOD模式的例子，却不是一个合适的例子。``
-
-
-##Hadoop Pipe and Filters模式
-
-继续码点关于架构设计的一些小心得。架构是什么东西并没有那么重要，重要的是知道它存在过。我会面对不同的架构，有一些不同的想法。一个好的项目通常是存在一定的结构，就好像人们在建造房子的时候也都会有结构有一样。
-
-我们看不到的架构，并不意味着这个架构不存在。
-
-###Unix Shell
-
-最出名的Pipe便是Unix中的Shell
-
-**管道（英语：Pipeline）是原始的软件管道：即是一个由标准输入输出链接起来的进程集合，所以每一个进程的输出（stdout）被直接作为下一个进程的输入（stdin）。 每一个链接都由未命名管道实现。过滤程序经常被用于这种设置。**
-
-所以对于这样一个很好的操作便是，统计某种类型的文件的个数:
-
-```bash
-ls -alh dot | grep .dot | wc -l
-```
-
-在执行
-
-```bash
-ls -alh dot
-```
-
-的输出便是下一个的输入，直至最后一个输出。
-
-这个过程有点类似于工厂处理废水，
-
-![pipe and filter][1]
-
-上图是一个理想模型~~。
-
-一个明显地步骤是，水中的杂质越来越少。
-
-###Pipe and Filter模式
-
-**Pipe and Filter**适合于处理数据流的系统。每个步骤都封装在一个过滤器组件中，数据通过相邻过滤器之间的管道传输。
-
-- **pipe**: 传输、缓冲数据。
-- **filter**: 输入、处理、输出数据。
-
-这个处理过程有点类似于我们对数据库中数据的处理，不过可不会有这么多步骤。
-
-###Fluent API
-
-这个过程也有点类似于Fluent API、链式调用，只是这些都是DSL的一种方式。
-
-
-流畅接口的初衷是构建可读的API，毕竟代码是写给人看的。
-
-类似的，简单的看一下早先我们是通过方法级联来操作DOM
-
-```javascript
-var btn = document.createElement("BUTTON");        // Create a <button> element
-var t = document.createTextNode("CLICK ME");       // Create a text node
-btn.appendChild(t);                                // Append the text to <button>
-document.body.appendChild(btn);                    // Append <button> to <body>
-```
-
-而用jQuery写的话，便是这样子
-
-```javascript
-$('<span>').append("CLICK ME");
-```
-
-等等
-
-于是回我们便可以创建一个简单的示例来展示这个最简单的DSL
-
-```javascript
-Func = (function() {
-    this.add = function(){
-        console.log('1');
-        return this;
-    };
-    this.result = function(){
-        console.log('2');
-        return this;
-    };
-    return this;
-});
-
-var func = new Func();
-func.add().result();
-```
-
-然而这看上去像是表达式生成器。
-
-###DSL 表达式生成器
-
-> 表达式生成器对象提供一组连贯接口，之后将连贯接口调用转换为对底层命令-查询API的调用。
-
-这样的API，我们可以在一些关于数据库的API中看到:
-
-```javascript
-var query =
-  SQL('select name, desc from widgets')
-   .WHERE('price < ', $(params.max_price), AND,
-          'clearance = ', $(params.clearance))
-   .ORDERBY('name asc');
-```
-
-链式调用有一个问题就是收尾，同上的代码里面我们没有收尾，这让人很迷惑。。加上一个query和end似乎是一个不错的结果。
-
-###Pipe and Filter模式实战
-
-所以，这个模式实际上更适合处理数据，如用Hadoop处理数据的时候，我们会用类似于如下的方法来处理我们的数据:
-
-```pig
-A = FOREACH LOGS_BASE GENERATE ToDate(timestamp, 'dd/MMM/yyyy:HH:mm:ss Z') as date, ip, url,(int)status,(int)bytes,referrer,useragent;
-B = GROUP A BY (timestamp);
-C = FOREACH B GENERATE FLATTEN(group) as (timestamp), COUNT(A) as count;
-D = ORDER C BY timestamp,count desc;
-```
-
-每一次都是在上一次处理完的结果后，再处理的。
-
-
-##其他
-
-参考书目
-
- - 《Head First 设计模式》
- - 《设计模式》
- - 《敏捷软件开发 原则、模式与实践》
- - 《 面向模式的软件架构:模式系统》
- - 《Java应用架构设计》
-
-
-#易读
 
 #重构篇
 
@@ -2855,6 +1346,1162 @@ So，so，这些开发人员做了些什么：
 
 
 
+#架构篇二：构建基于Git为数据中心的CMS
+
+或许你也用过Hexo / Jekyll / Octopress这样的静态博客，他们的原理都是类似的。我们有一个代码库用于生成静态页面，然后这些静态页面会被PUSH到Github Pages上。
+
+从我们设计系统的角度来说，我们会在Github上有三个主要代码库：
+
+1. Content。用于存放编辑器生成的JSON文件，这样我们就可以GET这些资源，并用Backbone / Angular / React 这些前端框架来搭建SPA。
+2. Code。开发者在这里存放他们的代码，如主题、静态文件生成器、资源文件等等。
+3. Builder。在这里它是运行于Travis CI上的一些脚本文件，用于Clone代码，并执行Code中的脚本。
+
+以及一些额外的服务，当且仅当你有一些额外的功能需求的时候。
+
+1. Extend Service。当我们需要搜索服务时，我们就需要这样的一些服务。如我正考虑使用Python的whoosh来完成这个功能，这时候我计划用Flask框架，但是只是计划中——因为没有合适的中间件。
+2. Editor。相比于前面的那些知识这一步适合更重要，也就是为什么生成的格式是JSON而不是Markdown的原理。对于非程序员来说，要熟练掌握Markdown不是一件容易的事。于是，一个考虑中的方案就是使用 Electron + Node.js来生成API，最后通过GitHub API V3来实现上传。
+3. Mobile App。
+
+So，这一个过程是如何进行的。
+
+###用户场景
+
+整个过程的Pipeline如下所示：
+
+1. 编辑使用他们的编辑器来编辑的内容并点击发布，然后这个内容就可以通过GitHub API上传到Content这个Repo里。
+2. 这时候需要有一个WebHooks监测到了Content代码库的变化，便运行Builder这个代码库的Travis CI。
+3. 这个Builder脚本首先，会设置一些基本的git配置。然后clone Content和Code的代码，接着运行构建命令，生成新的内容。
+4. 然后Builder Commit内容，并PUSH内容。
+
+在这种情形中，编辑能否完成工作就不依赖于网站——脱稿又少了 个借口。这时候网站出错的概率太小了——你不需要一个缓存服务器、HTTP服务器，由于没有动态生成的内容，你也不需要守护进程。这些内容都是静态文件，你可以将他们放在任何可以提供静态文件托管的地方——CloudFront、S3等等。或者你再相信自己的服务器，Nginx可是全球第二好（第一还没出现）的静态文件服务器。
+
+开发人员只在需要的时候去修改网站的一些内容。So，你可能会担心如果这时候修改的东西有问题了怎么办。
+
+1. 使用这种模式就意味着你需要有测试来覆盖这些构建工具、生成工具。
+2. 相比于自己的代码，别人的CMS更可靠？
+
+需要注意的是如果你上一次构建成功，你生成的文件都是正常的，那么你只需要回滚开发相关的代码即可。旧的代码仍然可以工作得很好。其次，由于生成的是静态文件，查错的成本就比较低。最后，重新放上之前的静态文件。
+
+##Code: 生成静态页面
+
+Assemble是一个使用Node.js，Grunt.js，Gulp，Yeoman 等来实现的静态网页生成系统。这样的生成器有很多，Zurb Foundation, Zurb Ink, Less.js / lesscss.org, Topcoat, Web Experience Toolkit等组织都使用这个工具来生成。这个工具似乎上个Release在一年多以前，现在正在开始0.6。虽然，这并不重要，但是还是顺便一说。
+
+我们所要做的就是在我们的``Gruntfile.js``中写相应的生成代码。
+
+```javascript
+	assemble: {
+      options: {
+        flatten: true,
+        partials: ['templates/includes/*.hbs'],
+        layoutdir: 'templates/layouts',
+        data: 'content/blogs.json',
+        layout: 'default.hbs'
+      },
+      site: {
+        files: {'dest/': ['templates/*.hbs']}
+      },
+      blogs: {
+        options: {
+          flatten: true,
+          layoutdir: 'templates/layouts',
+          data: 'content/*.json',
+          partials: ['templates/includes/*.hbs'],
+          pages: pages
+        },
+        files: [
+          { dest: './dest/blog/', src: '!*' }
+        ]
+      }
+    }
+```    
+
+配置中的site用于生成页面相关的内容，blogs则可以根据json文件的文件名生成对就的html文件存储到blog目录中。
+
+生成后的目录结果如下图所示：
+
+```
+ .
+├── about.html
+├── blog
+│   ├── blog-posts.html
+│   └── blogs.html
+├── blog.html
+├── css
+│   ├── images
+│   │   └── banner.jpg
+│   └── style.css
+├── index.html
+└── js
+    ├── jquery.min.js
+    └── script.js
+
+7 directories, 30 files
+```
+
+这里的静态文件内容就是最后我们要发布的内容。
+
+还需要做的一件事情就是：
+
+```javascript
+grunt.registerTask('dev', ['default', 'connect:server', 'watch:site']);
+```
+
+用于开发阶段这样的代码就够了，这个和你使用WebPack + React 似乎相差不了多少。
+
+
+##Builder: 构建生成工具
+
+Github与Travis之间，可以做一个自动部署的工具。相信已经有很多人在Github上玩过这样的东西——先在Github上生成Token，然后用travis加密：
+
+```bash
+travis encrypt-file ssh_key --add
+```
+
+加密后的Key就会保存到``.travis.yml``文件里，然后就可以在Travis CI上push你的代码到Github上了。
+
+接着，你需要创建个deploy脚本，并且在``after_success``执行它：
+
+```yml
+after_success:
+  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash deploy.sh
+```
+
+在这个脚本里，你所需要做的就是clone content和code中的代码，并执行code中的生成脚本，生成新的内容后，提交代码。
+
+```
+#!/bin/bash
+
+set -o errexit -o nounset
+
+rev=$(git rev-parse --short HEAD)
+
+cd stage/
+
+git init
+git config user.name "Robot"
+git config user.email "robot@phodal.com"
+
+git remote add upstream "https://$GH_TOKEN@github.com/phodal-archive/echeveria-deploy.git"
+git fetch upstream
+git reset upstream/gh-pages
+
+git clone https://github.com/phodal-archive/echeveria-deploy code
+git clone https://github.com/phodal-archive/echeveria-content content
+pwd
+cp -a content/contents code/content
+
+cd code
+
+npm install
+npm install grunt-cli -g
+grunt 
+mv dest/* ../
+cd ../
+rm -rf code
+rm -rf content
+
+touch .
+
+if [ ! -f CNAME ]; then
+    echo "deploy.baimizhou.net" > CNAME
+fi
+
+git add -A .
+git commit -m "rebuild pages at ${rev}"
+git push -q upstream HEAD:gh-pages
+```
+
+这就是这个builder做的事情——其中最主要的一个任务是``grunt``，它所做的就是:
+
+```javascript
+grunt.registerTask('default', ['clean', 'assemble', 'copy']);
+```
+##Content：JSON格式
+
+在使用Github和Travis CI完成Content的时候，发现没有一个好的Webhook。虽然我们的Content只能存储一些数据，但是放一个trigger脚本也是可以原谅的。
+
+```javascript
+var Travis = require('travis-ci');
+
+var repo = "phodal-archive/echeveria-deploy";
+
+var travis = new Travis({
+    version: '2.0.0'
+});
+
+travis.authenticate({
+    github_token: process.env.GH_TOKEN
+
+}, function (err, res) {
+    if (err) {
+        return console.error(err);
+    }
+
+    travis.repos(repo.split('/')[0], repo.split('/')[1]).builds.get(function (err, res) {
+        if (err) {
+            return console.error(err);
+        }
+
+        travis.requests.post({
+            build_id: res.builds[0].id
+        }, function (err, res) {
+            if (err) {
+                return console.error(err);
+            }
+            console.log(res.flash[0].notice);
+        });
+    });
+});
+```
+
+这里主要依赖于Travis CI来完成这部分功能，这时候我们还需要数据。
+
+###从Schema到数据库
+
+我们在我们数据库中定义好了Schema——对一个数据库的结构描述。在《[编辑-发布-开发分离](https://www.phodal.com/blog/editing-publishing-coding-seperate/)
+》一文中我们说到了echeveria-content的一个数据文件如下所示：
+
+```javascript
+  {
+    "title": "白米粥",
+    "author": "白米粥",
+    "url": "baimizhou",
+    "date": "2015-10-21",
+    "description": "# Blog post \n  > This is an example blog post \n Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+    "blogpost": "# Blog post \n  > This is an example blog post \n Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \n Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  }
+```
+
+比起之前的直接生成静态页面这里的数据就是更有意思地一步了，我们从数据库读取数据就是为了生成一个JSON文件。何不直接以JSON的形式存储文件呢？
+
+我们都定义了这每篇文章的基本元素:
+
+1. title
+2. author
+3. date
+4. description
+5. content
+6. url
+
+即使我们使用NoSQL我们也很难逃离这种模式。我们定义这些数据，为了在使用的时候更方便。存储这些数据只是这个过程中的一部分，下部分就是取出这些数据并对他们进行过滤，取出我们需要的数据。
+
+Web的骨架就是这么简单，当然APP也是如此。难的地方在于存储怎样的数据，返回怎样的数据。不同的网站存储着不同的数据，如淘宝存储的是商品的信息，Google存储着各种网站的数据——人们需要不同的方式去存储这些数据，为了更好地存储衍生了更多的数据存储方案——于是有了GFS、Haystack等等。运营型网站想尽办法为最后一公里努力着，成长型的网站一直在想着怎样更好的返回数据，从更好的用户体验到机器学习。而数据则是这个过程中不变的东西。
+
+尽管，我已经想了很多办法去尽可能减少元素——在最开始的版本里只有标题和内容。然而为了满足我们在数据库中定义的结构，不得不造出来这么多对于一般用户不友好的字段。如链接名是为了存储的文件名而存在的，即这个链接名在最后会变成文件名：
+
+```javascript
+repo.write('master', 'contents/' + data.url + '.json', stringifyData, 'Robot: add article ' + data.title, options, function (err, data) {
+      if(data.commit){
+        that.setState({message: "上传成功" + JSON.stringify(data)});
+        that.refs.snackbar.show();
+        that.setState({
+          sending: 0
+        });
+      }
+    });
+```    
+
+然后，上面的数据就会变成一个对象存储到“数据库”中。
+
+今天 ，仍然有很多人用Word、Excel来存储数据。因为对于他们来说，这些软件更为直接，他们简单地操作一下就可以对数据进行排序、筛选。数据以怎样的形式存储并不重要，重要的是他们都以文件的形式存储着。
+
+###git作为NoSQL数据库
+
+不同的数据库会以不同的形式存储到文件中去。blob是git中最为基本的存储单位，我们的每个content都是一个blob。redis可以以rdb文件的形式存储到文件系统中。完成一个CMS，我们并不需要那么多的查询功能。
+
+> 这些上千年的组织机构，只想让人们知道他们想要说的东西。
+
+我们使用NoSQL是因为：
+
+1. 不使用关系模型
+2. 在集群中运行良好
+3. 开源
+4. 无模式
+5. 数据交换格式
+
+我想其中只有两点对于我来说是比较重要的``集群``与``数据格式``。但是集群和数据格式都不是我们要考虑的问题。。。
+
+我们也不存在数据格式的问题、开源的问题，什么问题都没有。。除了，我们之前说到的查询——但是这是可以解决的问题，我们甚至可以返回不同的历史版本的。在这一点上git做得很好，他不会像WordPress那样存储多个版本。
+
+JSON文件 + Nginx就可以变成这样一个合理的API，甚至是运行方式。我们可以对其进行增、删、改、查，尽管就当前来说查需要一个额外的软件来执行，但是为了实现一个用得比较少的功能，而去花费大把的时间可能就是在浪费。
+
+git的“API”提供了丰富的增、删、改功能——你需要commit就可以了。我们所要做的就是:
+
+1. git commit
+2. git push
+
+于是，就会有一个很忙的Travis-Github Robot在默默地为你工作。
+
+![Robot提交代码](http://repractise.phodal.com/img/basis/robot-commit.png)
+
+##一键发布：编辑器
+
+为了实现之前说到的``编辑-发布-开发分离``的CMS，我还是花了两天的时间打造了一个面向普通用户的编辑器。效果截图如下所示：
+
+![编辑器](http://repractise.phodal.com/img/cms/editor.png)
+
+作为一个普通用户，这是一个很简单的软件。除了Electron + Node.js + React作了一个140M左右的软件，尽管压缩完只有40M左右 ，但是还是会把用户吓跑的。不过作为一个快速构建的原型已经很不错了——构建速度很快、并且运行良好。
+
+- Electron
+- React
+- Material UI
+- Alloy Editor 
+
+尽管这个界面看上去还是稍微复杂了一下，还在试着想办法将链接名和日期去掉——问题是为什么会有这两个东西？
+
+Webpack 打包
+
+```
+  if (process.env.HOT) {
+    mainWindow.loadUrl('file://' + __dirname + '/app/hot-dev-app.html');
+  } else {
+    mainWindow.loadUrl('file://' + __dirname + '/app/app.html');
+  }
+```
+
+上传代码
+
+```javascript
+repo.write('master', 'content/' + data.url + '.json', stringifyData, 'Robot: add article ' + data.title, options, function (err, data) {
+  if(data.commit){
+    that.setState({message: "上传成功" + JSON.stringify(data)});
+    that.refs.snackbar.show();
+    that.setState({
+      sending: 0
+    });
+  }
+});
+```    
+
+当我们点下发送的时侯，这个内容就直接提交到了Content Repo下，如上上图所示。
+
+当我们向Content Push代码的时候，就会运行一下Trigger脚本：
+
+```yml
+after_success:
+  - node trigger-build.js
+```  
+
+脚本的代码如下所示：
+
+```javascript
+var Travis = require('travis-ci');
+
+var repo = "phodal-archive/echeveria-deploy";
+var travis = new Travis({
+    version: '2.0.0'
+});
+
+travis.authenticate({
+    github_token: process.env.GH_TOKEN
+
+}, function (err, res) {
+    if (err) {
+        return console.error(err);
+    }
+    travis.repos(repo.split('/')[0], repo.split('/')[1]).builds.get(function (err, res) {
+        if (err) {
+            return console.error(err);
+        }
+
+        travis.requests.post({
+            build_id: res.builds[0].id
+        }, function (err, res) {
+            if (err) {
+                return console.error(err);
+            }
+            console.log(res.flash[0].notice);
+        });
+    });
+});
+```
+
+由于，我们在这个过程我们的Content提交的是JSON数据，我们可以直接用这些数据做一个APP。
+
+
+##移动应用
+
+为了快速开发，这里我们使用了Ionic + ngCordova来开发 ，最后效果图如下所示：
+
+![移动应用](http://repractise.phodal.com/img/basis/app.png)
+
+在这个代码库里，主要由两部分组成：
+
+1. 获取全部文章
+2. 获取特定文章
+
+为了获取全部文章就意味着，我们在Builder里，需要一个task来合并JSON文件，并删掉其中的一些无用的内容，如articleHTML和article。最后，将生成一个名为articles.json。
+
+```javascript
+if (!grunt.file.exists(src))
+    throw "JSON source file \"" + chalk.red(src) + "\" not found.";
+else {
+    var fragment;
+    grunt.log.debug("reading JSON source file \"" + chalk.green(src) + "\"");
+    try {
+        fragment = grunt.file.readJSON(src);
+    }
+    catch (e) {
+        grunt.fail.warn(e);
+    }
+    fragment.description = sanitizeHtml(fragment.article).substring(0, 200);
+    delete fragment.article;
+    delete fragment.articleHTML;
+    json.push(fragment);
+}
+```                    
+
+接着，我们就可以获取所有的文章然后显示~~。在这里又顺便加了一个pullToRefresh。
+
+```javascript
+  .controller('ArticleListsCtrl', function ($scope, Blog) {
+    $scope.articles = null;
+    $scope.blogOffset = 0;
+    $scope.doRefresh = function () {
+      Blog.async('http://deploy.baimizhou.net/api/blog/articles.json').then(function (results) {
+        $scope.articles = results;
+      });
+      $scope.$broadcast('scroll.refreshComplete');
+      $scope.$apply()
+    };
+    Blog.async('http://deploy.baimizhou.net/api/blog/articles.json').then(function (results) {
+      $scope.articles = results;
+    });
+  })
+```
+
+最后，当我们点击特定的url，将跳转到相应的页面：
+
+```html
+<ion-item class="item item-icon-right" ng-repeat="article in articles" type="item-text-wrap" href="#/app/article/{{article.url}}">
+  <h2>{{article.title}}</h2>
+  <i class="icon ion-ios-arrow-right"></i>
+</ion-item>
+```      
+
+就会交由相应的Controller来处理。
+
+```javascript
+  .controller('ArticleCtrl', function ($scope, $stateParams, $sanitize, $sce, Blog) {
+    $scope.article = {};
+    Blog.async('http://deploy.baimizhou.net/api/' + $stateParams.slug + '.json').then(function (results) {
+      $scope.article = results;
+      $scope.htmlContent = $sce.trustAsHtml($scope.article.articleHTML);
+    });
+
+  });
+```
+
+##小结
+
+尽管没有一个更成熟的环境可以探索这其中的问题，但是我想对于当前这种情况来说，它是非常棒的解决方案。我们面向的不是那些技术人员，而是一般的用户。他们能熟练使用的是：编辑器和APP。
+
+1. 不会因为后台的升级来困扰他们，也不会受其他组件的影响。
+2. 开发人员不需要担心，某个功能影响了编辑器的使用。
+3. Ops不再担心网站的性能问题——然后要么转为DevOps、要么被Fire。
+
+###其他
+
+最后的代码库：
+
+1. Content: [https://github.com/phodal-archive/echeveria-content](https://github.com/phodal-archive/echeveria-content)
+2. Code: [https://github.com/phodal-archive/echeveria-deploy](https://github.com/phodal-archive/echeveria-deploy)
+3. 移动应用: [https://github.com/phodal-archive/echeveria-mobile](https://github.com/phodal-archive/echeveria-mobile)
+4. 桌面应用: [https://github.com/phodal/echeveria-editor](https://github.com/phodal/echeveria-editor)
+5. Github Pages: [https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages](https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages)
+
+#易读
+
+#模式、设计与架构
+
+设计模式算是在OO中比较有趣的东西，特别是对于如我之类的用得不是很多的，虽然有时候也会用上，但是并不知道用的是怎样的模式。之前了解了几天的设计模式，实际上也就是将平常经常用到的一些东西进行了总结，如此而已，学习设计模式的另外一个重要的意义在于，我们使用了设计模式的时候我们会知道自己使用了，并且还会知道用了是怎样的设计模式。
+
+至于设计模式这个东西和有些东西一样，是发现的而不是发明的，换句话说，我们可以将经常合到一起的几种模式用一个新的模式来命名，它是复合模式，但是也可以用别的模式来命名。
+
+设计模式算是简化了我们在面向对象设计时候的诸多不足，这个在系统设计的初期有时候会有一定的作用，不过多数时候对于我来说，会用上他的时候，多半是在重构的时候，因为不是很熟悉。
+
+
+##观察者模式
+
+观察者模式又叫做发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。
+
+观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。这个主题对象在状态上发生变化时，会通知所有观察者对象，使它们能够自动更新自己。
+
+一个软件系统常常要求在某一个对象的状态发生变化的时候，某些其它的对象做出相应的改变。做到这一点的设计方案有很多，但是为了使系统能够易于复用，应该选择低耦合度的设计方案。减少对象之间的耦合有利于系统的复用，但是同时设计师需要使这些低耦合度的对象之间能够维持行动的协调一致，保证高度的协作（Collaboration）。观察者模式是满足这一要求的各种设计方案中最重要的一种。
+
+简单的来说，就是当我们监测到一个元素变化的时候，另外的元素依照此而改变。
+
+
+###Ruby观察者模式
+
+Ruby中为实现Observer模式提供了名为observer的库，observer库提供了Observer模块。
+其API如下所示
+
+方法名  | 功 能 
+-------|-----------------
+add_observer(observer)   |               添加观察者
+delete_observer(observer) |            删除特定观察者
+delete_observer            |                     删除观察者
+count_observer              |                    观察者的数目
+change(state=true)           |                 设置更新标志为真
+changed?                      |                        检查更新标志
+notify_observer(*arg)          |              通知更新，如果更新标志为真，调用观察者带参数arg的方法
+
+####Ruby观察者简单示例
+
+这里要做的就是获取一个json数据，将这个数据更新出来。
+
+获取json数据，同时解析。
+
+```ruby
+require 'net/http'
+require 'rubygems'
+require 'json'
+
+class GetData
+  attr_reader:res,:parsed
+
+  def initialize(uri)
+    uri=URI(uri)
+    @res=Net::HTTP.get(uri)
+    @parsed=JSON.parse(res)
+  end
+
+  def id
+    @parsed[0]["id"]
+  end
+
+  def sensors1
+    @parsed[0]["sensors1"].round(2)
+  end
+
+  def sensors2
+    @parsed[0]["sensors2"].round(2)
+  end
+
+  def temperature
+    @parsed[0]["temperature"].round(2)
+  end
+
+  def led1
+    @parsed[0]["led1"]
+  end
+
+end
+```
+
+下面这个也就是重点，和观察者相关的，就是被观察者，由这个获取数据。
+通过changed ，同时用notify_observer方法告诉观察者
+
+```ruby
+require 'rubygems'
+require 'thread'
+require 'observer'
+require 'getdata'
+require 'ledstatus'
+
+class Led 
+	include Observable
+	
+    attr_reader:data
+	def initialize
+		@uri='http://www.xianuniversity.com/athome/1'
+	end
+	def getdata
+		loop do 
+			changed()
+	   		data=GetData.new(@uri)
+	   		changed
+	   		notify_observers(data.id,data.sensors1,data.sensors2,data.temperature,data.led1)
+	   		sleep 1
+	   	end
+	end
+end
+```
+
+然后让我们新建一个观察者
+
+```ruby
+class LedStatus
+  def update(arg,sensors1,sensors2,temperature,led1)
+    puts "id:#{arg},sensors1:#{sensors1},sensors2:#{sensors2},temperature:#{temperature},led1:#{led1}"
+  end
+end
+```
+
+测试
+
+```ruby
+require 'spec_helper'
+
+describe LedStatus do
+  let(:ledstatus){LedStatus.new()}
+
+  describe "Observable" do
+    it "Should have a result" do 
+      led=Led.new
+      led.add_observer(ledstatus)
+      led.getdata
+    end
+  end
+end
+```
+
+测试结果如下所示
+
+```bash
+phodal@linux-dlkp:~/tw/observer&gt; rake
+/usr/bin/ruby1.9 -S rspec ./spec/getdata_spec.rb ./spec/ledstatus_spec.rb
+id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
+id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
+id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+```
+
+使用Ruby自带的Observer库的优点是，让我们可以简化相互之间的依赖性。同时，也能简化程序的结构，相比于自己写observer的情况下。
+
+##Node.js 简单工厂模式
+
+> 从设计模式的类型上来说，简单工厂模式是属于创建型模式，又叫做静态工厂方法（Static Factory Method）模式，但不属于23种GOF设计模式之一。简单工厂模式是由一个工厂对象决定创建出哪一种产品类的实例。简单工厂模式是工厂模式家族中最简单实用的模式，可以理解为是不同工厂模式的一个特殊实现，学习了此模式可以为后面的很多中模式打下基础。
+
+当我发现我在代码中重复写了很多个if来判断选择那个数据库的时候。于是，我就想着似乎这就可以用这个简单工厂模式来实现SQLite3与MongoDB的选择。
+
+###MongoDB Helper与SQLite Helper类重复
+
+对于我们的类来说是下面这样子的:
+
+```javascript
+function MongoDBHelper() {
+    'use strict';
+    return;
+}
+
+MongoDBHelper.deleteData = function (url, callback) {
+    'use strict';
+    ...    
+};
+
+MongoDBHelper.getData = function (url, callback) {
+    'use strict';
+    ...
+};
+
+MongoDBHelper.postData = function (block, callback) {
+    'use strict';
+    ...
+};
+
+MongoDBHelper.init = function () {
+    'use strict';
+    ...
+};
+
+module.exports = MongoDBHelper;
+```
+
+然而，我们可以发现的是，对于我们的SQLiteHelper来说也是类似的
+
+```javascript
+SQLiteHelper.init = function () {
+    'use strict';
+    ...
+};
+
+SQLiteHelper.postData = function (block, callback) {
+    'use strict';   
+    ...
+};
+
+SQLiteHelper.deleteData = function (url, callback) {
+    'use strict';
+    ...
+};
+
+SQLiteHelper.getData = function (url, db_callback) {
+    'use strict';
+    ...
+};
+
+module.exports = SQLiteHelper;
+```
+
+想来想去觉得写一个父类似乎是没有多大意义的，于是用了简单工厂模式来解决这个问题。
+
+总之，就是我们可以用简单工厂模式来做一个DB Factory，于是便有了
+
+```javascript
+var MongoDBHelper   = require("./mongodb_helper");
+var SQLiteHelper    = require("./sqlite_helper");
+var config          = require('../../iot').config;
+
+function DB_Factory() {
+    'use strict';
+    return;
+}
+
+DB_Factory.prototype.DBClass = SQLiteHelper;
+
+DB_Factory.prototype.selectDB = function () {
+    'use strict';
+    if (config.db === 'sqlite3') {
+        this.DBClass = SQLiteHelper;
+    } else if (config.db === "mongodb") {
+        this.DBClass = MongoDBHelper;
+    }
+    return this.DBClass;
+};
+
+module.exports = DB_Factory;
+```
+
+这样我们在使用的时候，便可以:
+
+```javascript
+var DB_Factory      = require("./lib/database/db_factory");
+
+var db_factory = new DB_Factory();
+var database = db_factory.selectDB();
+database.init();
+```
+
+由于是直接由配置中读取进去的，这里的selectDB就不需要参数。
+
+##Java Template Method(模板方法)
+
+原本对于设计模式的写作还不在当前的计划中，然而因为在写TWU作业的时候，觉得代码写得不好，于是慢慢试着一点点重构，重新看着设计模式。也开始记录这一点点的方法，至少这些步骤是必要的。
+
+###从基本的App说起
+
+对于一个基本的C/C++/Java/Python的Application来说，他只需要有一个Main函数就够了。对于一个好一点的APP来说，他可能是下面的步骤，
+
+```c
+main(){
+	init();
+	while(!condition()){
+   		do();
+	}
+}
+```
+
+上面的代码是我在学51/AVR等各式嵌入式设备时，经常是按上面的写法写的，对于一个更符合人性的App来说他应该会有一个退出函数。
+
+```c
+main(){
+	init();
+	while(!condition()){
+   		do();
+	}
+	exit();
+}
+```
+
+于是很幸运地我找到了这样的一个例子。
+
+过去看过Arduino的代码，了解过他是如何工作的，对于一个Arduino的代码来说，必要的两个函数就是。
+
+```cpp
+void setup() {
+}
+
+void loop() {
+}
+```
+
+setup()函数相当于上面的init()，而loop()函数刚相当于上面的do()。似乎这就是我们想要的东西，看看Arduino目录中的Arduino.h就会发现，如下的代码(删减部分代码)
+
+```cpp
+#include <Arduino.h>
+
+int main(void)
+{
+	init();
+	setup();	    
+	for (;;) {
+		loop();
+		if (serialEventRun) serialEventRun();
+	}
+        
+	return 0;
+}
+```
+
+代码中的for(;;)看上去似乎比while(True)容易理解得多，这也就是为什么嵌入式中经常用到的是for(;;)，从某种意义上来说两者是等价的。再有不同的地方，就是gcc规定了,main()函数不能是void。so,两者是差不多的。只是没有，并没有在上面看到模板方法，等等。我们在上面所做的事情，便是创建一个框架。
+
+##Template Method
+
+> **模板方法**： 在一方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。
+
+对于我来说，我就是在基本的App中遇到的情况是一样的，在我的例子中，一开始我的代码是这样写的。
+
+```java
+public static void main(String[] args) throws IOException {
+    initLibrary();
+    while(!isQuit){
+        loop();
+    }
+    exit;
+}
+
+protected void initLibrary(); {
+    System.out.println(welcomeMessage);
+}
+
+protected void loop() {
+    String key = "";
+    Scanner sc = new Scanner(System.in);
+    key = sc.nextLine();
+
+    System.out.println(results);
+    if(key.equals("Quit")){
+        setQuit();
+    }
+}
+
+protected void exit() {
+    System.out.println("Quit Library");
+}
+```
+
+只是这样写感觉很是别扭，看上去一点高大上的感觉，也木有。于是，打开书，找找灵感，就在《敏捷软件开发》一书中找到了类似的案例。Template Method模式可以分离能用的算法和具体的上下文，而我们通用的算法便是。
+
+```c
+main(){
+	init();
+	while(!condition()){
+   		do();
+	}
+	exit();
+}
+```
+
+看上去正好似乎我们当前的案例，于是便照猫画虎地来了一遍。
+
+###Template Method实战
+
+创建了一个名为App的抽象基类，
+
+```java
+public abstract class App {
+    private boolean isQuit = false;
+
+    protected abstract void loop();
+    protected abstract void exit();
+
+    private boolean quit() {
+        return isQuit;
+    }
+
+    protected boolean setQuit() {
+        return isQuit = true;
+    }
+
+    protected abstract void init();
+
+    public void run(){
+        init();
+        while(!quit()){
+            loop();
+        }
+        exit();
+    }
+}
+```
+
+而这个也和书中的一样，是一个通用的主循环应用程序。从应用的run函数中，可以看到主循环。而所有的工作也都交付给抽象方法，于是我们的LibraryApp就变成了
+
+
+```java
+public class LibraryApp extends App {
+    private static String welcomeMessage = "Welcome to Biblioteca library";
+
+    public static void main(String[] args) throws IOException {
+        (new LibraryApp()).run();
+    }
+
+    protected void init() {
+        System.out.println(welcomeMessage);
+    }
+
+    protected void loop() {
+        String key = "";
+        Scanner sc = new Scanner(System.in);
+        key = sc.nextLine();
+
+        if(key.equals("Quit")){
+            setQuit();
+        }
+    }
+
+    protected void exit() {
+        System.out.println("Quit Library");
+    }
+}
+```
+
+然而，如书中所说``这是一个很好的用于示范TEMPLATE METHOD模式的例子，却不是一个合适的例子。``
+
+
+##Hadoop Pipe and Filters模式
+
+继续码点关于架构设计的一些小心得。架构是什么东西并没有那么重要，重要的是知道它存在过。我会面对不同的架构，有一些不同的想法。一个好的项目通常是存在一定的结构，就好像人们在建造房子的时候也都会有结构有一样。
+
+我们看不到的架构，并不意味着这个架构不存在。
+
+###Unix Shell
+
+最出名的Pipe便是Unix中的Shell
+
+**管道（英语：Pipeline）是原始的软件管道：即是一个由标准输入输出链接起来的进程集合，所以每一个进程的输出（stdout）被直接作为下一个进程的输入（stdin）。 每一个链接都由未命名管道实现。过滤程序经常被用于这种设置。**
+
+所以对于这样一个很好的操作便是，统计某种类型的文件的个数:
+
+```bash
+ls -alh dot | grep .dot | wc -l
+```
+
+在执行
+
+```bash
+ls -alh dot
+```
+
+的输出便是下一个的输入，直至最后一个输出。
+
+这个过程有点类似于工厂处理废水，
+
+![pipe and filter][1]
+
+上图是一个理想模型~~。
+
+一个明显地步骤是，水中的杂质越来越少。
+
+###Pipe and Filter模式
+
+**Pipe and Filter**适合于处理数据流的系统。每个步骤都封装在一个过滤器组件中，数据通过相邻过滤器之间的管道传输。
+
+- **pipe**: 传输、缓冲数据。
+- **filter**: 输入、处理、输出数据。
+
+这个处理过程有点类似于我们对数据库中数据的处理，不过可不会有这么多步骤。
+
+###Fluent API
+
+这个过程也有点类似于Fluent API、链式调用，只是这些都是DSL的一种方式。
+
+
+流畅接口的初衷是构建可读的API，毕竟代码是写给人看的。
+
+类似的，简单的看一下早先我们是通过方法级联来操作DOM
+
+```javascript
+var btn = document.createElement("BUTTON");        // Create a <button> element
+var t = document.createTextNode("CLICK ME");       // Create a text node
+btn.appendChild(t);                                // Append the text to <button>
+document.body.appendChild(btn);                    // Append <button> to <body>
+```
+
+而用jQuery写的话，便是这样子
+
+```javascript
+$('<span>').append("CLICK ME");
+```
+
+等等
+
+于是回我们便可以创建一个简单的示例来展示这个最简单的DSL
+
+```javascript
+Func = (function() {
+    this.add = function(){
+        console.log('1');
+        return this;
+    };
+    this.result = function(){
+        console.log('2');
+        return this;
+    };
+    return this;
+});
+
+var func = new Func();
+func.add().result();
+```
+
+然而这看上去像是表达式生成器。
+
+###DSL 表达式生成器
+
+> 表达式生成器对象提供一组连贯接口，之后将连贯接口调用转换为对底层命令-查询API的调用。
+
+这样的API，我们可以在一些关于数据库的API中看到:
+
+```javascript
+var query =
+  SQL('select name, desc from widgets')
+   .WHERE('price < ', $(params.max_price), AND,
+          'clearance = ', $(params.clearance))
+   .ORDERBY('name asc');
+```
+
+链式调用有一个问题就是收尾，同上的代码里面我们没有收尾，这让人很迷惑。。加上一个query和end似乎是一个不错的结果。
+
+###Pipe and Filter模式实战
+
+所以，这个模式实际上更适合处理数据，如用Hadoop处理数据的时候，我们会用类似于如下的方法来处理我们的数据:
+
+```pig
+A = FOREACH LOGS_BASE GENERATE ToDate(timestamp, 'dd/MMM/yyyy:HH:mm:ss Z') as date, ip, url,(int)status,(int)bytes,referrer,useragent;
+B = GROUP A BY (timestamp);
+C = FOREACH B GENERATE FLATTEN(group) as (timestamp), COUNT(A) as count;
+D = ORDER C BY timestamp,count desc;
+```
+
+每一次都是在上一次处理完的结果后，再处理的。
+
+
+##其他
+
+参考书目
+
+ - 《Head First 设计模式》
+ - 《设计模式》
+ - 《敏捷软件开发 原则、模式与实践》
+ - 《 面向模式的软件架构:模式系统》
+ - 《Java应用架构设计》
+
+
+#构建篇：Build
+
+构建是一个很大的话题，特别是对于传统软件来说，对于Web应用也是相当重要的。
+
+在构建上，Ruby比Python会强大些。
+Ruby用的是Rake，Python兴许是scons，如果是用于python的话可以用shovel，这个Python就没有和一个好的标准，
+
+Rakefile算是Ruby的一个标准。
+
+##Rake简介##
+
+> Make 是一个 UNIX® 的本机实用程序，是为管理软件编译过程而设计的。它十分通用，足以用于许多其他环境中，即使它已用于将文档编译成书，维护 Web 站点以及裁减发行版。但是，make 也有自身的约束。它具有自己的语法，这取决于制表符的（tabbed）和非制表符的（nontabbed）空白空间。许多其他工具已经进行了扩展，可以弥 补 make 的一些不足，如 Aegis 和 Ant，但这两者也都具有自己的问题。
+
+> Make 以及类似的工具都有改进的余地，但是它们都不可能让 Ruby 黑客十分开心。您从这里要去哪里？幸好，可以使用一些 Ruby 选项。Rant 是一个由 Stefan Lang 编写的工具（请参阅 参考资料）。Rant 仍处于开发周期的初级阶段，因此它可能还没有成熟到足以适用于每个人。Jim Weirich 编写的 Rake 是一个在 Ruby 社区中广泛使用的成熟系统。
+
+> Rake 是用 Ruby 编写的，并使用 Ruby 作为它的语法，因此学习曲线很短。Rake 使用 Ruby 的元编程功能来扩展语言，使之更利落地适应自动化任务。Rake 附带的 rdoc 中列出了一些优点（请注意，前两个是诸如 make 的其他任务自动化工具所共有的）：
+
+ - 用户可以用先决条件指定任务。
+ - Rake 支持规则模式来合并隐式任务。
+ - Rake 是轻量级的。它可以用其他项目发布为单个文件。依靠 Rake 的项目不需要在目标系统上安装 Rake。
+
+###简单的Rakefile
+
+    task :default do
+      puts "Simple Rakefile Example"
+    end
+
+运行结果
+
+    Simple Rakefile Example
+    [Finished in 0.2s]
+
+##Shovel##
+
+官方是这么介绍的
+
+> Shovel is like Rake for python. Turn python functions into tasks simply, and access and invoke them from the command line. 'Nuff said. New Shovel also now has support for invoking the same tasks in the browser you'd normally run from the command line, without any modification to your shovel scripts.
+
+那么就
+
+    git clone https://github.com/seomoz/shovel.git
+    cd shovel
+    python setup.py install 
+
+与用官方的示例，有一个foo.py
+
+    from shovel import task
+    
+    @task
+    def howdy(times=1):
+        '''Just prints "Howdy" as many times as requests.
+        
+        Examples:
+            shovel foo.howdy 10
+            http://localhost:3000/foo.howdy?15'''
+        print('\n'.join(['Howdy'] * int(times)))
+
+shovel一下
+        shovel foo.howdy 10
+
+###构建C语言的Hello,World: Makefile
+
+C代码
+
+    #include
+    
+    int main(){
+    	printf("Hello,world\n");
+    	return 0;
+    }
+
+一个简单的makefile示例
+
+    hello:c 
+    	gcc hello.c -o hello
+    clean:
+    	rm hello
+
+执行：
+
+    make
+
+就会生成hello的可执行文件，再执行
+
+    make clean
+
+清理。
+
+###Rakefile
+
+    task :default =&gt; :make
+    
+    file 'hello.o' =&gt; 'hello.c' do  
+        `gcc -c hello.c`  
+    end  
+      
+    task :make =&gt; 'hello.o' do  
+        `gcc hello.o -o hello`  
+    end  
+      
+    task :clean do  
+        `rm -f *.o hello`  
+    end  
+
+再Rake一下，似乎Ruby中的 Rake用来作构建工具很强大，当然还有其他语言的也可以，旨在可以替代Makefile
+
+###Scons
+
+新建一个SConstruct
+
+    Program('hello.c')
+
+Program('hello.c')
+
+    scons
+
+，过程如下
+
+    phodal@linux-dlkp:~/helloworld&gt; scons
+    scons: Reading SConscript files ...
+    scons: done reading SConscript files.
+    scons: Building targets ...
+    gcc -o hello.o -c hello.c
+    gcc -o hello hello.o
+    scons: done building targets.
+
+总结
+
+    Rakefile
+
 #个人篇：从小工到能手
 
 工作的日子里，每天都会八点多到公司，边点东西边看看Google Analytics，看看昨天博客有多少访问量，吃完了就写写代码刷刷Github。到了九点多，人差不多来齐了——我们不打卡，就开始了上午的工作。中午的时候会趁着午休的小间隙翻译点书，或者写点代码，写会文章。晚上吃完饭，走到家里休息会儿就八点了。看看书，写写代码，一天就过去了。
@@ -3091,3 +2738,356 @@ So，so，这些开发人员做了些什么：
 当我把图书馆想看的计算机书差不多了解了一遍之后，开始到网上继续汲取知识。所明白的是，好的学校的老师会比一般学校的老师好很多。但是在技术方面来说，正常情况下有能力的都不会想去当老师的(ps:这里没有鄙视老师的意思，至少对于我们学校来说是如此)，当然不包括某些有理想的。
 
 对于危机感来说真正会暴发的年代是大四，在工作中或许就是试用期，还有一些工作的其他方面。持续学习可以降低危机感，从心理学上来说，``忙碌可以降低焦虑``。
+
+#个人篇：影响力
+
+> 影响力，让梦想离你更近。
+
+试想一下，有一天你开发了一个新的语言。它比现有的某某主流软件，运行效率将提高了50%，开发效率提高了100%。接着，你在github上release了0.1，但是由于出现某个开发难题，你需要别人的帮助。而这时，你找不到有效的途径去找到那些真正会用它的人。接着出现了一个新的语言可以达到一样的效果，而这个项目就死于腹中，我记得[mruby](https://github.com/mruby/mruby)刚刚只写了一个``README.md``的时候，就获得了上千个star。
+
+##如何提高影响力，为自己代言
+
+![impact](http://repractise.phodal.com/img/impact/impact.jpg)
+
+每个人都可以是一个品牌，对于一个程序员来说，我们的ID就是我们的品牌。而构成品牌的有多个要素:
+
+- 博客
+- Github
+- Weibo(or Twitter)
+- StackOverflow(or SegmentFault, Zhihu)
+
+等等。
+
+###搭建一个跨平台的平台
+
+> 连接各个平台的核心是我们的ID。
+
+第一个平台指的是不同的网站，如我们的博客、Github、知乎等等，第二个平台指的是我们的影响力。
+
+So，在开始的时候我们需要有一个统一的ID，来标识我们的身份:我是谁，你在xx网站上看到的那个xx就是我。刚开始的时候，我在CSDN、Github上的ID(gmszone)和我的博客的域名(Phodal)是不一样的，因为当时的域名(gmszone.com)握在别人的手上，于是我便想办法将两个ID改了过来（ps: github提供迁移)。后来，Phodal就成了我的发声平台:
+
+- [http://www.phodal.com/](http://www.phodal.com/)
+- [http://weibo.com/phodal](http://weibo.com/phodal)
+- [http://www.zhihu.com/people/phodal](http://www.zhihu.com/people/phodal)
+- [http://github.com/phodal](http://github.com/phodal)
+- [http://segmentfault.com/u/phodal](http://segmentfault.com/u/phodal)
+- [http://www.douban.com/people/phodal/](http://www.douban.com/people/phodal/)
+- ...
+
+于是，这时就可以开始使用跨平台的平台了。
+
+##构建平台
+
+> 小博客也会有成长的一天。
+
+对于像我这样一个个默默无闻地人来说，用户可能会有下面几种不同的方法来知道我: 
+
+![live example](http://repractise.phodal.com/img/impact/live.jpg)
+
+- 用户 -> 搜索{谷歌,百度,必应} -> 博客 -> {Weibo,Github}
+- 用户 -> 微博 -> {Github, 博客}
+- 用户 —> Github -> 博客
+- 用户 -> {知乎, SegmentFault} -> {Weibo,Github,博客}
+
+###博客
+
+刚开始在CSDN上写博客的时候，一开始的访问量很少，慢慢地就多了。有一天发现这样的博客不是自己想要的，于是建了自己的博客，一开始的流量是0。像CSDN这样的网站推荐一些文章到首页，如果能这样便是幸运的。在经历大半年的几乎零流量之后，开始慢慢增长了。到了今天，一共有470篇博客(有一些是出于测试SEO目的写成多篇文章)。一天的PageView大平均有五百左右，主要来源是搜索引擎，百度200左右，谷歌50左右，必应10左右。
+
+####用户故事
+
+对于一个程序员来说，必须在某种程度上熟悉怎么搜索自己想要的内容，即**关键字**。如我们想要知道如何在OpenWRT OS上用Python，那么我们会搜索``OpenWRT Python``。于是，这个时候我们博客的标题带有OpenWRT Python，那么我们可能就中奖了。
+
+故事，告诉我们**好的标题很重要**。**重复这个主题**也很重要，会有一个更好的排名。至于，如何更好地排到第一，就是SEO(搜索引擎优化)的话题了。
+
+####笔记
+
+一开始要写一个博客是比较难的，没有流量、没有评论。所以，一个好的切入点是: ``笔记``。最好是那种网上很少的内容的笔记，虽说很多人不愿意去做这个，但是这是一个很好的方向。
+
+一个技术博客里面的内容应该是两种类型:
+
+- 技术
+- 理论
+
+技术型可以带来流量，理论型的可以带来评论。理想的话，两者会相辅相成的，但是在我们刚处于学习期的时候。那么那些Note，可以给我们带来一些流量，也带来一些信心。如果，只是想着一开始我就只写一些长篇大论的话，那么只是就是拿了80%的时间做了20%的事。
+
+以用户搜索的过程来说，用户是``有目的的进行搜索``。换句话说，在我们日常工作的时候，我们只关心和我们工作相关的内容。而在受众来，正常情况下，技术型的博文、笔记可以带来流量的主要原因是: ``大部分人都是初学者``。
+
+![70 percent](http://repractise.phodal.com/img/impact/70.jpg)
+
+理论性的内容，更适合更高级别的开发者，这样的受众较少。
+
+####上头条
+
+而在今天有其他的平台，可以借用来推销自己的:
+
+- 开发者头条
+- 极客头条
+- 掘金稀土
+- ...
+
+网上的IT新闻、博客都是互相Copy，对于一些软文(如本文)来说。这也是期触及率高的原因，通常来说这样可以带来大量的流量。记得在原文中留个原文链接，附张图片(自己博客的图片)来保证:Google把原文指向你的博客，而不是免费为别人打工。
+
+####提升
+
+除了是一个很好的展示平台，也是一个很好的测试平台。作为一个Web Developer，测试过
+
+- Nginx Log分析(~600M)
+- New Relic
+- SEO
+- AutoComplete
+- 重构网站
+- ...
+
+###Github
+
+将自己尝试的不同技术栈的内容丢到Github上，加上适当地文档、博客，就变成了一个很好的Demo。然而，不止于此，越来越多地人开始在Github寻找人才，因为他们乐于付出，也乐于分离。曾经因为Github上的项目:
+
+- 申请WebStorm开源License
+- Review英文版书籍
+- ...(有些不方便透露)
+
+而在Github上的项目其实不仅仅只有一些库:
+
+ - 库和框架: 和``jQuery`` 
+ - 系统: 如``Linux``、``hhvm``、``docker``
+ - 配置集: 如``dotfiles``
+ - 辅助工具: 如``oh-my-zsh``
+ - 工具: 如``Homewbrew``和``Bower``
+ - 资料收集: 如``free programming books``，``You-Dont-Know-JS``，``Font-Awesome``
+ - 其他:简历如``Resume``，``博客``
+
+所以，可以尝试不同的切入点使用Github。
+
+在某种程度上来说，一个人在Gihub上的粉丝数量会帮助他的项目在初期获取更多的人气。这样就有助于其下一步开展项目，当然也会在某种程度上更好看Blabla。
+
+####提升
+
+之前写过一篇[《如何通过github提升自己》](http://www.phodal.com/blog/use-github-grow-self/)中说到了一些细节，大致上还是那些东西，Github与Trello、Travis-CI、Coveralls、SauceLabs、Code Climate，配合得很好。已经可以接近于我们在一些项目上用到的功能，因此拿他们搭建一个好的开发环境完全不是问题。
+
+- Travis CI:支持Node.js、Python、Ruby、PHP等二十几种语言，也支持MySQL、PostgreSQL、MongoDB、Redis等数据库。
+- Coveralls:可以用来查看代码的测试覆盖率。
+- SauceLabs:可以用来跑Selenium功能测试等等
+- Code Climate:查看代码的坏味道。
+
+在我们试着去保证测试覆盖率、代码质量等等的时候，我们就可以学到一些知识，如使用不同语言测试框架的Mock、Stub、FakeServer等等。
+
+###扩大影响力
+
+上面的两部分属于打造平台部分，而如Weibo、知乎等则属于扩大影响力。
+
+在某种时候，博客、Github都更像是个人的平台。如Weibo、知乎、SegmentFault、CSDN等等的开发者社区，也可以为自己的博客、Github带来流量，而这一些都是互相促进的。如果我们在其中的一个网站上表现得很好的话，那么在另外一个网站上我们也很容易聚集同样的粉丝。如，我最常用的一个作法是: 将自己写得相对比较好的一些博客复制到CSDN、SegemntFault、图灵社区等等，并适当地推到CSDN首页、开发者头条等等。
+
+由于写作的开发人员是有限的，所以通常在某某头条上的推荐，会成为某博客园上的新闻，接着会有成群接队的小站开始Copy。同时，这些文章又会推到他们的微博上，接着还可能是微信平台。毕竟，对于大部分的网络来说，大部分的流量是流向他们的网站的，所以他们不太会在乎其中的外链等等。故而，通常来说: 不是某某东西突然火了，而是突然没有别的新闻了。通常来说一个好的作法是，试着将你的博客分享到微博上，然后@那些愿意帮你分享的平台。这样，你可以有更多的阅读、更多的粉丝，当然好的内容是前提。
+
+其中还有若干其它的好处:
+
+- 更大的曝光率，会带来更多的机会
+- 更有机会参与一些未公开互联网产品的试用
+- 各种精美小礼物
+- 翻译、出版机会
+
+##TODO
+
+只需要简单地几步就可以开始提高我们的影响力:
+
+- 在不同的网站上使用一个ID
+- 创建一个博客
+- 开始创作内容、提交代码、分享
+- 持续Impact
+
+
+#扩展篇
+
+##每个程序员必知之SEO
+
+似乎因为受这篇文章的影响 [http://katemats.com/what-every-programmer-should-know-about-seo/](http://katemats.com/what-every-programmer-should-know-about-seo/) 于是我也觉得我应该写一个[每个程序员必知之SEO](http://www.phodal.com/blog/every-programmer-should-know-how-seo/)，作为一个擅长前端兼SEO的设计师。
+
+####搜索引擎是如何工作的
+
+> 如果你有时间，可以读一下谷歌的框架：
+
+[http://infolab.stanford.edu/~backrub/google.html](http://infolab.stanford.edu/~backrub/google.html)
+
+> 这是一个老的，有些过时纸，但非常平易近人，甚至在我们中间的非白皮书的读者图标微笑什么每个程序员都应该知道的关于搜索引擎优化和他们绝对概念的解释更详细，我只提一笔带过。
+
+搜索时发生什么了 ？
+
+ - 用户输入查询内容
+ - 查询处理以及分词技术
+ - 确定搜索意图及返回相关、新鲜的内容
+
+![search-engine-arch][1]
+
+为什么需要SEO ？
+
+这是一个有趣的问题，答案总会来源于``为网站带来更多的流量``。
+
+###爬虫与索引
+
+我们先看看来自谷歌的爬虫工作的一点内容
+
+ > 抓取是 Googlebot 发现新网页并更新这些网页以将网页添加到 Google 索引中的过程。
+
+> 我们使用许多计算机来获取（或"抓取"）网站上的大量网页。执行获取任务的程序叫做 Googlebot（也被称为漫游器或信息采集软件）。Googlebot 使用算法来进行抓取：计算机程序会确定要抓取的网站、抓取频率以及从每个网站中获取的网页数量。
+
+> Google 的抓取过程是根据网页网址的列表进行的，该列表是在之前进行的抓取过程中形成的，且随着网站管理员所提供的站点地图数据不断进行扩充。Googlebot 在访问每个网站时，会检测每个网页上的链接，并将这些链接添加到它要抓取的网页列表中。新建立的网站、对现有网站所进行的更改以及无效链接都会被记录下 来，并用于更新 Google 索引。
+
+也就是如原文所说:
+
+> 谷歌的爬虫(又或者说蛛蛛)能够抓取你整个网站索引的所有页。
+
+**为什么谷歌上可以搜索整个互联网的内容**？因为，他解析并存储了。而更有意思的是，他会为同样的内容建立一个索引或者说分类，按照一定的相关性，针对于某个关键词的内容。
+
+PageRank对于一个网站来说是相当重要的，只是这个相比也比较复杂。包括其他网站链接向你的网站，以及流量，当然还有域名等等。
+
+###什么样的网站需要SEO？
+
+下图是我的博客的流量来源
+
+![What Site Need SEO][2]
+
+正常情况下除了像``腾讯``这类的``QQ空间``自我封闭的网站外都需要SEO，或者不希望泄露一些用户隐私如``Facebook``、``人人``等等
+
+
+ - 如果你和我的网站一样需要靠搜索带来流量
+ - 如果你只有很少的用户访问，却有很多的内容。
+ - 如果你是为一个公司、企业工作为以带来业务。
+ - 。。。
+
+
+SEO与编程的不同之处 ？
+
+SEO与编程的最大不同之处在于
+
+编程的核心是技术，SEO的核心是内容。？
+
+内容才是SEO最重要的组成部分，这也就是腾讯复制不了的东西。
+
+###SEO基础知识
+
+####确保网站是可以被索引的
+
+一些常见的页面不能被访问的原因
+
+ - 隐藏在需要提交的表格中的链接
+ - 不能解析的JavaScript脚本中的链接
+ - Flash、Java和其他插件中的链接
+ - PowerPoint和PDF文件中的链接
+ - 指向被meta Robtots标签、rel="NoFollow"和robots.txt屏蔽的页面的链接
+ - 页面上有上几百个链接
+ - frame(框架结构)和iframe里的链接
+
+对于现在的网站来还有下面的原因，通过来说是因为内容是动态生成的，而不是静态的
+ 
+ - 网站通过WebSocket的方法渲染内容
+ - 使用诸如Mustache之类的JS模板引擎
+
+####什么样的网页可以被索引
+
+ - 确保页面可以在没有JavaScript下能被渲染。对于现在JavaScript语言的使用越来越多的情况下，在使用JS模板引擎的时候也应该注意这样的问题。
+ - 在用户禁用了JavaScript的情况下，保证所有的链接和页面是可以访问的。
+ - 确保爬虫可以看到所有的内容。那些用JS动态加载出来的对于爬虫来说是不友好的
+ - 使用描述性的锚文本的网页
+ - 限制的页面上的链接数量。除去一些分类网站、导航网站之类有固定流量，要不容易被认为垃圾网站。
+ - 确保页面能被索引。有一指向它的URL
+ - URL应该遵循最佳实践。如blog/how-to-driver有更好的可读性
+
+####在正确的地方使用正确的关键词
+
+ - 把关键词放URL中
+ - 关键词应该是页面的标签
+ - 带有H1标签
+ - 图片文件名、ALT属性带有关键词。
+ - 页面文字
+ - 加粗文字
+ - Descripiton标签
+
+###内容
+
+对于技术博客而言，内容才是最需要考虑的因素。
+
+可以考虑一下这篇文章，虽然其主题是以SEO为主
+[用户体验与网站内容](http://www.phodal.com/blog/user-experience-writing-web-content/)
+
+不可忽略的一些因素是内容才是最优质的部分，没有内容一切SEO都是无意义的。
+
+复制内容问题 ？
+
+一个以用户角度考虑的问题
+
+用户需要看到多元化的搜索结果 ？
+
+所以对于搜索引擎来说，复制带来的结果：
+
+ - 搜索引擎爬虫对每个网站都有设定的爬行预算，每一次爬行都只能爬行trpgr页面数
+ - 连向复制内容页面的链接也浪费了它们的链接权重。
+ - 没有一个搜索引擎详细解释他们的算法怎样选择显示页面的哪个版本。
+
+于是上文说到的作者给了下面的这些建议:
+
+ > 避免从网上复制的内容（除非你有很多其他的内容汇总，以使它看起来不同 - 我们做头条，对我们的产品页面的新闻片段的方式） 。这当然强烈适用于在自己的网站页面以及。内容重复可以混淆搜索引擎哪些页面是权威（它也可能会导致罚款，如果你只是复制粘贴别人的内容也行） ，然后你可以有你自己的网页互相竞争排名！
+
+ > 如果你必须有重复的内容，利用相对=规范，让搜索引擎知道哪个URL是一个他们应该被视为权威。但是，如果你的页面是另一个在网络上找到一个副本？那么开始想出一些策略来增加更多的文字和信息来区分你的网页，因为这样重复的内容是决不可能得到好的排名。
+
+——待续。
+
+####保持更新
+
+谷歌对于一个一直在更新的博客来说会有一个好的排名，当然只是相对的。
+
+对于一个技术博客作者来说，一直更新的好处不仅可以让我们不断地学习更多的内容。也可以保持一个良好的习惯，而对于企业来说更是如此。如果我们每天去更新我们的博客，那么搜索引擎对于我们网站的收录也会变得越来越加频繁。那么，对于我们的排名及点击量来说也算是一个好事，当我们可以获得足够的排名靠前时，我们的PR值也在不断地提高。
+
+更多内容可以参考:[Google Fresh Factor](http://www.seomoz.org/blog/google-fresh-factor)
+
+####网站速度
+
+> 谷歌曾表示在他们的算法页面加载速度问题，所以一定要确保你已经调整您的网站，都服从最佳做法，以使事情迅速
+
+过去的一个月里，我试着提高自己的网站的速度，有一个相对好的速度，但是受限于``域名解析速度``以及``VPS``。
+
+[网站速度分析与traceroute
+](http://www.phodal.com/blog/use-traceroute-analyse-person-homepage-speed/)
+
+[UX与网站速度优化——博客速度优化小记
+](http://www.phodal.com/blog/ux-and-improve-website-load-speed/)
+
+[Nginx ngx_pagespeed nginx前端优化模块编译](http://www.phodal.com/blog/nginx-with-ngx-pagespeed-module-improve-website-cache/)
+
+####保持耐心
+
+> 这是有道理的，如果你在需要的谷歌机器人抓取更新的页面，然后处理每一个页面，并更新与新内容对应的索引的时间因素。
+
+> 而这可能是相当长一段时间，当你正在处理的内容PB级。
+
+SEO是一个长期的过程，很少有网站可以在短期内有一个很好的位置，除非是一个热门的网站，然而在它被发现之前也会一个过程。
+
+####链接
+
+在某种意义上，这个是提高PR值，及网站流量的另外一个核心，除了内容以外的核心。
+
+ - 链接建设是SEO的基础部分。除非你有一个异常强大的品牌，不需要干什么就能吸引到链接。
+ - 链接建设永不停止。这是不间断营销网站的过程
+
+关于链接的内容有太多，而且当前没有一个好的方法获取链接虽然在我的网站已经有了
+
+Links to Your Site
+
+Total links
+
+``5,880``
+
+
+>同时寻求更多的链接是更有利更相关的链接可以帮助一样多。如果你有你的内容的分销合作伙伴，或者你建立一个小工具，或其他任何人都会把链接回你的网站在网络上 - 你可以通过确保各个环节都有最佳的关键字锚文本大大提高链路的相关性。您还应该确保所有链接到您的网站指向你的主域（ http://www.yourdomain.com ，像http://widget.yourdomain.com不是一个子域） 。另外，你要尽可能多的联系，以包含适当的替代文字。你的想法。
+
+ > 另外，也许不太明显的方式，建立链接（或者至少流量）是使用社交媒体 - 所以设置你的Facebook ，Twitter和谷歌，每当你有新的链接一定要分享。这些通道也可以作为一个有效的渠道，推动更多的流量到您的网站。
+
+由社交渠道带来的流量在现在已经越来越重要了，对于一些以内容为主导的网站，而且处于发展初期，可以迅速带来流量，可以参考一下这篇文章
+
+[寻ta分析与网站内容](http://www.phodal.com/blog/xunta-analytics-and-website-content/)
+
+
+一些更简单的办法就是交换链接，总之这个话题有些沉重，可能会带来一些负面的影响，如黑帽SEO。。。。
+
+**参考来源**:
+
+《SEO艺术》(The Art of SEO)
