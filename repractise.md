@@ -531,6 +531,132 @@ else {
 
 构建是一个很大的话题，特别是对于传统软件来说，对于Web应用也是相当重要的。
 
+在构建上，Ruby比Python会强大些。
+Ruby用的是Rake，Python兴许是scons，如果是用于python的话可以用shovel，这个Python就没有和一个好的标准，
+
+Rakefile算是Ruby的一个标准。
+
+##Rake简介##
+
+> Make 是一个 UNIX® 的本机实用程序，是为管理软件编译过程而设计的。它十分通用，足以用于许多其他环境中，即使它已用于将文档编译成书，维护 Web 站点以及裁减发行版。但是，make 也有自身的约束。它具有自己的语法，这取决于制表符的（tabbed）和非制表符的（nontabbed）空白空间。许多其他工具已经进行了扩展，可以弥 补 make 的一些不足，如 Aegis 和 Ant，但这两者也都具有自己的问题。
+
+> Make 以及类似的工具都有改进的余地，但是它们都不可能让 Ruby 黑客十分开心。您从这里要去哪里？幸好，可以使用一些 Ruby 选项。Rant 是一个由 Stefan Lang 编写的工具（请参阅 参考资料）。Rant 仍处于开发周期的初级阶段，因此它可能还没有成熟到足以适用于每个人。Jim Weirich 编写的 Rake 是一个在 Ruby 社区中广泛使用的成熟系统。
+
+> Rake 是用 Ruby 编写的，并使用 Ruby 作为它的语法，因此学习曲线很短。Rake 使用 Ruby 的元编程功能来扩展语言，使之更利落地适应自动化任务。Rake 附带的 rdoc 中列出了一些优点（请注意，前两个是诸如 make 的其他任务自动化工具所共有的）：
+
+ - 用户可以用先决条件指定任务。
+ - Rake 支持规则模式来合并隐式任务。
+ - Rake 是轻量级的。它可以用其他项目发布为单个文件。依靠 Rake 的项目不需要在目标系统上安装 Rake。
+
+###简单的Rakefile
+
+    task :default do
+      puts "Simple Rakefile Example"
+    end
+
+运行结果
+
+    Simple Rakefile Example
+    [Finished in 0.2s]
+
+##Shovel##
+
+官方是这么介绍的
+
+> Shovel is like Rake for python. Turn python functions into tasks simply, and access and invoke them from the command line. 'Nuff said. New Shovel also now has support for invoking the same tasks in the browser you'd normally run from the command line, without any modification to your shovel scripts.
+
+那么就
+
+    git clone https://github.com/seomoz/shovel.git
+    cd shovel
+    python setup.py install 
+
+与用官方的示例，有一个foo.py
+
+    from shovel import task
+    
+    @task
+    def howdy(times=1):
+        '''Just prints "Howdy" as many times as requests.
+        
+        Examples:
+            shovel foo.howdy 10
+            http://localhost:3000/foo.howdy?15'''
+        print('\n'.join(['Howdy'] * int(times)))
+
+shovel一下
+        shovel foo.howdy 10
+
+###构建C语言的Hello,World: Makefile
+
+C代码
+
+    #include
+    
+    int main(){
+    	printf("Hello,world\n");
+    	return 0;
+    }
+
+一个简单的makefile示例
+
+    hello:c 
+    	gcc hello.c -o hello
+    clean:
+    	rm hello
+
+执行：
+
+    make
+
+就会生成hello的可执行文件，再执行
+
+    make clean
+
+清理。
+
+###Rakefile
+
+    task :default =&gt; :make
+    
+    file 'hello.o' =&gt; 'hello.c' do  
+        `gcc -c hello.c`  
+    end  
+      
+    task :make =&gt; 'hello.o' do  
+        `gcc hello.o -o hello`  
+    end  
+      
+    task :clean do  
+        `rm -f *.o hello`  
+    end  
+
+再Rake一下，似乎Ruby中的 Rake用来作构建工具很强大，当然还有其他语言的也可以，旨在可以替代Makefile
+
+###Scons
+
+新建一个SConstruct
+
+    Program('hello.c')
+
+Program('hello.c')
+
+    scons
+
+，过程如下
+
+    phodal@linux-dlkp:~/helloworld&gt; scons
+    scons: Reading SConscript files ...
+    scons: done reading SConscript files.
+    scons: Building targets ...
+    gcc -o hello.o -c hello.c
+    gcc -o hello hello.o
+    scons: done building targets.
+
+总结
+
+    Rakefile
+
 #前端篇: 前端演进史
 
 细细整理了过去接触过的那些前端技术，发现前端演进是段特别有意思的历史。人们总是在过去就做出未来需要的框架，而现在流行的是过去的过去发明过的。如，响应式设计不得不提到的一个缺点是：**他只是将原本在模板层做的事，放到了样式（CSS）层来完成**。
@@ -1214,7 +1340,525 @@ User.sync({force: true}).then(function () {
 
 如果是
 
-#模式与设计
+#模式、设计与架构
+
+设计模式算是在OO中比较有趣的东西，特别是对于如我之类的用得不是很多的，虽然有时候也会用上，但是并不知道用的是怎样的模式。之前了解了几天的设计模式，实际上也就是将平常经常用到的一些东西进行了总结，如此而已，学习设计模式的另外一个重要的意义在于，我们使用了设计模式的时候我们会知道自己使用了，并且还会知道用了是怎样的设计模式。
+
+至于设计模式这个东西和有些东西一样，是发现的而不是发明的，换句话说，我们可以将经常合到一起的几种模式用一个新的模式来命名，它是复合模式，但是也可以用别的模式来命名。
+
+设计模式算是简化了我们在面向对象设计时候的诸多不足，这个在系统设计的初期有时候会有一定的作用，不过多数时候对于我来说，会用上他的时候，多半是在重构的时候，因为不是很熟悉。
+
+
+##观察者模式##
+
+观察者模式又叫做发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。
+
+观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。这个主题对象在状态上发生变化时，会通知所有观察者对象，使它们能够自动更新自己。
+
+一个软件系统常常要求在某一个对象的状态发生变化的时候，某些其它的对象做出相应的改变。做到这一点的设计方案有很多，但是为了使系统能够易于复用，应该选择低耦合度的设计方案。减少对象之间的耦合有利于系统的复用，但是同时设计师需要使这些低耦合度的对象之间能够维持行动的协调一致，保证高度的协作（Collaboration）。观察者模式是满足这一要求的各种设计方案中最重要的一种。
+
+简单的来说，就是当我们监测到一个元素变化的时候，另外的元素依照此而改变。
+
+
+###Ruby观察者模式
+
+Ruby中为实现Observer模式提供了名为observer的库，observer库提供了Observer模块。
+其API如下所示
+方法名                                                    功 能 
+add_observer(observer)                  添加观察者
+delete_observer(observer)             删除特定观察者
+delete_observer                                 删除观察者
+count_observer                                  观察者的数目
+change(state=true)                            设置更新标志为真
+changed?                                              检查更新标志
+notify_observer(*arg)                        通知更新，如果更新标志为真，调用观察者带参数arg的方法
+
+####Ruby观察者简单示例
+
+这里要做的就是获取一个json数据，将这个数据更新出来。
+
+获取json数据，同时解析。
+
+    require 'net/http'
+    require 'rubygems'
+    require 'json'
+    
+    class GetData
+      attr_reader:res,:parsed
+    
+      def initialize(uri)
+        uri=URI(uri)
+        @res=Net::HTTP.get(uri)
+        @parsed=JSON.parse(res)
+      end
+    
+      def id
+        @parsed[0]["id"]
+      end
+    
+      def sensors1
+        @parsed[0]["sensors1"].round(2)
+      end
+    
+      def sensors2
+        @parsed[0]["sensors2"].round(2)
+      end
+    
+      def temperature
+        @parsed[0]["temperature"].round(2)
+      end
+    
+      def led1
+        @parsed[0]["led1"]
+      end
+    
+    end
+
+下面这个也就是重点，和观察者相关的，就是被观察者，由这个获取数据。
+通过changed ，同时用notify_observer方法告诉观察者
+
+    require 'rubygems'
+    require 'thread'
+    require 'observer'
+    require 'getdata'
+    require 'ledstatus'
+    
+    class Led 
+    	include Observable
+    	
+        attr_reader:data
+    	def initialize
+    		@uri='http://www.xianuniversity.com/athome/1'
+    	end
+    	def getdata
+    		loop do 
+    			changed()
+    	   		data=GetData.new(@uri)
+    	   		changed
+    	   		notify_observers(data.id,data.sensors1,data.sensors2,data.temperature,data.led1)
+    	   		sleep 1
+    	   	end
+    	end
+    end
+
+然后让我们新建一个观察者
+
+    class LedStatus
+      def update(arg,sensors1,sensors2,temperature,led1)
+        puts "id:#{arg},sensors1:#{sensors1},sensors2:#{sensors2},temperature:#{temperature},led1:#{led1}"
+      end
+    end
+
+测试
+
+    require 'spec_helper'
+    
+    describe LedStatus do
+      let(:ledstatus){LedStatus.new()}
+    
+      describe "Observable" do
+        it "Should have a result" do 
+          led=Led.new
+          led.add_observer(ledstatus)
+          led.getdata
+        end
+      end
+    
+    end
+
+测试结果如下所示
+
+    phodal@linux-dlkp:~/tw/observer&gt; rake
+    /usr/bin/ruby1.9 -S rspec ./spec/getdata_spec.rb ./spec/ledstatus_spec.rb
+    id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
+    id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+    id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
+    id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+    id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+    id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+
+使用Ruby自带的Observer库的优点是，让我们可以简化相互之间的依赖性。同时，也能简化程序的结构，相比于自己写observer的情况下。
+
+##Node.js 简单工厂模式
+
+> 从设计模式的类型上来说，简单工厂模式是属于创建型模式，又叫做静态工厂方法（Static Factory Method）模式，但不属于23种GOF设计模式之一。简单工厂模式是由一个工厂对象决定创建出哪一种产品类的实例。简单工厂模式是工厂模式家族中最简单实用的模式，可以理解为是不同工厂模式的一个特殊实现，学习了此模式可以为后面的很多中模式打下基础。
+
+当我发现我在代码中重复写了很多个if来判断选择那个数据库的时候。于是，我就想着似乎这就可以用这个简单工厂模式来实现SQLite3与MongoDB的选择。
+
+###MongoDB Helper与SQLite Helper类重复
+
+对于我们的类来说是下面这样子的:
+
+    function MongoDBHelper() {
+        'use strict';
+        return;
+    }
+
+    MongoDBHelper.deleteData = function (url, callback) {
+        'use strict';
+        ...    
+    };
+
+    MongoDBHelper.getData = function (url, callback) {
+        'use strict';
+        ...
+    };
+
+    MongoDBHelper.postData = function (block, callback) {
+        'use strict';
+        ...
+    };
+
+    MongoDBHelper.init = function () {
+        'use strict';
+        ...
+    };
+
+    module.exports = MongoDBHelper;
+
+然而，我们可以发现的是，对于我们的SQLiteHelper来说也是类似的
+
+
+    SQLiteHelper.init = function () {
+        'use strict';
+        ...
+    };
+
+    SQLiteHelper.postData = function (block, callback) {
+        'use strict';   
+        ...
+    };
+
+    SQLiteHelper.deleteData = function (url, callback) {
+        'use strict';
+        ...
+    };
+
+    SQLiteHelper.getData = function (url, db_callback) {
+        'use strict';
+        ...
+    };
+
+    module.exports = SQLiteHelper;
+
+想来想去觉得写一个父类似乎是没有多大意义的，于是用了简单工厂模式来解决这个问题。
+
+总之，就是我们可以用简单工厂模式来做一个DB Factory，于是便有了
+
+    var MongoDBHelper   = require("./mongodb_helper");
+    var SQLiteHelper    = require("./sqlite_helper");
+    var config          = require('../../iot').config;
+    
+    function DB_Factory() {
+        'use strict';
+        return;
+    }
+    
+    DB_Factory.prototype.DBClass = SQLiteHelper;
+    
+    DB_Factory.prototype.selectDB = function () {
+        'use strict';
+        if (config.db === 'sqlite3') {
+            this.DBClass = SQLiteHelper;
+        } else if (config.db === "mongodb") {
+            this.DBClass = MongoDBHelper;
+        }
+        return this.DBClass;
+    };
+    
+    module.exports = DB_Factory;
+    
+这样我们在使用的时候，便可以:
+
+    var DB_Factory      = require("./lib/database/db_factory");
+
+    var db_factory = new DB_Factory();
+    var database = db_factory.selectDB();
+    database.init();
+    
+由于是直接由配置中读取进去的，这里的selectDB就不需要参数。
+
+##Java Template Method(模板方法)
+
+原本对于设计模式的写作还不在当前的计划中，然而因为在写TWU作业的时候，觉得代码写得不好，于是慢慢试着一点点重构，重新看着设计模式。也开始记录这一点点的方法，至少这些步骤是必要的。
+
+###从基本的App说起
+
+对于一个基本的C/C++/Java/Python的Application来说，他只需要有一个Main函数就够了。对于一个好一点的APP来说，他可能是下面的步骤，
+
+    main(){
+    	init();
+    	while(!condition()){
+       		do();
+    	}
+    }
+    
+上面的代码是我在学51/AVR等各式嵌入式设备时，经常是按上面的写法写的，对于一个更符合人性的App来说他应该会有一个退出函数。
+
+    main(){
+    	init();
+    	while(!condition()){
+       		do();
+    	}
+    	exit();
+    }
+    
+于是很幸运地我找到了这样的一个例子。
+
+过去看过Arduino的代码，了解过他是如何工作的，对于一个Arduino的代码来说，必要的两个函数就是。
+
+	void setup() {
+	}
+
+	void loop() {
+	}
+	
+setup()函数相当于上面的init()，而loop()函数刚相当于上面的do()。似乎这就是我们想要的东西，看看Arduino目录中的Arduino.h就会发现，如下的代码(删减部分代码)
+
+	#include <Arduino.h>
+
+	int main(void)
+	{
+		init();
+		setup();	    
+		for (;;) {
+			loop();
+			if (serialEventRun) serialEventRun();
+		}
+	        
+		return 0;
+	}
+
+代码中的for(;;)看上去似乎比while(True)容易理解得多，这也就是为什么嵌入式中经常用到的是for(;;)，从某种意义上来说两者是等价的。再有不同的地方，就是gcc规定了,main()函数不能是void。so,两者是差不多的。只是没有，并没有在上面看到模板方法，等等。我们在上面所做的事情，便是创建一个框架。
+
+##Template Method
+
+> **模板方法**： 在一方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。
+
+对于我来说，我就是在基本的App中遇到的情况是一样的，在我的例子中，一开始我的代码是这样写的。
+
+    public static void main(String[] args) throws IOException {
+        initLibrary();
+        while(!isQuit){
+            loop();
+        }
+        exit;
+    }
+
+    protected void initLibrary(); {
+        System.out.println(welcomeMessage);
+    }
+
+    protected void loop() {
+        String key = "";
+        Scanner sc = new Scanner(System.in);
+        key = sc.nextLine();
+
+        System.out.println(results);
+        if(key.equals("Quit")){
+            setQuit();
+        }
+    }
+
+    protected void exit() {
+        System.out.println("Quit Library");
+    }
+
+只是这样写感觉很是别扭，看上去一点高大上的感觉，也木有。于是，打开书，找找灵感，就在《敏捷软件开发》一书中找到了类似的案例。Template Method模式可以分离能用的算法和具体的上下文，而我们通用的算法便是。
+
+    main(){
+    	init();
+    	while(!condition()){
+       		do();
+    	}
+    	exit();
+    }
+
+看上去正好似乎我们当前的案例，于是便照猫画虎地来了一遍。
+
+###Template Method实战
+
+创建了一个名为App的抽象基类，
+
+    public abstract class App {
+        private boolean isQuit = false;
+
+        protected abstract void loop();
+        protected abstract void exit();
+
+        private boolean quit() {
+            return isQuit;
+        }
+
+        protected boolean setQuit() {
+            return isQuit = true;
+        }
+
+        protected abstract void init();
+
+        public void run(){
+            init();
+            while(!quit()){
+                loop();
+            }
+            exit();
+        }
+    }
+
+而这个也和书中的一样，是一个通用的主循环应用程序。从应用的run函数中，可以看到主循环。而所有的工作也都交付给抽象方法，于是我们的LibraryApp就变成了
+
+
+    public class LibraryApp extends App {
+        private static String welcomeMessage = "Welcome to Biblioteca library";
+
+        public static void main(String[] args) throws IOException {
+            (new LibraryApp()).run();
+        }
+
+        protected void init() {
+            System.out.println(welcomeMessage);
+        }
+
+        protected void loop() {
+            String key = "";
+            Scanner sc = new Scanner(System.in);
+            key = sc.nextLine();
+
+            if(key.equals("Quit")){
+                setQuit();
+            }
+        }
+
+        protected void exit() {
+            System.out.println("Quit Library");
+        }
+    }
+
+
+然而，如书中所说``这是一个很好的用于示范TEMPLATE METHOD模式的例子，却不是一个合适的例子。``
+
+
+##Hadoop Pipe and Filters模式
+
+继续码点关于架构设计的一些小心得。架构是什么东西并没有那么重要，重要的是知道它存在过。我会面对不同的架构，有一些不同的想法。一个好的项目通常是存在一定的结构，就好像人们在建造房子的时候也都会有结构有一样。
+
+我们看不到的架构，并不意味着这个架构不存在。
+
+###Unix Shell
+
+最出名的Pipe便是Unix中的Shell
+
+**管道（英语：Pipeline）是原始的软件管道：即是一个由标准输入输出链接起来的进程集合，所以每一个进程的输出（stdout）被直接作为下一个进程的输入（stdin）。 每一个链接都由未命名管道实现。过滤程序经常被用于这种设置。**
+
+所以对于这样一个很好的操作便是，统计某种类型的文件的个数:
+
+    ls -alh dot | grep .dot | wc -l
+
+在执行
+
+    ls -alh dot
+
+的输出便是下一个的输入，直至最后一个输出。
+
+这个过程有点类似于工厂处理废水，
+
+![pipe and filter][1]
+
+上图是一个理想模型~~。
+
+一个明显地步骤是，水中的杂质越来越少。
+
+###Pipe and Filter模式
+
+**Pipe and Filter**适合于处理数据流的系统。每个步骤都封装在一个过滤器组件中，数据通过相邻过滤器之间的管道传输。
+
+- **pipe**: 传输、缓冲数据。
+- **filter**: 输入、处理、输出数据。
+
+这个处理过程有点类似于我们对数据库中数据的处理，不过可不会有这么多步骤。
+
+###Fluent API
+
+这个过程也有点类似于Fluent API、链式调用，只是这些都是DSL的一种方式。
+
+
+流畅接口的初衷是构建可读的API，毕竟代码是写给人看的。
+
+类似的，简单的看一下早先我们是通过方法级联来操作DOM
+
+```
+var btn = document.createElement("BUTTON");        // Create a <button> element
+var t = document.createTextNode("CLICK ME");       // Create a text node
+btn.appendChild(t);                                // Append the text to <button>
+document.body.appendChild(btn);                    // Append <button> to <body>
+```
+
+而用jQuery写的话，便是这样子
+
+```
+$('<span>').append("CLICK ME");
+```
+
+等等
+
+于是回我们便可以创建一个简单的示例来展示这个最简单的DSL
+
+```
+Func = (function() {
+    this.add = function(){
+        console.log('1');
+        return this;
+    };
+    this.result = function(){
+        console.log('2');
+        return this;
+    };
+    return this;
+});
+
+var func = new Func();
+func.add().result();
+```
+
+然而这看上去像是表达式生成器。
+
+###DSL 表达式生成器
+
+> 表达式生成器对象提供一组连贯接口，之后将连贯接口调用转换为对底层命令-查询API的调用。
+
+这样的API，我们可以在一些关于数据库的API中看到:
+
+```
+var query =
+  SQL('select name, desc from widgets')
+   .WHERE('price < ', $(params.max_price), AND,
+          'clearance = ', $(params.clearance))
+   .ORDERBY('name asc');
+```
+
+链式调用有一个问题就是收尾，同上的代码里面我们没有收尾，这让人很迷惑。。加上一个query和end似乎是一个不错的结果。
+
+###Pipe and Filter模式实战
+
+所以，这个模式实际上更适合处理数据，如用Hadoop处理数据的时候，我们会用类似于如下的方法来处理我们的数据:
+
+	A = FOREACH LOGS_BASE GENERATE ToDate(timestamp, 'dd/MMM/yyyy:HH:mm:ss Z') as date, ip, url,(int)status,(int)bytes,referrer,useragent;
+	B = GROUP A BY (timestamp);
+	C = FOREACH B GENERATE FLATTEN(group) as (timestamp), COUNT(A) as count;
+	D = ORDER C BY timestamp,count desc;
+
+每一次都是在上一次处理完的结果后，再处理的。
+
+
+##其他
+
+参考书目
+
+ - 《Head First 设计模式》
+ - 《设计模式》
+ - 《敏捷软件开发 原则、模式与实践》
+ - 《 面向模式的软件架构:模式系统》
+ - 《Java应用架构设计》
 
 
 #易读
@@ -1611,8 +2255,8 @@ Code Climate整合一组静态分析工具的结果到一个单一的，实时�
 
 于是，我们先来了个例子
 
-Rating	| Name |	Complexity |	Duplication	| Churn |	C/M	| Coverage |	Smells 
---------|------|--------------|-------------|----------|---------|---------------------
+Rating 	| Name |	Complexity   |	Duplication	| Churn    |	C/M    	| Coverage |	Smells 
+--------|------|--------------|-------------|----------|---------|----------|----------
 A |	lib/coap/coap_request_handler.js |	24 |	0 |	6 |	2.6 |	46.4% |	0
 A |	lib/coap/coap_result_helper.js |	14	| 0	| 2 |	3.4 |	80.0% |	0
 A	| lib/coap/coap_server.js |	16 |	0 |	5 |	5.2 |	44.0% |	0
@@ -1733,6 +2377,72 @@ SQLiteHelper.prototype.getData = function (url, callback) {
 ```
 
 重构完后的代码比原来还长，这似乎是个问题~~
+
+##一次测试驱动开发
+
+###故事
+
+之前正在重写一个[物联网](http://www.phodal.com/iot)的服务端，主要便是结合CoAP、MQTT、HTTP等协议构成一个物联网的云服务。现在，主要的任务是集中于协议与授权。由于，不同协议间的授权是不一样的，最开始的时候我先写了一个http put授权的功能，而在起先的时候是如何测试的呢?
+
+    curl --user root:root -X PUT -d '{ "dream": 1 }' -H "Content-Type: application/json" http://localhost:8899/topics/test
+
+我只要顺利在request中看有无``req.headers.authorization``，我便可以继续往下，接着给个判断。毕竟，我们对HTTP协议还是蛮清楚的。
+
+    if (!req.headers.authorization) {
+      res.statusCode = 401;
+      res.setHeader('WWW-Authenticate', 'Basic realm="Secure Area"');
+      return res.end('Unauthorized');
+    }
+       
+       
+可是除了HTTP协议，还有MQTT和CoAP。对于MQTT协议来说，那还算好，毕竟自带授权，如:
+
+    mosquitto_pub -u root -P root -h localhost -d -t lettuce -m "Hello, MQTT. This is my first message."
+       
+便可以让我们简单地完成这个功能，然而有的协议是没有这样的功能如CoAP协议中是用Option来进行授权的。现在的工具如libcoap只能有如下的简单功能
+
+    coap-client -m get coap://127.0.0.1:5683/topics/zero -T
+
+于是，先写了个测试脚本来验证功能。
+
+	var coap     = require('coap');
+	var request  = coap.request;
+	var req = request({hostname: 'localhost',port:5683,pathname: '',method: 'POST'});
+
+	...
+	
+	req.setHeader("Accept", "application/json");
+	req.setOption('Block2',  [new Buffer('phodal'), new Buffer('phodal')]);
+	
+	...
+
+	req.end();
+	
+写完测试脚本后发现不对了，这个不应该是测试的代码吗? 于是将其放到了spec中，接着发现了上面的全部功能的实现过程为什么不用TDD实现呢？
+
+###说说测试驱动开发
+
+测试驱动开发是一个很"古老"的程序开发方法，然而由于国内的开发流程的问题——即开发人员负责功能的测试，导致这么好的一项技术没有在国内推广。
+
+测试驱动开发的主要过程是:
+
+1. 先写功能的测试
+2. 实现功能代码
+3. 提交代码(commit -> 保证功能正常)
+4. 重构功能代码
+
+而对于这样的一个物联网项目来说，我已经有了几个有利的前提:
+
+1. 已经有了原型
+2. 框架设计
+
+###思考
+
+通常在我的理解下，TDD是可有可无的。既然我知道了我要实现的大部分功能，而且我也知道如何实现。与此同时，对Code Smell也保持着警惕、要保证功能被测试覆盖。那么，总的来说TDD带来的价值并不大。
+
+然而，在当前这种情况下，我知道我想要的功能，但是我并不理解其深层次的功能。我需要花费大量的时候来理解，它为什么是这样的，需要先有一些脚本来知道它是怎么工作的。TDD变显得很有价值，换句话来说，在现有的情况下，TDD对于我们不了解的一些事情，可以驱动出更多的开发。毕竟在我们完成测试脚本之后，我们也会发现这些测试脚本成为了代码的一部分。
+
+在这种理想的情况下，我们为什么不TDD呢?
 
 #架构篇一: CMS的重构与演进
 
