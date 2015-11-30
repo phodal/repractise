@@ -86,6 +86,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#数据">数据</a><ul>
 <li><a href="#数据库">数据库</a></li>
 </ul></li>
+<li><a href="#表现">表现</a><ul>
+<li><a href="#分离">分离</a></li>
+</ul></li>
+<li><a href="#领域">领域</a><ul>
+<li><a href="#dsl">DSL</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#重构篇">重构篇</a><ul>
 <li><a href="#网站重构">网站重构</a><ul>
@@ -134,8 +140,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#其他-1">其他</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#易读">易读</a></li>
-<li><a href="#模式设计与架构">模式、设计与架构</a><ul>
+<li><a href="#易读">易读</a><ul>
+<li><a href="#变量名">变量名</a></li>
+<li><a href="#函数名">函数名</a></li>
+<li><a href="#小函数">小函数</a></li>
+<li><a href="#测试">测试</a></li>
+</ul></li>
+<li><a href="#模式篇设计与架构">模式篇：设计与架构</a><ul>
 <li><a href="#观察者模式">观察者模式</a><ul>
 <li><a href="#ruby观察者模式">Ruby观察者模式</a></li>
 </ul></li>
@@ -201,7 +212,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li><a href="#todo">TODO</a></li>
 </ul></li>
-<li><a href="#实习记">实习记</a><ul>
+<li><a href="#成长篇实习记">成长篇：实习记</a><ul>
 <li><a href="#写在前面的话">写在前面的话</a><ul>
 <li><a href="#技术x思考rethink">技术x思考=RETHINK</a></li>
 <li><a href="#技术x工匠手工艺人">技术x工匠=手工艺人</a></li>
@@ -688,6 +699,10 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>像如MongoDB这类的数据库，也是存在数据模型，但说的却是嵌入子文档。在业务量大的情况下，数据库在考验公司的技术能力，想想便觉得Amazon RDS挺好的。</p>
 <p>如果是</p>
+<h2 id="表现">表现</h2>
+<h3 id="分离">分离</h3>
+<h2 id="领域">领域</h2>
+<h3 id="dsl">DSL</h3>
 <h1 id="重构篇">重构篇</h1>
 <p>什么是重构?</p>
 <blockquote>
@@ -1732,7 +1747,11 @@ git push -q upstream HEAD:gh-pages</code></pre>
 <li>Github Pages: <a href="https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages" class="uri">https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages</a></li>
 </ol>
 <h1 id="易读">易读</h1>
-<h1 id="模式设计与架构">模式、设计与架构</h1>
+<h2 id="变量名">变量名</h2>
+<h2 id="函数名">函数名</h2>
+<h2 id="小函数">小函数</h2>
+<h2 id="测试">测试</h2>
+<h1 id="模式篇设计与架构">模式篇：设计与架构</h1>
 <p>设计模式算是在OO中比较有趣的东西，特别是对于如我之类的用得不是很多的，虽然有时候也会用上，但是并不知道用的是怎样的模式。之前了解了几天的设计模式，实际上也就是将平常经常用到的一些东西进行了总结，如此而已，学习设计模式的另外一个重要的意义在于，我们使用了设计模式的时候我们会知道自己使用了，并且还会知道用了是怎样的设计模式。</p>
 <p>至于设计模式这个东西和有些东西一样，是发现的而不是发明的，换句话说，我们可以将经常合到一起的几种模式用一个新的模式来命名，它是复合模式，但是也可以用别的模式来命名。</p>
 <p>设计模式算是简化了我们在面向对象设计时候的诸多不足，这个在系统设计的初期有时候会有一定的作用，不过多数时候对于我来说，会用上他的时候，多半是在重构的时候，因为不是很熟悉。</p>
@@ -2547,7 +2566,7 @@ scons: done building targets.</code></pre>
 <li>开始创作内容、提交代码、分享</li>
 <li>持续Impact</li>
 </ul>
-<h1 id="实习记">实习记</h1>
+<h1 id="成长篇实习记">成长篇：实习记</h1>
 <h2 id="写在前面的话">写在前面的话</h2>
 <p>终于可以在和自己的电脑上写下这些字了，实习的日子也就算到一段落了。时间过得很多，也过得很短。很丑陋地用着没有UI的Fcitx，不过对于我来说已经足够了，五笔是一个不错的中国产物，拼音只能算是一种泊来品。</p>
 <p>告别了用了半年的Macbook Pro，发现原来在Mac OS上只能选择某个软件，而现在却可以有不同的选择。在纠结完openSUSE、Ubuntu Kylin还是Mint之后，我选择了Mint，毕竟我还是属于追求新软件及一些特性的“追新族”(主要原因还是显卡不支持了)。将公司配的电脑留在公司里，配置了两个晚上——从Fcitx到bash、vim、Emacs、Texlive。接着我开始计划着写上这些东西，我需要用Markdown去写这些东西，需要选择一个编辑器。没有了Mou，Retext对于UTF8的支持不如想像中的好，最后算是用上了MdCharm（印象中是一个国人写的）。自己用基于node-webkit写的lumia写的编辑器似乎性能又不好，有空真应该自己重新写一个。或许当某一天自己正式成为一员的时候，应该抛弃Mac OS。</p>
