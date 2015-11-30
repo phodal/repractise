@@ -291,7 +291,7 @@ public class replaceTemp {
 
 便会返回
 
-```
+```java
 import java.lang.System;
 
 public class replaceTemp {
@@ -339,7 +339,7 @@ public class replaceTemp {
 
 便会有下面的结果:
 
-java
+```java
 import java.lang.String;
 
 public class replaceTemp {
