@@ -244,6 +244,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#seo基础知识">SEO基础知识</a></li>
 <li><a href="#内容">内容</a></li>
 </ul></li>
+<li><a href="#程序员差别的本质">程序员差别的本质</a><ul>
+<li><a href="#技术与工具">技术与工具</a></li>
+<li><a href="#编程的秘密">编程的秘密</a></li>
+<li><a href="#技术的成长">技术的成长</a></li>
+<li><a href="#程序员的差别">程序员的差别</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -2554,11 +2560,9 @@ scons: done building targets.</code></pre>
 </blockquote>
 <p>实习之前我只是一个热衷于技术的硬件出身的软件工程师，那本书是在找工作的艰难的日子里买的，慢慢地开始以不同的眼光来看待技术这东西 。人会不停地成长，从一个台阶迈向另一个台阶。</p>
 <p>很早以前只会去学习不同的技术，没有理解之间的一些奥秘，或许是因为没有多少的项目实践。以硬件为例，当需要一个串口通信来点亮一个LED的时候，可能会拿51开发板去做，可能会用MSP430去做，类似的有时候也需要K60去实现，而在刚开始的时候会去研究代码，渐渐地发现我们还是用Arduino吧，我们只需要围绕着我们的功能并快速去实现。换句话说，理解那么不同框架的相似之处没有多大的意义，不同框架的不同之处的学习才是有意义的。</p>
-<pre><code> print &quot;Hello,World&quot;
- </code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span> <span class="st">&quot;Hello,World&quot;</span></code></pre></div>
 <p>研究这些相似的知识已然没有多大的意义，我们需要的或许是诸如</p>
-<pre><code> if __name__==&#39;__main__&#39;:
- </code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">if</span> <span class="va">__name__</span><span class="op">==</span><span class="st">&#39;__main__&#39;</span>:</code></pre></div>
 <p>这种限于某种语言的语法。</p>
 <p>慢慢地会发现取决于我们要做的事，我们去选择我们需要的东西。用Holmes的话说就是，</p>
 <blockquote>
@@ -2988,5 +2992,87 @@ scons: done building targets.</code></pre>
 <p>一些更简单的办法就是交换链接，总之这个话题有些沉重，可能会带来一些负面的影响，如黑帽SEO。。。。</p>
 <p><strong>参考来源</strong>:</p>
 <p>《SEO艺术》(The Art of SEO)</p>
+<h2 id="程序员差别的本质">程序员差别的本质</h2>
+<p>当我开始在阅读《技术的本质》的时候，我就开始在思考这样一个问题，我们在使用技术还是工具。</p>
+<p>[技术的本质][1]</p>
+<h3 id="技术与工具">技术与工具</h3>
+<p>在某百科上说</p>
+<blockquote>
+<p>一项技术是关于某一领域有效的科学（理论和研究方法）的全部，以及在该领域为实现公共或个体目标而解决设计问题的规则的全部。</p>
+</blockquote>
+<p>对于技术不同的人的理解可能是不同的，和上图中的使用工具类似的是，和工具一样，技术也在不断地成长和进行。网站的成长史似乎可以简化为下面的过程，可能还会有ASP.NE等等，只是因为我接触得比较少。</p>
+<ul>
+<li>静态的HTML</li>
+<li>CGI和Perl脚本</li>
+<li>PHP</li>
+<li>J2EE</li>
+<li>Django</li>
+<li>Ruby on Rails</li>
+<li>Nodejs</li>
+</ul>
+<p>实际上这是技术的一种演变，然而做为最核心的东西HTML似乎还是那样的。作为新技术产生的核心——HTML也在不断也进化中。然而，没有想象中的那么明显，看上去像是不变的，只是技术在不断地向前前进。对于我们来说这些都是工具，有时我们在用工具创造中新的工具，好比是技术本身，通过结合一些技术创建出新的技术。同进化史一般，我们没有办法从无到有创造出一个新的东西，没有上帝。</p>
+<p>而作为一个普通的程序员，我们所做的只是在使用工具，从芯片到语言，从语言到框架，从框架到实现。</p>
+<h3 id="编程的秘密">编程的秘密</h3>
+<p>每个人在技术的成长过程中都有不同的经历，对于我来说现在的总结大概是如此(ps:有兴趣可以参考<a href="http://www.phodal.com/blog/past-computer-language/">过去的那些语言</a>)。</p>
+<ul>
+<li>当我开始学习第一种语言<code>LOGO</code>时，我还小觉得很神奇，至少对于计算机还是保持神秘的。</li>
+<li>当我开始学习<strong>C++</strong>时，由于作者对于其优雅的宣称，我觉得<strong>C++</strong>确实很优雅、</li>
+<li>当我开始学习<code>Python</code>的时候，我发现<strong>简单</strong>才是我所要追求的。</li>
+<li>当我开始学习<strong>Ruby On Rails</strong>的时候，我发现生成可以很强大，但是因为强大，所以没有意思。</li>
+<li>当我开始学习<code>Django</code>的时候，我发现这才是我想要的订制。</li>
+<li>当我开始写<code>博客</code>的时候，我觉得比于<strong>HTML</strong>来说，<strong>Markdown</strong>才是适合我的。</li>
+<li>当我开始写下此文时，我开始觉得我<strong>应该试着去做点什么</strong>。</li>
+</ul>
+<p>于是我又回到了原点，开始迷茫我想要的是什么？当我实习半年以后，我学到了更多的东西（<a href="http://www.phodal.com/blog/thoughtworks-intern-how-to-be-a-zen-programmer/">实习半年后:正在变得高效</a>），而我开始的时候我才在偶然的一次机会中才了解到，我们用的都是工具。只是，我们可以用工具创造出工具。</p>
+<p>编程只是用来解决问题的工具，优美与否对于解决问题的帮助，取决于是一次性问题还是长期问题。编程的核心是解决问题，正如SEO的核心是内容(详情见:<a href="http://www.phodal.com/blog/every-programmer-should-know-how-seo/">每个程序员必知之SEO</a>)。于是，</p>
+<blockquote>
+<p>我们把一个又一个的迷团解开了，剩下百无聊赖。</p>
+</blockquote>
+<p>当我们在讨论生产率的时候，得知高级语言会比低级语言来得有生产率，但是效率可能会因人而异。高级语言来自于低级语言，这些似乎没有那么重要。人们熟悉了不同的IDE、不同的语言，相比于那些入门者来说，谙熟语言的人只是更加熟练罢了。同《卖油翁》的<code>我亦无他，唯手熟尔</code>般，对于有些东西只是因为用多了，然后熟悉罢了。事实真的是这样么？如果我们每天写的是<strong>1+1=2</strong>，我们会知道<strong>1+2=3</strong>么。</p>
+<blockquote>
+<p>那么所谓的优秀的程序员和普通的程序员的差别在哪?</p>
+</blockquote>
+<h3 id="技术的成长">技术的成长</h3>
+<p>这里的技术指的不是个人在技术上的成长，而是技术自身的成长。</p>
+<blockquote>
+<p>技术在某种程度上一定是来自此前已有技术的新的组合。</p>
+</blockquote>
+<p>一个优秀的框架、软件、系统的产生必然会基于其他的已有技术或者框架，如：</p>
+<p>Ubuntu GNU/Linux</p>
+<ul>
+<li>内核是Linux</li>
+<li>编译器GCC</li>
+<li>库GLIBC等等</li>
+<li>脚本语言Python等</li>
+<li>Bash</li>
+<li>等</li>
+</ul>
+<p>而这其中的一些小命令如ls、cd、wget也是这个系统的组成部分之一，我们无法找到一个不依赖于其他系统的软件。如果你自己动手编译过Linux，或者你会更有体会一个GNU/Linux系统需要什么。从一个库来说它是基于其他的基本库，如C标准库，而从C标准库的编译又依赖于编译器，这些都循环中前进着。</p>
+<pre><code> gcc4.7编译出了gcc4.8
+ gcc4.6编译出了gcc4.7
+ gcc4.5编译出了gcc4.6
+ 等等</code></pre>
+<p>这是对一个可以自身编译自身的编译器而言，我们无法忽视的是技术背后有许多细节。巨人是站在巨人的肩膀上，过去我们可能一群工程师一个月开发出来的软件，在今天可能可以由一个工程师一天开发出来。因为我们可以基于前人的经验及教训，而这也是所谓的高生产率的程序员和一般的程序员间的区别。</p>
+<p>自然而然的优秀的程序员吸收了其他人的经验以及教训，换在今天来说，你今天所在的位置并不是因为你比别人聪明，或者是别人比你聪明，只是因为你<strong>吸收了更多的知识及经验</strong>。当然，教育不公平不应该这边的讨论范围。</p>
+<h3 id="程序员的差别">程序员的差别</h3>
+<p>回到开始的话题，我们使用的如图所示的工具的话，你会选择</p>
+<ul>
+<li>石头</li>
+<li>矛</li>
+<li>电钻</li>
+<li>电脑</li>
+</ul>
+<p>中的哪一个，这是一个有趣的话题，正如。。</p>
+<ul>
+<li>汇编</li>
+<li>C语言</li>
+<li>Python</li>
+<li>Django</li>
+</ul>
+<p>这个问题没有一个真正的答案取决于你所做的事，而问题的关键在于你知道的只是<code>汇编</code>，而不知道有其他东西的存在。这里的意思不是让你把上面的都学了，而是对于我们所处的领域我们应该有一个宽泛的了解。了解并不一定是亲身实践，如上一标题所说，我们只需要去<strong>吸收别人的知识及经验</strong>，一个有趣的答案便是<strong>从别人身上学习会更快</strong>。只是在那之前，我们需要去学会学习，因为你可能处在某个位置，没有其他人做过。</p>
+<p>而对于标题的答案来说应该是:</p>
+<blockquote>
+<p>优秀的程序员不仅仅只是使用工具。</p>
+</blockquote>
 </body>
 </html>
