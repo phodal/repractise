@@ -22,14 +22,16 @@
 
 Ruby中为实现Observer模式提供了名为observer的库，observer库提供了Observer模块。
 其API如下所示
-方法名                                                    功 能 
-add_observer(observer)                  添加观察者
-delete_observer(observer)             删除特定观察者
-delete_observer                                 删除观察者
-count_observer                                  观察者的数目
-change(state=true)                            设置更新标志为真
-changed?                                              检查更新标志
-notify_observer(*arg)                        通知更新，如果更新标志为真，调用观察者带参数arg的方法
+
+方法名  | 功 能 
+-------|-----------------
+add_observer(observer)   |               添加观察者
+delete_observer(observer) |            删除特定观察者
+delete_observer            |                     删除观察者
+count_observer              |                    观察者的数目
+change(state=true)           |                 设置更新标志为真
+changed?                      |                        检查更新标志
+notify_observer(*arg)          |              通知更新，如果更新标志为真，调用观察者带参数arg的方法
 
 ####Ruby观察者简单示例
 
@@ -37,103 +39,112 @@ notify_observer(*arg)                        通知更新，如果更新标志�
 
 获取json数据，同时解析。
 
-    require 'net/http'
-    require 'rubygems'
-    require 'json'
-    
-    class GetData
-      attr_reader:res,:parsed
-    
-      def initialize(uri)
-        uri=URI(uri)
-        @res=Net::HTTP.get(uri)
-        @parsed=JSON.parse(res)
-      end
-    
-      def id
-        @parsed[0]["id"]
-      end
-    
-      def sensors1
-        @parsed[0]["sensors1"].round(2)
-      end
-    
-      def sensors2
-        @parsed[0]["sensors2"].round(2)
-      end
-    
-      def temperature
-        @parsed[0]["temperature"].round(2)
-      end
-    
-      def led1
-        @parsed[0]["led1"]
-      end
-    
-    end
+```ruby
+require 'net/http'
+require 'rubygems'
+require 'json'
+
+class GetData
+  attr_reader:res,:parsed
+
+  def initialize(uri)
+    uri=URI(uri)
+    @res=Net::HTTP.get(uri)
+    @parsed=JSON.parse(res)
+  end
+
+  def id
+    @parsed[0]["id"]
+  end
+
+  def sensors1
+    @parsed[0]["sensors1"].round(2)
+  end
+
+  def sensors2
+    @parsed[0]["sensors2"].round(2)
+  end
+
+  def temperature
+    @parsed[0]["temperature"].round(2)
+  end
+
+  def led1
+    @parsed[0]["led1"]
+  end
+
+end
+```
 
 下面这个也就是重点，和观察者相关的，就是被观察者，由这个获取数据。
 通过changed ，同时用notify_observer方法告诉观察者
 
-    require 'rubygems'
-    require 'thread'
-    require 'observer'
-    require 'getdata'
-    require 'ledstatus'
-    
-    class Led 
-    	include Observable
-    	
-        attr_reader:data
-    	def initialize
-    		@uri='http://www.xianuniversity.com/athome/1'
-    	end
-    	def getdata
-    		loop do 
-    			changed()
-    	   		data=GetData.new(@uri)
-    	   		changed
-    	   		notify_observers(data.id,data.sensors1,data.sensors2,data.temperature,data.led1)
-    	   		sleep 1
-    	   	end
-    	end
-    end
+```ruby
+require 'rubygems'
+require 'thread'
+require 'observer'
+require 'getdata'
+require 'ledstatus'
+
+class Led 
+	include Observable
+	
+    attr_reader:data
+	def initialize
+		@uri='http://www.xianuniversity.com/athome/1'
+	end
+	def getdata
+		loop do 
+			changed()
+	   		data=GetData.new(@uri)
+	   		changed
+	   		notify_observers(data.id,data.sensors1,data.sensors2,data.temperature,data.led1)
+	   		sleep 1
+	   	end
+	end
+end
+```
 
 然后让我们新建一个观察者
 
-    class LedStatus
-      def update(arg,sensors1,sensors2,temperature,led1)
-        puts "id:#{arg},sensors1:#{sensors1},sensors2:#{sensors2},temperature:#{temperature},led1:#{led1}"
-      end
-    end
+```ruby
+class LedStatus
+  def update(arg,sensors1,sensors2,temperature,led1)
+    puts "id:#{arg},sensors1:#{sensors1},sensors2:#{sensors2},temperature:#{temperature},led1:#{led1}"
+  end
+end
+```
 
 测试
 
-    require 'spec_helper'
-    
-    describe LedStatus do
-      let(:ledstatus){LedStatus.new()}
-    
-      describe "Observable" do
-        it "Should have a result" do 
-          led=Led.new
-          led.add_observer(ledstatus)
-          led.getdata
-        end
-      end
-    
+```ruby
+require 'spec_helper'
+
+describe LedStatus do
+  let(:ledstatus){LedStatus.new()}
+
+  describe "Observable" do
+    it "Should have a result" do 
+      led=Led.new
+      led.add_observer(ledstatus)
+      led.getdata
     end
+  end
+end
+```
 
 测试结果如下所示
 
-    phodal@linux-dlkp:~/tw/observer&gt; rake
-    /usr/bin/ruby1.9 -S rspec ./spec/getdata_spec.rb ./spec/ledstatus_spec.rb
-    id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
-    id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
-    id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
-    id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
-    id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
-    id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+```bash
+phodal@linux-dlkp:~/tw/observer&gt; rake
+/usr/bin/ruby1.9 -S rspec ./spec/getdata_spec.rb ./spec/ledstatus_spec.rb
+id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
+id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
+id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+```
 
 使用Ruby自带的Observer库的优点是，让我们可以简化相互之间的依赖性。同时，也能简化程序的结构，相比于自己写observer的情况下。
 
@@ -147,93 +158,100 @@ notify_observer(*arg)                        通知更新，如果更新标志�
 
 对于我们的类来说是下面这样子的:
 
-    function MongoDBHelper() {
-        'use strict';
-        return;
-    }
+```javascript
+function MongoDBHelper() {
+    'use strict';
+    return;
+}
 
-    MongoDBHelper.deleteData = function (url, callback) {
-        'use strict';
-        ...    
-    };
+MongoDBHelper.deleteData = function (url, callback) {
+    'use strict';
+    ...    
+};
 
-    MongoDBHelper.getData = function (url, callback) {
-        'use strict';
-        ...
-    };
+MongoDBHelper.getData = function (url, callback) {
+    'use strict';
+    ...
+};
 
-    MongoDBHelper.postData = function (block, callback) {
-        'use strict';
-        ...
-    };
+MongoDBHelper.postData = function (block, callback) {
+    'use strict';
+    ...
+};
 
-    MongoDBHelper.init = function () {
-        'use strict';
-        ...
-    };
+MongoDBHelper.init = function () {
+    'use strict';
+    ...
+};
 
-    module.exports = MongoDBHelper;
+module.exports = MongoDBHelper;
+```
 
 然而，我们可以发现的是，对于我们的SQLiteHelper来说也是类似的
 
+```javascript
+SQLiteHelper.init = function () {
+    'use strict';
+    ...
+};
 
-    SQLiteHelper.init = function () {
-        'use strict';
-        ...
-    };
+SQLiteHelper.postData = function (block, callback) {
+    'use strict';   
+    ...
+};
 
-    SQLiteHelper.postData = function (block, callback) {
-        'use strict';   
-        ...
-    };
+SQLiteHelper.deleteData = function (url, callback) {
+    'use strict';
+    ...
+};
 
-    SQLiteHelper.deleteData = function (url, callback) {
-        'use strict';
-        ...
-    };
+SQLiteHelper.getData = function (url, db_callback) {
+    'use strict';
+    ...
+};
 
-    SQLiteHelper.getData = function (url, db_callback) {
-        'use strict';
-        ...
-    };
-
-    module.exports = SQLiteHelper;
+module.exports = SQLiteHelper;
+```
 
 想来想去觉得写一个父类似乎是没有多大意义的，于是用了简单工厂模式来解决这个问题。
 
 总之，就是我们可以用简单工厂模式来做一个DB Factory，于是便有了
 
-    var MongoDBHelper   = require("./mongodb_helper");
-    var SQLiteHelper    = require("./sqlite_helper");
-    var config          = require('../../iot').config;
-    
-    function DB_Factory() {
-        'use strict';
-        return;
+```javascript
+var MongoDBHelper   = require("./mongodb_helper");
+var SQLiteHelper    = require("./sqlite_helper");
+var config          = require('../../iot').config;
+
+function DB_Factory() {
+    'use strict';
+    return;
+}
+
+DB_Factory.prototype.DBClass = SQLiteHelper;
+
+DB_Factory.prototype.selectDB = function () {
+    'use strict';
+    if (config.db === 'sqlite3') {
+        this.DBClass = SQLiteHelper;
+    } else if (config.db === "mongodb") {
+        this.DBClass = MongoDBHelper;
     }
-    
-    DB_Factory.prototype.DBClass = SQLiteHelper;
-    
-    DB_Factory.prototype.selectDB = function () {
-        'use strict';
-        if (config.db === 'sqlite3') {
-            this.DBClass = SQLiteHelper;
-        } else if (config.db === "mongodb") {
-            this.DBClass = MongoDBHelper;
-        }
-        return this.DBClass;
-    };
-    
-    module.exports = DB_Factory;
-    
+    return this.DBClass;
+};
+
+module.exports = DB_Factory;
+```
+
 这样我们在使用的时候，便可以:
 
-    var DB_Factory      = require("./lib/database/db_factory");
+```javascript
+var DB_Factory      = require("./lib/database/db_factory");
 
-    var db_factory = new DB_Factory();
-    var database = db_factory.selectDB();
-    database.init();
-    
+var db_factory = new DB_Factory();
+var database = db_factory.selectDB();
+database.init();
+```
+
 由于是直接由配置中读取进去的，这里的selectDB就不需要参数。
 
 ##Java Template Method(模板方法)
@@ -244,48 +262,56 @@ notify_observer(*arg)                        通知更新，如果更新标志�
 
 对于一个基本的C/C++/Java/Python的Application来说，他只需要有一个Main函数就够了。对于一个好一点的APP来说，他可能是下面的步骤，
 
-    main(){
-    	init();
-    	while(!condition()){
-       		do();
-    	}
-    }
-    
+```c
+main(){
+	init();
+	while(!condition()){
+   		do();
+	}
+}
+```
+
 上面的代码是我在学51/AVR等各式嵌入式设备时，经常是按上面的写法写的，对于一个更符合人性的App来说他应该会有一个退出函数。
 
-    main(){
-    	init();
-    	while(!condition()){
-       		do();
-    	}
-    	exit();
-    }
-    
+```c
+main(){
+	init();
+	while(!condition()){
+   		do();
+	}
+	exit();
+}
+```
+
 于是很幸运地我找到了这样的一个例子。
 
 过去看过Arduino的代码，了解过他是如何工作的，对于一个Arduino的代码来说，必要的两个函数就是。
 
-	void setup() {
-	}
+```cpp
+void setup() {
+}
 
-	void loop() {
-	}
-	
+void loop() {
+}
+```
+
 setup()函数相当于上面的init()，而loop()函数刚相当于上面的do()。似乎这就是我们想要的东西，看看Arduino目录中的Arduino.h就会发现，如下的代码(删减部分代码)
 
-	#include <Arduino.h>
+```cpp
+#include <Arduino.h>
 
-	int main(void)
-	{
-		init();
-		setup();	    
-		for (;;) {
-			loop();
-			if (serialEventRun) serialEventRun();
-		}
-	        
-		return 0;
+int main(void)
+{
+	init();
+	setup();	    
+	for (;;) {
+		loop();
+		if (serialEventRun) serialEventRun();
 	}
+        
+	return 0;
+}
+```
 
 代码中的for(;;)看上去似乎比while(True)容易理解得多，这也就是为什么嵌入式中经常用到的是for(;;)，从某种意义上来说两者是等价的。再有不同的地方，就是gcc规定了,main()函数不能是void。so,两者是差不多的。只是没有，并没有在上面看到模板方法，等等。我们在上面所做的事情，便是创建一个框架。
 
@@ -295,15 +321,92 @@ setup()函数相当于上面的init()，而loop()函数刚相当于上面的do()
 
 对于我来说，我就是在基本的App中遇到的情况是一样的，在我的例子中，一开始我的代码是这样写的。
 
-    public static void main(String[] args) throws IOException {
-        initLibrary();
-        while(!isQuit){
-            loop();
-        }
-        exit;
+```java
+public static void main(String[] args) throws IOException {
+    initLibrary();
+    while(!isQuit){
+        loop();
+    }
+    exit;
+}
+
+protected void initLibrary(); {
+    System.out.println(welcomeMessage);
+}
+
+protected void loop() {
+    String key = "";
+    Scanner sc = new Scanner(System.in);
+    key = sc.nextLine();
+
+    System.out.println(results);
+    if(key.equals("Quit")){
+        setQuit();
+    }
+}
+
+protected void exit() {
+    System.out.println("Quit Library");
+}
+```
+
+只是这样写感觉很是别扭，看上去一点高大上的感觉，也木有。于是，打开书，找找灵感，就在《敏捷软件开发》一书中找到了类似的案例。Template Method模式可以分离能用的算法和具体的上下文，而我们通用的算法便是。
+
+```c
+main(){
+	init();
+	while(!condition()){
+   		do();
+	}
+	exit();
+}
+```
+
+看上去正好似乎我们当前的案例，于是便照猫画虎地来了一遍。
+
+###Template Method实战
+
+创建了一个名为App的抽象基类，
+
+```java
+public abstract class App {
+    private boolean isQuit = false;
+
+    protected abstract void loop();
+    protected abstract void exit();
+
+    private boolean quit() {
+        return isQuit;
     }
 
-    protected void initLibrary(); {
+    protected boolean setQuit() {
+        return isQuit = true;
+    }
+
+    protected abstract void init();
+
+    public void run(){
+        init();
+        while(!quit()){
+            loop();
+        }
+        exit();
+    }
+}
+```
+
+而这个也和书中的一样，是一个通用的主循环应用程序。从应用的run函数中，可以看到主循环。而所有的工作也都交付给抽象方法，于是我们的LibraryApp就变成了
+
+
+```java
+public class LibraryApp extends App {
+    private static String welcomeMessage = "Welcome to Biblioteca library";
+
+    public static void main(String[] args) throws IOException {
+        (new LibraryApp()).run();
+    }
+
+    protected void init() {
         System.out.println(welcomeMessage);
     }
 
@@ -312,7 +415,6 @@ setup()函数相当于上面的init()，而loop()函数刚相当于上面的do()
         Scanner sc = new Scanner(System.in);
         key = sc.nextLine();
 
-        System.out.println(results);
         if(key.equals("Quit")){
             setQuit();
         }
@@ -321,77 +423,8 @@ setup()函数相当于上面的init()，而loop()函数刚相当于上面的do()
     protected void exit() {
         System.out.println("Quit Library");
     }
-
-只是这样写感觉很是别扭，看上去一点高大上的感觉，也木有。于是，打开书，找找灵感，就在《敏捷软件开发》一书中找到了类似的案例。Template Method模式可以分离能用的算法和具体的上下文，而我们通用的算法便是。
-
-    main(){
-    	init();
-    	while(!condition()){
-       		do();
-    	}
-    	exit();
-    }
-
-看上去正好似乎我们当前的案例，于是便照猫画虎地来了一遍。
-
-###Template Method实战
-
-创建了一个名为App的抽象基类，
-
-    public abstract class App {
-        private boolean isQuit = false;
-
-        protected abstract void loop();
-        protected abstract void exit();
-
-        private boolean quit() {
-            return isQuit;
-        }
-
-        protected boolean setQuit() {
-            return isQuit = true;
-        }
-
-        protected abstract void init();
-
-        public void run(){
-            init();
-            while(!quit()){
-                loop();
-            }
-            exit();
-        }
-    }
-
-而这个也和书中的一样，是一个通用的主循环应用程序。从应用的run函数中，可以看到主循环。而所有的工作也都交付给抽象方法，于是我们的LibraryApp就变成了
-
-
-    public class LibraryApp extends App {
-        private static String welcomeMessage = "Welcome to Biblioteca library";
-
-        public static void main(String[] args) throws IOException {
-            (new LibraryApp()).run();
-        }
-
-        protected void init() {
-            System.out.println(welcomeMessage);
-        }
-
-        protected void loop() {
-            String key = "";
-            Scanner sc = new Scanner(System.in);
-            key = sc.nextLine();
-
-            if(key.equals("Quit")){
-                setQuit();
-            }
-        }
-
-        protected void exit() {
-            System.out.println("Quit Library");
-        }
-    }
-
+}
+```
 
 然而，如书中所说``这是一个很好的用于示范TEMPLATE METHOD模式的例子，却不是一个合适的例子。``
 
@@ -410,11 +443,15 @@ setup()函数相当于上面的init()，而loop()函数刚相当于上面的do()
 
 所以对于这样一个很好的操作便是，统计某种类型的文件的个数:
 
-    ls -alh dot | grep .dot | wc -l
+```bash
+ls -alh dot | grep .dot | wc -l
+```
 
 在执行
 
-    ls -alh dot
+```bash
+ls -alh dot
+```
 
 的输出便是下一个的输入，直至最后一个输出。
 
@@ -444,7 +481,7 @@ setup()函数相当于上面的init()，而loop()函数刚相当于上面的do()
 
 类似的，简单的看一下早先我们是通过方法级联来操作DOM
 
-```
+```javascript
 var btn = document.createElement("BUTTON");        // Create a <button> element
 var t = document.createTextNode("CLICK ME");       // Create a text node
 btn.appendChild(t);                                // Append the text to <button>
@@ -453,7 +490,7 @@ document.body.appendChild(btn);                    // Append <button> to <body>
 
 而用jQuery写的话，便是这样子
 
-```
+```javascript
 $('<span>').append("CLICK ME");
 ```
 
@@ -461,7 +498,7 @@ $('<span>').append("CLICK ME");
 
 于是回我们便可以创建一个简单的示例来展示这个最简单的DSL
 
-```
+```javascript
 Func = (function() {
     this.add = function(){
         console.log('1');
@@ -486,7 +523,7 @@ func.add().result();
 
 这样的API，我们可以在一些关于数据库的API中看到:
 
-```
+```javascript
 var query =
   SQL('select name, desc from widgets')
    .WHERE('price < ', $(params.max_price), AND,
@@ -500,10 +537,12 @@ var query =
 
 所以，这个模式实际上更适合处理数据，如用Hadoop处理数据的时候，我们会用类似于如下的方法来处理我们的数据:
 
-	A = FOREACH LOGS_BASE GENERATE ToDate(timestamp, 'dd/MMM/yyyy:HH:mm:ss Z') as date, ip, url,(int)status,(int)bytes,referrer,useragent;
-	B = GROUP A BY (timestamp);
-	C = FOREACH B GENERATE FLATTEN(group) as (timestamp), COUNT(A) as count;
-	D = ORDER C BY timestamp,count desc;
+```pig
+A = FOREACH LOGS_BASE GENERATE ToDate(timestamp, 'dd/MMM/yyyy:HH:mm:ss Z') as date, ip, url,(int)status,(int)bytes,referrer,useragent;
+B = GROUP A BY (timestamp);
+C = FOREACH B GENERATE FLATTEN(group) as (timestamp), COUNT(A) as count;
+D = ORDER C BY timestamp,count desc;
+```
 
 每一次都是在上一次处理完的结果后，再处理的。
 

@@ -1218,98 +1218,98 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>一个软件系统常常要求在某一个对象的状态发生变化的时候，某些其它的对象做出相应的改变。做到这一点的设计方案有很多，但是为了使系统能够易于复用，应该选择低耦合度的设计方案。减少对象之间的耦合有利于系统的复用，但是同时设计师需要使这些低耦合度的对象之间能够维持行动的协调一致，保证高度的协作（Collaboration）。观察者模式是满足这一要求的各种设计方案中最重要的一种。</p>
 <p>简单的来说，就是当我们监测到一个元素变化的时候，另外的元素依照此而改变。</p>
 <h3 id="ruby观察者模式">Ruby观察者模式</h3>
-<p>Ruby中为实现Observer模式提供了名为observer的库，observer库提供了Observer模块。 其API如下所示 方法名 功 能 add_observer(observer) 添加观察者 delete_observer(observer) 删除特定观察者 delete_observer 删除观察者 count_observer 观察者的数目 change(state=true) 设置更新标志为真 changed? 检查更新标志 notify_observer(*arg) 通知更新，如果更新标志为真，调用观察者带参数arg的方法</p>
+<p>Ruby中为实现Observer模式提供了名为observer的库，observer库提供了Observer模块。 其API如下所示</p>
+<p>方法名 | 功 能 ——-|—————– add_observer(observer) | 添加观察者 delete_observer(observer) | 删除特定观察者 delete_observer | 删除观察者 count_observer | 观察者的数目 change(state=true) | 设置更新标志为真 changed? | 检查更新标志 notify_observer(*arg) | 通知更新，如果更新标志为真，调用观察者带参数arg的方法</p>
 <h4 id="ruby观察者简单示例">Ruby观察者简单示例</h4>
 <p>这里要做的就是获取一个json数据，将这个数据更新出来。</p>
 <p>获取json数据，同时解析。</p>
-<pre><code>require &#39;net/http&#39;
-require &#39;rubygems&#39;
-require &#39;json&#39;
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">require <span class="st">&#39;net/http&#39;</span>
+require <span class="st">&#39;rubygems&#39;</span>
+require <span class="st">&#39;json&#39;</span>
 
-class GetData
-  attr_reader:res,:parsed
+<span class="kw">class</span> <span class="dt">GetData</span>
+  <span class="ot">attr_reader</span><span class="st">:res</span>,<span class="st">:parsed</span>
 
-  def initialize(uri)
-    uri=URI(uri)
-    @res=Net::HTTP.get(uri)
-    @parsed=JSON.parse(res)
-  end
+  <span class="kw">def</span> initialize(uri)
+    uri=<span class="dt">URI</span>(uri)
+    <span class="ot">@res</span>=<span class="dt">Net</span>::<span class="dt">HTTP</span>.get(uri)
+    <span class="ot">@parsed</span>=<span class="dt">JSON</span>.parse(res)
+  <span class="kw">end</span>
 
-  def id
-    @parsed[0][&quot;id&quot;]
-  end
+  <span class="kw">def</span> id
+    <span class="ot">@parsed</span>[<span class="dv">0</span>][<span class="st">&quot;id&quot;</span>]
+  <span class="kw">end</span>
 
-  def sensors1
-    @parsed[0][&quot;sensors1&quot;].round(2)
-  end
+  <span class="kw">def</span> sensors1
+    <span class="ot">@parsed</span>[<span class="dv">0</span>][<span class="st">&quot;sensors1&quot;</span>].round(<span class="dv">2</span>)
+  <span class="kw">end</span>
 
-  def sensors2
-    @parsed[0][&quot;sensors2&quot;].round(2)
-  end
+  <span class="kw">def</span> sensors2
+    <span class="ot">@parsed</span>[<span class="dv">0</span>][<span class="st">&quot;sensors2&quot;</span>].round(<span class="dv">2</span>)
+  <span class="kw">end</span>
 
-  def temperature
-    @parsed[0][&quot;temperature&quot;].round(2)
-  end
+  <span class="kw">def</span> temperature
+    <span class="ot">@parsed</span>[<span class="dv">0</span>][<span class="st">&quot;temperature&quot;</span>].round(<span class="dv">2</span>)
+  <span class="kw">end</span>
 
-  def led1
-    @parsed[0][&quot;led1&quot;]
-  end
+  <span class="kw">def</span> led1
+    <span class="ot">@parsed</span>[<span class="dv">0</span>][<span class="st">&quot;led1&quot;</span>]
+  <span class="kw">end</span>
 
-end</code></pre>
+<span class="kw">end</span></code></pre></div>
 <p>下面这个也就是重点，和观察者相关的，就是被观察者，由这个获取数据。 通过changed ，同时用notify_observer方法告诉观察者</p>
-<pre><code>require &#39;rubygems&#39;
-require &#39;thread&#39;
-require &#39;observer&#39;
-require &#39;getdata&#39;
-require &#39;ledstatus&#39;
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">require <span class="st">&#39;rubygems&#39;</span>
+require <span class="st">&#39;thread&#39;</span>
+require <span class="st">&#39;observer&#39;</span>
+require <span class="st">&#39;getdata&#39;</span>
+require <span class="st">&#39;ledstatus&#39;</span>
 
-class Led 
-    include Observable
+<span class="kw">class</span> <span class="dt">Led</span> 
+    include <span class="dt">Observable</span>
     
-    attr_reader:data
-    def initialize
-        @uri=&#39;http://www.xianuniversity.com/athome/1&#39;
-    end
-    def getdata
-        loop do 
+    <span class="ot">attr_reader</span><span class="st">:data</span>
+    <span class="kw">def</span> initialize
+        <span class="ot">@uri</span>=<span class="st">&#39;http://www.xianuniversity.com/athome/1&#39;</span>
+    <span class="kw">end</span>
+    <span class="kw">def</span> getdata
+        loop <span class="kw">do</span> 
             changed()
-            data=GetData.new(@uri)
+            data=<span class="dt">GetData</span>.new(<span class="ot">@uri</span>)
             changed
             notify_observers(data.id,data.sensors1,data.sensors2,data.temperature,data.led1)
-            sleep 1
-        end
-    end
-end</code></pre>
+            sleep <span class="dv">1</span>
+        <span class="kw">end</span>
+    <span class="kw">end</span>
+<span class="kw">end</span></code></pre></div>
 <p>然后让我们新建一个观察者</p>
-<pre><code>class LedStatus
-  def update(arg,sensors1,sensors2,temperature,led1)
-    puts &quot;id:#{arg},sensors1:#{sensors1},sensors2:#{sensors2},temperature:#{temperature},led1:#{led1}&quot;
-  end
-end</code></pre>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">LedStatus</span>
+  <span class="kw">def</span> update(arg,sensors1,sensors2,temperature,led1)
+    puts <span class="st">&quot;id:</span><span class="ot">#{</span>arg<span class="ot">}</span><span class="st">,sensors1:</span><span class="ot">#{</span>sensors1<span class="ot">}</span><span class="st">,sensors2:</span><span class="ot">#{</span>sensors2<span class="ot">}</span><span class="st">,temperature:</span><span class="ot">#{</span>temperature<span class="ot">}</span><span class="st">,led1:</span><span class="ot">#{</span>led1<span class="ot">}</span><span class="st">&quot;</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre></div>
 <p>测试</p>
-<pre><code>require &#39;spec_helper&#39;
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">require <span class="st">&#39;spec_helper&#39;</span>
 
-describe LedStatus do
-  let(:ledstatus){LedStatus.new()}
+describe <span class="dt">LedStatus</span> <span class="kw">do</span>
+  let(<span class="st">:ledstatus</span>){<span class="dt">LedStatus</span>.new()}
 
-  describe &quot;Observable&quot; do
-    it &quot;Should have a result&quot; do 
-      led=Led.new
+  describe <span class="st">&quot;Observable&quot;</span> <span class="kw">do</span>
+    it <span class="st">&quot;Should have a result&quot;</span> <span class="kw">do</span> 
+      led=<span class="dt">Led</span>.new
       led.add_observer(ledstatus)
       led.getdata
-    end
-  end
-
-end</code></pre>
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre></div>
 <p>测试结果如下所示</p>
-<pre><code>phodal@linux-dlkp:~/tw/observer&amp;gt; rake
-/usr/bin/ruby1.9 -S rspec ./spec/getdata_spec.rb ./spec/ledstatus_spec.rb
-id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
-id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
-id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
-id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
-id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
-id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">phodal@linux-dlkp</span>:~/tw/observer<span class="kw">&amp;gt;</span> <span class="kw">rake</span>
+<span class="kw">/usr/bin/ruby1.9</span> -S rspec ./spec/getdata_spec.rb ./spec/ledstatus_spec.rb
+<span class="kw">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
+<span class="kw">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+<span class="kw">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
+<span class="kw">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+<span class="kw">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+<span class="kw">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1</code></pre></div>
 <p>使用Ruby自带的Observer库的优点是，让我们可以简化相互之间的依赖性。同时，也能简化程序的结构，相比于自己写observer的情况下。</p>
 <h2 id="node.js-简单工厂模式">Node.js 简单工厂模式</h2>
 <blockquote>
@@ -1318,217 +1318,217 @@ id:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1</code></pre>
 <p>当我发现我在代码中重复写了很多个if来判断选择那个数据库的时候。于是，我就想着似乎这就可以用这个简单工厂模式来实现SQLite3与MongoDB的选择。</p>
 <h3 id="mongodb-helper与sqlite-helper类重复">MongoDB Helper与SQLite Helper类重复</h3>
 <p>对于我们的类来说是下面这样子的:</p>
-<pre><code>function MongoDBHelper() {
-    &#39;use strict&#39;;
-    return;
-}
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">MongoDBHelper</span>() <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
+    <span class="cf">return</span><span class="op">;</span>
+<span class="op">}</span>
 
-MongoDBHelper.deleteData = function (url, callback) {
-    &#39;use strict&#39;;
+<span class="va">MongoDBHelper</span>.<span class="at">deleteData</span> <span class="op">=</span> <span class="kw">function</span> (url<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
     ...    
-};
+<span class="op">};</span>
 
-MongoDBHelper.getData = function (url, callback) {
-    &#39;use strict&#39;;
+<span class="va">MongoDBHelper</span>.<span class="at">getData</span> <span class="op">=</span> <span class="kw">function</span> (url<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
     ...
-};
+<span class="op">};</span>
 
-MongoDBHelper.postData = function (block, callback) {
-    &#39;use strict&#39;;
+<span class="va">MongoDBHelper</span>.<span class="at">postData</span> <span class="op">=</span> <span class="kw">function</span> (block<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
     ...
-};
+<span class="op">};</span>
 
-MongoDBHelper.init = function () {
-    &#39;use strict&#39;;
+<span class="va">MongoDBHelper</span>.<span class="at">init</span> <span class="op">=</span> <span class="kw">function</span> () <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
     ...
-};
+<span class="op">};</span>
 
-module.exports = MongoDBHelper;</code></pre>
+<span class="va">module</span>.<span class="at">exports</span> <span class="op">=</span> MongoDBHelper<span class="op">;</span></code></pre></div>
 <p>然而，我们可以发现的是，对于我们的SQLiteHelper来说也是类似的</p>
-<pre><code>SQLiteHelper.init = function () {
-    &#39;use strict&#39;;
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">SQLiteHelper</span>.<span class="at">init</span> <span class="op">=</span> <span class="kw">function</span> () <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
     ...
-};
+<span class="op">};</span>
 
-SQLiteHelper.postData = function (block, callback) {
-    &#39;use strict&#39;;   
+<span class="va">SQLiteHelper</span>.<span class="at">postData</span> <span class="op">=</span> <span class="kw">function</span> (block<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>   
     ...
-};
+<span class="op">};</span>
 
-SQLiteHelper.deleteData = function (url, callback) {
-    &#39;use strict&#39;;
+<span class="va">SQLiteHelper</span>.<span class="at">deleteData</span> <span class="op">=</span> <span class="kw">function</span> (url<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
     ...
-};
+<span class="op">};</span>
 
-SQLiteHelper.getData = function (url, db_callback) {
-    &#39;use strict&#39;;
+<span class="va">SQLiteHelper</span>.<span class="at">getData</span> <span class="op">=</span> <span class="kw">function</span> (url<span class="op">,</span> db_callback) <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
     ...
-};
+<span class="op">};</span>
 
-module.exports = SQLiteHelper;</code></pre>
+<span class="va">module</span>.<span class="at">exports</span> <span class="op">=</span> SQLiteHelper<span class="op">;</span></code></pre></div>
 <p>想来想去觉得写一个父类似乎是没有多大意义的，于是用了简单工厂模式来解决这个问题。</p>
 <p>总之，就是我们可以用简单工厂模式来做一个DB Factory，于是便有了</p>
-<pre><code>var MongoDBHelper   = require(&quot;./mongodb_helper&quot;);
-var SQLiteHelper    = require(&quot;./sqlite_helper&quot;);
-var config          = require(&#39;../../iot&#39;).config;
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> MongoDBHelper   <span class="op">=</span> <span class="at">require</span>(<span class="st">&quot;./mongodb_helper&quot;</span>)<span class="op">;</span>
+<span class="kw">var</span> SQLiteHelper    <span class="op">=</span> <span class="at">require</span>(<span class="st">&quot;./sqlite_helper&quot;</span>)<span class="op">;</span>
+<span class="kw">var</span> config          <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;../../iot&#39;</span>).<span class="at">config</span><span class="op">;</span>
 
-function DB_Factory() {
-    &#39;use strict&#39;;
-    return;
-}
+<span class="kw">function</span> <span class="at">DB_Factory</span>() <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
+    <span class="cf">return</span><span class="op">;</span>
+<span class="op">}</span>
 
-DB_Factory.prototype.DBClass = SQLiteHelper;
+<span class="va">DB_Factory</span>.<span class="va">prototype</span>.<span class="at">DBClass</span> <span class="op">=</span> SQLiteHelper<span class="op">;</span>
 
-DB_Factory.prototype.selectDB = function () {
-    &#39;use strict&#39;;
-    if (config.db === &#39;sqlite3&#39;) {
-        this.DBClass = SQLiteHelper;
-    } else if (config.db === &quot;mongodb&quot;) {
-        this.DBClass = MongoDBHelper;
-    }
-    return this.DBClass;
-};
+<span class="va">DB_Factory</span>.<span class="va">prototype</span>.<span class="at">selectDB</span> <span class="op">=</span> <span class="kw">function</span> () <span class="op">{</span>
+    <span class="st">&#39;use strict&#39;</span><span class="op">;</span>
+    <span class="cf">if</span> (<span class="va">config</span>.<span class="at">db</span> <span class="op">===</span> <span class="st">&#39;sqlite3&#39;</span>) <span class="op">{</span>
+        <span class="kw">this</span>.<span class="at">DBClass</span> <span class="op">=</span> SQLiteHelper<span class="op">;</span>
+    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (<span class="va">config</span>.<span class="at">db</span> <span class="op">===</span> <span class="st">&quot;mongodb&quot;</span>) <span class="op">{</span>
+        <span class="kw">this</span>.<span class="at">DBClass</span> <span class="op">=</span> MongoDBHelper<span class="op">;</span>
+    <span class="op">}</span>
+    <span class="cf">return</span> <span class="kw">this</span>.<span class="at">DBClass</span><span class="op">;</span>
+<span class="op">};</span>
 
-module.exports = DB_Factory;</code></pre>
+<span class="va">module</span>.<span class="at">exports</span> <span class="op">=</span> DB_Factory<span class="op">;</span></code></pre></div>
 <p>这样我们在使用的时候，便可以:</p>
-<pre><code>var DB_Factory      = require(&quot;./lib/database/db_factory&quot;);
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> DB_Factory      <span class="op">=</span> <span class="at">require</span>(<span class="st">&quot;./lib/database/db_factory&quot;</span>)<span class="op">;</span>
 
-var db_factory = new DB_Factory();
-var database = db_factory.selectDB();
-database.init();</code></pre>
+<span class="kw">var</span> db_factory <span class="op">=</span> <span class="kw">new</span> <span class="at">DB_Factory</span>()<span class="op">;</span>
+<span class="kw">var</span> database <span class="op">=</span> <span class="va">db_factory</span>.<span class="at">selectDB</span>()<span class="op">;</span>
+<span class="va">database</span>.<span class="at">init</span>()<span class="op">;</span></code></pre></div>
 <p>由于是直接由配置中读取进去的，这里的selectDB就不需要参数。</p>
 <h2 id="java-template-method模板方法">Java Template Method(模板方法)</h2>
 <p>原本对于设计模式的写作还不在当前的计划中，然而因为在写TWU作业的时候，觉得代码写得不好，于是慢慢试着一点点重构，重新看着设计模式。也开始记录这一点点的方法，至少这些步骤是必要的。</p>
 <h3 id="从基本的app说起">从基本的App说起</h3>
 <p>对于一个基本的C/C++/Java/Python的Application来说，他只需要有一个Main函数就够了。对于一个好一点的APP来说，他可能是下面的步骤，</p>
-<pre><code>main(){
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">main(){
     init();
-    while(!condition()){
-        do();
+    <span class="kw">while</span>(!condition()){
+        <span class="kw">do</span>();
     }
-}</code></pre>
+}</code></pre></div>
 <p>上面的代码是我在学51/AVR等各式嵌入式设备时，经常是按上面的写法写的，对于一个更符合人性的App来说他应该会有一个退出函数。</p>
-<pre><code>main(){
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">main(){
     init();
-    while(!condition()){
-        do();
+    <span class="kw">while</span>(!condition()){
+        <span class="kw">do</span>();
     }
     exit();
-}</code></pre>
+}</code></pre></div>
 <p>于是很幸运地我找到了这样的一个例子。</p>
 <p>过去看过Arduino的代码，了解过他是如何工作的，对于一个Arduino的代码来说，必要的两个函数就是。</p>
-<pre><code>void setup() {
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">void</span> setup() {
 }
 
-void loop() {
-}</code></pre>
+<span class="dt">void</span> loop() {
+}</code></pre></div>
 <p>setup()函数相当于上面的init()，而loop()函数刚相当于上面的do()。似乎这就是我们想要的东西，看看Arduino目录中的Arduino.h就会发现，如下的代码(删减部分代码)</p>
-<pre><code>#include &lt;Arduino.h&gt;
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="ot">#include &lt;Arduino.h&gt;</span>
 
-int main(void)
+<span class="dt">int</span> main(<span class="dt">void</span>)
 {
     init();
     setup();        
-    for (;;) {
+    <span class="kw">for</span> (;;) {
         loop();
-        if (serialEventRun) serialEventRun();
+        <span class="kw">if</span> (serialEventRun) serialEventRun();
     }
         
-    return 0;
-}</code></pre>
+    <span class="kw">return</span> <span class="dv">0</span>;
+}</code></pre></div>
 <p>代码中的for(;;)看上去似乎比while(True)容易理解得多，这也就是为什么嵌入式中经常用到的是for(;;)，从某种意义上来说两者是等价的。再有不同的地方，就是gcc规定了,main()函数不能是void。so,两者是差不多的。只是没有，并没有在上面看到模板方法，等等。我们在上面所做的事情，便是创建一个框架。</p>
 <h2 id="template-method">Template Method</h2>
 <blockquote>
 <p><strong>模板方法</strong>： 在一方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。</p>
 </blockquote>
 <p>对于我来说，我就是在基本的App中遇到的情况是一样的，在我的例子中，一开始我的代码是这样写的。</p>
-<pre><code>public static void main(String[] args) throws IOException {
-    initLibrary();
-    while(!isQuit){
-        loop();
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(String[] args) <span class="kw">throws</span> IOException {
+    <span class="fu">initLibrary</span>();
+    <span class="kw">while</span>(!isQuit){
+        <span class="fu">loop</span>();
     }
     exit;
 }
 
-protected void initLibrary(); {
-    System.out.println(welcomeMessage);
+<span class="kw">protected</span> <span class="dt">void</span> <span class="fu">initLibrary</span>(); {
+    System.<span class="fu">out</span>.<span class="fu">println</span>(welcomeMessage);
 }
 
-protected void loop() {
-    String key = &quot;&quot;;
-    Scanner sc = new Scanner(System.in);
-    key = sc.nextLine();
+<span class="kw">protected</span> <span class="dt">void</span> <span class="fu">loop</span>() {
+    String key = <span class="st">&quot;&quot;</span>;
+    Scanner sc = <span class="kw">new</span> Scanner(System.<span class="fu">in</span>);
+    key = sc.<span class="fu">nextLine</span>();
 
-    System.out.println(results);
-    if(key.equals(&quot;Quit&quot;)){
-        setQuit();
+    System.<span class="fu">out</span>.<span class="fu">println</span>(results);
+    <span class="kw">if</span>(key.<span class="fu">equals</span>(<span class="st">&quot;Quit&quot;</span>)){
+        <span class="fu">setQuit</span>();
     }
 }
 
-protected void exit() {
-    System.out.println(&quot;Quit Library&quot;);
-}</code></pre>
+<span class="kw">protected</span> <span class="dt">void</span> <span class="fu">exit</span>() {
+    System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Quit Library&quot;</span>);
+}</code></pre></div>
 <p>只是这样写感觉很是别扭，看上去一点高大上的感觉，也木有。于是，打开书，找找灵感，就在《敏捷软件开发》一书中找到了类似的案例。Template Method模式可以分离能用的算法和具体的上下文，而我们通用的算法便是。</p>
-<pre><code>main(){
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">main(){
     init();
-    while(!condition()){
-        do();
+    <span class="kw">while</span>(!condition()){
+        <span class="kw">do</span>();
     }
     exit();
-}</code></pre>
+}</code></pre></div>
 <p>看上去正好似乎我们当前的案例，于是便照猫画虎地来了一遍。</p>
 <h3 id="template-method实战">Template Method实战</h3>
 <p>创建了一个名为App的抽象基类，</p>
-<pre><code>public abstract class App {
-    private boolean isQuit = false;
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> App {
+    <span class="kw">private</span> <span class="dt">boolean</span> isQuit = <span class="kw">false</span>;
 
-    protected abstract void loop();
-    protected abstract void exit();
+    <span class="kw">protected</span> <span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">loop</span>();
+    <span class="kw">protected</span> <span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">exit</span>();
 
-    private boolean quit() {
-        return isQuit;
+    <span class="kw">private</span> <span class="dt">boolean</span> <span class="fu">quit</span>() {
+        <span class="kw">return</span> isQuit;
     }
 
-    protected boolean setQuit() {
-        return isQuit = true;
+    <span class="kw">protected</span> <span class="dt">boolean</span> <span class="fu">setQuit</span>() {
+        <span class="kw">return</span> isQuit = <span class="kw">true</span>;
     }
 
-    protected abstract void init();
+    <span class="kw">protected</span> <span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">init</span>();
 
-    public void run(){
-        init();
-        while(!quit()){
-            loop();
+    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>(){
+        <span class="fu">init</span>();
+        <span class="kw">while</span>(!<span class="fu">quit</span>()){
+            <span class="fu">loop</span>();
         }
-        exit();
+        <span class="fu">exit</span>();
     }
-}</code></pre>
+}</code></pre></div>
 <p>而这个也和书中的一样，是一个通用的主循环应用程序。从应用的run函数中，可以看到主循环。而所有的工作也都交付给抽象方法，于是我们的LibraryApp就变成了</p>
-<pre><code>public class LibraryApp extends App {
-    private static String welcomeMessage = &quot;Welcome to Biblioteca library&quot;;
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> LibraryApp <span class="kw">extends</span> App {
+    <span class="kw">private</span> <span class="dt">static</span> String welcomeMessage = <span class="st">&quot;Welcome to Biblioteca library&quot;</span>;
 
-    public static void main(String[] args) throws IOException {
-        (new LibraryApp()).run();
+    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(String[] args) <span class="kw">throws</span> IOException {
+        (<span class="kw">new</span> <span class="fu">LibraryApp</span>()).<span class="fu">run</span>();
     }
 
-    protected void init() {
-        System.out.println(welcomeMessage);
+    <span class="kw">protected</span> <span class="dt">void</span> <span class="fu">init</span>() {
+        System.<span class="fu">out</span>.<span class="fu">println</span>(welcomeMessage);
     }
 
-    protected void loop() {
-        String key = &quot;&quot;;
-        Scanner sc = new Scanner(System.in);
-        key = sc.nextLine();
+    <span class="kw">protected</span> <span class="dt">void</span> <span class="fu">loop</span>() {
+        String key = <span class="st">&quot;&quot;</span>;
+        Scanner sc = <span class="kw">new</span> Scanner(System.<span class="fu">in</span>);
+        key = sc.<span class="fu">nextLine</span>();
 
-        if(key.equals(&quot;Quit&quot;)){
-            setQuit();
+        <span class="kw">if</span>(key.<span class="fu">equals</span>(<span class="st">&quot;Quit&quot;</span>)){
+            <span class="fu">setQuit</span>();
         }
     }
 
-    protected void exit() {
-        System.out.println(&quot;Quit Library&quot;);
+    <span class="kw">protected</span> <span class="dt">void</span> <span class="fu">exit</span>() {
+        System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Quit Library&quot;</span>);
     }
-}</code></pre>
+}</code></pre></div>
 <p>然而，如书中所说<code>这是一个很好的用于示范TEMPLATE METHOD模式的例子，却不是一个合适的例子。</code></p>
 <h2 id="hadoop-pipe-and-filters模式">Hadoop Pipe and Filters模式</h2>
 <p>继续码点关于架构设计的一些小心得。架构是什么东西并没有那么重要，重要的是知道它存在过。我会面对不同的架构，有一些不同的想法。一个好的项目通常是存在一定的结构，就好像人们在建造房子的时候也都会有结构有一样。</p>
@@ -1537,9 +1537,9 @@ protected void exit() {
 <p>最出名的Pipe便是Unix中的Shell</p>
 <p><strong>管道（英语：Pipeline）是原始的软件管道：即是一个由标准输入输出链接起来的进程集合，所以每一个进程的输出（stdout）被直接作为下一个进程的输入（stdin）。 每一个链接都由未命名管道实现。过滤程序经常被用于这种设置。</strong></p>
 <p>所以对于这样一个很好的操作便是，统计某种类型的文件的个数:</p>
-<pre><code>ls -alh dot | grep .dot | wc -l</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> -alh dot <span class="kw">|</span> <span class="kw">grep</span> .dot <span class="kw">|</span> <span class="kw">wc</span> -l</code></pre></div>
 <p>在执行</p>
-<pre><code>ls -alh dot</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> -alh dot</code></pre></div>
 <p>的输出便是下一个的输入，直至最后一个输出。</p>
 <p>这个过程有点类似于工厂处理废水，</p>
 <p>[pipe and filter][1]</p>
@@ -1556,43 +1556,43 @@ protected void exit() {
 <p>这个过程也有点类似于Fluent API、链式调用，只是这些都是DSL的一种方式。</p>
 <p>流畅接口的初衷是构建可读的API，毕竟代码是写给人看的。</p>
 <p>类似的，简单的看一下早先我们是通过方法级联来操作DOM</p>
-<pre><code>var btn = document.createElement(&quot;BUTTON&quot;);        // Create a &lt;button&gt; element
-var t = document.createTextNode(&quot;CLICK ME&quot;);       // Create a text node
-btn.appendChild(t);                                // Append the text to &lt;button&gt;
-document.body.appendChild(btn);                    // Append &lt;button&gt; to &lt;body&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> btn <span class="op">=</span> <span class="va">document</span>.<span class="at">createElement</span>(<span class="st">&quot;BUTTON&quot;</span>)<span class="op">;</span>        <span class="co">// Create a &lt;button&gt; element</span>
+<span class="kw">var</span> t <span class="op">=</span> <span class="va">document</span>.<span class="at">createTextNode</span>(<span class="st">&quot;CLICK ME&quot;</span>)<span class="op">;</span>       <span class="co">// Create a text node</span>
+<span class="va">btn</span>.<span class="at">appendChild</span>(t)<span class="op">;</span>                                <span class="co">// Append the text to &lt;button&gt;</span>
+<span class="va">document</span>.<span class="va">body</span>.<span class="at">appendChild</span>(btn)<span class="op">;</span>                    <span class="co">// Append &lt;button&gt; to &lt;body&gt;</span></code></pre></div>
 <p>而用jQuery写的话，便是这样子</p>
-<pre><code>$(&#39;&lt;span&gt;&#39;).append(&quot;CLICK ME&quot;);</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">$</span>(<span class="st">&#39;&lt;span&gt;&#39;</span>).<span class="at">append</span>(<span class="st">&quot;CLICK ME&quot;</span>)<span class="op">;</span></code></pre></div>
 <p>等等</p>
 <p>于是回我们便可以创建一个简单的示例来展示这个最简单的DSL</p>
-<pre><code>Func = (function() {
-    this.add = function(){
-        console.log(&#39;1&#39;);
-        return this;
-    };
-    this.result = function(){
-        console.log(&#39;2&#39;);
-        return this;
-    };
-    return this;
-});
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">Func <span class="op">=</span> (<span class="kw">function</span>() <span class="op">{</span>
+    <span class="kw">this</span>.<span class="at">add</span> <span class="op">=</span> <span class="kw">function</span>()<span class="op">{</span>
+        <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;1&#39;</span>)<span class="op">;</span>
+        <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>
+    <span class="op">};</span>
+    <span class="kw">this</span>.<span class="at">result</span> <span class="op">=</span> <span class="kw">function</span>()<span class="op">{</span>
+        <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;2&#39;</span>)<span class="op">;</span>
+        <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>
+    <span class="op">};</span>
+    <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
 
-var func = new Func();
-func.add().result();</code></pre>
+<span class="kw">var</span> func <span class="op">=</span> <span class="kw">new</span> <span class="at">Func</span>()<span class="op">;</span>
+<span class="va">func</span>.<span class="at">add</span>().<span class="at">result</span>()<span class="op">;</span></code></pre></div>
 <p>然而这看上去像是表达式生成器。</p>
 <h3 id="dsl-表达式生成器">DSL 表达式生成器</h3>
 <blockquote>
 <p>表达式生成器对象提供一组连贯接口，之后将连贯接口调用转换为对底层命令-查询API的调用。</p>
 </blockquote>
 <p>这样的API，我们可以在一些关于数据库的API中看到:</p>
-<pre><code>var query =
-  SQL(&#39;select name, desc from widgets&#39;)
-   .WHERE(&#39;price &lt; &#39;, $(params.max_price), AND,
-          &#39;clearance = &#39;, $(params.clearance))
-   .ORDERBY(&#39;name asc&#39;);</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> query <span class="op">=</span>
+  <span class="at">SQL</span>(<span class="st">&#39;select name, desc from widgets&#39;</span>)
+   .<span class="at">WHERE</span>(<span class="st">&#39;price &lt; &#39;</span><span class="op">,</span> <span class="at">$</span>(<span class="va">params</span>.<span class="at">max_price</span>)<span class="op">,</span> AND<span class="op">,</span>
+          <span class="st">&#39;clearance = &#39;</span><span class="op">,</span> <span class="at">$</span>(<span class="va">params</span>.<span class="at">clearance</span>))
+   .<span class="at">ORDERBY</span>(<span class="st">&#39;name asc&#39;</span>)<span class="op">;</span></code></pre></div>
 <p>链式调用有一个问题就是收尾，同上的代码里面我们没有收尾，这让人很迷惑。。加上一个query和end似乎是一个不错的结果。</p>
 <h3 id="pipe-and-filter模式实战">Pipe and Filter模式实战</h3>
 <p>所以，这个模式实际上更适合处理数据，如用Hadoop处理数据的时候，我们会用类似于如下的方法来处理我们的数据:</p>
-<pre><code>A = FOREACH LOGS_BASE GENERATE ToDate(timestamp, &#39;dd/MMM/yyyy:HH:mm:ss Z&#39;) as date, ip, url,(int)status,(int)bytes,referrer,useragent;
+<pre class="pig"><code>A = FOREACH LOGS_BASE GENERATE ToDate(timestamp, &#39;dd/MMM/yyyy:HH:mm:ss Z&#39;) as date, ip, url,(int)status,(int)bytes,referrer,useragent;
 B = GROUP A BY (timestamp);
 C = FOREACH B GENERATE FLATTEN(group) as (timestamp), COUNT(A) as count;
 D = ORDER C BY timestamp,count desc;</code></pre>
