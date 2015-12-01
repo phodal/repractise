@@ -93,6 +93,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#dsl">DSL</a></li>
 </ul></li>
 </ul></li>
+<li><a href="#后台与服务篇">后台与服务篇</a><ul>
+<li><a href="#php">PHP？</a></li>
+<li><a href="#restful">RESTful</a></li>
+<li><a href="#微服务">微服务</a></li>
+</ul></li>
 <li><a href="#重构篇">重构篇</a><ul>
 <li><a href="#网站重构">网站重构</a><ul>
 <li><a href="#基础网站重构">基础网站重构</a></li>
@@ -139,6 +144,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#小结">小结</a><ul>
 <li><a href="#其他-1">其他</a></li>
 </ul></li>
+</ul></li>
+<li><a href="#架构篇二-架构设计">架构篇二： 架构设计</a><ul>
+<li><a href="#博客">博客</a></li>
+<li><a href="#前后台分离">前后台分离</a></li>
+<li><a href="#服务">服务</a></li>
+</ul></li>
+<li><a href="#中间件篇">中间件篇</a><ul>
+<li><a href="#jms">JMS</a></li>
+<li><a href="#mq">MQ</a></li>
 </ul></li>
 <li><a href="#易读">易读</a><ul>
 <li><a href="#简介">简介</a><ul>
@@ -211,7 +225,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#搭建一个跨平台的平台">搭建一个跨平台的平台</a></li>
 </ul></li>
 <li><a href="#构建平台">构建平台</a><ul>
-<li><a href="#博客">博客</a></li>
+<li><a href="#博客-1">博客</a></li>
 <li><a href="#github">Github</a></li>
 <li><a href="#扩大影响力">扩大影响力</a></li>
 <li><a href="#todo">TODO</a></li>
@@ -719,6 +733,10 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <h3 id="分离">分离</h3>
 <h2 id="领域">领域</h2>
 <h3 id="dsl">DSL</h3>
+<h1 id="后台与服务篇">后台与服务篇</h1>
+<h2 id="php">PHP？</h2>
+<h2 id="restful">RESTful</h2>
+<h2 id="微服务">微服务</h2>
 <h1 id="重构篇">重构篇</h1>
 <p>什么是重构?</p>
 <blockquote>
@@ -1762,6 +1780,13 @@ git push -q upstream HEAD:gh-pages</code></pre>
 <li>桌面应用: <a href="https://github.com/phodal/echeveria-editor" class="uri">https://github.com/phodal/echeveria-editor</a></li>
 <li>Github Pages: <a href="https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages" class="uri">https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages</a></li>
 </ol>
+<h1 id="架构篇二-架构设计">架构篇二： 架构设计</h1>
+<h2 id="博客">博客</h2>
+<h2 id="前后台分离">前后台分离</h2>
+<h2 id="服务">服务</h2>
+<h1 id="中间件篇">中间件篇</h1>
+<h2 id="jms">JMS</h2>
+<h2 id="mq">MQ</h2>
 <h1 id="易读">易读</h1>
 <h2 id="简介">简介</h2>
 <h3 id="无关的编程经验">无关的编程经验</h3>
@@ -2533,7 +2558,7 @@ scons: done building targets.</code></pre>
 <li>用户 —&gt; Github -&gt; 博客</li>
 <li>用户 -&gt; {知乎, SegmentFault} -&gt; {Weibo,Github,博客}</li>
 </ul>
-<h3 id="博客">博客</h3>
+<h3 id="博客-1">博客</h3>
 <p>刚开始在CSDN上写博客的时候，一开始的访问量很少，慢慢地就多了。有一天发现这样的博客不是自己想要的，于是建了自己的博客，一开始的流量是0。像CSDN这样的网站推荐一些文章到首页，如果能这样便是幸运的。在经历大半年的几乎零流量之后，开始慢慢增长了。到了今天，一共有470篇博客(有一些是出于测试SEO目的写成多篇文章)。一天的PageView大平均有五百左右，主要来源是搜索引擎，百度200左右，谷歌50左右，必应10左右。</p>
 <h4 id="用户故事">用户故事</h4>
 <p>对于一个程序员来说，必须在某种程度上熟悉怎么搜索自己想要的内容，即<strong>关键字</strong>。如我们想要知道如何在OpenWRT OS上用Python，那么我们会搜索<code>OpenWRT Python</code>。于是，这个时候我们博客的标题带有OpenWRT Python，那么我们可能就中奖了。</p>
