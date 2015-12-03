@@ -59,7 +59,7 @@ User.sync({force: true}).then(function () {
 
 DSL(domain-specific languages)即领域特定语言，唯一能够确定DSL边界的方法是考虑“一门语言的一种特定用法”和“该语言的设计者或使用者的意图。在试图设计一个DSL的时候，发现了一些有意思的简单的示例。
 
-##jQuery 最流行的DSL
+####jQuery 最流行的DSL
 
 jQuery是一个Internal DSL的典型的例子。它是在一门现成语言内实现针对领域问题的描述。
 
@@ -69,7 +69,7 @@ $('.mydiv').addClass('flash').draggable().css('color', 'blue')
 
 这也就是其最出名的**链式方法调用**。
 
-##Cucumber.js
+####Cucumber.js
 
 Cucumber, the popular Behaviour-Driven Development tool, brought to your JavaScript stack。它是使用通用语言描述该领域的问题。
 
@@ -85,7 +85,7 @@ Feature: Example feature
     Then I should see "Usage" as the page title
 ```
 
-##CoffeeScript
+####CoffeeScript
 
 发明一门全新的语言描述该领域的问题。
 
@@ -96,7 +96,7 @@ math =
   cube:   (x) -> x * square x
 ```
 
-##JavaScript DSL 示例
+####JavaScript DSL 示例
 
 所以由上面的结论我们可以知道的是，难度等级应该是
 
