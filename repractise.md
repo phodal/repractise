@@ -597,16 +597,265 @@ User.sync({force: true}).then(function () {
 
 ###DSL
 
+DSL(domain-specific languages)即领域特定语言，唯一能够确定DSL边界的方法是考虑“一门语言的一种特定用法”和“该语言的设计者或使用者的意图。在试图设计一个DSL的时候，发现了一些有意思的简单的示例。
 
+##jQuery 最流行的DSL
 
+jQuery是一个Internal DSL的典型的例子。它是在一门现成语言内实现针对领域问题的描述。
+
+```javascript
+$('.mydiv').addClass('flash').draggable().css('color', 'blue')
+```
+
+这也就是其最出名的**链式方法调用**。
+
+##Cucumber.js
+
+Cucumber, the popular Behaviour-Driven Development tool, brought to your JavaScript stack。它是使用通用语言描述该领域的问题。
+
+```cucumber
+Feature: Example feature
+  As a user of cucumber.js
+  I want to have documentation on cucumber
+  So that I can concentrate on building awesome applications
+
+  Scenario: Reading documentation
+    Given I am on the Cucumber.js GitHub repository
+    When I go to the README file
+    Then I should see "Usage" as the page title
+```
+
+##CoffeeScript
+
+发明一门全新的语言描述该领域的问题。
+
+```coffee
+math =
+  root:   Math.sqrt
+  square: square
+  cube:   (x) -> x * square x
+```
+
+##JavaScript DSL 示例
+
+所以由上面的结论我们可以知道的是，难度等级应该是
+
+内部DSL < 外部DSL < 语言工作台(这是怎么翻译的)
+
+接着在网上找到了一个高级一点的内部DSL示例，如果我们要做jQuery式的链式方法调用也是简单的，但是似乎没有足够的理由去说服其他人。
+
+原文在: [http://alexyoung.org/2009/10/22/javascript-dsl/](http://alexyoung.org/2009/10/22/javascript-dsl/)，相当于是一个微测试框架。
+
+```javascript
+var DSLRunner = {
+  run: function(methods) {
+    this.ingredients = [];
+    this.methods     = methods;
+
+    this.executeAndRemove('first');
+
+    for (var key in this.methods) {
+      if (key !== 'last' && key.match(/^bake/)) {
+        this.executeAndRemove(key);
+      }
+    }
+
+    this.executeAndRemove('last');
+  },
+
+  addIngredient: function(ingredient) {
+    this.ingredients.push(ingredient);
+  },
+
+  executeAndRemove: function(methodName) {
+    var output = this.methods[methodName]();
+    delete(this.methods[methodName]);
+    return output;
+  }
+};
+
+DSLRunner.run({
+  first: function() {
+    console.log("I happen first");
+  },
+
+  bakeCake: function() {
+    console.log("Commencing cake baking");
+  },
+
+  bakeBread: function() {
+    console.log("Baking bread");
+  },
+  last: function() {
+    console.log("last");
+  }
+});
+```
+
+这个想法，看上去就是定义了一些map，然后执行。
+
+接着，又看到了一个有意思的DSL，作者是在解决表单验证的问题[《JavaScript DSL Because I’m Tired of Writing If.. If…If…》](http://byatool.com/ui/javascript-dsl-because-im-tired-of-writing-if-if-if/)：
+
+```javascript
+ var rules =
+    ['Username',
+      ['is not empty', 'Username is required.'],
+      ['is not longer than', 7, 'Username is too long.']],
+    ['Name',
+      ['is not empty', 'Name is required.']],
+    ['Password',
+      ['length is between', 4, 6, 'Password is not acceptable.']]]; 
+```
+
+有一个map对应了上面的方法
+
+```javascript
+ var methods = [
+    ['is not empty', isNotEmpty],
+    ['is not longer than', isNotLongerThan],
+    ['length is between', isBetween]];
+```
+
+原文只给了一部分代码
+
+```javascript
+var methodPair = find(methods, function(method) {
+    return car(method) === car(innerRule);
+});
+
+var methodToUse = peek(methodPair);
+
+return function(obj) {
+    var error = peek(innerRule);                           //error is the last index
+    var values = sink(cdr(innerRule));                     //get everything but the error  
+    return methodToUse(obj, propertyName, error, values);  //construct the validation call
+};
+```
 
 #后台与服务篇
 
-##PHP？
+##PHP？最好的语言
 
-##RESTful
+##RESTful与服务化
+
+###设计RESTful API
+
+> REST从资源的角度来观察整个网络，分布在各处的资源由URI确定，而客户端的应用通过URI来获取资源的表征。获得这些表征致使这些应用程序转变了其状态。随着不断获取资源的表征，客户端应用不断地在转变着其状态，所谓表征状态转移。
+
+因为我们需要的是一个Machine到Machine沟通的平台，需要设计一个API。而设计一个API来说，RESTful是很不错的一种选择，也是主流的选择。而设计一个RESTful服务，的首要步骤便是设计资源模型。
+
+###资源
+
+互联网上的一切信息都可以看作是一种资源。
+
+HTTP Method | Operation Performed 
+------------|---------------------
+GET         | Get a resource (Read a resource)
+POST        | Create a resource
+PUT         | Update a resource
+DELETE      | Delete Resource
+
+
+设计RESTful API是一个有意思的话题。下面是一些常用的RESTful设计原则:
+
+- 组件间交互的可伸缩性
+- 接口的通用性
+- 组件的独立部署
+- 通过中间组件来减少延迟、实施安全策略和封装已有系统
+
+判断是否是 RESTful的约束条件
+
+ - 客户端-服务器分离
+ - 无状态
+ - 可缓存
+ - 多层系统
+ - 统一接口
+ - 随需代码（可选）
+ 
 
 ##微服务
+
+###微内核
+
+这只是由微服务与传统架构之间对比而引发的一个思考，让我引一些资料来当参考吧.
+
+> 单内核：也称为宏内核。将内核从整体上作为一个大过程实现，并同时运行在一个单独的地址空间。所有的内核服务都在一个地址空间运行，相互之间直接调用函数，简单高效。微内核：功能被划分成独立的过程，过程间通过IPC进行通信。模块化程度高，一个服务失效不会影响另外一个服务。Linux是一个单内核结构，同时又吸收了微内核的优点：模块化设计，支持动态装载内核模块。Linux还避免了微内核设计上的缺陷，让一切都运行在内核态，直接调用函数，无需消息传递。
+
+对就的微内核便是:
+
+>微内核――在微内核中，大部分内核都作为单独的进程在特权状态下运行，他们通过消息传递进行通讯。在典型情况下，每个概念模块都有一个进程。因此，假如在设计中有一个系统调用模块，那么就必然有一个相应的进程来接收系统调用，并和能够执行系统调用的其他进程（或模块）通讯以完成所需任务。
+
+如果读过《操作系统原理》及其相关书籍的人应该很了解这些，对就的我们就可以一目了然地解决我们当前是的微服务的问题。
+
+###微服务
+
+文章的来源是James Lewis与Martin Fowler写的[Microservices](http://martinfowler.com/articles/microservices.html)。对就于上面的
+
+ - monolithic kernel
+ - microkernel
+
+与文中的
+
+ - monolithic services
+ - microservices
+
+我们还是将其翻译成``微服务``与``宏服务``。
+
+引起原文中对于微服务的解释:
+
+> 简短地说，微服务架构风格是一种使用一套小服务来开发单个应用的方式途径，每个服务运行在自己的进程中，通过轻量的通讯机制联系，经常是基于HTTP资源API，这些服务基于业务能力构建，能够通过自动化部署方式独立部署，这些服务自己有一些小型集中化管理，可以是使用不同的编程语言编写，正如不同的数据存储技术一样。
+
+原文是:
+
+> In short, the microservice architectural style [1] is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API. These services are built around business capabilities and independently deployable by fully automated deployment machinery. There is a bare mininum of centralized management of these services, which may be written in different programming languages and use different data storage technologies.
+
+而关于微服务的提出是早在2011年的5月份
+
+> The term "microservice" was discussed at a workshop of software architects near Venice in May, 2011 to describe what the participants saw as a common architectural style that many of them had been recently exploring.
+
+###微服务思考
+
+简单地与微内核作一些对比。微内核，**微内核部分经常只但是是个消息转发站**，而微服务从某种意义上也是如此，他们都有着下面的优点。
+
+ - 有助于实现模块间的隔离
+ - 在不影响系统其他部分的情况下，用更高效的实现代替现有文档系统模块的工作将会更加容易。
+
+对于微服务来说
+
+ - 每个服务本身都是很简单的
+ - 对于每个服务，我们可以选择最好和最合适的工具来开发
+ - 系统本质上是松耦合的
+ - 不同的团队可以工作在不同的服务中
+ - 可以持续发布，而其他部分还是稳定的
+
+
+从某种意义上来说微服务更适合于大型企业架构，而不是一般的应用，对于一般的应用来说他们的都在同一台主机上。无力于支付更多的系统开销，于是如**微服务不是免费的午餐**一文所说
+
+ - 微服务带来很多的开销操作
+ - 大量的DevOps技能要求
+ - 隐式接口
+ - 重复努力
+ - 分布式系统的复杂性
+ - 异步性是困难的！
+ - 可测试性挑战
+
+因而不得不再后面补充一些所知的额外的东西。
+
+###微服务与持续集成
+
+针对于同样的话题，开始了解其中的一些问题。当敏捷的思想贯穿于开发过程时，我们不得不面对持续集成与发布这样的问题。我们确实可以在不同的服务下工作，然而当我们需要修改API时，就对我们的集成带来很多的问题。我们需要同时修改两个API！我们也需要同时部署他们！
+
+####微服务与测试
+
+相比较的来说，这也是另外的一个挑战。测试对于项目开发来说是不可缺少的，而当我们的服务一个个隔离的时候，我们的测试不得不去mock一个又一个的服务。在有些时候修复这些测试可能比添加这个功能花费的时间还多。
+
+不过他更适合那些喜欢不同技术栈的程序员。
+
+###参考
+[Microservices - Not A Free Lunch!](http://highscalability.com/blog/2014/4/8/microservices-not-a-free-lunch.html)
+
+[Microservices](http://martinfowler.com/articles/microservices.html)
+
 
 #重构篇
 
@@ -1829,13 +2078,171 @@ else {
 4. 桌面应用: [https://github.com/phodal/echeveria-editor](https://github.com/phodal/echeveria-editor)
 5. Github Pages: [https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages](https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages)
 
-#架构篇二： 架构设计
+#全栈篇： 架构设计
 
 ##博客
+
+我尚不属于那些技术特别好的人——我只是广度特别广，从拿电烙铁到所谓的大数据。不过相比于所谓的大数据，我想我更擅长于焊电路板，笑~~。由于并非毕业于计算机专业，毕业前的实习过程中，我发现在某些特殊领域的技术比不上科班毕业的人，这意味着需要更多的学习。但是后来受益于工作近两年来从没有加班过，朝九晚六的生活带来了大量的学习时间。在这个漫长的追赶过程中，我发现开发博客相关的应用带来了很大的进步。
+
+##现在，我的博客是如何工作的？
+
+###HTTP服务器
+
+当你开发在网页上访问我的博客的时候，你可能会注意到上面的协议是HTTPS。
+
+![blog-mobile][1]
+
+但是并不会察觉到它是HTTP2.0。而这需要一个可以支持HTTP2.0的HTTP服务器，在不改变现在程序配置的情况下，你需要重新编译你的HTTP服务器。在这里，我的博客用的是Nginx，所以它在还只是试验版的时候，就已经被编译进去了。为了隐藏服务器的版本，还需要在编译的时候做了些手脚。除此，为了浏览器上的那个小绿锁，我们还需要一个HTTPS证书，并在Nginx上配置它。
+
+在这时，我们还需要配置一个缓存服务器。过去，我在上面用过Varinsh、Nginx Cache。尽管对于个人博客来说，可能意义不是很大，但是总需要去尝试。于是用到了ngx_pagespeed，它会帮我们做很多事，从合并CSS、JS，到转图片转为webp格式等等。
+
+Nginx对请求转发给了某个端口，就来到了WSGI。
+
+###WSGI
+
+接着，我们就来到了Web服务器网关接口——是为Python语言定义的Web服务器和Web应用程序或框架之间的一种简单而通用的接口。现在，你或许已经知道了这个博客是基于Python语言的框架。但是在我们揭晓这个答案之前，我们还需要介绍个小工具——New Relic。如果你在Chrome浏览器上使用Ghosty插件，你就会看到下面的东西。
+
+![New Relic][2]
+
+New Relic是一个网站监测工具，Google Analytics是一个分析工具。但是，不一样的是New Relic需要在我们启动的时候加进去：
+
+```
+nohup /PATH/bin/newrelic-admin run-program /PATH/bin/gunicorn --workers=2 MK_dream.wsgi -b 0.0.0.0:8080 --timeout=300& 
+```
+
+现在这个请求总算来到了8080端口，接着到了Gunicorn的世界里，它是一个高效的Python WSGI Server。
+
+过了上面几步这个请求终于交给了Django。
+
+###Django
+
+Django这个天生带Admin的Web框架，就是适合CMS和博客。这并不意味着它的工作范围只限于此，它还有这么多用户:
+
+![Who Use Django][3]
+
+请求先到了Django的URL层，这个请求接着交给了View层来处理，View层访问Model层以后，与Template层一起渲染出了HTML。Django是一个MTV框架(类似于MVC之于Spring MVC)。接着，HTML先给了浏览器，浏览器继续去请求前端的内容。
+
+它也可以用Farbic部署哦~~。
+
+###Angluar & Material Design Lite vs Bootstrap & jQuery Mobile
+
+这是一个现代浏览器的前端战争。最开始，博客的前端是Bootstrap框架主导的UI，而移动端是jQuery Mobile做的(PS: Mezzanine框架原先的结构)。
+
+接着，在我遇到了Backbone后，响应了下Martin Folwer的**编辑-发布分离模式**。用Node.js与RESTify直接读取博客的数据库做了一个REST API。Backbone就负责了相应的Detail页和List页的处理。
+
+尽管这样做的方式可以让用户访问的速度更快，但是我相信没有一个用户会一次性的把技术博客看完。而且我博客流量的主要来源是Google和百度。
+
+然后，我试着用Angular去写一些比较特殊的页面，如[全部文章](https://www.phodal.com/all/)。但是重写的过程并不是很顺畅，这意味着我需要重新考虑页面的渲染方式。
+
+最后，出现了Material Design Lite，也就是现在这个丑丑的页面，还不兼容新IE（微信浏览器）。
+
+作为一个技术博客，它也用到了HighLight.js的语法加亮。
+
+###API
+
+在构建SPA的时候，做了一些API，然后就有了一个Auto Sugget的功能：
+
+![Auto Suggest][4]
+
+或者说，它是一个Auto Complete，可以直接借助于jQuery AutoComplete插件。
+
+或许你已经猜到了，既然我们已经有博客详情页和列表页的API，并且我们也已经有了Auto Suggestion API。那么，我们就可以有一个APP了。
+
+###APP
+
+偶然间发现了Ionic框架，它等于 = Angluar + Cordova。于是，在测试Google Indexing的时候，花了一个晚上做了博客的APP。
+
+![Blog App][5]
+
+我们可以在上面做搜索，搜索的时候也会有Auto Suggestion。上面的注销意味着它有登录功能，而Hybird App的登录通常可以借用于JSON Web Token。即在第一次登录的时候生成一个Token，之后的请求，如发博客、创建事件，都可以用这个Token来进行，直到Token过期。如果你是第一次在手机上访问，也许你会遇到这个没有节操的广告：
+
+![Install Phodal Blog App][6]
+
+然并卵，作为我的第七个Hybird应用，它只发布在Google Play上——因为不需要审核。
+
+随后，我意识到了我需要将我的博客推送给读者，但是需要一个渠道。
+
+###微信公众平台
+
+借助于Wechat-Python-SDK，花了一个下午做了一个基础的公众平台。除了可以查询最新的博客和搜索，它的主要作用就是让我发我的博客了。
+
+![Phodal QRCode][7]
+
+对了，如果你用Python写代码，可以试试PyCharm。除了WebStorm以外，我最喜欢的IDE。因为WebStorm一直在与时俱进。
+
+###微信编辑器
+
+作为下一个项目，我开始打算去做一个微信编辑器。一方面可以给我的女朋友用，她正在我们公司实习——新媒体运营。她写了之前的《[极客爱情](http://www.ituring.com.cn/book/1665)》系列的文章，或许你对实验室约会吧、我真的不是修电脑的、极客的神逻辑、技术宅不解风情等等的文章。如果可以的话，也可以给个相关关注哈哈~~，打个小小广告，下面是它的微信公众号——白米粥。
+
+![Baimizhou][8]
+
+极客爱情是一段热恋的故事，白米粥更像是平淡生活的故事。
+
+扯远了，这个编辑器主要是基于CKEDITOR，因为微信默认的是UEDITOR。尽管UEditor开源，但是已经很长时间没有维护了。这样的项目是被政治因素，以及加班的工程师文化的影响吧？？？
+
+##技术组成
+
+So，在这个博客里会有三个用户来源，Web > 公众号 > App。
+
+在网页上，每天大概会400个PV，其中大部分是来自Google、百度，接着就是偶尔推送的公众号，最后就是只有我一个人用的APP。。。
+
+> Web架构
+
+服务器：
+
+1. Nginx(含Nginx HTTP 2.0、PageSpeed 插件)
+2. Gunicorn(2 Workers) 
+3. New Relic(性能监测)
+
+DevOps: 
+
+1. Farbic（自动部署）
+
+Web应用后台： 
+
+1. Mezzaine（基于Django的CMS）
+2. REST Framework (API) 
+3. REST Framework JWT (JSON Web Token) 
+4. Wechat Python SDK
+5. Mezzanine Pagedown （Markdown
+
+Web应用前台: 
+
+1. Material Design Lite (用户) 
+2. BootStrap (后台) 
+3. jQuery + jQuery.autocomplete + jquery.githubRepoWidget
+4. HighLight.js 
+5. Angluar.js
+6. Backbone (已不维护)
+
+移动端: 
+
+1. Ionic
+2. Angular + ngCordova
+3. Cordova
+4. highlightjs
+5. showdown.js(Markdown Render) 
+6. Angular Messages + Angular-elastic
+
+微信端: 
+
+1. Wechat-Python-SDK
+
+That's All...
 
 ##前后台分离
 
 ##服务
+
+
+  [1]: http://repractise.phodal.com/img/a-arch/blog-mobile.jpg
+  [2]: http://repractise.phodal.com/img/a-arch/ga-newrelic.png
+  [3]: http://repractise.phodal.com/img/a-arch/who-use-django.jpg
+  [4]: http://repractise.phodal.com/img/a-arch/autosuggest.jpg
+  [5]: http://repractise.phodal.com/img/a-arch/blog-app.jpg
+  [6]: http://repractise.phodal.com/img/a-arch/install-app.jpg
+  [7]: http://repractise.phodal.com/img/a-arch/phodal-qrcode.jpg
+
 
 #中间件篇
 
