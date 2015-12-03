@@ -92,10 +92,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#领域">领域</a><ul>
 <li><a href="#dsl">DSL</a></li>
 </ul></li>
-<li><a href="#jquery-最流行的dsl">jQuery 最流行的DSL</a></li>
-<li><a href="#cucumber.js">Cucumber.js</a></li>
-<li><a href="#coffeescript">CoffeeScript</a></li>
-<li><a href="#javascript-dsl-示例">JavaScript DSL 示例</a></li>
 </ul></li>
 <li><a href="#后台与服务篇">后台与服务篇</a><ul>
 <li><a href="#php最好的语言">PHP？最好的语言</a></li>
@@ -758,11 +754,11 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <h2 id="领域">领域</h2>
 <h3 id="dsl">DSL</h3>
 <p>DSL(domain-specific languages)即领域特定语言，唯一能够确定DSL边界的方法是考虑“一门语言的一种特定用法”和“该语言的设计者或使用者的意图。在试图设计一个DSL的时候，发现了一些有意思的简单的示例。</p>
-<h2 id="jquery-最流行的dsl">jQuery 最流行的DSL</h2>
+<h4 id="jquery-最流行的dsl">jQuery 最流行的DSL</h4>
 <p>jQuery是一个Internal DSL的典型的例子。它是在一门现成语言内实现针对领域问题的描述。</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">$</span>(<span class="st">&#39;.mydiv&#39;</span>).<span class="at">addClass</span>(<span class="st">&#39;flash&#39;</span>).<span class="at">draggable</span>().<span class="at">css</span>(<span class="st">&#39;color&#39;</span><span class="op">,</span> <span class="st">&#39;blue&#39;</span>)</code></pre></div>
 <p>这也就是其最出名的<strong>链式方法调用</strong>。</p>
-<h2 id="cucumber.js">Cucumber.js</h2>
+<h4 id="cucumber.js">Cucumber.js</h4>
 <p>Cucumber, the popular Behaviour-Driven Development tool, brought to your JavaScript stack。它是使用通用语言描述该领域的问题。</p>
 <pre class="cucumber"><code>Feature: Example feature
   As a user of cucumber.js
@@ -773,13 +769,13 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
     Given I am on the Cucumber.js GitHub repository
     When I go to the README file
     Then I should see &quot;Usage&quot; as the page title</code></pre>
-<h2 id="coffeescript">CoffeeScript</h2>
+<h4 id="coffeescript">CoffeeScript</h4>
 <p>发明一门全新的语言描述该领域的问题。</p>
 <div class="sourceCode"><pre class="sourceCode coffee"><code class="sourceCode coffee">math <span class="kw">=</span>
   root<span class="kw">:</span>   <span class="ot">Math</span><span class="kw">.</span>sqrt
   square<span class="kw">:</span> square
   cube<span class="kw">:</span>   <span class="fu">(x) -&gt;</span> x <span class="kw">*</span> square x</code></pre></div>
-<h2 id="javascript-dsl-示例">JavaScript DSL 示例</h2>
+<h4 id="javascript-dsl-示例">JavaScript DSL 示例</h4>
 <p>所以由上面的结论我们可以知道的是，难度等级应该是</p>
 <p>内部DSL &lt; 外部DSL &lt; 语言工作台(这是怎么翻译的)</p>
 <p>接着在网上找到了一个高级一点的内部DSL示例，如果我们要做jQuery式的链式方法调用也是简单的，但是似乎没有足够的理由去说服其他人。</p>
