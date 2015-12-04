@@ -2,6 +2,8 @@
 
 > 无论怎样的Coding，都是不断的Practise。想要有所成果，你需要RePractise——总结和diff change，再Practise。
 
+在线阅读： [http://repractise.phodal.com/](http://repractise.phodal.com/)
+
 About
 ---------
 对于工程而言，一个技术都是不断练习出来的。
