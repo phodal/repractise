@@ -738,6 +738,8 @@ return function(obj) {
 
 #后台与服务篇
 
+尽管在最初我也想去写一篇文章来说说后台
+
 ##PHP？最好的语言
 
 ##RESTful与服务化
@@ -859,6 +861,14 @@ DELETE      | Delete Resource
 [Microservices - Not A Free Lunch!](http://highscalability.com/blog/2014/4/8/microservices-not-a-free-lunch.html)
 
 [Microservices](http://martinfowler.com/articles/microservices.html)
+
+
+#运维
+
+##缓存
+
+##自动部署
+
 
 
 #重构篇
@@ -2183,6 +2193,8 @@ That's All...
 
 
 #中间件篇
+
+##Cron Job
 
 ##JMS
 

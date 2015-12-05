@@ -109,6 +109,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#参考">参考</a></li>
 </ul></li>
 </ul></li>
+<li><a href="#运维">运维</a><ul>
+<li><a href="#缓存">缓存</a></li>
+<li><a href="#自动部署">自动部署</a></li>
+</ul></li>
 <li><a href="#重构篇">重构篇</a><ul>
 <li><a href="#网站重构">网站重构</a><ul>
 <li><a href="#基础网站重构">基础网站重构</a></li>
@@ -169,6 +173,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li><a href="#中间件篇">中间件篇</a><ul>
+<li><a href="#cron-job">Cron Job</a></li>
 <li><a href="#jms">JMS</a></li>
 <li><a href="#mq">MQ</a></li>
 </ul></li>
@@ -845,6 +850,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
     <span class="cf">return</span> <span class="at">methodToUse</span>(obj<span class="op">,</span> propertyName<span class="op">,</span> error<span class="op">,</span> values)<span class="op">;</span>  <span class="co">//construct the validation call</span>
 <span class="op">};</span></code></pre></div>
 <h1 id="后台与服务篇">后台与服务篇</h1>
+<p>尽管在最初我也想去写一篇文章来说说后台</p>
 <h2 id="php最好的语言">PHP？最好的语言</h2>
 <h2 id="restful与服务化">RESTful与服务化</h2>
 <h3 id="设计restful-api">设计RESTful API</h3>
@@ -964,6 +970,9 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <h3 id="参考">参考</h3>
 <p><a href="http://highscalability.com/blog/2014/4/8/microservices-not-a-free-lunch.html">Microservices - Not A Free Lunch!</a></p>
 <p><a href="http://martinfowler.com/articles/microservices.html">Microservices</a></p>
+<h1 id="运维">运维</h1>
+<h2 id="缓存">缓存</h2>
+<h2 id="自动部署">自动部署</h2>
 <h1 id="重构篇">重构篇</h1>
 <p>什么是重构?</p>
 <blockquote>
@@ -2081,6 +2090,7 @@ git push -q upstream HEAD:gh-pages</code></pre>
 <p>借助于Wechat-Python-SDK，花了一个下午做了一个基础的公众平台。除了可以查询最新的博客和搜索，它的主要作用就是让我发我的博客了。</p>
 <p>对了，如果你用Python写代码，可以试试PyCharm。除了WebStorm以外，我最喜欢的IDE。因为WebStorm一直在与时俱进。</p>
 <h1 id="中间件篇">中间件篇</h1>
+<h2 id="cron-job">Cron Job</h2>
 <h2 id="jms">JMS</h2>
 <h2 id="mq">MQ</h2>
 <h1 id="易读">易读</h1>
