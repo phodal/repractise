@@ -82,14 +82,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li><a href="#repractise">RePractise</a></li>
 </ul></li>
-<li><a href="#前端篇-数据-表现-领域">前端篇: 数据-表现-领域</a><ul>
+<li><a href="#数据-表现-领域">数据-表现-领域</a><ul>
 <li><a href="#数据">数据</a><ul>
 <li><a href="#数据库">数据库</a></li>
+<li><a href="#模型">模型</a></li>
 </ul></li>
 <li><a href="#表现">表现</a><ul>
 <li><a href="#分离">分离</a></li>
 </ul></li>
 <li><a href="#领域">领域</a><ul>
+<li><a href="#ddd">DDD</a></li>
 <li><a href="#dsl">DSL</a></li>
 </ul></li>
 </ul></li>
@@ -702,7 +704,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>最后，Keep Learning。我们总需要在适当的时候做出改变，尽管我们觉得一个Web应用代码库中含桌面版和移动版代码会很不错，但是在那个时候需要做出改变。</p>
 <p>对于复杂的应用来说，其架构肯定不是只有纯MVP或者纯MVVM这么简单的。如果一个应用混合了MVVM、MVP和MVC，那么他也变成了MVC——因为他直接访问了Model层。但是如果细分来看，只有访问了Model层的那一部分才是MVC模式。</p>
 <p>模式，是人们对于某个解决方案的描述。在一段代码中可能有各种各样的设计模式，更何况是架构。</p>
-<h1 id="前端篇-数据-表现-领域">前端篇: 数据-表现-领域</h1>
+<h1 id="数据-表现-领域">数据-表现-领域</h1>
 <p>无论是MVC、MVP或者MVVP，都离不开这些基本的要素：数据、表现、领域。</p>
 <h2 id="数据">数据</h2>
 <p>信息源于数据，我们在网站上看到的内容都应该是属于信息的范畴。这些信息是应用从数据库中根据业务需求查找、过滤出来的数据。</p>
@@ -739,9 +741,11 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>像如MongoDB这类的数据库，也是存在数据模型，但说的却是嵌入子文档。在业务量大的情况下，数据库在考验公司的技术能力，想想便觉得Amazon RDS挺好的。</p>
 <p>如果是</p>
+<h3 id="模型">模型</h3>
 <h2 id="表现">表现</h2>
 <h3 id="分离">分离</h3>
 <h2 id="领域">领域</h2>
+<h3 id="ddd">DDD</h3>
 <h3 id="dsl">DSL</h3>
 <p>DSL(domain-specific languages)即领域特定语言，唯一能够确定DSL边界的方法是考虑“一门语言的一种特定用法”和“该语言的设计者或使用者的意图。在试图设计一个DSL的时候，发现了一些有意思的简单的示例。</p>
 <h4 id="jquery-最流行的dsl">jQuery 最流行的DSL</h4>
