@@ -2,8 +2,6 @@
 
 在线阅读： [http://repractise.phodal.com/](http://repractise.phodal.com/)
 
-这是一份工作两年间的软件心得，也可以说是一份关于软件的博客整理。两年的时间很长也很短，过去我计算的是三年才会有这样的心得。但是似乎已经不需要第三年了——估计果然都是不准的。
-
 > 无论怎样的Coding，都是不断的Practise。想要有所成果，你需要RePractise——总结和diff change，再Practise。
 
 对于工程而言，一个技术都是不断练习出来的。
