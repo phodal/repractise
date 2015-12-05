@@ -593,204 +593,6 @@ React，将一小部分复杂度交由人来消化，将另外一部分交给了
 
 
 
-#数据-表现-领域
-
-无论是MVC、MVP或者MVVP，都离不开这些基本的要素：数据、表现、领域。
-
-##数据
-
-信息源于数据，我们在网站上看到的内容都应该是属于信息的范畴。这些信息是应用从数据库中根据业务需求查找、过滤出来的数据。
-
-数据通常以文件的形式存储，毕竟文件是存储信息的基本单位。只是由于业务本身对于Create、Update、Query、Index等有不同的组合需求就引发了不同的数据存储软件。
-
-如上章所说，View层直接从Model层取数据，无遗也会暴露数据的模型。作为一个前端开发人员，我们对数据的操作有三种类型：
-
-1. 数据库。由于Node.js在最近几年里发展迅猛，越来越多的开发者选择使用Node.js作为后台语言。这与传统的Model层并无多大不同，要么直接操作数据库，要么间接操作数据库。即使在NoSQL数据库中也是如此。
-2. 搜索引擎。对于以查询为主的领域来说，搜索引擎是一个更好的选择，而搜索引擎又不好直接向View层暴露接口。这和招聘信息一样，都在暴露公司的技术栈。
-3. RESTful。RESTful相当于是CRUD的衍生，只是传输介质变了。
-4. LocalStorage。LocalStorage算是另外一种方式的CRUD。
-
-说了这么多都是废话，他们都是可以用类CRUD的方式操作。
-
-###数据库
-
-数据库里存储着大量的数据，在我们对系统建模的时候，也在决定系统的基础模型。
-
-在传统SQL数据库中，我们可能会依赖于ORM，也可能会自己写SQL。在那之间，我们需要先定义Model，如下是Node.js的ORM框架Sequelize的一个示例：
-
-```javascript
-var User = sequelize.define('user', {
-  firstName: {
-    type: Sequelize.STRING,
-    field: 'first_name' // Will result in an attribute that is firstName when user facing but first_name in the database
-  },
-  lastName: {
-    type: Sequelize.STRING
-  }
-}, {
-  freezeTableName: true // Model tableName will be the same as the model name
-});
-
-User.sync({force: true}).then(function () {
-  // Table created
-  return User.create({
-    firstName: 'John',
-    lastName: 'Hancock'
-  });
-});
-```
-
-像如MongoDB这类的数据库，也是存在数据模型，但说的却是嵌入子文档。在业务量大的情况下，数据库在考验公司的技术能力，想想便觉得Amazon RDS挺好的。
-
-如果是
-
-###模型
-
-##表现
-
-###分离
-
-##领域
-
-###DDD
-
-###DSL
-
-DSL(domain-specific languages)即领域特定语言，唯一能够确定DSL边界的方法是考虑“一门语言的一种特定用法”和“该语言的设计者或使用者的意图。在试图设计一个DSL的时候，发现了一些有意思的简单的示例。
-
-####jQuery 最流行的DSL
-
-jQuery是一个Internal DSL的典型的例子。它是在一门现成语言内实现针对领域问题的描述。
-
-```javascript
-$('.mydiv').addClass('flash').draggable().css('color', 'blue')
-```
-
-这也就是其最出名的**链式方法调用**。
-
-####Cucumber.js
-
-Cucumber, the popular Behaviour-Driven Development tool, brought to your JavaScript stack。它是使用通用语言描述该领域的问题。
-
-```cucumber
-Feature: Example feature
-  As a user of cucumber.js
-  I want to have documentation on cucumber
-  So that I can concentrate on building awesome applications
-
-  Scenario: Reading documentation
-    Given I am on the Cucumber.js GitHub repository
-    When I go to the README file
-    Then I should see "Usage" as the page title
-```
-
-####CoffeeScript
-
-发明一门全新的语言描述该领域的问题。
-
-```coffee
-math =
-  root:   Math.sqrt
-  square: square
-  cube:   (x) -> x * square x
-```
-
-####JavaScript DSL 示例
-
-所以由上面的结论我们可以知道的是，难度等级应该是
-
-内部DSL < 外部DSL < 语言工作台(这是怎么翻译的)
-
-接着在网上找到了一个高级一点的内部DSL示例，如果我们要做jQuery式的链式方法调用也是简单的，但是似乎没有足够的理由去说服其他人。
-
-原文在: [http://alexyoung.org/2009/10/22/javascript-dsl/](http://alexyoung.org/2009/10/22/javascript-dsl/)，相当于是一个微测试框架。
-
-```javascript
-var DSLRunner = {
-  run: function(methods) {
-    this.ingredients = [];
-    this.methods     = methods;
-
-    this.executeAndRemove('first');
-
-    for (var key in this.methods) {
-      if (key !== 'last' && key.match(/^bake/)) {
-        this.executeAndRemove(key);
-      }
-    }
-
-    this.executeAndRemove('last');
-  },
-
-  addIngredient: function(ingredient) {
-    this.ingredients.push(ingredient);
-  },
-
-  executeAndRemove: function(methodName) {
-    var output = this.methods[methodName]();
-    delete(this.methods[methodName]);
-    return output;
-  }
-};
-
-DSLRunner.run({
-  first: function() {
-    console.log("I happen first");
-  },
-
-  bakeCake: function() {
-    console.log("Commencing cake baking");
-  },
-
-  bakeBread: function() {
-    console.log("Baking bread");
-  },
-  last: function() {
-    console.log("last");
-  }
-});
-```
-
-这个想法，看上去就是定义了一些map，然后执行。
-
-接着，又看到了一个有意思的DSL，作者是在解决表单验证的问题[《JavaScript DSL Because I’m Tired of Writing If.. If…If…》](http://byatool.com/ui/javascript-dsl-because-im-tired-of-writing-if-if-if/)：
-
-```javascript
- var rules =
-    ['Username',
-      ['is not empty', 'Username is required.'],
-      ['is not longer than', 7, 'Username is too long.']],
-    ['Name',
-      ['is not empty', 'Name is required.']],
-    ['Password',
-      ['length is between', 4, 6, 'Password is not acceptable.']]]; 
-```
-
-有一个map对应了上面的方法
-
-```javascript
- var methods = [
-    ['is not empty', isNotEmpty],
-    ['is not longer than', isNotLongerThan],
-    ['length is between', isBetween]];
-```
-
-原文只给了一部分代码
-
-```javascript
-var methodPair = find(methods, function(method) {
-    return car(method) === car(innerRule);
-});
-
-var methodToUse = peek(methodPair);
-
-return function(obj) {
-    var error = peek(innerRule);                           //error is the last index
-    var values = sink(cdr(innerRule));                     //get everything but the error  
-    return methodToUse(obj, propertyName, error, values);  //construct the validation call
-};
-```
-
 #后台与服务篇
 
 尽管在最初我也想去写一篇文章来说说后台的发展史，后来想了想还是让我们把它划分成不同的几部分。以便于我们可以更好的说说这些内容，不过相信这是一个好的开始。
@@ -918,12 +720,66 @@ DELETE      | Delete Resource
 [Microservices](http://martinfowler.com/articles/microservices.html)
 
 
-#运维
+#易读
 
-##缓存
+##简介 
 
-##自动部署
+###无关的编程经验
 
+> 只要我有更多时间，我就会写一封更短的信给你。
+
+从小学算起我的编程年限应该也有十几年了吧，笑~~。只是我过去的多年编程经验对于我现在的工作来说，是多年的无关经验(详见《REWORK》——多年的无关经验)。
+
+高中的时候学习了点游戏编程，也因此学了点C++的皮毛，除了学会面向对象，其他都忘光了。随后在学习Linux内核，当时代码里就各种struct。比起之前学过的Logo和QBASIC简直是特别大的进步，然当时觉得struct与面向对象两者间没啥太大区别。在那个年少的时候，便天真的以为程序语言间的区别不是很大。
+
+大学的时候主要营业范围是各种硬件，也没有发现写出好的代码是特别重要的一件事。也试了试Lisp，尝试过设计模式，然后失败了，GoF写DP的时候一定花了特别长的时间，所以这本书很短。期间出于生活压力(没有钱买硬件)，便开始兼职各种Web前端开发。
+
+在有了所谓的GNU/Linux系统编译经验、写过各种杂七杂八的硬件代码，如Ada、汇编，要保证代码工作是一件很简单的事，从某个项目中引入部分代码，再从某个Demo中引入更多的代码，东拼西凑一下就能工作了。
+
+多年的无关经验只让我写出能工作的代码——在别人看来就是很烂的代码。于是，虽然有着看上去很长的编程经验，但是却比不上实习的时候6个月学到的东西。
+
+只是因为，我们不知道: 我们不知道。
+
+###代码整洁
+
+过去，我有过在不同的场合吐槽别人的代码写得烂。而我写的仅仅是比别人好一点而已——而不是好很多。
+
+然而这是一件很难的事，人们对于同一件事物未来的考虑都是不一样的。同样的代码在相同的情景下，不同的人会有不同的设计模式。同样的代码在不同的情景下，同样的人会有不同的设计模式。在这里，我们没有办法讨论设计模式，也不需要讨论。
+
+我们所需要做的是，确保我们的代码易读、易测试，看上去这样就够了，然而这也是挺复杂的一件事:
+
+1. 确保我们的变量名、函数名是易读的
+2. 没有复杂的逻辑判断
+3. 没有多层嵌套
+4. 减少复杂函数的出现
+
+然后，你要去测试它。这样你就知道需要什么，实际上要做到这些也不是一些难事。
+
+只是首先，我们要知道我们要自己需要这些。
+
+###别人的代码很烂?
+
+什么是很烂的代码? 应该会有几种境界吧。
+
+1. 不能工作，不能读懂
+2. 不能工作，能读懂
+3. 能工作，很难读懂
+4. 能工作，能读懂，但是没有意图
+5. 能工作，能理解意图，但是读不懂
+
+如果我们能读懂，能理解意图，那么我们还说他烂，可能是因为他并不整洁。这就回到了上面的问题，模式是一种因人而异的东西。
+
+我们在做Code Review的时候，总会尝试问对方说： “这样做的意图是”。
+
+对于代码来说也是如此，如果我们能理解意图的话，那么我们要理解代码相对也比较容易。如果对方是没有意图，那么代码是没救的。
+
+##变量名
+
+##函数名
+
+##小函数
+
+##测试
 
 
 #重构篇
@@ -941,8 +797,6 @@ DELETE      | Delete Resource
 
 与上述相似的是:在不改变外部行为的前提下，简化结构、添加可读性，而在网站前端保持一致的行为。也就是说是在不改变UI的情况下，对网站进行优化，在扩展的同时保持一致的UI。
 
-###基础网站重构
-
 过去人们所说的``网站重构``
 
 > 把"未采用CSS，大量使用HTML进行定位、布局，或者虽然已经采用CSS，但是未遵循HTML结构化标准的站点"变成"让标记回归标记的原本意义。通过在HTML文档中使用结构化的标记以及用CSS控制页面表现，使页面的实际内容与它们呈现的格式相分离的站点。"的过程就是网站重构(Website Reconstruction)
@@ -953,8 +807,6 @@ DELETE      | Delete Resource
  - 使网站前端兼容于现代浏览器(针对于不合规范的CSS、如对IE6有效的)
  - 对于移动平台的优化
  - 针对于SEO进行优化
-
-###高级网站重构
 
 过去的网站重构就是“DIV+CSS”，想法固然极度局限。但也不是另一部分的人认为是“XHTML+CSS”，因为“XHTML+CSS”只是页面重构。
 
@@ -1507,7 +1359,7 @@ SQLiteHelper.prototype.getData = function (url, callback) {
 
 在这种理想的情况下，我们为什么不TDD呢?
 
-#架构篇一: CMS的重构与演进
+#架构篇: CMS的重构与演进
 
 重构系统是一项非常具有挑战性的事情。通常来说，在我们的系统是第二个系统的时候才需要重构，即这个系统本身已经很臃肿。我们花费了太量的时间在代码间的逻辑，开发新的功能变得越来越慢。这不仅仅可能只是因为我们之前的架构没有设计好，而且在我们开发的过程中没有保持着原先设计时的一些原则。如果是这样的情况，那么这就是一个复杂的过程。
 
@@ -1679,13 +1531,7 @@ So，so，这些开发人员做了些什么：
 4. [Part 2: Implementing Content Management and Publication Using Git](https://www.thoughtworks.com/insights/blog/implementing-content-management-and-publication-using-git)
 
 
-
-
-
-
-#架构篇二：构建基于Git为数据中心的CMS
-
-##简介
+##构建基于Git为数据中心的CMS
 
 或许你也用过Hexo / Jekyll / Octopress这样的静态博客，他们的原理都是类似的。我们有一个代码库用于生成静态页面，然后这些静态页面会被PUSH到Github Pages上。
 
@@ -2149,6 +1995,9 @@ else {
 4. 桌面应用: [https://github.com/phodal/echeveria-editor](https://github.com/phodal/echeveria-editor)
 5. Github Pages: [https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages](https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages)
 
+
+
+
 #无栈篇：架构设计
 
 ##博客与技术驱动
@@ -2289,75 +2138,15 @@ That's All...
 
 
 
-#消息中间件
+#消息队列
 
-##Cron Job
+> “消息”是在两台计算机间传送的数据单位。消息可以非常简单，例如只包含文本字符串；也可以更复杂，可能包含嵌入对象。
+
+在复杂的系统里，人们使用消息队列不仅是为了解决跨系统的异步通信，也是为了系统间的耦合。
 
 ##JMS
 
 ##MQ
-
-#易读
-
-##简介 
-
-###无关的编程经验
-
-> 只要我有更多时间，我就会写一封更短的信给你。
-
-从小学算起我的编程年限应该也有十几年了吧，笑~~。只是我过去的多年编程经验对于我现在的工作来说，是多年的无关经验(详见《REWORK》——多年的无关经验)。
-
-高中的时候学习了点游戏编程，也因此学了点C++的皮毛，除了学会面向对象，其他都忘光了。随后在学习Linux内核，当时代码里就各种struct。比起之前学过的Logo和QBASIC简直是特别大的进步，然当时觉得struct与面向对象两者间没啥太大区别。在那个年少的时候，便天真的以为程序语言间的区别不是很大。
-
-大学的时候主要营业范围是各种硬件，也没有发现写出好的代码是特别重要的一件事。也试了试Lisp，尝试过设计模式，然后失败了，GoF写DP的时候一定花了特别长的时间，所以这本书很短。期间出于生活压力(没有钱买硬件)，便开始兼职各种Web前端开发。
-
-在有了所谓的GNU/Linux系统编译经验、写过各种杂七杂八的硬件代码，如Ada、汇编，要保证代码工作是一件很简单的事，从某个项目中引入部分代码，再从某个Demo中引入更多的代码，东拼西凑一下就能工作了。
-
-多年的无关经验只让我写出能工作的代码——在别人看来就是很烂的代码。于是，虽然有着看上去很长的编程经验，但是却比不上实习的时候6个月学到的东西。
-
-只是因为，我们不知道: 我们不知道。
-
-###代码整洁
-
-过去，我有过在不同的场合吐槽别人的代码写得烂。而我写的仅仅是比别人好一点而已——而不是好很多。
-
-然而这是一件很难的事，人们对于同一件事物未来的考虑都是不一样的。同样的代码在相同的情景下，不同的人会有不同的设计模式。同样的代码在不同的情景下，同样的人会有不同的设计模式。在这里，我们没有办法讨论设计模式，也不需要讨论。
-
-我们所需要做的是，确保我们的代码易读、易测试，看上去这样就够了，然而这也是挺复杂的一件事:
-
-1. 确保我们的变量名、函数名是易读的
-2. 没有复杂的逻辑判断
-3. 没有多层嵌套
-4. 减少复杂函数的出现
-
-然后，你要去测试它。这样你就知道需要什么，实际上要做到这些也不是一些难事。
-
-只是首先，我们要知道我们要自己需要这些。
-
-###别人的代码很烂?
-
-什么是很烂的代码? 应该会有几种境界吧。
-
-1. 不能工作，不能读懂
-2. 不能工作，能读懂
-3. 能工作，很难读懂
-4. 能工作，能读懂，但是没有意图
-5. 能工作，能理解意图，但是读不懂
-
-如果我们能读懂，能理解意图，那么我们还说他烂，可能是因为他并不整洁。这就回到了上面的问题，模式是一种因人而异的东西。
-
-我们在做Code Review的时候，总会尝试问对方说： “这样做的意图是”。
-
-对于代码来说也是如此，如果我们能理解意图的话，那么我们要理解代码相对也比较容易。如果对方是没有意图，那么代码是没救的。
-
-##变量名
-
-##函数名
-
-##小函数
-
-##测试
-
 
 #模式篇：设计与架构
 
@@ -2916,6 +2705,210 @@ D = ORDER C BY timestamp,count desc;
  - 《敏捷软件开发 原则、模式与实践》
  - 《 面向模式的软件架构:模式系统》
  - 《Java应用架构设计》
+
+
+#数据模型与领域
+
+无论是MVC、MVP或者MVVP，都离不开这些基本的要素：数据、表现、领域。
+
+##数据
+
+信息源于数据，我们在网站上看到的内容都应该是属于信息的范畴。这些信息是应用从数据库中根据业务需求查找、过滤出来的数据。
+
+数据通常以文件的形式存储，毕竟文件是存储信息的基本单位。只是由于业务本身对于Create、Update、Query、Index等有不同的组合需求就引发了不同的数据存储软件。
+
+如上章所说，View层直接从Model层取数据，无遗也会暴露数据的模型。作为一个前端开发人员，我们对数据的操作有三种类型：
+
+1. 数据库。由于Node.js在最近几年里发展迅猛，越来越多的开发者选择使用Node.js作为后台语言。这与传统的Model层并无多大不同，要么直接操作数据库，要么间接操作数据库。即使在NoSQL数据库中也是如此。
+2. 搜索引擎。对于以查询为主的领域来说，搜索引擎是一个更好的选择，而搜索引擎又不好直接向View层暴露接口。这和招聘信息一样，都在暴露公司的技术栈。
+3. RESTful。RESTful相当于是CRUD的衍生，只是传输介质变了。
+4. LocalStorage。LocalStorage算是另外一种方式的CRUD。
+
+说了这么多都是废话，他们都是可以用类CRUD的方式操作。
+
+###数据库
+
+数据库里存储着大量的数据，在我们对系统建模的时候，也在决定系统的基础模型。
+
+在传统SQL数据库中，我们可能会依赖于ORM，也可能会自己写SQL。在那之间，我们需要先定义Model，如下是Node.js的ORM框架Sequelize的一个示例：
+
+```javascript
+var User = sequelize.define('user', {
+  firstName: {
+    type: Sequelize.STRING,
+    field: 'first_name' // Will result in an attribute that is firstName when user facing but first_name in the database
+  },
+  lastName: {
+    type: Sequelize.STRING
+  }
+}, {
+  freezeTableName: true // Model tableName will be the same as the model name
+});
+
+User.sync({force: true}).then(function () {
+  // Table created
+  return User.create({
+    firstName: 'John',
+    lastName: 'Hancock'
+  });
+});
+```
+
+像如MongoDB这类的数据库，也是存在数据模型，但说的却是嵌入子文档。在业务量大的情况下，数据库在考验公司的技术能力，想想便觉得Amazon RDS挺好的。
+
+如果是
+
+###数据模型
+
+##领域
+
+###DDD
+
+值对象
+
+###DSL
+
+DSL(domain-specific languages)即领域特定语言，唯一能够确定DSL边界的方法是考虑“一门语言的一种特定用法”和“该语言的设计者或使用者的意图。在试图设计一个DSL的时候，发现了一些有意思的简单的示例。
+
+####jQuery 最流行的DSL
+
+jQuery是一个Internal DSL的典型的例子。它是在一门现成语言内实现针对领域问题的描述。
+
+```javascript
+$('.mydiv').addClass('flash').draggable().css('color', 'blue')
+```
+
+这也就是其最出名的**链式方法调用**。
+
+####Cucumber.js
+
+Cucumber, the popular Behaviour-Driven Development tool, brought to your JavaScript stack。它是使用通用语言描述该领域的问题。
+
+```cucumber
+Feature: Example feature
+  As a user of cucumber.js
+  I want to have documentation on cucumber
+  So that I can concentrate on building awesome applications
+
+  Scenario: Reading documentation
+    Given I am on the Cucumber.js GitHub repository
+    When I go to the README file
+    Then I should see "Usage" as the page title
+```
+
+####CoffeeScript
+
+发明一门全新的语言描述该领域的问题。
+
+```coffee
+math =
+  root:   Math.sqrt
+  square: square
+  cube:   (x) -> x * square x
+```
+
+####JavaScript DSL 示例
+
+所以由上面的结论我们可以知道的是，难度等级应该是
+
+内部DSL < 外部DSL < 语言工作台(这是怎么翻译的)
+
+接着在网上找到了一个高级一点的内部DSL示例，如果我们要做jQuery式的链式方法调用也是简单的，但是似乎没有足够的理由去说服其他人。
+
+原文在: [http://alexyoung.org/2009/10/22/javascript-dsl/](http://alexyoung.org/2009/10/22/javascript-dsl/)，相当于是一个微测试框架。
+
+```javascript
+var DSLRunner = {
+  run: function(methods) {
+    this.ingredients = [];
+    this.methods     = methods;
+
+    this.executeAndRemove('first');
+
+    for (var key in this.methods) {
+      if (key !== 'last' && key.match(/^bake/)) {
+        this.executeAndRemove(key);
+      }
+    }
+
+    this.executeAndRemove('last');
+  },
+
+  addIngredient: function(ingredient) {
+    this.ingredients.push(ingredient);
+  },
+
+  executeAndRemove: function(methodName) {
+    var output = this.methods[methodName]();
+    delete(this.methods[methodName]);
+    return output;
+  }
+};
+
+DSLRunner.run({
+  first: function() {
+    console.log("I happen first");
+  },
+
+  bakeCake: function() {
+    console.log("Commencing cake baking");
+  },
+
+  bakeBread: function() {
+    console.log("Baking bread");
+  },
+  last: function() {
+    console.log("last");
+  }
+});
+```
+
+这个想法，看上去就是定义了一些map，然后执行。
+
+接着，又看到了一个有意思的DSL，作者是在解决表单验证的问题[《JavaScript DSL Because I’m Tired of Writing If.. If…If…》](http://byatool.com/ui/javascript-dsl-because-im-tired-of-writing-if-if-if/)：
+
+```javascript
+ var rules =
+    ['Username',
+      ['is not empty', 'Username is required.'],
+      ['is not longer than', 7, 'Username is too long.']],
+    ['Name',
+      ['is not empty', 'Name is required.']],
+    ['Password',
+      ['length is between', 4, 6, 'Password is not acceptable.']]]; 
+```
+
+有一个map对应了上面的方法
+
+```javascript
+ var methods = [
+    ['is not empty', isNotEmpty],
+    ['is not longer than', isNotLongerThan],
+    ['length is between', isBetween]];
+```
+
+原文只给了一部分代码
+
+```javascript
+var methodPair = find(methods, function(method) {
+    return car(method) === car(innerRule);
+});
+
+var methodToUse = peek(methodPair);
+
+return function(obj) {
+    var error = peek(innerRule);                           //error is the last index
+    var values = sink(cdr(innerRule));                     //get everything but the error  
+    return methodToUse(obj, propertyName, error, values);  //construct the validation call
+};
+```
+
+#运维
+
+##缓存
+
+##自动部署
+
 
 
 #构建篇：Build
@@ -3714,7 +3707,7 @@ TDD的过程就是:红 -> 绿 -> 重构
 
 迭代有意思的一点在于，切换角色，似乎有一点在于可以保证每个人对产品代码都很熟悉。
 
-####工作
+#g###工作
 
 在三周的时候里，从前端到后台有了一个大致的理解。刚开始由于做的是底层的东西，对于我来说不是前端都算是底层~~。这个算是自己薄弱的环节，在之前做的网站都是只做前台。前台对于我来说比较理想，可以和真实的用户接触，后台就这么地弱了下去。当我试着用PHP框架Laravel去搭建一个CMS的时候，我发现原来这个不是很难，相比处理浏览器的兼容性来说。
 

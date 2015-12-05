@@ -84,19 +84,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li><a href="#repractise">RePractise</a></li>
 </ul></li>
-<li><a href="#数据-表现-领域">数据-表现-领域</a><ul>
-<li><a href="#数据">数据</a><ul>
-<li><a href="#数据库">数据库</a></li>
-<li><a href="#模型">模型</a></li>
-</ul></li>
-<li><a href="#表现">表现</a><ul>
-<li><a href="#分离">分离</a></li>
-</ul></li>
-<li><a href="#领域">领域</a><ul>
-<li><a href="#ddd">DDD</a></li>
-<li><a href="#dsl">DSL</a></li>
-</ul></li>
-</ul></li>
 <li><a href="#后台与服务篇">后台与服务篇</a><ul>
 <li><a href="#php最好的语言">PHP？最好的语言</a></li>
 <li><a href="#restful与服务化">RESTful与服务化</a><ul>
@@ -111,14 +98,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#参考">参考</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#运维">运维</a><ul>
-<li><a href="#缓存">缓存</a></li>
-<li><a href="#自动部署">自动部署</a></li>
+<li><a href="#易读">易读</a><ul>
+<li><a href="#简介">简介</a><ul>
+<li><a href="#无关的编程经验">无关的编程经验</a></li>
+<li><a href="#代码整洁">代码整洁</a></li>
+<li><a href="#别人的代码很烂">别人的代码很烂?</a></li>
+</ul></li>
+<li><a href="#变量名">变量名</a></li>
+<li><a href="#函数名">函数名</a></li>
+<li><a href="#小函数">小函数</a></li>
+<li><a href="#测试">测试</a></li>
 </ul></li>
 <li><a href="#重构篇">重构篇</a><ul>
 <li><a href="#网站重构">网站重构</a><ul>
-<li><a href="#基础网站重构">基础网站重构</a></li>
-<li><a href="#高级网站重构">高级网站重构</a></li>
 <li><a href="#网站重构目的">网站重构目的</a></li>
 </ul></li>
 <li><a href="#代码重构为了更好的代码">代码重构——为了更好的代码。</a></li>
@@ -136,7 +128,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#思考">思考</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#架构篇一-cms的重构与演进">架构篇一: CMS的重构与演进</a><ul>
+<li><a href="#架构篇-cms的重构与演进">架构篇: CMS的重构与演进</a><ul>
 <li><a href="#动态cms">动态CMS</a><ul>
 <li><a href="#cms简介">CMS简介</a></li>
 <li><a href="#cms架构与django">CMS架构与Django</a></li>
@@ -144,9 +136,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#基于github的编辑-发布-开发分离">基于Github的编辑-发布-开发分离</a></li>
 <li><a href="#repractise-1">Repractise</a></li>
 </ul></li>
-</ul></li>
-<li><a href="#架构篇二构建基于git为数据中心的cms">架构篇二：构建基于Git为数据中心的CMS</a><ul>
-<li><a href="#简介">简介</a><ul>
+<li><a href="#构建基于git为数据中心的cms">构建基于Git为数据中心的CMS</a><ul>
 <li><a href="#用户场景">用户场景</a></li>
 </ul></li>
 <li><a href="#code-生成静态页面">Code: 生成静态页面</a></li>
@@ -174,21 +164,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#六边形架构">六边形架构</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#消息中间件">消息中间件</a><ul>
-<li><a href="#cron-job">Cron Job</a></li>
+<li><a href="#消息队列">消息队列</a><ul>
 <li><a href="#jms">JMS</a></li>
 <li><a href="#mq">MQ</a></li>
-</ul></li>
-<li><a href="#易读">易读</a><ul>
-<li><a href="#简介-1">简介</a><ul>
-<li><a href="#无关的编程经验">无关的编程经验</a></li>
-<li><a href="#代码整洁">代码整洁</a></li>
-<li><a href="#别人的代码很烂">别人的代码很烂?</a></li>
-</ul></li>
-<li><a href="#变量名">变量名</a></li>
-<li><a href="#函数名">函数名</a></li>
-<li><a href="#小函数">小函数</a></li>
-<li><a href="#测试">测试</a></li>
 </ul></li>
 <li><a href="#模式篇设计与架构">模式篇：设计与架构</a><ul>
 <li><a href="#观察者模式">观察者模式</a><ul>
@@ -211,6 +189,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#pipe-and-filter模式实战">Pipe and Filter模式实战</a></li>
 </ul></li>
 <li><a href="#其他-2">其他</a></li>
+</ul></li>
+<li><a href="#数据模型与领域">数据模型与领域</a><ul>
+<li><a href="#数据">数据</a><ul>
+<li><a href="#数据库">数据库</a></li>
+<li><a href="#数据模型">数据模型</a></li>
+</ul></li>
+<li><a href="#领域">领域</a><ul>
+<li><a href="#ddd">DDD</a></li>
+<li><a href="#dsl">DSL</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#运维">运维</a><ul>
+<li><a href="#缓存">缓存</a></li>
+<li><a href="#自动部署">自动部署</a></li>
 </ul></li>
 <li><a href="#构建篇build">构建篇：Build</a><ul>
 <li><a href="#rake简介">Rake简介</a><ul>
@@ -272,8 +264,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#第一天新的环境">第一天：新的环境</a></li>
 <li><a href="#实习两周我所理解的敏捷开发">实习两周：我所理解的敏捷开发</a></li>
 <li><a href="#实习第三周结对编程与软件工程">实习第三周：结对编程与软件工程</a></li>
-<li><a href="#实习记重构与intellij-idea初探">实习记：重构与Intellij Idea初探</a></li>
 </ul></li>
+</ul></li>
+<li><a href="#g工作">g###工作</a><ul>
+<li><a href="#实习记重构与intellij-idea初探">实习记：重构与Intellij Idea初探</a></li>
 <li><a href="#结束-不是开始的开始">结束: 不是开始的开始</a><ul>
 <li><a href="#简历x技能">简历x?=技能</a></li>
 <li><a href="#内容x成长实习记">内容x成长=实习记</a></li>
@@ -731,146 +725,6 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>最后，Keep Learning。我们总需要在适当的时候做出改变，尽管我们觉得一个Web应用代码库中含桌面版和移动版代码会很不错，但是在那个时候需要做出改变。</p>
 <p>对于复杂的应用来说，其架构肯定不是只有纯MVP或者纯MVVM这么简单的。如果一个应用混合了MVVM、MVP和MVC，那么他也变成了MVC——因为他直接访问了Model层。但是如果细分来看，只有访问了Model层的那一部分才是MVC模式。</p>
 <p>模式，是人们对于某个解决方案的描述。在一段代码中可能有各种各样的设计模式，更何况是架构。</p>
-<h1 id="数据-表现-领域">数据-表现-领域</h1>
-<p>无论是MVC、MVP或者MVVP，都离不开这些基本的要素：数据、表现、领域。</p>
-<h2 id="数据">数据</h2>
-<p>信息源于数据，我们在网站上看到的内容都应该是属于信息的范畴。这些信息是应用从数据库中根据业务需求查找、过滤出来的数据。</p>
-<p>数据通常以文件的形式存储，毕竟文件是存储信息的基本单位。只是由于业务本身对于Create、Update、Query、Index等有不同的组合需求就引发了不同的数据存储软件。</p>
-<p>如上章所说，View层直接从Model层取数据，无遗也会暴露数据的模型。作为一个前端开发人员，我们对数据的操作有三种类型：</p>
-<ol type="1">
-<li>数据库。由于Node.js在最近几年里发展迅猛，越来越多的开发者选择使用Node.js作为后台语言。这与传统的Model层并无多大不同，要么直接操作数据库，要么间接操作数据库。即使在NoSQL数据库中也是如此。</li>
-<li>搜索引擎。对于以查询为主的领域来说，搜索引擎是一个更好的选择，而搜索引擎又不好直接向View层暴露接口。这和招聘信息一样，都在暴露公司的技术栈。</li>
-<li>RESTful。RESTful相当于是CRUD的衍生，只是传输介质变了。</li>
-<li>LocalStorage。LocalStorage算是另外一种方式的CRUD。</li>
-</ol>
-<p>说了这么多都是废话，他们都是可以用类CRUD的方式操作。</p>
-<h3 id="数据库">数据库</h3>
-<p>数据库里存储着大量的数据，在我们对系统建模的时候，也在决定系统的基础模型。</p>
-<p>在传统SQL数据库中，我们可能会依赖于ORM，也可能会自己写SQL。在那之间，我们需要先定义Model，如下是Node.js的ORM框架Sequelize的一个示例：</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> User <span class="op">=</span> <span class="va">sequelize</span>.<span class="at">define</span>(<span class="st">&#39;user&#39;</span><span class="op">,</span> <span class="op">{</span>
-  <span class="dt">firstName</span><span class="op">:</span> <span class="op">{</span>
-    <span class="dt">type</span><span class="op">:</span> <span class="va">Sequelize</span>.<span class="at">STRING</span><span class="op">,</span>
-    <span class="dt">field</span><span class="op">:</span> <span class="st">&#39;first_name&#39;</span> <span class="co">// Will result in an attribute that is firstName when user facing but first_name in the database</span>
-  <span class="op">},</span>
-  <span class="dt">lastName</span><span class="op">:</span> <span class="op">{</span>
-    <span class="dt">type</span><span class="op">:</span> <span class="va">Sequelize</span>.<span class="at">STRING</span>
-  <span class="op">}</span>
-<span class="op">},</span> <span class="op">{</span>
-  <span class="dt">freezeTableName</span><span class="op">:</span> <span class="kw">true</span> <span class="co">// Model tableName will be the same as the model name</span>
-<span class="op">}</span>)<span class="op">;</span>
-
-<span class="va">User</span>.<span class="at">sync</span>(<span class="op">{</span><span class="dt">force</span><span class="op">:</span> <span class="kw">true</span><span class="op">}</span>).<span class="at">then</span>(<span class="kw">function</span> () <span class="op">{</span>
-  <span class="co">// Table created</span>
-  <span class="cf">return</span> <span class="va">User</span>.<span class="at">create</span>(<span class="op">{</span>
-    <span class="dt">firstName</span><span class="op">:</span> <span class="st">&#39;John&#39;</span><span class="op">,</span>
-    <span class="dt">lastName</span><span class="op">:</span> <span class="st">&#39;Hancock&#39;</span>
-  <span class="op">}</span>)<span class="op">;</span>
-<span class="op">}</span>)<span class="op">;</span></code></pre></div>
-<p>像如MongoDB这类的数据库，也是存在数据模型，但说的却是嵌入子文档。在业务量大的情况下，数据库在考验公司的技术能力，想想便觉得Amazon RDS挺好的。</p>
-<p>如果是</p>
-<h3 id="模型">模型</h3>
-<h2 id="表现">表现</h2>
-<h3 id="分离">分离</h3>
-<h2 id="领域">领域</h2>
-<h3 id="ddd">DDD</h3>
-<h3 id="dsl">DSL</h3>
-<p>DSL(domain-specific languages)即领域特定语言，唯一能够确定DSL边界的方法是考虑“一门语言的一种特定用法”和“该语言的设计者或使用者的意图。在试图设计一个DSL的时候，发现了一些有意思的简单的示例。</p>
-<h4 id="jquery-最流行的dsl">jQuery 最流行的DSL</h4>
-<p>jQuery是一个Internal DSL的典型的例子。它是在一门现成语言内实现针对领域问题的描述。</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">$</span>(<span class="st">&#39;.mydiv&#39;</span>).<span class="at">addClass</span>(<span class="st">&#39;flash&#39;</span>).<span class="at">draggable</span>().<span class="at">css</span>(<span class="st">&#39;color&#39;</span><span class="op">,</span> <span class="st">&#39;blue&#39;</span>)</code></pre></div>
-<p>这也就是其最出名的<strong>链式方法调用</strong>。</p>
-<h4 id="cucumber.js">Cucumber.js</h4>
-<p>Cucumber, the popular Behaviour-Driven Development tool, brought to your JavaScript stack。它是使用通用语言描述该领域的问题。</p>
-<pre class="cucumber"><code>Feature: Example feature
-  As a user of cucumber.js
-  I want to have documentation on cucumber
-  So that I can concentrate on building awesome applications
-
-  Scenario: Reading documentation
-    Given I am on the Cucumber.js GitHub repository
-    When I go to the README file
-    Then I should see &quot;Usage&quot; as the page title</code></pre>
-<h4 id="coffeescript">CoffeeScript</h4>
-<p>发明一门全新的语言描述该领域的问题。</p>
-<div class="sourceCode"><pre class="sourceCode coffee"><code class="sourceCode coffee">math <span class="kw">=</span>
-  root<span class="kw">:</span>   <span class="ot">Math</span><span class="kw">.</span>sqrt
-  square<span class="kw">:</span> square
-  cube<span class="kw">:</span>   <span class="fu">(x) -&gt;</span> x <span class="kw">*</span> square x</code></pre></div>
-<h4 id="javascript-dsl-示例">JavaScript DSL 示例</h4>
-<p>所以由上面的结论我们可以知道的是，难度等级应该是</p>
-<p>内部DSL &lt; 外部DSL &lt; 语言工作台(这是怎么翻译的)</p>
-<p>接着在网上找到了一个高级一点的内部DSL示例，如果我们要做jQuery式的链式方法调用也是简单的，但是似乎没有足够的理由去说服其他人。</p>
-<p>原文在: <a href="http://alexyoung.org/2009/10/22/javascript-dsl/" class="uri">http://alexyoung.org/2009/10/22/javascript-dsl/</a>，相当于是一个微测试框架。</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> DSLRunner <span class="op">=</span> <span class="op">{</span>
-  <span class="dt">run</span><span class="op">:</span> <span class="kw">function</span>(methods) <span class="op">{</span>
-    <span class="kw">this</span>.<span class="at">ingredients</span> <span class="op">=</span> []<span class="op">;</span>
-    <span class="kw">this</span>.<span class="at">methods</span>     <span class="op">=</span> methods<span class="op">;</span>
-
-    <span class="kw">this</span>.<span class="at">executeAndRemove</span>(<span class="st">&#39;first&#39;</span>)<span class="op">;</span>
-
-    <span class="cf">for</span> (<span class="kw">var</span> key <span class="kw">in</span> <span class="kw">this</span>.<span class="at">methods</span>) <span class="op">{</span>
-      <span class="cf">if</span> (key <span class="op">!==</span> <span class="st">&#39;last&#39;</span> <span class="op">&amp;&amp;</span> <span class="va">key</span>.<span class="at">match</span>(<span class="ss">/</span><span class="sc">^</span><span class="ss">bake/</span>)) <span class="op">{</span>
-        <span class="kw">this</span>.<span class="at">executeAndRemove</span>(key)<span class="op">;</span>
-      <span class="op">}</span>
-    <span class="op">}</span>
-
-    <span class="kw">this</span>.<span class="at">executeAndRemove</span>(<span class="st">&#39;last&#39;</span>)<span class="op">;</span>
-  <span class="op">},</span>
-
-  <span class="dt">addIngredient</span><span class="op">:</span> <span class="kw">function</span>(ingredient) <span class="op">{</span>
-    <span class="kw">this</span>.<span class="va">ingredients</span>.<span class="at">push</span>(ingredient)<span class="op">;</span>
-  <span class="op">},</span>
-
-  <span class="dt">executeAndRemove</span><span class="op">:</span> <span class="kw">function</span>(methodName) <span class="op">{</span>
-    <span class="kw">var</span> output <span class="op">=</span> <span class="kw">this</span>.<span class="at">methods</span>[methodName]()<span class="op">;</span>
-    <span class="kw">delete</span>(<span class="kw">this</span>.<span class="at">methods</span>[methodName])<span class="op">;</span>
-    <span class="cf">return</span> output<span class="op">;</span>
-  <span class="op">}</span>
-<span class="op">};</span>
-
-<span class="va">DSLRunner</span>.<span class="at">run</span>(<span class="op">{</span>
-  <span class="dt">first</span><span class="op">:</span> <span class="kw">function</span>() <span class="op">{</span>
-    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;I happen first&quot;</span>)<span class="op">;</span>
-  <span class="op">},</span>
-
-  <span class="dt">bakeCake</span><span class="op">:</span> <span class="kw">function</span>() <span class="op">{</span>
-    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Commencing cake baking&quot;</span>)<span class="op">;</span>
-  <span class="op">},</span>
-
-  <span class="dt">bakeBread</span><span class="op">:</span> <span class="kw">function</span>() <span class="op">{</span>
-    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Baking bread&quot;</span>)<span class="op">;</span>
-  <span class="op">},</span>
-  <span class="dt">last</span><span class="op">:</span> <span class="kw">function</span>() <span class="op">{</span>
-    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;last&quot;</span>)<span class="op">;</span>
-  <span class="op">}</span>
-<span class="op">}</span>)<span class="op">;</span></code></pre></div>
-<p>这个想法，看上去就是定义了一些map，然后执行。</p>
-<p>接着，又看到了一个有意思的DSL，作者是在解决表单验证的问题<a href="http://byatool.com/ui/javascript-dsl-because-im-tired-of-writing-if-if-if/">《JavaScript DSL Because I’m Tired of Writing If.. If…If…》</a>：</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"> <span class="kw">var</span> rules <span class="op">=</span>
-    [<span class="st">&#39;Username&#39;</span><span class="op">,</span>
-      [<span class="st">&#39;is not empty&#39;</span><span class="op">,</span> <span class="st">&#39;Username is required.&#39;</span>]<span class="op">,</span>
-      [<span class="st">&#39;is not longer than&#39;</span><span class="op">,</span> <span class="dv">7</span><span class="op">,</span> <span class="st">&#39;Username is too long.&#39;</span>]]<span class="op">,</span>
-    [<span class="st">&#39;Name&#39;</span><span class="op">,</span>
-      [<span class="st">&#39;is not empty&#39;</span><span class="op">,</span> <span class="st">&#39;Name is required.&#39;</span>]]<span class="op">,</span>
-    [<span class="st">&#39;Password&#39;</span><span class="op">,</span>
-      [<span class="st">&#39;length is between&#39;</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="st">&#39;Password is not acceptable.&#39;</span>]]]<span class="op">;</span> </code></pre></div>
-<p>有一个map对应了上面的方法</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"> <span class="kw">var</span> methods <span class="op">=</span> [
-    [<span class="st">&#39;is not empty&#39;</span><span class="op">,</span> isNotEmpty]<span class="op">,</span>
-    [<span class="st">&#39;is not longer than&#39;</span><span class="op">,</span> isNotLongerThan]<span class="op">,</span>
-    [<span class="st">&#39;length is between&#39;</span><span class="op">,</span> isBetween]]<span class="op">;</span></code></pre></div>
-<p>原文只给了一部分代码</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> methodPair <span class="op">=</span> <span class="at">find</span>(methods<span class="op">,</span> <span class="kw">function</span>(method) <span class="op">{</span>
-    <span class="cf">return</span> <span class="at">car</span>(method) <span class="op">===</span> <span class="at">car</span>(innerRule)<span class="op">;</span>
-<span class="op">}</span>)<span class="op">;</span>
-
-<span class="kw">var</span> methodToUse <span class="op">=</span> <span class="at">peek</span>(methodPair)<span class="op">;</span>
-
-<span class="cf">return</span> <span class="kw">function</span>(obj) <span class="op">{</span>
-    <span class="kw">var</span> error <span class="op">=</span> <span class="at">peek</span>(innerRule)<span class="op">;</span>                           <span class="co">//error is the last index</span>
-    <span class="kw">var</span> values <span class="op">=</span> <span class="at">sink</span>(<span class="at">cdr</span>(innerRule))<span class="op">;</span>                     <span class="co">//get everything but the error  </span>
-    <span class="cf">return</span> <span class="at">methodToUse</span>(obj<span class="op">,</span> propertyName<span class="op">,</span> error<span class="op">,</span> values)<span class="op">;</span>  <span class="co">//construct the validation call</span>
-<span class="op">};</span></code></pre></div>
 <h1 id="后台与服务篇">后台与服务篇</h1>
 <p>尽管在最初我也想去写一篇文章来说说后台的发展史，后来想了想还是让我们把它划分成不同的几部分。以便于我们可以更好的说说这些内容，不过相信这是一个好的开始。</p>
 <h2 id="php最好的语言">PHP？最好的语言</h2>
@@ -992,9 +846,46 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <h3 id="参考">参考</h3>
 <p><a href="http://highscalability.com/blog/2014/4/8/microservices-not-a-free-lunch.html">Microservices - Not A Free Lunch!</a></p>
 <p><a href="http://martinfowler.com/articles/microservices.html">Microservices</a></p>
-<h1 id="运维">运维</h1>
-<h2 id="缓存">缓存</h2>
-<h2 id="自动部署">自动部署</h2>
+<h1 id="易读">易读</h1>
+<h2 id="简介">简介</h2>
+<h3 id="无关的编程经验">无关的编程经验</h3>
+<blockquote>
+<p>只要我有更多时间，我就会写一封更短的信给你。</p>
+</blockquote>
+<p>从小学算起我的编程年限应该也有十几年了吧，笑~~。只是我过去的多年编程经验对于我现在的工作来说，是多年的无关经验(详见《REWORK》——多年的无关经验)。</p>
+<p>高中的时候学习了点游戏编程，也因此学了点C++的皮毛，除了学会面向对象，其他都忘光了。随后在学习Linux内核，当时代码里就各种struct。比起之前学过的Logo和QBASIC简直是特别大的进步，然当时觉得struct与面向对象两者间没啥太大区别。在那个年少的时候，便天真的以为程序语言间的区别不是很大。</p>
+<p>大学的时候主要营业范围是各种硬件，也没有发现写出好的代码是特别重要的一件事。也试了试Lisp，尝试过设计模式，然后失败了，GoF写DP的时候一定花了特别长的时间，所以这本书很短。期间出于生活压力(没有钱买硬件)，便开始兼职各种Web前端开发。</p>
+<p>在有了所谓的GNU/Linux系统编译经验、写过各种杂七杂八的硬件代码，如Ada、汇编，要保证代码工作是一件很简单的事，从某个项目中引入部分代码，再从某个Demo中引入更多的代码，东拼西凑一下就能工作了。</p>
+<p>多年的无关经验只让我写出能工作的代码——在别人看来就是很烂的代码。于是，虽然有着看上去很长的编程经验，但是却比不上实习的时候6个月学到的东西。</p>
+<p>只是因为，我们不知道: 我们不知道。</p>
+<h3 id="代码整洁">代码整洁</h3>
+<p>过去，我有过在不同的场合吐槽别人的代码写得烂。而我写的仅仅是比别人好一点而已——而不是好很多。</p>
+<p>然而这是一件很难的事，人们对于同一件事物未来的考虑都是不一样的。同样的代码在相同的情景下，不同的人会有不同的设计模式。同样的代码在不同的情景下，同样的人会有不同的设计模式。在这里，我们没有办法讨论设计模式，也不需要讨论。</p>
+<p>我们所需要做的是，确保我们的代码易读、易测试，看上去这样就够了，然而这也是挺复杂的一件事:</p>
+<ol type="1">
+<li>确保我们的变量名、函数名是易读的</li>
+<li>没有复杂的逻辑判断</li>
+<li>没有多层嵌套</li>
+<li>减少复杂函数的出现</li>
+</ol>
+<p>然后，你要去测试它。这样你就知道需要什么，实际上要做到这些也不是一些难事。</p>
+<p>只是首先，我们要知道我们要自己需要这些。</p>
+<h3 id="别人的代码很烂">别人的代码很烂?</h3>
+<p>什么是很烂的代码? 应该会有几种境界吧。</p>
+<ol type="1">
+<li>不能工作，不能读懂</li>
+<li>不能工作，能读懂</li>
+<li>能工作，很难读懂</li>
+<li>能工作，能读懂，但是没有意图</li>
+<li>能工作，能理解意图，但是读不懂</li>
+</ol>
+<p>如果我们能读懂，能理解意图，那么我们还说他烂，可能是因为他并不整洁。这就回到了上面的问题，模式是一种因人而异的东西。</p>
+<p>我们在做Code Review的时候，总会尝试问对方说： “这样做的意图是”。</p>
+<p>对于代码来说也是如此，如果我们能理解意图的话，那么我们要理解代码相对也比较容易。如果对方是没有意图，那么代码是没救的。</p>
+<h2 id="变量名">变量名</h2>
+<h2 id="函数名">函数名</h2>
+<h2 id="小函数">小函数</h2>
+<h2 id="测试">测试</h2>
 <h1 id="重构篇">重构篇</h1>
 <p>什么是重构?</p>
 <blockquote>
@@ -1006,7 +897,6 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 </blockquote>
 <h2 id="网站重构">网站重构</h2>
 <p>与上述相似的是:在不改变外部行为的前提下，简化结构、添加可读性，而在网站前端保持一致的行为。也就是说是在不改变UI的情况下，对网站进行优化，在扩展的同时保持一致的UI。</p>
-<h3 id="基础网站重构">基础网站重构</h3>
 <p>过去人们所说的<code>网站重构</code></p>
 <blockquote>
 <p>把“未采用CSS，大量使用HTML进行定位、布局，或者虽然已经采用CSS，但是未遵循HTML结构化标准的站点”变成“让标记回归标记的原本意义。通过在HTML文档中使用结构化的标记以及用CSS控制页面表现，使页面的实际内容与它们呈现的格式相分离的站点。”的过程就是网站重构(Website Reconstruction)</p>
@@ -1018,7 +908,6 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <li>对于移动平台的优化</li>
 <li>针对于SEO进行优化</li>
 </ul>
-<h3 id="高级网站重构">高级网站重构</h3>
 <p>过去的网站重构就是“DIV+CSS”，想法固然极度局限。但也不是另一部分的人认为是“XHTML+CSS”，因为“XHTML+CSS”只是页面重构。</p>
 <p>而真正的网站重构</p>
 <blockquote>
@@ -1531,7 +1420,7 @@ req.end();</code></pre>
 <p>通常在我的理解下，TDD是可有可无的。既然我知道了我要实现的大部分功能，而且我也知道如何实现。与此同时，对Code Smell也保持着警惕、要保证功能被测试覆盖。那么，总的来说TDD带来的价值并不大。</p>
 <p>然而，在当前这种情况下，我知道我想要的功能，但是我并不理解其深层次的功能。我需要花费大量的时候来理解，它为什么是这样的，需要先有一些脚本来知道它是怎么工作的。TDD变显得很有价值，换句话来说，在现有的情况下，TDD对于我们不了解的一些事情，可以驱动出更多的开发。毕竟在我们完成测试脚本之后，我们也会发现这些测试脚本成为了代码的一部分。</p>
 <p>在这种理想的情况下，我们为什么不TDD呢?</p>
-<h1 id="架构篇一-cms的重构与演进">架构篇一: CMS的重构与演进</h1>
+<h1 id="架构篇-cms的重构与演进">架构篇: CMS的重构与演进</h1>
 <p>重构系统是一项非常具有挑战性的事情。通常来说，在我们的系统是第二个系统的时候才需要重构，即这个系统本身已经很臃肿。我们花费了太量的时间在代码间的逻辑，开发新的功能变得越来越慢。这不仅仅可能只是因为我们之前的架构没有设计好，而且在我们开发的过程中没有保持着原先设计时的一些原则。如果是这样的情况，那么这就是一个复杂的过程。</p>
 <p>还有一种情况是我们发现了一种更符合我们当前业务的框架。</p>
 <h2 id="动态cms">动态CMS</h2>
@@ -1680,8 +1569,7 @@ req.end();</code></pre>
 <li><a href="https://www.thoughtworks.com/insights/blog/incremental-approach-content-management-using-git">An Incremental Approach to Content Management Using Git 1</a></li>
 <li><a href="https://www.thoughtworks.com/insights/blog/implementing-content-management-and-publication-using-git">Part 2: Implementing Content Management and Publication Using Git</a></li>
 </ol>
-<h1 id="架构篇二构建基于git为数据中心的cms">架构篇二：构建基于Git为数据中心的CMS</h1>
-<h2 id="简介">简介</h2>
+<h2 id="构建基于git为数据中心的cms">构建基于Git为数据中心的CMS</h2>
 <p>或许你也用过Hexo / Jekyll / Octopress这样的静态博客，他们的原理都是类似的。我们有一个代码库用于生成静态页面，然后这些静态页面会被PUSH到Github Pages上。</p>
 <p>从我们设计系统的角度来说，我们会在Github上有三个主要代码库：</p>
 <ol type="1">
@@ -2162,50 +2050,13 @@ git push -q upstream HEAD:gh-pages</code></pre>
 <p>上图的模型可以让我们脱离具体的框架与实现，关注于业务上逻辑。</p>
 <h3 id="分层架构">分层架构</h3>
 <h3 id="六边形架构">六边形架构</h3>
-<h1 id="消息中间件">消息中间件</h1>
-<h2 id="cron-job">Cron Job</h2>
+<h1 id="消息队列">消息队列</h1>
+<blockquote>
+<p>“消息”是在两台计算机间传送的数据单位。消息可以非常简单，例如只包含文本字符串；也可以更复杂，可能包含嵌入对象。</p>
+</blockquote>
+<p>在复杂的系统里，人们使用消息队列不仅是为了解决跨系统的异步通信，也是为了系统间的耦合。</p>
 <h2 id="jms">JMS</h2>
 <h2 id="mq">MQ</h2>
-<h1 id="易读">易读</h1>
-<h2 id="简介-1">简介</h2>
-<h3 id="无关的编程经验">无关的编程经验</h3>
-<blockquote>
-<p>只要我有更多时间，我就会写一封更短的信给你。</p>
-</blockquote>
-<p>从小学算起我的编程年限应该也有十几年了吧，笑~~。只是我过去的多年编程经验对于我现在的工作来说，是多年的无关经验(详见《REWORK》——多年的无关经验)。</p>
-<p>高中的时候学习了点游戏编程，也因此学了点C++的皮毛，除了学会面向对象，其他都忘光了。随后在学习Linux内核，当时代码里就各种struct。比起之前学过的Logo和QBASIC简直是特别大的进步，然当时觉得struct与面向对象两者间没啥太大区别。在那个年少的时候，便天真的以为程序语言间的区别不是很大。</p>
-<p>大学的时候主要营业范围是各种硬件，也没有发现写出好的代码是特别重要的一件事。也试了试Lisp，尝试过设计模式，然后失败了，GoF写DP的时候一定花了特别长的时间，所以这本书很短。期间出于生活压力(没有钱买硬件)，便开始兼职各种Web前端开发。</p>
-<p>在有了所谓的GNU/Linux系统编译经验、写过各种杂七杂八的硬件代码，如Ada、汇编，要保证代码工作是一件很简单的事，从某个项目中引入部分代码，再从某个Demo中引入更多的代码，东拼西凑一下就能工作了。</p>
-<p>多年的无关经验只让我写出能工作的代码——在别人看来就是很烂的代码。于是，虽然有着看上去很长的编程经验，但是却比不上实习的时候6个月学到的东西。</p>
-<p>只是因为，我们不知道: 我们不知道。</p>
-<h3 id="代码整洁">代码整洁</h3>
-<p>过去，我有过在不同的场合吐槽别人的代码写得烂。而我写的仅仅是比别人好一点而已——而不是好很多。</p>
-<p>然而这是一件很难的事，人们对于同一件事物未来的考虑都是不一样的。同样的代码在相同的情景下，不同的人会有不同的设计模式。同样的代码在不同的情景下，同样的人会有不同的设计模式。在这里，我们没有办法讨论设计模式，也不需要讨论。</p>
-<p>我们所需要做的是，确保我们的代码易读、易测试，看上去这样就够了，然而这也是挺复杂的一件事:</p>
-<ol type="1">
-<li>确保我们的变量名、函数名是易读的</li>
-<li>没有复杂的逻辑判断</li>
-<li>没有多层嵌套</li>
-<li>减少复杂函数的出现</li>
-</ol>
-<p>然后，你要去测试它。这样你就知道需要什么，实际上要做到这些也不是一些难事。</p>
-<p>只是首先，我们要知道我们要自己需要这些。</p>
-<h3 id="别人的代码很烂">别人的代码很烂?</h3>
-<p>什么是很烂的代码? 应该会有几种境界吧。</p>
-<ol type="1">
-<li>不能工作，不能读懂</li>
-<li>不能工作，能读懂</li>
-<li>能工作，很难读懂</li>
-<li>能工作，能读懂，但是没有意图</li>
-<li>能工作，能理解意图，但是读不懂</li>
-</ol>
-<p>如果我们能读懂，能理解意图，那么我们还说他烂，可能是因为他并不整洁。这就回到了上面的问题，模式是一种因人而异的东西。</p>
-<p>我们在做Code Review的时候，总会尝试问对方说： “这样做的意图是”。</p>
-<p>对于代码来说也是如此，如果我们能理解意图的话，那么我们要理解代码相对也比较容易。如果对方是没有意图，那么代码是没救的。</p>
-<h2 id="变量名">变量名</h2>
-<h2 id="函数名">函数名</h2>
-<h2 id="小函数">小函数</h2>
-<h2 id="测试">测试</h2>
 <h1 id="模式篇设计与架构">模式篇：设计与架构</h1>
 <p>设计模式算是在面向对象中比较有趣的东西，特别是对于像我，这样的用得不是很多的。虽然有时候也会用上，但是并不知道用的是怎样的模式。之前学习了一段时间的设计模式，实际上也就是将平常经常用到的一些东西进行了总结，如此而已。学习设计模式的另外一个重要的意义在于，我们使用了设计模式的时候我们会知道自己使用了，并且还会知道用了是怎样的设计模式。</p>
 <p>至于设计模式这个东西和有些东西一样，是发现的而不是发明的，换句话说，我们可以将经常合到一起的几种模式用一个新的模式来命名，它是复合模式，但是也可以用别的模式来命名。</p>
@@ -2606,6 +2457,148 @@ D = ORDER C BY timestamp,count desc;</code></pre>
 <li>《 面向模式的软件架构:模式系统》</li>
 <li>《Java应用架构设计》</li>
 </ul>
+<h1 id="数据模型与领域">数据模型与领域</h1>
+<p>无论是MVC、MVP或者MVVP，都离不开这些基本的要素：数据、表现、领域。</p>
+<h2 id="数据">数据</h2>
+<p>信息源于数据，我们在网站上看到的内容都应该是属于信息的范畴。这些信息是应用从数据库中根据业务需求查找、过滤出来的数据。</p>
+<p>数据通常以文件的形式存储，毕竟文件是存储信息的基本单位。只是由于业务本身对于Create、Update、Query、Index等有不同的组合需求就引发了不同的数据存储软件。</p>
+<p>如上章所说，View层直接从Model层取数据，无遗也会暴露数据的模型。作为一个前端开发人员，我们对数据的操作有三种类型：</p>
+<ol type="1">
+<li>数据库。由于Node.js在最近几年里发展迅猛，越来越多的开发者选择使用Node.js作为后台语言。这与传统的Model层并无多大不同，要么直接操作数据库，要么间接操作数据库。即使在NoSQL数据库中也是如此。</li>
+<li>搜索引擎。对于以查询为主的领域来说，搜索引擎是一个更好的选择，而搜索引擎又不好直接向View层暴露接口。这和招聘信息一样，都在暴露公司的技术栈。</li>
+<li>RESTful。RESTful相当于是CRUD的衍生，只是传输介质变了。</li>
+<li>LocalStorage。LocalStorage算是另外一种方式的CRUD。</li>
+</ol>
+<p>说了这么多都是废话，他们都是可以用类CRUD的方式操作。</p>
+<h3 id="数据库">数据库</h3>
+<p>数据库里存储着大量的数据，在我们对系统建模的时候，也在决定系统的基础模型。</p>
+<p>在传统SQL数据库中，我们可能会依赖于ORM，也可能会自己写SQL。在那之间，我们需要先定义Model，如下是Node.js的ORM框架Sequelize的一个示例：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> User <span class="op">=</span> <span class="va">sequelize</span>.<span class="at">define</span>(<span class="st">&#39;user&#39;</span><span class="op">,</span> <span class="op">{</span>
+  <span class="dt">firstName</span><span class="op">:</span> <span class="op">{</span>
+    <span class="dt">type</span><span class="op">:</span> <span class="va">Sequelize</span>.<span class="at">STRING</span><span class="op">,</span>
+    <span class="dt">field</span><span class="op">:</span> <span class="st">&#39;first_name&#39;</span> <span class="co">// Will result in an attribute that is firstName when user facing but first_name in the database</span>
+  <span class="op">},</span>
+  <span class="dt">lastName</span><span class="op">:</span> <span class="op">{</span>
+    <span class="dt">type</span><span class="op">:</span> <span class="va">Sequelize</span>.<span class="at">STRING</span>
+  <span class="op">}</span>
+<span class="op">},</span> <span class="op">{</span>
+  <span class="dt">freezeTableName</span><span class="op">:</span> <span class="kw">true</span> <span class="co">// Model tableName will be the same as the model name</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="va">User</span>.<span class="at">sync</span>(<span class="op">{</span><span class="dt">force</span><span class="op">:</span> <span class="kw">true</span><span class="op">}</span>).<span class="at">then</span>(<span class="kw">function</span> () <span class="op">{</span>
+  <span class="co">// Table created</span>
+  <span class="cf">return</span> <span class="va">User</span>.<span class="at">create</span>(<span class="op">{</span>
+    <span class="dt">firstName</span><span class="op">:</span> <span class="st">&#39;John&#39;</span><span class="op">,</span>
+    <span class="dt">lastName</span><span class="op">:</span> <span class="st">&#39;Hancock&#39;</span>
+  <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>像如MongoDB这类的数据库，也是存在数据模型，但说的却是嵌入子文档。在业务量大的情况下，数据库在考验公司的技术能力，想想便觉得Amazon RDS挺好的。</p>
+<p>如果是</p>
+<h3 id="数据模型">数据模型</h3>
+<h2 id="领域">领域</h2>
+<h3 id="ddd">DDD</h3>
+<p>值对象</p>
+<h3 id="dsl">DSL</h3>
+<p>DSL(domain-specific languages)即领域特定语言，唯一能够确定DSL边界的方法是考虑“一门语言的一种特定用法”和“该语言的设计者或使用者的意图。在试图设计一个DSL的时候，发现了一些有意思的简单的示例。</p>
+<h4 id="jquery-最流行的dsl">jQuery 最流行的DSL</h4>
+<p>jQuery是一个Internal DSL的典型的例子。它是在一门现成语言内实现针对领域问题的描述。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">$</span>(<span class="st">&#39;.mydiv&#39;</span>).<span class="at">addClass</span>(<span class="st">&#39;flash&#39;</span>).<span class="at">draggable</span>().<span class="at">css</span>(<span class="st">&#39;color&#39;</span><span class="op">,</span> <span class="st">&#39;blue&#39;</span>)</code></pre></div>
+<p>这也就是其最出名的<strong>链式方法调用</strong>。</p>
+<h4 id="cucumber.js">Cucumber.js</h4>
+<p>Cucumber, the popular Behaviour-Driven Development tool, brought to your JavaScript stack。它是使用通用语言描述该领域的问题。</p>
+<pre class="cucumber"><code>Feature: Example feature
+  As a user of cucumber.js
+  I want to have documentation on cucumber
+  So that I can concentrate on building awesome applications
+
+  Scenario: Reading documentation
+    Given I am on the Cucumber.js GitHub repository
+    When I go to the README file
+    Then I should see &quot;Usage&quot; as the page title</code></pre>
+<h4 id="coffeescript">CoffeeScript</h4>
+<p>发明一门全新的语言描述该领域的问题。</p>
+<div class="sourceCode"><pre class="sourceCode coffee"><code class="sourceCode coffee">math <span class="kw">=</span>
+  root<span class="kw">:</span>   <span class="ot">Math</span><span class="kw">.</span>sqrt
+  square<span class="kw">:</span> square
+  cube<span class="kw">:</span>   <span class="fu">(x) -&gt;</span> x <span class="kw">*</span> square x</code></pre></div>
+<h4 id="javascript-dsl-示例">JavaScript DSL 示例</h4>
+<p>所以由上面的结论我们可以知道的是，难度等级应该是</p>
+<p>内部DSL &lt; 外部DSL &lt; 语言工作台(这是怎么翻译的)</p>
+<p>接着在网上找到了一个高级一点的内部DSL示例，如果我们要做jQuery式的链式方法调用也是简单的，但是似乎没有足够的理由去说服其他人。</p>
+<p>原文在: <a href="http://alexyoung.org/2009/10/22/javascript-dsl/" class="uri">http://alexyoung.org/2009/10/22/javascript-dsl/</a>，相当于是一个微测试框架。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> DSLRunner <span class="op">=</span> <span class="op">{</span>
+  <span class="dt">run</span><span class="op">:</span> <span class="kw">function</span>(methods) <span class="op">{</span>
+    <span class="kw">this</span>.<span class="at">ingredients</span> <span class="op">=</span> []<span class="op">;</span>
+    <span class="kw">this</span>.<span class="at">methods</span>     <span class="op">=</span> methods<span class="op">;</span>
+
+    <span class="kw">this</span>.<span class="at">executeAndRemove</span>(<span class="st">&#39;first&#39;</span>)<span class="op">;</span>
+
+    <span class="cf">for</span> (<span class="kw">var</span> key <span class="kw">in</span> <span class="kw">this</span>.<span class="at">methods</span>) <span class="op">{</span>
+      <span class="cf">if</span> (key <span class="op">!==</span> <span class="st">&#39;last&#39;</span> <span class="op">&amp;&amp;</span> <span class="va">key</span>.<span class="at">match</span>(<span class="ss">/</span><span class="sc">^</span><span class="ss">bake/</span>)) <span class="op">{</span>
+        <span class="kw">this</span>.<span class="at">executeAndRemove</span>(key)<span class="op">;</span>
+      <span class="op">}</span>
+    <span class="op">}</span>
+
+    <span class="kw">this</span>.<span class="at">executeAndRemove</span>(<span class="st">&#39;last&#39;</span>)<span class="op">;</span>
+  <span class="op">},</span>
+
+  <span class="dt">addIngredient</span><span class="op">:</span> <span class="kw">function</span>(ingredient) <span class="op">{</span>
+    <span class="kw">this</span>.<span class="va">ingredients</span>.<span class="at">push</span>(ingredient)<span class="op">;</span>
+  <span class="op">},</span>
+
+  <span class="dt">executeAndRemove</span><span class="op">:</span> <span class="kw">function</span>(methodName) <span class="op">{</span>
+    <span class="kw">var</span> output <span class="op">=</span> <span class="kw">this</span>.<span class="at">methods</span>[methodName]()<span class="op">;</span>
+    <span class="kw">delete</span>(<span class="kw">this</span>.<span class="at">methods</span>[methodName])<span class="op">;</span>
+    <span class="cf">return</span> output<span class="op">;</span>
+  <span class="op">}</span>
+<span class="op">};</span>
+
+<span class="va">DSLRunner</span>.<span class="at">run</span>(<span class="op">{</span>
+  <span class="dt">first</span><span class="op">:</span> <span class="kw">function</span>() <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;I happen first&quot;</span>)<span class="op">;</span>
+  <span class="op">},</span>
+
+  <span class="dt">bakeCake</span><span class="op">:</span> <span class="kw">function</span>() <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Commencing cake baking&quot;</span>)<span class="op">;</span>
+  <span class="op">},</span>
+
+  <span class="dt">bakeBread</span><span class="op">:</span> <span class="kw">function</span>() <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Baking bread&quot;</span>)<span class="op">;</span>
+  <span class="op">},</span>
+  <span class="dt">last</span><span class="op">:</span> <span class="kw">function</span>() <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;last&quot;</span>)<span class="op">;</span>
+  <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>这个想法，看上去就是定义了一些map，然后执行。</p>
+<p>接着，又看到了一个有意思的DSL，作者是在解决表单验证的问题<a href="http://byatool.com/ui/javascript-dsl-because-im-tired-of-writing-if-if-if/">《JavaScript DSL Because I’m Tired of Writing If.. If…If…》</a>：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"> <span class="kw">var</span> rules <span class="op">=</span>
+    [<span class="st">&#39;Username&#39;</span><span class="op">,</span>
+      [<span class="st">&#39;is not empty&#39;</span><span class="op">,</span> <span class="st">&#39;Username is required.&#39;</span>]<span class="op">,</span>
+      [<span class="st">&#39;is not longer than&#39;</span><span class="op">,</span> <span class="dv">7</span><span class="op">,</span> <span class="st">&#39;Username is too long.&#39;</span>]]<span class="op">,</span>
+    [<span class="st">&#39;Name&#39;</span><span class="op">,</span>
+      [<span class="st">&#39;is not empty&#39;</span><span class="op">,</span> <span class="st">&#39;Name is required.&#39;</span>]]<span class="op">,</span>
+    [<span class="st">&#39;Password&#39;</span><span class="op">,</span>
+      [<span class="st">&#39;length is between&#39;</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="st">&#39;Password is not acceptable.&#39;</span>]]]<span class="op">;</span> </code></pre></div>
+<p>有一个map对应了上面的方法</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"> <span class="kw">var</span> methods <span class="op">=</span> [
+    [<span class="st">&#39;is not empty&#39;</span><span class="op">,</span> isNotEmpty]<span class="op">,</span>
+    [<span class="st">&#39;is not longer than&#39;</span><span class="op">,</span> isNotLongerThan]<span class="op">,</span>
+    [<span class="st">&#39;length is between&#39;</span><span class="op">,</span> isBetween]]<span class="op">;</span></code></pre></div>
+<p>原文只给了一部分代码</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> methodPair <span class="op">=</span> <span class="at">find</span>(methods<span class="op">,</span> <span class="kw">function</span>(method) <span class="op">{</span>
+    <span class="cf">return</span> <span class="at">car</span>(method) <span class="op">===</span> <span class="at">car</span>(innerRule)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="kw">var</span> methodToUse <span class="op">=</span> <span class="at">peek</span>(methodPair)<span class="op">;</span>
+
+<span class="cf">return</span> <span class="kw">function</span>(obj) <span class="op">{</span>
+    <span class="kw">var</span> error <span class="op">=</span> <span class="at">peek</span>(innerRule)<span class="op">;</span>                           <span class="co">//error is the last index</span>
+    <span class="kw">var</span> values <span class="op">=</span> <span class="at">sink</span>(<span class="at">cdr</span>(innerRule))<span class="op">;</span>                     <span class="co">//get everything but the error  </span>
+    <span class="cf">return</span> <span class="at">methodToUse</span>(obj<span class="op">,</span> propertyName<span class="op">,</span> error<span class="op">,</span> values)<span class="op">;</span>  <span class="co">//construct the validation call</span>
+<span class="op">};</span></code></pre></div>
+<h1 id="运维">运维</h1>
+<h2 id="缓存">缓存</h2>
+<h2 id="自动部署">自动部署</h2>
 <h1 id="构建篇build">构建篇：Build</h1>
 <p>构建是一个很大的话题，特别是对于传统软件来说，对于Web应用也是相当重要的。</p>
 <p>在构建上，Ruby比Python会强大些。 Ruby用的是Rake，Python兴许是scons，如果是用于python的话可以用shovel，这个Python就没有和一个好的标准，</p>
@@ -3203,7 +3196,7 @@ end</code></pre>
 <p>对于软件开发算是一个新手，向来对于自己做的东西来说就是自己想加什么功能就加什么功能。不会去考虑测试，不知道怎么去合理的测试。一开始的时候不知道测试真正的用途是干什么，而且如果有那么多的时间去写测试还不如加一个新的功能来得简单。在自己熟悉的嵌入式领域，似乎要写测试也不太可能。</p>
 <p>测试在大的工程中是必需的， 之前在coding的时候一直会想，怎样才能快速定位修改过的函数的代码。软件工程算是一种方法，一些前人总结出来的东西总是很有用的。</p>
 <p>迭代有意思的一点在于，切换角色，似乎有一点在于可以保证每个人对产品代码都很熟悉。</p>
-<h4 id="工作">工作</h4>
+<h1 id="g工作">g###工作</h1>
 <p>在三周的时候里，从前端到后台有了一个大致的理解。刚开始由于做的是底层的东西，对于我来说不是前端都算是底层~~。这个算是自己薄弱的环节，在之前做的网站都是只做前台。前台对于我来说比较理想，可以和真实的用户接触，后台就这么地弱了下去。当我试着用PHP框架Laravel去搭建一个CMS的时候，我发现原来这个不是很难，相比处理浏览器的兼容性来说。</p>
 <p>更多的还需要慢慢去思考，不过感觉一开始将精力放置于具体的问题有点没必要。</p>
 <h3 id="实习记重构与intellij-idea初探">实习记：重构与Intellij Idea初探</h3>
