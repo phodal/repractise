@@ -2,8 +2,6 @@
 
 尽管在最初我也想去写一篇文章来说说后台的发展史，后来想了想还是让我们把它划分成不同的几部分。以便于我们可以更好的说说这些内容，不过相信这是一个好的开始。
 
-##PHP？最好的语言
-
 ##RESTful与服务化
 
 ###设计RESTful API
@@ -55,8 +53,6 @@ DELETE      | Delete Resource
 
 如果读过《操作系统原理》及其相关书籍的人应该很了解这些，对就的我们就可以一目了然地解决我们当前是的微服务的问题。
 
-###微服务
-
 文章的来源是James Lewis与Martin Fowler写的[Microservices](http://martinfowler.com/articles/microservices.html)。对就于上面的
 
  - monolithic kernel
@@ -80,8 +76,6 @@ DELETE      | Delete Resource
 而关于微服务的提出是早在2011年的5月份
 
 > The term "microservice" was discussed at a workshop of software architects near Venice in May, 2011 to describe what the participants saw as a common architectural style that many of them had been recently exploring.
-
-###微服务思考
 
 简单地与微内核作一些对比。微内核，**微内核部分经常只但是是个消息转发站**，而微服务从某种意义上也是如此，他们都有着下面的优点。
 
@@ -109,17 +103,22 @@ DELETE      | Delete Resource
 
 因而不得不再后面补充一些所知的额外的东西。
 
-###微服务与持续集成
-
 针对于同样的话题，开始了解其中的一些问题。当敏捷的思想贯穿于开发过程时，我们不得不面对持续集成与发布这样的问题。我们确实可以在不同的服务下工作，然而当我们需要修改API时，就对我们的集成带来很多的问题。我们需要同时修改两个API！我们也需要同时部署他们！
 
-####微服务与测试
+##混合服务
 
-相比较的来说，这也是另外的一个挑战。测试对于项目开发来说是不可缺少的，而当我们的服务一个个隔离的时候，我们的测试不得不去mock一个又一个的服务。在有些时候修复这些测试可能比添加这个功能花费的时间还多。
 
-不过他更适合那些喜欢不同技术栈的程序员。
 
-###参考
+
+
+
+
+
+
+
+
+参考
+
 [Microservices - Not A Free Lunch!](http://highscalability.com/blog/2014/4/8/microservices-not-a-free-lunch.html)
 
 [Microservices](http://martinfowler.com/articles/microservices.html)

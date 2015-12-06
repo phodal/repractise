@@ -61,6 +61,8 @@ User.sync({force: true}).then(function () {
 
 DSL(domain-specific languages)即领域特定语言，唯一能够确定DSL边界的方法是考虑“一门语言的一种特定用法”和“该语言的设计者或使用者的意图。在试图设计一个DSL的时候，发现了一些有意思的简单的示例。
 
+###DSL示例
+
 ####jQuery 最流行的DSL
 
 jQuery是一个Internal DSL的典型的例子。它是在一门现成语言内实现针对领域问题的描述。
