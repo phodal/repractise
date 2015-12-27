@@ -89,6 +89,6 @@ Shit!
 现在，我们又回到了第一天了。
 
 
-(ps:临时广告区，欢迎关注我的微信公众号——首发哦！)
+(ps:临时广告区，欢迎关注我的微信公众号——首发哦！搜索：phodal，或者扫描下面的二维码)
 
 ![Phodal 微信公众号](https://raw.githubusercontent.com/phodal/github-roam/gh-pages/img/qrcode.jpg)
