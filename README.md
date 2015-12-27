@@ -8,6 +8,10 @@
 
 不同的人对于练习会有不同的方法，有的练习是没有必要的，它并不会增长我们的技术点；有的练习则会将一万小时缩短为一半，或者更短。
 
+(ps:临时广告区，欢迎关注我的微信公众号——首发哦！搜索：phodal，或者扫描下面的二维码)
+
+![Phodal 微信公众号](https://raw.githubusercontent.com/phodal/github-roam/gh-pages/img/qrcode.jpg)
+
 目录
 ---------
 
