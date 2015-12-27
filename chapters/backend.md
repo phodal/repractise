@@ -155,7 +155,7 @@ Django的每个App就代表着程序的一个功能。每个App有自己的model
 
 一个典型的微服务如下所示:
 
-![microservices architecture](http://repractise.phodal.com/img/backend/microservice_a.jpg)
+![microservices architecture](http://repractise.phodal.com/img/backend/microservices_a.jpg)
 
 有不同的技术栈python、spring、scala，但是他们看上去和Django应用的图差不多，除了数据库不一样。
 
