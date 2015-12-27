@@ -114,7 +114,7 @@ DELETE      | Delete Resource
 Django 应用架构
 Django MVC结构如下如示:
 
-[Django MVC](http://repractise.phodal.com/img/backend/django-mvc.png)
+![Django MVC](http://repractise.phodal.com/img/backend/django-mvc.png)
 
 然后，记住这张图，忘记上面的MVC，Django实际上是一个MTV
 
@@ -126,7 +126,7 @@ Django MVC结构如下如示:
 
 然而对于一个Django的应用来说，他的架构如下所示:
 
-[Django apps architecture](http://repractise.phodal.com/img/backend/django-app.jpg)
+![Django apps architecture](http://repractise.phodal.com/img/backend/django-app.jpg)
 
 Django的每个App就代表着程序的一个功能。每个App有自己的models、views、urls、templates所以对于一个app来说他的结构如下:
 
@@ -155,14 +155,14 @@ Django的每个App就代表着程序的一个功能。每个App有自己的model
 
 一个典型的微服务如下所示:
 
-[microservices architecture](http://repractise.phodal.com/img/backend/microservice_a.jpg)
+![microservices architecture](http://repractise.phodal.com/img/backend/microservice_a.jpg)
 
 有不同的技术栈python、spring、scala，但是他们看上去和Django应用的图差不多，除了数据库不一样。
 
 
 与其将复杂的测试、逻辑部分变得不可测，不如把这些部分放置于系统内部。
 
-[Linux OS Hybrid](http://repractise.phodal.com/img/backend/linux_os.jpg)
+![Linux OS Hybrid](http://repractise.phodal.com/img/backend/linux_os.jpg)
 
 当我们在我们的服务器上部署微服务的时候，也就意味着实现所以的服务都是在我们系统的内部，我们有一个Kernel以及他们的Kernel Moduels，即微服务群们。他们调用DB，或者某些第三方服务。
 
