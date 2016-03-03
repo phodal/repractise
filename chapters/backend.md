@@ -114,7 +114,7 @@ DELETE      | Delete Resource
 Django 应用架构
 Django MVC结构如下如示:
 
-![Django MVC](http://repractise.phodal.com/img/backend/django-mvc.png)
+![Django MVC](http://repractise.phodal.com/img/backend/django_mvc.png)
 
 然后，记住这张图，忘记上面的MVC，Django实际上是一个MTV
 

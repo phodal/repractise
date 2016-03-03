@@ -1,3 +1,6 @@
+写作
+===
+
 每天有大把的时间刷GitHub，写博客。从我大二的时候，大概六年前开始写技术博客，到现在已经有540+了，大概每年会写一百篇左右。
 
 流量来源
@@ -185,4 +188,3 @@ end
 
 欢迎关注我的微信公众号：
 
-![https://www.phodal.com/static/phodal/images/qrcode.jpg](https://www.phodal.com/static/phodal/images/qrcode.jpg)
