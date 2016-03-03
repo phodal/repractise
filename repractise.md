@@ -505,11 +505,11 @@ define([
 
 在我们需要学习C语言的时候，GCC就有了这样的跨平台编译。
 
-在我们开发桌面应用的时候，QT有就这样的跨平台能力。
+在我们开发桌面应用的时候，QT就有了这样的跨平台能力。
 
-在我们构建Web应用的时候，Java有这样的跨平台能力。
+在我们构建Web应用的时候，Java就有了这样的跨平台能力。
 
-在我们需要开发跨平台应用的时候，Cordova有这样的跨平台能力。
+在我们需要开发跨平台应用的时候，Cordova就有了这样的跨平台能力。
 
 现在，React这样的跨平台框架又出现了，而响应式设计也是跨平台式的设计。
 
@@ -646,16 +646,74 @@ DELETE      | Delete Resource
 
 针对于同样的话题，开始了解其中的一些问题。当敏捷的思想贯穿于开发过程时，我们不得不面对持续集成与发布这样的问题。我们确实可以在不同的服务下工作，然而当我们需要修改API时，就对我们的集成带来很多的问题。我们需要同时修改两个API！我们也需要同时部署他们！
 
-##混合服务
+##混合微服务
+
+在设计所谓的"Next-Generation CMS"，即Echoes CMS的时候，对于我这种懒得自己写Django App的人来说，通过我会去复制别人的代码，于是我继续在Github上漫游。接着找到了DjangoProject.com的源码，又看了看Mezzanine(ps: 我博客用的就是这个CMS)。于是从DjangoProject复制了Blog的代码，从Mezzanine复制了conf的代码，然后就有了Echoes的codebase。然后，继之前的文章(《微服务的小思考》我想了想， 这不就是我想要的模型么?
+
+微服务与Django
+
+Django 应用架构
+Django MVC结构如下如示:
+
+![Django MVC](http://repractise.phodal.com/img/backend/django-mvc.png)
+
+然后，记住这张图，忘记上面的MVC，Django实际上是一个MTV
+
+ - Model
+ - Template
+ - View
+
+主要是Django中的views.py通常是在做Controller的事。
+
+然而对于一个Django的应用来说，他的架构如下所示:
+
+![Django apps architecture](http://repractise.phodal.com/img/backend/django-app.jpg)
+
+Django的每个App就代表着程序的一个功能。每个App有自己的models、views、urls、templates所以对于一个app来说他的结构如下:
+
+```bash
+.
+|______init__.py
+|____models.py
+|____tests.py
+|____views.py
+```
+
+如果是新版的Django那么它的结构如下:
+
+```bash
+.
+|______init__.py
+|____admin.py
+|____migrations
+| |______init__.py
+|____models.py
+|____tests.py
+|____views.py
+```
+
+上面少了templates，最后会有一个总的URL，即第一张图的URL Dispatcher。接着，让我们看看微服务是怎样的。
+
+一个典型的微服务如下所示:
+
+![microservices architecture](http://repractise.phodal.com/img/backend/microservices_a.jpg)
+
+有不同的技术栈python、spring、scala，但是他们看上去和Django应用的图差不多，除了数据库不一样。
 
 
+与其将复杂的测试、逻辑部分变得不可测，不如把这些部分放置于系统内部。
 
+![Linux OS Hybrid](http://repractise.phodal.com/img/backend/linux_os.jpg)
 
+当我们在我们的服务器上部署微服务的时候，也就意味着实现所以的服务都是在我们系统的内部，我们有一个Kernel以及他们的Kernel Moduels，即微服务群们。他们调用DB，或者某些第三方服务。
 
+System Libraries相当于我们的URL Dispatcher。而我们的URL Dispatcher实际上所做的便是将各自调用的服务指向各自的app。
 
+这样我们即可以解决部署的问题，又可以减少内部耦合。
 
+##其他
 
-
+> 我猜，微服务的流行是因为程序员可以欢乐地使用自己的语言，哪怕是Logo。
 
 
 参考
@@ -1712,6 +1770,8 @@ else {
 
 ##MQ
 
+
+
 #模式篇：设计与架构
 
 设计模式算是在面向对象中比较有趣的东西，特别是对于像我，这样的用得不是很多的。虽然有时候也会用上，但是并不知道用的是怎样的模式。之前学习了一段时间的设计模式，实际上也就是将平常经常用到的一些东西进行了总结，如此而已。学习设计模式的另外一个重要的意义在于，我们使用了设计模式的时候我们会知道自己使用了，并且还会知道用了是怎样的设计模式。
@@ -2213,15 +2273,15 @@ User.sync({force: true}).then(function () {
 
 像如MongoDB这类的数据库，也是存在数据模型，但说的却是嵌入子文档。在业务量大的情况下，数据库在考验公司的技术能力，想想便觉得Amazon RDS挺好的。
 
-如果是
-
 ###数据模型
+
+
 
 ##领域
 
 ###DDD
 
-值对象
+###值对象
 
 ###DSL
 
