@@ -92,6 +92,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#混合微服务">混合微服务</a></li>
 <li><a href="#其他">其他</a></li>
 </ul></li>
+<li><a href="#repractise-前后端分离---全栈---无栈">RePractise: 前后端分离 -&gt; 全栈 -&gt; 无栈</a><ul>
+<li><a href="#真实世界与抽象">真实世界与抽象</a><ul>
+<li><a href="#商店与售货员">商店与售货员</a></li>
+<li><a href="#模型领域抽象">模型、领域、抽象</a></li>
+</ul></li>
+<li><a href="#后台">后台</a></li>
+<li><a href="#前端">前端</a></li>
+<li><a href="#repractise-1">RePractise</a></li>
+</ul></li>
 <li><a href="#易读">易读</a><ul>
 <li><a href="#简介">简介</a><ul>
 <li><a href="#编程经验">编程经验</a></li>
@@ -124,7 +133,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#cms架构与django">CMS架构与Django</a></li>
 <li><a href="#编辑-发布分离">编辑-发布分离</a></li>
 <li><a href="#基于github的编辑-发布-开发分离">基于Github的编辑-发布-开发分离</a></li>
-<li><a href="#repractise-1">Repractise</a></li>
+<li><a href="#repractise-2">Repractise</a></li>
 </ul></li>
 <li><a href="#构建基于git为数据中心的cms">构建基于Git为数据中心的CMS</a><ul>
 <li><a href="#用户场景">用户场景</a></li>
@@ -765,6 +774,37 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>参考</p>
 <p><a href="http://highscalability.com/blog/2014/4/8/microservices-not-a-free-lunch.html">Microservices - Not A Free Lunch!</a></p>
 <p><a href="http://martinfowler.com/articles/microservices.html">Microservices</a></p>
+<h1 id="repractise-前后端分离---全栈---无栈">RePractise: 前后端分离 -&gt; 全栈 -&gt; 无栈</h1>
+<p>RePractise终于又迎来了新的一篇，要知道上一篇可是在半年前呢——《Repractise前端篇: 前端演进史 》。照RePractise惯例，这又是一篇超长文。</p>
+<p>当然这也是一个神奇的标题，因为我已经想不到一个好的名字了，不过先这样吧。这篇文章算是我最近两三个月的一篇思考。在上一个项目的打杂生涯里，我开始去学习架构方面的知识，开始去接触DDD的思想。从编码到架构，再回到实际的编码中，总会有很多的灵感闪现。</p>
+<p>这里所谓的无栈只是想说，要脱离技术栈去思考问题。</p>
+<h2 id="真实世界与抽象">真实世界与抽象</h2>
+<h3 id="商店与售货员">商店与售货员</h3>
+<p>售货员 -&gt; 前端 货物 -&gt; 后台 顾客 -&gt; 行为流</p>
+<p>接着，让我们先从几个通用的元素说起。</p>
+<h3 id="模型领域抽象">模型、领域、抽象</h3>
+<p>模型的好处是，它是以真实世界为原型来思考问题的。</p>
+<p>前后台分离</p>
+<h2 id="后台">后台</h2>
+<ul>
+<li>CRUD</li>
+<li>鉴权</li>
+<li></li>
+</ul>
+<h2 id="前端">前端</h2>
+<ul>
+<li>事件</li>
+<li>路由</li>
+<li>模块化</li>
+<li>控制器与状态</li>
+</ul>
+<p>模型与数据部分</p>
+<ul>
+<li>获取数据</li>
+<li>处理数据</li>
+<li>显示数据</li>
+</ul>
+<h2 id="repractise-1">RePractise</h2>
 <h1 id="易读">易读</h1>
 <h2 id="简介">简介</h2>
 <h3 id="编程经验">编程经验</h3>
@@ -1277,7 +1317,7 @@ req.end();</code></pre>
 <p>如果我们有APP，那么我们就可以使用Content Servies来做这些事情。甚至可以直接拿其搭建一个SPA。</p>
 <p>如果我们需要全文搜索功能，也变得很简单。我们已经不需要直接和数据库交互，我们可以直接读取JSON并且构建索引。这时候需要一个简单的Web服务，而且这个服务还是只读的。</p>
 <p>在需要的时候，如手机APP，我们可以通过Content Servies来创建博客。</p>
-<h3 id="repractise-1">Repractise</h3>
+<h3 id="repractise-2">Repractise</h3>
 <blockquote>
 <p>动态网页是下一个要解决的难题。我们从数据库中读取数据，再用动态去渲染出一个静态页面，并且缓存服务器来缓存这个页面。既然我们都可以用Varnish、Squid这样的软件来缓存页面——表明它们可以是静态的，为什么不考虑直接使用静态网页呢？</p>
 </blockquote>
