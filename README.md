@@ -130,10 +130,13 @@
         *   [内容——函数体](http://repractise.phodal.com/#内容函数体)
         *   [引言——README](http://repractise.phodal.com/#引言readme)
     *   [如何收集写作的灵感](http://repractise.phodal.com/#如何收集写作的灵感)
-#License
 
-© 2015 [Phodal Huang](http://www.phodal.com)。
+License
+---
 
-[待我代码编成，娶你为妻可好](http://www.xuntayizhan.com/person/ji-ke-ai-qing-zhi-er-shi-dai-wo-dai-ma-bian-cheng-qu-ni-wei-qi-ke-hao-wan/)
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/cn/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/3.0/cn/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/cn/">知识共享署名-非商业性使用-禁止演绎 3.0 中国大陆许可协议</a>进行许可。
+[![Phodal's Article](http://brand.phodal.com/shields/article-small.svg)](https://www.phodal.com/)
+
+© 2015~2016 [Phodal Huang](https://www.phodal.com). This code is distributed under the Creative Commons Attribution-Noncommercial-No Derivative Works 3.0  License. See `LICENSE` in this directory.
+
+[待我代码编成，娶你为妻可好](http://www.xuntayizhan.com/blog/ji-ke-ai-qing-zhi-er-shi-dai-wo-dai-ma-bian-cheng-qu-ni-wei-qi-ke-hao-wan/)
