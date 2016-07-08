@@ -1,5 +1,6 @@
 
-#引言
+引言
+===
 
 回到一年前的今天(2014.09.29)，一边在准备着去沙漠之旅，一边在准备国庆后的印度培训。
 
@@ -62,7 +63,6 @@
 这是一个很有意思的话题，尽管试图将本章中从书中删除，但是我还是忍了下来。如果你学得比别人晚，在很长的一段时间里(可能直到进棺材)输给别人是必然的——落后就要挨打。就好像我等毕业于一所二本垫底的学校里，如果在过去我一直保持着和别人(各种重点)一样的学习速度，那么我只能一直是Loser。
 
 需要注意的是，对你来说考上二本很难，并不是因为你比别人笨。教育资源分配不均的问题，在某种程度上导致了新的阶级制度的出现。如我的首页说的那样: THE ONLY FAIR IS NOT FAIR——唯一公平的是它是不公平的。我们可以做的还有很多——CREATE & SHARE。真正的不幸是，因为营养不良导致的教育问题。如果你还有机会正常地思想，那说明这个世界对你还是公平的。
-
 
 #前端篇: 前端演进史
 
@@ -735,7 +735,7 @@ System Libraries相当于我们的URL Dispatcher。而我们的URL Dispatcher实
 
 换成中文，即：**设计系统的组织，其产生的设计和架构等价于组织间的沟通结构**。上图
 
-![Conway](http://articles.phodal.com/separation/conway.jpg)
+![Conway](http://repractise.phodal.com/img/front-back-end/conway.jpg)
 
 这张图可以解释相当多的软件开发过程中的问题，而我们知道软件开发的主要问题是沟通问题。组织结构影响了我们的沟通结构，进而影响了我们的软件系统结构。好吧，我承认可能离题有点远。不过，我想说的是组织结构可能不允许我们做出一些好的系统架构。
 
@@ -762,7 +762,7 @@ System Libraries相当于我们的URL Dispatcher。而我们的URL Dispatcher实
 
 当搜索引擎通过URL访问我们的网站的时候，我们就需要返回相应的HTML。这意味着我们需要在后台有对应的模板引擎来支持，而由于SPA的性质又决定了，这需要使用一个纯前端的模板引擎。因此，我们并不能使用两个模板引擎来做这件事，维护两套模板注定会是一件痛苦的事，并且当时还没有React这种模板引擎在。不过，后来我们发现维护两种不同的渲染方式也是一件痛苦的事。因此，我们就会有了类似于下图的架构：
 
-![Spring MVC Backbone](http://articles.phodal.com/separation/spring-backbone.png)
+![Spring MVC Backbone](http://repractise.phodal.com/img/front-back-end/spring-backbone.png)
 
 我们在后台使用Spring MVC作为基础架构、Mustache作为模板引擎，和使用JSP作为模板引擎相比没有多大的区别——由Controller去获取对应的Model，再渲染给用户。多数时候搜索引擎都是依据Sitemap来进行索引的，所以我们的后台很容易就可以处理这些请求。同样的当用户访问相应的页面的时候，也返回同样的页面内容。当完成页面渲染的时候，就交由Backbone来处理相应的逻辑了。换句话来说，从这时候它就变成了一个单页面应用。
 
@@ -778,11 +778,11 @@ System Libraries相当于我们的URL Dispatcher。而我们的URL Dispatcher实
 
 PreRender就是预先渲染好HTML，并针对于爬虫返回特定的HTML。（PS：不过作为一个很有经验的SEO开发人员，我一点不喜欢这种作法。要知道Google有时候会模拟成真实的用户，不带有爬虫的那些参数和标志，去访问页面。如果你返回给Google的两个页面差异太大——可能是你忘记更新了频率，那么Google可能就会认为你在**作弊**。）
 
-![PreRender](http://articles.phodal.com/separation/angular-prerender.jpg)
+![PreRender](http://repractise.phodal.com/img/front-back-end/angular-prerender.jpg)
 
 对于一般用户来说就不会返回后台渲染的结果了：
 
-![Angular PreRender](http://articles.phodal.com/separation/angular-phantomjs-prereder.jpg)
+![Angular PreRender](http://repractise.phodal.com/img/front-back-end/angular-phantomjs-prereder.jpg)
 
 和上面的第一种情况相比，这种作法可以大大减少服务器地负担，并且可以直接交由CDN就可以了。这时我们只需要考虑要渲染哪些页面即可，对于数据量比较少的网站来说这是一个不错的做法，但是多了就不一样了。
 
@@ -792,7 +792,7 @@ PreRender就是预先渲染好HTML，并针对于爬虫返回特定的HTML。（
 
 对于使用React的开发人员来说，要处理后台渲染就是一种更简单的事，毕竟React中提供了一个方法叫 renderToString()。我们所要做的就是用Express或者Koa对路由进行处理，然后返回对应的内容即可：
 
-![React Server Side Render](http://articles.phodal.com/separation/react-server-side-render.png)
+![React Server Side Render](http://repractise.phodal.com/img/front-back-end/react-server-side-render.png)
 
 然后，剩下的事都可以交由React来解决，就是这么简单。
 
@@ -958,68 +958,6 @@ RePractise
 ---
 
 因为最近我对DDD又有了一些想法，还在想着如何直接由真实世界来建模。顺便整理了这些思路到一起，但是好似这样的设计更简单。
-
-#易读
-
-##简介 
-
-###编程经验
-
-> 只要我有更多时间，我就会写一封更短的信给你。
-
-从小学算起我的编程年限应该也有十几年了吧，笑~~。只是我过去的多年编程经验对于我现在的工作来说，是多年的无关经验(详见《REWORK》——多年的无关经验)。
-
-高中的时候学习了点游戏编程，也因此学了点C++的皮毛，除了学会面向对象，其他都忘光了。随后在学习Linux内核，当时代码里就各种struct。比起之前学过的Logo和QBASIC简直是特别大的进步，然当时觉得struct与面向对象两者间没啥太大区别。在那个年少的时候，便天真的以为程序语言间的区别不是很大。
-
-大学的时候主要营业范围是各种硬件，也没有发现写出好的代码是特别重要的一件事。也试了试Lisp，尝试过设计模式，然后失败了，GoF写DP的时候一定花了特别长的时间，所以这本书很短。期间出于生活压力(没有钱买硬件)，便开始兼职各种Web前端开发。
-
-在有了所谓的GNU/Linux系统编译经验、写过各种杂七杂八的硬件代码，如Ada、汇编，要保证代码工作是一件很简单的事，从某个项目中引入部分代码，再从某个Demo中引入更多的代码，东拼西凑一下就能工作了。
-
-多年的无关经验只让我写出能工作的代码——在别人看来就是很烂的代码。于是，虽然有着看上去很长的编程经验，但是却比不上实习的时候6个月学到的东西。
-
-只是因为，我们不知道: 我们不知道。
-
-###代码整洁
-
-过去，我有过在不同的场合吐槽别人的代码写得烂。而我写的仅仅是比别人好一点而已——而不是好很多。
-
-然而这是一件很难的事，人们对于同一件事物未来的考虑都是不一样的。同样的代码在相同的情景下，不同的人会有不同的设计模式。同样的代码在不同的情景下，同样的人会有不同的设计模式。在这里，我们没有办法讨论设计模式，也不需要讨论。
-
-我们所需要做的是，确保我们的代码易读、易测试，看上去这样就够了，然而这也是挺复杂的一件事:
-
-1. 确保我们的变量名、函数名是易读的
-2. 没有复杂的逻辑判断
-3. 没有多层嵌套
-4. 减少复杂函数的出现
-
-然后，你要去测试它。这样你就知道需要什么，实际上要做到这些也不是一些难事。
-
-只是首先，我们要知道我们要自己需要这些。
-
-###别人的代码很烂?
-
-什么是很烂的代码? 应该会有几种境界吧。
-
-1. 不能工作，不能读懂
-2. 不能工作，能读懂
-3. 能工作，很难读懂
-4. 能工作，能读懂，但是没有意图
-5. 能工作，能理解意图，但是读不懂
-
-如果我们能读懂，能理解意图，那么我们还说他烂，可能是因为他并不整洁。这就回到了上面的问题，模式是一种因人而异的东西。
-
-我们在做Code Review的时候，总会尝试问对方说： “这样做的意图是”。
-
-对于代码来说也是如此，如果我们能理解意图的话，那么我们要理解代码相对也比较容易。如果对方是没有意图，那么代码是没救的。
-
-##变量名
-
-##函数名
-
-##小函数
-
-##测试
-
 
 #重构篇
 
@@ -1307,15 +1245,17 @@ SQLiteHelper.prototype.getData = function (url, callback) {
 
 在这种理想的情况下，我们为什么不TDD呢?
 
-#架构篇: CMS的重构与演进
+架构篇: CMS的重构与演进
+===
 
 重构系统是一项非常具有挑战性的事情。通常来说，在我们的系统是第二个系统的时候才需要重构，即这个系统本身已经很臃肿。我们花费了太量的时间在代码间的逻辑，开发新的功能变得越来越慢。这不仅仅可能只是因为我们之前的架构没有设计好，而且在我们开发的过程中没有保持着原先设计时的一些原则。如果是这样的情况，那么这就是一个复杂的过程。
 
 还有一种情况是我们发现了一种更符合我们当前业务的框架。
 
-##动态CMS
+动态CMS
+---
 
-###CMS简介
+### CMS简介
 
 CMS是Content Management System的缩写，意为"内容管理系统".它可以做很多的事情，但是总的来说就是Page和Blog——即我们要创建一些页面可以用于写一些About US、Contact Me，以及持续更新的博客或者新闻，以及其他子系统——通常更新不活跃。通过对这些博客或者新闻进行分类，我们就可以有不同的信息内容，如下图：
 
@@ -1328,7 +1268,7 @@ CMS是政府和企业都需要的系统，他们有很多的信息需要公开�
 WordPress和Drupal这一类的系统都属于发布系统，而其后台可以称为编辑系统。
 
 一般来说CMS有下面的特点：
- 
+
  - 支持多用户。
  - 角色控制-内容管理。如InfoQ的编辑后台就会有这样的机制，社区编辑负责创建内容，而审核发布则是另外的人做的。
  - 插件管理。如WordPress和Drupal在这一方面就很强大，基本可以满足日常的需要。
@@ -1339,7 +1279,7 @@ WordPress和Drupal这一类的系统都属于发布系统，而其后台可以�
 
 CMS一直就是这样一个紧耦合的系统。
 
-###CMS架构与Django
+### CMS架构与Django
 
 说起来，我一直是一个CMS党。主要原因还在于我可以随心所欲地去修改网站的内容，修改网站的架构。好的CMS总的来说都有其架构图，下图似乎是Drupal的模块图
 
@@ -1371,7 +1311,7 @@ CMS一直就是这样一个紧耦合的系统。
 
 这就是为何我喜欢用这个CMS的原因了，我的每个子系统都以APP的形式提供服务——博客是一个app，sitemap是一个app，api是一个app。系统直接解耦为类似于混合服务的架构，即不像微服务一样多语言化，又不会有宏应用的紧耦合问题。
 
-###编辑-发布分离
+### 编辑-发布分离
 
 我们的编辑和发布系统在某种意义上紧耦合在一起了，当用户访问量特别大的时候，这样会让我们的应用变得特定慢。有时候编辑甚至发布不了新的东西，如下图引示:
 
@@ -1389,7 +1329,7 @@ CMS一直就是这样一个紧耦合的系统。
 
 除了Node.js + RESTify，也试了试Python + Falcon（一个高性能的RESTful框架）。这个API理论上也应该可以给APP直接使用，并且可以直接拿来生成静态页面。
 
-####编辑-发布-开发分离：静态站点生成
+#### 编辑-发布-开发分离：静态站点生成
 
 如React一样解决DOM性能的问题就是跳过DOM这个坑，要跳过动态网站的性能问题就是让网站变成静态。
 
@@ -1459,10 +1399,10 @@ So，so，这些开发人员做了些什么：
 
 在需要的时候，如手机APP，我们可以通过Content Servies来创建博客。
 
-###Repractise
+### Repractise
 
  > 动态网页是下一个要解决的难题。我们从数据库中读取数据，再用动态去渲染出一个静态页面，并且缓存服务器来缓存这个页面。既然我们都可以用Varnish、Squid这样的软件来缓存页面——表明它们可以是静态的，为什么不考虑直接使用静态网页呢？
- 
+
 思考完这些后，我想到了一个符合学习的场景。
 
 ![基于Travis CI的编辑-发布-开发分离](http://repractise.phodal.com/img/cms/travis-edit-publish-code.png)
@@ -1479,7 +1419,8 @@ So，so，这些开发人员做了些什么：
 4. [Part 2: Implementing Content Management and Publication Using Git](https://www.thoughtworks.com/insights/blog/implementing-content-management-and-publication-using-git)
 
 
-##构建基于Git为数据中心的CMS
+构建基于Git为数据中心的CMS
+---
 
 或许你也用过Hexo / Jekyll / Octopress这样的静态博客，他们的原理都是类似的。我们有一个代码库用于生成静态页面，然后这些静态页面会被PUSH到Github Pages上。
 
@@ -1497,7 +1438,7 @@ So，so，这些开发人员做了些什么：
 
 So，这一个过程是如何进行的。
 
-###用户场景
+### 用户场景
 
 整个过程的Pipeline如下所示：
 
@@ -1515,7 +1456,7 @@ So，这一个过程是如何进行的。
 
 需要注意的是如果你上一次构建成功，你生成的文件都是正常的，那么你只需要回滚开发相关的代码即可。旧的代码仍然可以工作得很好。其次，由于生成的是静态文件，查错的成本就比较低。最后，重新放上之前的静态文件。
 
-##Code: 生成静态页面
+## Code: 生成静态页面
 
 Assemble是一个使用Node.js，Grunt.js，Gulp，Yeoman 等来实现的静态网页生成系统。这样的生成器有很多，Zurb Foundation, Zurb Ink, Less.js / lesscss.org, Topcoat, Web Experience Toolkit等组织都使用这个工具来生成。这个工具似乎上个Release在一年多以前，现在正在开始0.6。虽然，这并不重要，但是还是顺便一说。
 
@@ -1546,7 +1487,7 @@ Assemble是一个使用Node.js，Grunt.js，Gulp，Yeoman 等来实现的静态�
         ]
       }
     }
-```    
+```
 
 配置中的site用于生成页面相关的内容，blogs则可以根据json文件的文件名生成对就的html文件存储到blog目录中。
 
@@ -1582,7 +1523,7 @@ grunt.registerTask('dev', ['default', 'connect:server', 'watch:site']);
 用于开发阶段这样的代码就够了，这个和你使用WebPack + React 似乎相差不了多少。
 
 
-##Builder: 构建生成工具
+##  Builder: 构建生成工具
 
 Github与Travis之间，可以做一个自动部署的工具。相信已经有很多人在Github上玩过这样的东西——先在Github上生成Token，然后用travis加密：
 
@@ -1627,7 +1568,7 @@ cd code
 
 npm install
 npm install grunt-cli -g
-grunt 
+grunt
 mv dest/* ../
 cd ../
 rm -rf code
@@ -1649,7 +1590,7 @@ git push -q upstream HEAD:gh-pages
 ```javascript
 grunt.registerTask('default', ['clean', 'assemble', 'copy']);
 ```
-##Content：JSON格式
+## Content：JSON格式
 
 在使用Github和Travis CI完成Content的时候，发现没有一个好的Webhook。虽然我们的Content只能存储一些数据，但是放一个trigger脚本也是可以原谅的。
 
@@ -1689,7 +1630,7 @@ travis.authenticate({
 
 这里主要依赖于Travis CI来完成这部分功能，这时候我们还需要数据。
 
-###从Schema到数据库
+### 从Schema到数据库
 
 我们在我们数据库中定义好了Schema——对一个数据库的结构描述。在《[编辑-发布-开发分离](https://www.phodal.com/blog/editing-publishing-coding-seperate/)
 》一文中我们说到了echeveria-content的一个数据文件如下所示：
@@ -1732,13 +1673,13 @@ repo.write('master', 'contents/' + data.url + '.json', stringifyData, 'Robot: ad
         });
       }
     });
-```    
+```
 
 然后，上面的数据就会变成一个对象存储到“数据库”中。
 
 今天 ，仍然有很多人用Word、Excel来存储数据。因为对于他们来说，这些软件更为直接，他们简单地操作一下就可以对数据进行排序、筛选。数据以怎样的形式存储并不重要，重要的是他们都以文件的形式存储着。
 
-###git作为NoSQL数据库
+### git作为NoSQL数据库
 
 不同的数据库会以不同的形式存储到文件中去。blob是git中最为基本的存储单位，我们的每个content都是一个blob。redis可以以rdb文件的形式存储到文件系统中。完成一个CMS，我们并不需要那么多的查询功能。
 
@@ -1767,7 +1708,7 @@ git的“API”提供了丰富的增、删、改功能——你需要commit就�
 
 ![Robot提交代码](http://repractise.phodal.com/img/basis/robot-commit.png)
 
-##一键发布：编辑器
+## 一键发布：编辑器
 
 为了实现之前说到的``编辑-发布-开发分离``的CMS，我还是花了两天的时间打造了一个面向普通用户的编辑器。效果截图如下所示：
 
@@ -1778,7 +1719,7 @@ git的“API”提供了丰富的增、删、改功能——你需要commit就�
 - Electron
 - React
 - Material UI
-- Alloy Editor 
+- Alloy Editor
 
 尽管这个界面看上去还是稍微复杂了一下，还在试着想办法将链接名和日期去掉——问题是为什么会有这两个东西？
 
@@ -1804,7 +1745,7 @@ repo.write('master', 'content/' + data.url + '.json', stringifyData, 'Robot: add
     });
   }
 });
-```    
+```
 
 当我们点下发送的时侯，这个内容就直接提交到了Content Repo下，如上上图所示。
 
@@ -1813,7 +1754,7 @@ repo.write('master', 'content/' + data.url + '.json', stringifyData, 'Robot: add
 ```yml
 after_success:
   - node trigger-build.js
-```  
+```
 
 脚本的代码如下所示：
 
@@ -1852,7 +1793,7 @@ travis.authenticate({
 由于，我们在这个过程我们的Content提交的是JSON数据，我们可以直接用这些数据做一个APP。
 
 
-##移动应用
+## 移动应用
 
 为了快速开发，这里我们使用了Ionic + ngCordova来开发 ，最后效果图如下所示：
 
@@ -1882,7 +1823,7 @@ else {
     delete fragment.articleHTML;
     json.push(fragment);
 }
-```                    
+```
 
 接着，我们就可以获取所有的文章然后显示~~。在这里又顺便加了一个pullToRefresh。
 
@@ -1910,7 +1851,7 @@ else {
   <h2>{{article.title}}</h2>
   <i class="icon ion-ios-arrow-right"></i>
 </ion-item>
-```      
+```
 
 就会交由相应的Controller来处理。
 
@@ -1925,7 +1866,7 @@ else {
   });
 ```
 
-##小结
+### 小结
 
 尽管没有一个更成熟的环境可以探索这其中的问题，但是我想对于当前这种情况来说，它是非常棒的解决方案。我们面向的不是那些技术人员，而是一般的用户。他们能熟练使用的是：编辑器和APP。
 
@@ -1942,9 +1883,6 @@ else {
 3. 移动应用: [https://github.com/phodal-archive/echeveria-mobile](https://github.com/phodal-archive/echeveria-mobile)
 4. 桌面应用: [https://github.com/phodal/echeveria-editor](https://github.com/phodal/echeveria-editor)
 5. Github Pages: [https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages](https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages)
-
-
-
 
 #无栈篇：架构设计
 

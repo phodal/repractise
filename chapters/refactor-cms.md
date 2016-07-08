@@ -1,12 +1,14 @@
-#架构篇: CMS的重构与演进
+架构篇: CMS的重构与演进
+===
 
 重构系统是一项非常具有挑战性的事情。通常来说，在我们的系统是第二个系统的时候才需要重构，即这个系统本身已经很臃肿。我们花费了太量的时间在代码间的逻辑，开发新的功能变得越来越慢。这不仅仅可能只是因为我们之前的架构没有设计好，而且在我们开发的过程中没有保持着原先设计时的一些原则。如果是这样的情况，那么这就是一个复杂的过程。
 
 还有一种情况是我们发现了一种更符合我们当前业务的框架。
 
-##动态CMS
+动态CMS
+---
 
-###CMS简介
+### CMS简介
 
 CMS是Content Management System的缩写，意为"内容管理系统".它可以做很多的事情，但是总的来说就是Page和Blog——即我们要创建一些页面可以用于写一些About US、Contact Me，以及持续更新的博客或者新闻，以及其他子系统——通常更新不活跃。通过对这些博客或者新闻进行分类，我们就可以有不同的信息内容，如下图：
 
@@ -19,7 +21,7 @@ CMS是政府和企业都需要的系统，他们有很多的信息需要公开�
 WordPress和Drupal这一类的系统都属于发布系统，而其后台可以称为编辑系统。
 
 一般来说CMS有下面的特点：
- 
+
  - 支持多用户。
  - 角色控制-内容管理。如InfoQ的编辑后台就会有这样的机制，社区编辑负责创建内容，而审核发布则是另外的人做的。
  - 插件管理。如WordPress和Drupal在这一方面就很强大，基本可以满足日常的需要。
@@ -30,7 +32,7 @@ WordPress和Drupal这一类的系统都属于发布系统，而其后台可以�
 
 CMS一直就是这样一个紧耦合的系统。
 
-###CMS架构与Django
+### CMS架构与Django
 
 说起来，我一直是一个CMS党。主要原因还在于我可以随心所欲地去修改网站的内容，修改网站的架构。好的CMS总的来说都有其架构图，下图似乎是Drupal的模块图
 
@@ -62,7 +64,7 @@ CMS一直就是这样一个紧耦合的系统。
 
 这就是为何我喜欢用这个CMS的原因了，我的每个子系统都以APP的形式提供服务——博客是一个app，sitemap是一个app，api是一个app。系统直接解耦为类似于混合服务的架构，即不像微服务一样多语言化，又不会有宏应用的紧耦合问题。
 
-###编辑-发布分离
+### 编辑-发布分离
 
 我们的编辑和发布系统在某种意义上紧耦合在一起了，当用户访问量特别大的时候，这样会让我们的应用变得特定慢。有时候编辑甚至发布不了新的东西，如下图引示:
 
@@ -80,7 +82,7 @@ CMS一直就是这样一个紧耦合的系统。
 
 除了Node.js + RESTify，也试了试Python + Falcon（一个高性能的RESTful框架）。这个API理论上也应该可以给APP直接使用，并且可以直接拿来生成静态页面。
 
-####编辑-发布-开发分离：静态站点生成
+#### 编辑-发布-开发分离：静态站点生成
 
 如React一样解决DOM性能的问题就是跳过DOM这个坑，要跳过动态网站的性能问题就是让网站变成静态。
 
@@ -150,10 +152,10 @@ So，so，这些开发人员做了些什么：
 
 在需要的时候，如手机APP，我们可以通过Content Servies来创建博客。
 
-###Repractise
+### Repractise
 
  > 动态网页是下一个要解决的难题。我们从数据库中读取数据，再用动态去渲染出一个静态页面，并且缓存服务器来缓存这个页面。既然我们都可以用Varnish、Squid这样的软件来缓存页面——表明它们可以是静态的，为什么不考虑直接使用静态网页呢？
- 
+
 思考完这些后，我想到了一个符合学习的场景。
 
 ![基于Travis CI的编辑-发布-开发分离](http://repractise.phodal.com/img/cms/travis-edit-publish-code.png)
@@ -170,7 +172,8 @@ So，so，这些开发人员做了些什么：
 4. [Part 2: Implementing Content Management and Publication Using Git](https://www.thoughtworks.com/insights/blog/implementing-content-management-and-publication-using-git)
 
 
-##构建基于Git为数据中心的CMS
+构建基于Git为数据中心的CMS
+---
 
 或许你也用过Hexo / Jekyll / Octopress这样的静态博客，他们的原理都是类似的。我们有一个代码库用于生成静态页面，然后这些静态页面会被PUSH到Github Pages上。
 
@@ -188,7 +191,7 @@ So，so，这些开发人员做了些什么：
 
 So，这一个过程是如何进行的。
 
-###用户场景
+### 用户场景
 
 整个过程的Pipeline如下所示：
 
@@ -206,7 +209,7 @@ So，这一个过程是如何进行的。
 
 需要注意的是如果你上一次构建成功，你生成的文件都是正常的，那么你只需要回滚开发相关的代码即可。旧的代码仍然可以工作得很好。其次，由于生成的是静态文件，查错的成本就比较低。最后，重新放上之前的静态文件。
 
-##Code: 生成静态页面
+## Code: 生成静态页面
 
 Assemble是一个使用Node.js，Grunt.js，Gulp，Yeoman 等来实现的静态网页生成系统。这样的生成器有很多，Zurb Foundation, Zurb Ink, Less.js / lesscss.org, Topcoat, Web Experience Toolkit等组织都使用这个工具来生成。这个工具似乎上个Release在一年多以前，现在正在开始0.6。虽然，这并不重要，但是还是顺便一说。
 
@@ -237,7 +240,7 @@ Assemble是一个使用Node.js，Grunt.js，Gulp，Yeoman 等来实现的静态�
         ]
       }
     }
-```    
+```
 
 配置中的site用于生成页面相关的内容，blogs则可以根据json文件的文件名生成对就的html文件存储到blog目录中。
 
@@ -273,7 +276,7 @@ grunt.registerTask('dev', ['default', 'connect:server', 'watch:site']);
 用于开发阶段这样的代码就够了，这个和你使用WebPack + React 似乎相差不了多少。
 
 
-##Builder: 构建生成工具
+##  Builder: 构建生成工具
 
 Github与Travis之间，可以做一个自动部署的工具。相信已经有很多人在Github上玩过这样的东西——先在Github上生成Token，然后用travis加密：
 
@@ -318,7 +321,7 @@ cd code
 
 npm install
 npm install grunt-cli -g
-grunt 
+grunt
 mv dest/* ../
 cd ../
 rm -rf code
@@ -340,7 +343,7 @@ git push -q upstream HEAD:gh-pages
 ```javascript
 grunt.registerTask('default', ['clean', 'assemble', 'copy']);
 ```
-##Content：JSON格式
+## Content：JSON格式
 
 在使用Github和Travis CI完成Content的时候，发现没有一个好的Webhook。虽然我们的Content只能存储一些数据，但是放一个trigger脚本也是可以原谅的。
 
@@ -380,7 +383,7 @@ travis.authenticate({
 
 这里主要依赖于Travis CI来完成这部分功能，这时候我们还需要数据。
 
-###从Schema到数据库
+### 从Schema到数据库
 
 我们在我们数据库中定义好了Schema——对一个数据库的结构描述。在《[编辑-发布-开发分离](https://www.phodal.com/blog/editing-publishing-coding-seperate/)
 》一文中我们说到了echeveria-content的一个数据文件如下所示：
@@ -423,13 +426,13 @@ repo.write('master', 'contents/' + data.url + '.json', stringifyData, 'Robot: ad
         });
       }
     });
-```    
+```
 
 然后，上面的数据就会变成一个对象存储到“数据库”中。
 
 今天 ，仍然有很多人用Word、Excel来存储数据。因为对于他们来说，这些软件更为直接，他们简单地操作一下就可以对数据进行排序、筛选。数据以怎样的形式存储并不重要，重要的是他们都以文件的形式存储着。
 
-###git作为NoSQL数据库
+### git作为NoSQL数据库
 
 不同的数据库会以不同的形式存储到文件中去。blob是git中最为基本的存储单位，我们的每个content都是一个blob。redis可以以rdb文件的形式存储到文件系统中。完成一个CMS，我们并不需要那么多的查询功能。
 
@@ -458,7 +461,7 @@ git的“API”提供了丰富的增、删、改功能——你需要commit就�
 
 ![Robot提交代码](http://repractise.phodal.com/img/basis/robot-commit.png)
 
-##一键发布：编辑器
+## 一键发布：编辑器
 
 为了实现之前说到的``编辑-发布-开发分离``的CMS，我还是花了两天的时间打造了一个面向普通用户的编辑器。效果截图如下所示：
 
@@ -469,7 +472,7 @@ git的“API”提供了丰富的增、删、改功能——你需要commit就�
 - Electron
 - React
 - Material UI
-- Alloy Editor 
+- Alloy Editor
 
 尽管这个界面看上去还是稍微复杂了一下，还在试着想办法将链接名和日期去掉——问题是为什么会有这两个东西？
 
@@ -495,7 +498,7 @@ repo.write('master', 'content/' + data.url + '.json', stringifyData, 'Robot: add
     });
   }
 });
-```    
+```
 
 当我们点下发送的时侯，这个内容就直接提交到了Content Repo下，如上上图所示。
 
@@ -504,7 +507,7 @@ repo.write('master', 'content/' + data.url + '.json', stringifyData, 'Robot: add
 ```yml
 after_success:
   - node trigger-build.js
-```  
+```
 
 脚本的代码如下所示：
 
@@ -543,7 +546,7 @@ travis.authenticate({
 由于，我们在这个过程我们的Content提交的是JSON数据，我们可以直接用这些数据做一个APP。
 
 
-##移动应用
+## 移动应用
 
 为了快速开发，这里我们使用了Ionic + ngCordova来开发 ，最后效果图如下所示：
 
@@ -573,7 +576,7 @@ else {
     delete fragment.articleHTML;
     json.push(fragment);
 }
-```                    
+```
 
 接着，我们就可以获取所有的文章然后显示~~。在这里又顺便加了一个pullToRefresh。
 
@@ -601,7 +604,7 @@ else {
   <h2>{{article.title}}</h2>
   <i class="icon ion-ios-arrow-right"></i>
 </ion-item>
-```      
+```
 
 就会交由相应的Controller来处理。
 
@@ -616,7 +619,7 @@ else {
   });
 ```
 
-##小结
+### 小结
 
 尽管没有一个更成熟的环境可以探索这其中的问题，但是我想对于当前这种情况来说，它是非常棒的解决方案。我们面向的不是那些技术人员，而是一般的用户。他们能熟练使用的是：编辑器和APP。
 
@@ -633,6 +636,3 @@ else {
 3. 移动应用: [https://github.com/phodal-archive/echeveria-mobile](https://github.com/phodal-archive/echeveria-mobile)
 4. 桌面应用: [https://github.com/phodal/echeveria-editor](https://github.com/phodal/echeveria-editor)
 5. Github Pages: [https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages](https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages)
-
-
-
