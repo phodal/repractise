@@ -2398,7 +2398,8 @@ D = ORDER C BY timestamp,count desc;
  - 《Java应用架构设计》
 
 
-#数据模型与领域
+数据与模型篇
+===
 
 无论是MVC、MVP或者MVVP，都离不开这些基本的要素：数据、表现、领域。
 
@@ -2449,21 +2450,21 @@ User.sync({force: true}).then(function () {
 
 ###数据模型
 
+领域篇
+===
+
+DDD
+---
 
 
-##领域
-
-###DDD
-
-###值对象
-
-###DSL
+DSL
+---
 
 DSL(domain-specific languages)即领域特定语言，唯一能够确定DSL边界的方法是考虑“一门语言的一种特定用法”和“该语言的设计者或使用者的意图。在试图设计一个DSL的时候，发现了一些有意思的简单的示例。
 
-###DSL示例
+### DSL示例
 
-####jQuery 最流行的DSL
+#### jQuery 最流行的DSL
 
 jQuery是一个Internal DSL的典型的例子。它是在一门现成语言内实现针对领域问题的描述。
 
@@ -2473,7 +2474,7 @@ $('.mydiv').addClass('flash').draggable().css('color', 'blue')
 
 这也就是其最出名的**链式方法调用**。
 
-####Cucumber.js
+#### Cucumber.js
 
 Cucumber, the popular Behaviour-Driven Development tool, brought to your JavaScript stack。它是使用通用语言描述该领域的问题。
 
@@ -2489,7 +2490,7 @@ Feature: Example feature
     Then I should see "Usage" as the page title
 ```
 
-####CoffeeScript
+#### CoffeeScript
 
 发明一门全新的语言描述该领域的问题。
 
@@ -2500,7 +2501,7 @@ math =
   cube:   (x) -> x * square x
 ```
 
-####JavaScript DSL 示例
+#### JavaScript DSL 示例
 
 所以由上面的结论我们可以知道的是，难度等级应该是
 
@@ -2568,7 +2569,7 @@ DSLRunner.run({
     ['Name',
       ['is not empty', 'Name is required.']],
     ['Password',
-      ['length is between', 4, 6, 'Password is not acceptable.']]]; 
+      ['length is between', 4, 6, 'Password is not acceptable.']]];
 ```
 
 有一个map对应了上面的方法
@@ -2591,12 +2592,12 @@ var methodToUse = peek(methodPair);
 
 return function(obj) {
     var error = peek(innerRule);                           //error is the last index
-    var values = sink(cdr(innerRule));                     //get everything but the error  
+    var values = sink(cdr(innerRule));                     //get everything but the error
     return methodToUse(obj, propertyName, error, values);  //construct the validation call
 };
 ```
 
-写作
+写作篇
 ===
 
 每天有大把的时间刷GitHub，写博客。从我大二的时候，大概六年前开始写技术博客，到现在已经有540+了，大概每年会写一百篇左右。
@@ -2703,7 +2704,7 @@ return function(obj) {
 来几一些标题：
 
 1. 为什么整个互联网行业都缺前端工程师?
-2. 程序员职业生涯中应该思考的10个问题 
+2. 程序员职业生涯中应该思考的10个问题
 3. 怎么减少编程中的 bug？
 4. 为什么大公司看起来都那么糟糕？
 
@@ -2728,7 +2729,7 @@ BlaBla，简单地来说这一类文章基本上是没有技术的，都是一�
 
 对于写博文的人来说，重点的是如何清楚的去表达他们的想法，标题算是其中之一，这个也就是为什么标题党成为了标题党，而《设计模式》成为了经典。刚开始学编程的时候，更吸引你注意力的可能是《72小时学会Javascript》，而不是《Javascript 权威指南》，兴许让你买前者的原因是因为你能看懂前者，而后者不仅看不懂，而且价格更贵。只是一年以后，《72 小时学会Javascript》被你扔到了垃圾箱，而《Javascript 权威指南》却放在了原来放那本书的位置上。你定义的类难道仅仅应该是class class1么？
 
-###小标题——地图，method 
+###小标题——地图，method
 
 小标题有点类似于sitemap.xml，只是他就是站点地图，一点就到了相应的地方。他应该直接了解的说这是开始菜单，标题栏，菜单栏，而不应该是简简单单的第一章，如果你真是那样写的话，你写的函数想必是
 

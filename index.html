@@ -179,19 +179,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#pipe-and-filter模式实战">Pipe and Filter模式实战</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#数据模型与领域">数据模型与领域</a><ul>
+<li><a href="#数据与模型篇">数据与模型篇</a><ul>
 <li><a href="#数据">数据</a><ul>
 <li><a href="#数据库">数据库</a></li>
 <li><a href="#数据模型">数据模型</a></li>
 </ul></li>
-<li><a href="#领域-1">领域</a><ul>
+</ul></li>
+<li><a href="#领域篇">领域篇</a><ul>
 <li><a href="#ddd">DDD</a></li>
-<li><a href="#值对象">值对象</a></li>
-<li><a href="#dsl">DSL</a></li>
+<li><a href="#dsl">DSL</a><ul>
 <li><a href="#dsl示例">DSL示例</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#写作">写作</a><ul>
+<li><a href="#写作篇">写作篇</a><ul>
 <li><a href="#流量来源">流量来源</a></li>
 <li><a href="#不同文章类型的写作要点">不同文章类型的写作要点</a><ul>
 <li><a href="#技术细节型">技术细节型</a></li>
@@ -2165,7 +2165,7 @@ D = ORDER C BY timestamp,count desc;</code></pre>
 <li>《 面向模式的软件架构:模式系统》</li>
 <li>《Java应用架构设计》</li>
 </ul>
-<h1 id="数据模型与领域">数据模型与领域</h1>
+<h1 id="数据与模型篇">数据与模型篇</h1>
 <p>无论是MVC、MVP或者MVVP，都离不开这些基本的要素：数据、表现、领域。</p>
 <h2 id="数据">数据</h2>
 <p>信息源于数据，我们在网站上看到的内容都应该是属于信息的范畴。这些信息是应用从数据库中根据业务需求查找、过滤出来的数据。</p>
@@ -2202,10 +2202,9 @@ D = ORDER C BY timestamp,count desc;</code></pre>
 <span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>像如MongoDB这类的数据库，也是存在数据模型，但说的却是嵌入子文档。在业务量大的情况下，数据库在考验公司的技术能力，想想便觉得Amazon RDS挺好的。</p>
 <h3 id="数据模型">数据模型</h3>
-<h2 id="领域-1">领域</h2>
-<h3 id="ddd">DDD</h3>
-<h3 id="值对象">值对象</h3>
-<h3 id="dsl">DSL</h3>
+<h1 id="领域篇">领域篇</h1>
+<h2 id="ddd">DDD</h2>
+<h2 id="dsl">DSL</h2>
 <p>DSL(domain-specific languages)即领域特定语言，唯一能够确定DSL边界的方法是考虑“一门语言的一种特定用法”和“该语言的设计者或使用者的意图。在试图设计一个DSL的时候，发现了一些有意思的简单的示例。</p>
 <h3 id="dsl示例">DSL示例</h3>
 <h4 id="jquery-最流行的dsl">jQuery 最流行的DSL</h4>
@@ -2286,7 +2285,7 @@ D = ORDER C BY timestamp,count desc;</code></pre>
     [<span class="st">&#39;Name&#39;</span><span class="op">,</span>
       [<span class="st">&#39;is not empty&#39;</span><span class="op">,</span> <span class="st">&#39;Name is required.&#39;</span>]]<span class="op">,</span>
     [<span class="st">&#39;Password&#39;</span><span class="op">,</span>
-      [<span class="st">&#39;length is between&#39;</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="st">&#39;Password is not acceptable.&#39;</span>]]]<span class="op">;</span> </code></pre></div>
+      [<span class="st">&#39;length is between&#39;</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="st">&#39;Password is not acceptable.&#39;</span>]]]<span class="op">;</span></code></pre></div>
 <p>有一个map对应了上面的方法</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"> <span class="kw">var</span> methods <span class="op">=</span> [
     [<span class="st">&#39;is not empty&#39;</span><span class="op">,</span> isNotEmpty]<span class="op">,</span>
@@ -2301,10 +2300,10 @@ D = ORDER C BY timestamp,count desc;</code></pre>
 
 <span class="cf">return</span> <span class="kw">function</span>(obj) <span class="op">{</span>
     <span class="kw">var</span> error <span class="op">=</span> <span class="at">peek</span>(innerRule)<span class="op">;</span>                           <span class="co">//error is the last index</span>
-    <span class="kw">var</span> values <span class="op">=</span> <span class="at">sink</span>(<span class="at">cdr</span>(innerRule))<span class="op">;</span>                     <span class="co">//get everything but the error  </span>
+    <span class="kw">var</span> values <span class="op">=</span> <span class="at">sink</span>(<span class="at">cdr</span>(innerRule))<span class="op">;</span>                     <span class="co">//get everything but the error</span>
     <span class="cf">return</span> <span class="at">methodToUse</span>(obj<span class="op">,</span> propertyName<span class="op">,</span> error<span class="op">,</span> values)<span class="op">;</span>  <span class="co">//construct the validation call</span>
 <span class="op">};</span></code></pre></div>
-<h1 id="写作">写作</h1>
+<h1 id="写作篇">写作篇</h1>
 <p>每天有大把的时间刷GitHub，写博客。从我大二的时候，大概六年前开始写技术博客，到现在已经有540+了，大概每年会写一百篇左右。</p>
 <h2 id="流量来源">流量来源</h2>
 <p>首先，我将技术博客分为下面几种类型:</p>
