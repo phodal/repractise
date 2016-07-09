@@ -147,16 +147,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#其他-2">其他</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#无栈篇架构设计">无栈篇：架构设计</a><ul>
-<li><a href="#博客与技术驱动">博客与技术驱动</a><ul>
-<li><a href="#技术组成">技术组成</a></li>
-</ul></li>
-<li><a href="#lan与架构设计">Lan与架构设计</a><ul>
-<li><a href="#物联网层级结构">物联网层级结构</a></li>
-<li><a href="#分层架构">分层架构</a></li>
-<li><a href="#六边形架构">六边形架构</a></li>
-</ul></li>
-</ul></li>
 <li><a href="#模式篇设计与架构">模式篇：设计与架构</a><ul>
 <li><a href="#观察者模式">观察者模式</a><ul>
 <li><a href="#ruby观察者模式">Ruby观察者模式</a></li>
@@ -1789,59 +1779,6 @@ git push -q upstream HEAD:gh-pages</code></pre>
 <li>桌面应用: <a href="https://github.com/phodal/echeveria-editor" class="uri">https://github.com/phodal/echeveria-editor</a></li>
 <li>Github Pages: <a href="https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages" class="uri">https://github.com/phodal-archive/echeveria-deploy/tree/gh-pages</a></li>
 </ol>
-<h1 id="无栈篇架构设计">无栈篇：架构设计</h1>
-<h2 id="博客与技术驱动">博客与技术驱动</h2>
-<h3 id="技术组成">技术组成</h3>
-<h2 id="lan与架构设计">Lan与架构设计</h2>
-<p>在设计 lan (Github: <a href="https://github.com/phodal/lan" class="uri">https://github.com/phodal/lan</a>) 物联网平台的时候，结合之前的一些经验，构建出一个实际应用中的物联网构架模型。</p>
-<p>然后像<a href="https://github.com/phodal/lan">lan</a>这样的应用，在里面刚属于服务层。</p>
-<h3 id="物联网层级结构">物联网层级结构</h3>
-<p>通常，我们很容易在网上看到如下图所示的三层结构:</p>
-<p>[物联网三层结构][1]</p>
-<p>从理论上划分这样的层级结构是没有问题的，也是有各种理论依据。然而理论和现实往往是严重脱轨的，如上图所示，图中将网络层单独分为了一层，而并没有独立出应用程序相关的功能。</p>
-<p>从实践的角度上，我更愿意用如下的架构来构建我的物联网系统。</p>
-<figure>
-<img src="http://repractise.phodal.com/img/a-arch/iot-layer.jpg" alt="物联网层级结构" /><figcaption>物联网层级结构</figcaption>
-</figure>
-<p>其功能可以用下表来表示。</p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">层级</th>
-<th style="text-align: left;">作用</th>
-<th style="text-align: left;">与下一层级的连接方式</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">硬件层</td>
-<td style="text-align: left;">获取、发送传感器数据，执行指令</td>
-<td style="text-align: left;">串口、蓝牙、有线、SPI、WiFi、USB等等</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">协调层</td>
-<td style="text-align: left;">协调硬件层与服务器的通信，并负责处理部分数据</td>
-<td style="text-align: left;">网络连接及硬件层的连接方式</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">服务层</td>
-<td style="text-align: left;">以视为服务器层</td>
-<td style="text-align: left;">网络连接</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">应用程序层</td>
-<td style="text-align: left;">为用户提供交互功能</td>
-<td style="text-align: left;">网络连接</td>
-</tr>
-</tbody>
-</table>
-<p>硬件层包含了数据众多的传感器、控制器、以及执行器，通常这部份会由硬件人员与硬件开发人员一起协作和开发。而协调层则是充当硬件与服务层通信的桥梁，这是在系统中需要<strong>特别考虑</strong>的部份，一个物联网系统的设计主要<strong>取决于这个层级</strong>。</p>
-<h4 id="物联网服务层">物联网服务层</h4>
-<p>而服务层的核心是传统的Web应用程序的结构，只是协议层变成了一些适配器，我们需要支持不同的协议，这导致了我们在这个层需要有一个更好的结构，故而我们建议使用<strong>六边形架构</strong>。而在实际中，用户最后接触到的便是应用程序层，在这一层中需要有很好的用户体验设计及流畅度。</p>
-<p>因而在设计<a href="https://github.com/phodal/lan">Lan</a>物联网平台的时候，参考了之前的<a href="https://github.com/phodal/diaonan">物联网平台</a>的设计，增加了用户授权以及模块化加载思想。</p>
-<p>上图的模型可以让我们脱离具体的框架与实现，关注于业务上逻辑。</p>
-<h3 id="分层架构">分层架构</h3>
-<h3 id="六边形架构">六边形架构</h3>
 <h1 id="模式篇设计与架构">模式篇：设计与架构</h1>
 <p>设计模式算是在面向对象中比较有趣的东西，特别是对于像我，这样的用得不是很多的。虽然有时候也会用上，但是并不知道用的是怎样的模式。之前学习了一段时间的设计模式，实际上也就是将平常经常用到的一些东西进行了总结，如此而已。学习设计模式的另外一个重要的意义在于，我们使用了设计模式的时候我们会知道自己使用了，并且还会知道用了是怎样的设计模式。</p>
 <p>至于设计模式这个东西和有些东西一样，是发现的而不是发明的，换句话说，我们可以将经常合到一起的几种模式用一个新的模式来命名，它是复合模式，但是也可以用别的模式来命名。</p>
