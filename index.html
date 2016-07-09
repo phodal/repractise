@@ -168,7 +168,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#数据与模型篇">数据与模型篇</a><ul>
 <li><a href="#数据">数据</a><ul>
 <li><a href="#数据库">数据库</a></li>
-<li><a href="#数据模型">数据模型</a></li>
+<li><a href="#建模">建模</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#领域篇">领域篇</a><ul>
@@ -1228,31 +1228,28 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>之前正在重写一个<a href="http://www.phodal.com/iot">物联网</a>的服务端，主要便是结合CoAP、MQTT、HTTP等协议构成一个物联网的云服务。现在，主要的任务是集中于协议与授权。由于，不同协议间的授权是不一样的，最开始的时候我先写了一个http put授权的功能，而在起先的时候是如何测试的呢?</p>
 <pre><code>curl --user root:root -X PUT -d &#39;{ &quot;dream&quot;: 1 }&#39; -H &quot;Content-Type: application/json&quot; http://localhost:8899/topics/test</code></pre>
 <p>我只要顺利在request中看有无<code>req.headers.authorization</code>，我便可以继续往下，接着给个判断。毕竟，我们对HTTP协议还是蛮清楚的。</p>
-<pre><code>if (!req.headers.authorization) {
-  res.statusCode = 401;
-  res.setHeader(&#39;WWW-Authenticate&#39;, &#39;Basic realm=&quot;Secure Area&quot;&#39;);
-  return res.end(&#39;Unauthorized&#39;);
-}
-   
-   </code></pre>
+<pre><code>    if (!req.headers.authorization) {
+      res.statusCode = 401;
+      res.setHeader(&#39;WWW-Authenticate&#39;, &#39;Basic realm=&quot;Secure Area&quot;&#39;);
+      return res.end(&#39;Unauthorized&#39;);
+    }</code></pre>
 <p>可是除了HTTP协议，还有MQTT和CoAP。对于MQTT协议来说，那还算好，毕竟自带授权，如:</p>
-<pre><code>mosquitto_pub -u root -P root -h localhost -d -t lettuce -m &quot;Hello, MQTT. This is my first message.&quot;
-   </code></pre>
+<pre><code>    mosquitto_pub -u root -P root -h localhost -d -t lettuce -m &quot;Hello, MQTT. This is my first message.&quot;</code></pre>
 <p>便可以让我们简单地完成这个功能，然而有的协议是没有这样的功能如CoAP协议中是用Option来进行授权的。现在的工具如libcoap只能有如下的简单功能</p>
 <pre><code>coap-client -m get coap://127.0.0.1:5683/topics/zero -T</code></pre>
 <p>于是，先写了个测试脚本来验证功能。</p>
-<pre><code>var coap     = require(&#39;coap&#39;);
-var request  = coap.request;
-var req = request({hostname: &#39;localhost&#39;,port:5683,pathname: &#39;&#39;,method: &#39;POST&#39;});
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">var</span> coap     <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;coap&#39;</span>)<span class="op">;</span>
+    <span class="kw">var</span> request  <span class="op">=</span> <span class="va">coap</span>.<span class="at">request</span><span class="op">;</span>
+    <span class="kw">var</span> req <span class="op">=</span> <span class="at">request</span>(<span class="op">{</span><span class="dt">hostname</span><span class="op">:</span> <span class="st">&#39;localhost&#39;</span><span class="op">,</span><span class="dt">port</span><span class="op">:</span><span class="dv">5683</span><span class="op">,</span><span class="dt">pathname</span><span class="op">:</span> <span class="st">&#39;&#39;</span><span class="op">,</span><span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">}</span>)<span class="op">;</span>
 
-...
+    ...
 
-req.setHeader(&quot;Accept&quot;, &quot;application/json&quot;);
-req.setOption(&#39;Block2&#39;,  [new Buffer(&#39;phodal&#39;), new Buffer(&#39;phodal&#39;)]);
+    <span class="va">req</span>.<span class="at">setHeader</span>(<span class="st">&quot;Accept&quot;</span><span class="op">,</span> <span class="st">&quot;application/json&quot;</span>)<span class="op">;</span>
+    <span class="va">req</span>.<span class="at">setOption</span>(<span class="st">&#39;Block2&#39;</span><span class="op">,</span>  [<span class="kw">new</span> <span class="at">Buffer</span>(<span class="st">&#39;phodal&#39;</span>)<span class="op">,</span> <span class="kw">new</span> <span class="at">Buffer</span>(<span class="st">&#39;phodal&#39;</span>)])<span class="op">;</span>
 
-...
+    ...
 
-req.end();</code></pre>
+    <span class="va">req</span>.<span class="at">end</span>()<span class="op">;</span></code></pre></div>
 <p>写完测试脚本后发现不对了，这个不应该是测试的代码吗? 于是将其放到了spec中，接着发现了上面的全部功能的实现过程为什么不用TDD实现呢？</p>
 <h3 id="说说测试驱动开发">说说测试驱动开发</h3>
 <p>测试驱动开发是一个很“古老”的程序开发方法，然而由于国内的开发流程的问题——即开发人员负责功能的测试，导致这么好的一项技术没有在国内推广。</p>
@@ -2127,7 +2124,7 @@ D = ORDER C BY timestamp,count desc;</code></pre>
   <span class="op">}</span>)<span class="op">;</span>
 <span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>像如MongoDB这类的数据库，也是存在数据模型，但说的却是嵌入子文档。在业务量大的情况下，数据库在考验公司的技术能力，想想便觉得Amazon RDS挺好的。</p>
-<h3 id="数据模型">数据模型</h3>
+<h3 id="建模">建模</h3>
 <h1 id="领域篇">领域篇</h1>
 <h2 id="ddd">DDD</h2>
 <h2 id="dsl">DSL</h2>
