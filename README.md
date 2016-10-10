@@ -110,19 +110,6 @@
     *   [DDD](http://repractise.phodal.com/#ddd)
     *   [DSL](http://repractise.phodal.com/#dsl)
         *   [DSL示例](http://repractise.phodal.com/#dsl示例)
-*   [写作篇](http://repractise.phodal.com/#写作篇)
-    *   [流量来源](http://repractise.phodal.com/#流量来源)
-    *   [不同文章类型的写作要点](http://repractise.phodal.com/#不同文章类型的写作要点)
-        *   [技术细节型](http://repractise.phodal.com/#技术细节型)
-        *   [干货型](http://repractise.phodal.com/#干货型)
-        *   [实践总结型](http://repractise.phodal.com/#实践总结型)
-        *   [杂谈与鸡汤型](http://repractise.phodal.com/#杂谈与鸡汤型)
-    *   [如何写博客](http://repractise.phodal.com/#如何写博客)
-        *   [标题——必须重要，类名](http://repractise.phodal.com/#标题必须重要类名)
-        *   [小标题——地图，method](http://repractise.phodal.com/#小标题地图method)
-        *   [内容——函数体](http://repractise.phodal.com/#内容函数体)
-        *   [引言——README](http://repractise.phodal.com/#引言readme)
-    *   [如何收集写作的灵感](http://repractise.phodal.com/#如何收集写作的灵感)
 
 License
 ---
