@@ -2,6 +2,12 @@
 
 在线阅读： [http://repractise.phodal.com/](http://repractise.phodal.com/)
 
+你是否有过这样的经历：
+
+ 1. 创建了一个项目，发现有一些坑，你怎么填都填不好。
+ 2. 放置了一段时间，你又回来了
+ 3. 于是你用了一个更好的方法来填了这个坑？
+
 > 无论怎样的Coding，都是不断的Practise。想要有所成果，你需要RePractise——总结和diff change，再Practise。
 
 对于工程而言，一个技术都是不断练习出来的。
