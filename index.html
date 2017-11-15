@@ -319,46 +319,46 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 |____utils
 |____controller</code></pre>
 <p>在mappers这一层，我们所做的莫过于如下所示的数据库相关查询：</p>
-<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="fu">@Insert</span>(
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="at">@Insert</span>(
         <span class="st">&quot;INSERT INTO users(username, password, enabled) &quot;</span> +
                 <span class="st">&quot;VALUES (#{userName}, #{passwordHash}, #{enabled})&quot;</span>
 )
-<span class="fu">@Options</span>(keyProperty = <span class="st">&quot;id&quot;</span>, keyColumn = <span class="st">&quot;id&quot;</span>, useGeneratedKeys = <span class="kw">true</span>)
+<span class="at">@Options</span>(keyProperty = <span class="st">&quot;id&quot;</span>, keyColumn = <span class="st">&quot;id&quot;</span>, useGeneratedKeys = <span class="kw">true</span>)
 <span class="dt">void</span> <span class="fu">insert</span>(User user);</code></pre></div>
 <p>model文件夹和mappers文件夹都是数据层的一部分，只是两者间的职责不同，如：</p>
-<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> String <span class="fu">getUserName</span>() {
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="bu">String</span> <span class="fu">getUserName</span>() {
     <span class="kw">return</span> userName;
 }
 
-<span class="kw">public</span> <span class="dt">void</span> <span class="fu">setUserName</span>(String userName) {
+<span class="kw">public</span> <span class="dt">void</span> <span class="fu">setUserName</span>(<span class="bu">String</span> userName) {
     <span class="kw">this</span>.<span class="fu">userName</span> = userName;
 }</code></pre></div>
 <p>而他们最后都需要在Controller，又或者称为ModelAndView中处理：</p>
-<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="fu">@RequestMapping</span>(value = {<span class="st">&quot;/disableUser&quot;</span>}, method = RequestMethod.<span class="fu">POST</span>)
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="at">@RequestMapping</span>(value = {<span class="st">&quot;/disableUser&quot;</span>}, method = RequestMethod.<span class="fu">POST</span>)
 <span class="kw">public</span> ModelAndView <span class="fu">processUserDisable</span>(HttpServletRequest request, ModelMap model) {
-    String userName = request.<span class="fu">getParameter</span>(<span class="st">&quot;userName&quot;</span>);
+    <span class="bu">String</span> userName = request.<span class="fu">getParameter</span>(<span class="st">&quot;userName&quot;</span>);
     User user = userService.<span class="fu">getByUsername</span>(userName);
     userService.<span class="fu">disable</span>(user);
-    Map&lt;String,User&gt; map = <span class="kw">new</span> HashMap&lt;String,User&gt;();
-    Map &lt;User,String&gt; usersWithRoles= userService.<span class="fu">getAllUsersWithRole</span>();
+    <span class="bu">Map</span>&lt;<span class="bu">String</span>,User&gt; map = <span class="kw">new</span> <span class="bu">HashMap</span>&lt;<span class="bu">String</span>,User&gt;();
+    <span class="bu">Map</span> &lt;User,<span class="bu">String</span>&gt; usersWithRoles= userService.<span class="fu">getAllUsersWithRole</span>();
     model.<span class="fu">put</span>(<span class="st">&quot;usersWithRoles&quot;</span>,usersWithRoles);
     <span class="kw">return</span> <span class="kw">new</span> <span class="fu">ModelAndView</span>(<span class="st">&quot;redirect:users&quot;</span>,map);
 }</code></pre></div>
 <p>在多数时候，Controller不应该直接与数据层的一部分，而将业务逻辑放在Controller层又是一种错误，这时就有了Service层，如下图：</p>
 <figure>
-<img src="http://repractise.phodal.com/img/frontend/service-mvc.png" alt="Service MVC" /><figcaption>Service MVC</figcaption>
+<img src="./img/frontend/service-mvc.png" alt="Service MVC" /><figcaption>Service MVC</figcaption>
 </figure>
 <p>然而对于Domain相关的Service应该放在哪一层，总会有不同的意见：</p>
 <figure>
-<img src="http://repractise.phodal.com/img/frontend/mvcplayer.gif" alt="MVC Player" /><figcaption>MVC Player</figcaption>
+<img src="./img/frontend/mvcplayer.gif" alt="MVC Player" /><figcaption>MVC Player</figcaption>
 </figure>
 <figure>
-<img src="http://repractise.phodal.com/img/frontend/ms-mvc.png" alt="MS MVC" /><figcaption>MS MVC</figcaption>
+<img src="./img/frontend/ms-mvc.png" alt="MS MVC" /><figcaption>MS MVC</figcaption>
 </figure>
 <p>Domain（业务）是一个相当复杂的层级，这里是业务的核心。一个合理的Controller只应该做自己应该做的事，它不应该处理业务相关的代码：</p>
 <div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">if</span> (isNewnameEmpty == <span class="kw">false</span> &amp;&amp; newuser == <span class="kw">null</span>){
     user.<span class="fu">setUserName</span>(newUsername);
-    List&lt;Post&gt; myPosts = postService.<span class="fu">findMainPostByAuthorNameSortedByCreateTime</span>(principal.<span class="fu">getName</span>());
+    <span class="bu">List</span>&lt;Post&gt; myPosts = postService.<span class="fu">findMainPostByAuthorNameSortedByCreateTime</span>(principal.<span class="fu">getName</span>());
 
     <span class="kw">for</span> (<span class="dt">int</span> k = <span class="dv">0</span>;k &lt; myPosts.<span class="fu">size</span>();k++){
         Post post = myPosts.<span class="fu">get</span>(k);
@@ -422,7 +422,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <h3 id="从桌面版到移动版">从桌面版到移动版</h3>
 <p>Wap出现了，并带来了更多的挑战。随后，分辨率从1024x768变成了176×208，开发人员不得不面临这些挑战。当时所需要做的仅仅是修改View层，而View层随着iPhone的出现又发生了变化。</p>
 <figure>
-<img src="http://repractise.phodal.com/img/frontend/wap.gif" alt="WAP 网站" /><figcaption>WAP 网站</figcaption>
+<img src="./img/frontend/wap.gif" alt="WAP 网站" /><figcaption>WAP 网站</figcaption>
 </figure>
 <p>这是一个短暂的历史，PO还需要为手机用户制作一个怎样的网站？于是他们把桌面版的网站搬了过去变成了移动版。由于网络的原因，每次都需要重新加载页面，这带来了不佳的用户体验。</p>
 <p>幸运的是，人们很快意识到了这个问题，于是就有了SPA。<strong>如果当时的移动网络速度可以更快的话，我想很多SPA框架就不存在了</strong>。</p>
@@ -467,7 +467,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 {% endblock %}</code></pre></div>
 <p>人们所做的只是<strong>重载View层</strong>。这也是一个有效的SEO策略，上面这些代码是我博客过去的代码。对于桌面版和移动版都是不同的模板和不同的JS、CSS。</p>
 <figure>
-<img src="http://repractise.phodal.com/img/frontend/mobile-web.png" alt="移动版网页" /><figcaption>移动版网页</figcaption>
+<img src="./img/frontend/mobile-web.png" alt="移动版网页" /><figcaption>移动版网页</figcaption>
 </figure>
 <p>在这一时期，桌面版和移动版的代码可能在同一个代码库中。他们使用相同的代码，调用相同的逻辑，只是View层不同了。但是，每次改动我们都要维护两份代码。</p>
 <p>随后，人们发现了一种更友好的移动版应用——APP。</p>
@@ -475,7 +475,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>这是一个艰难的时刻，过去我们的很多API都是在原来的代码库中构建的，即桌面版和移动版一起。我们已经在这个代码库中开发了越来越多的功能，系统开发变得臃肿。如《Linux/Unix设计思想》中所说，这是一个伟大的系统，但是它臃肿而又缓慢。</p>
 <p>我们是选择重新开发一个结合第一和第二系统的最佳特性的第三个系统，还是继续臃肿下去。我想你已经有答案了。随后我们就有了APP API，构建出了博客的APP。</p>
 <figure>
-<img src="http://repractise.phodal.com/img/frontend/mobile-app.jpg" alt="应用" /><figcaption>应用</figcaption>
+<img src="./img/frontend/mobile-app.jpg" alt="应用" /><figcaption>应用</figcaption>
 </figure>
 <p>最开始，人们越来越喜欢用APP，因为与移动版网页相比，其响应速度更快，而且更流畅。对于服务器来说，也是一件好事，因为请求变少了。</p>
 <p>但是并非所有的人都会下载APP——<strong>有时只想看看上面有没有需要的东西</strong>。对于刚需不强的应用，人们并不会下载，只会访问网站。</p>
@@ -516,11 +516,11 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>一夜之前，我们又回到了过去。我们离开了JSP，将View层变成了Template与Controller。而原有的Services层并不是只承担其原来的责任，这些Services开始向ViewModel改变。</p>
 <p>一些团队便将Services抽成多个Services，美其名为微服务。传统架构下的API从下图</p>
 <figure>
-<img src="http://repractise.phodal.com/img/frontend/api-gateway.png" alt="API Gateway" /><figcaption>API Gateway</figcaption>
+<img src="./img/frontend/api-gateway.png" alt="API Gateway" /><figcaption>API Gateway</figcaption>
 </figure>
 <p>变成了直接调用的微服务：</p>
 <figure>
-<img src="http://repractise.phodal.com/img/frontend/microservices.png" alt="Micro Services" /><figcaption>Micro Services</figcaption>
+<img src="./img/frontend/microservices.png" alt="Micro Services" /><figcaption>Micro Services</figcaption>
 </figure>
 <p>对于后台开发者来说，这是一件大快人心的大好事，但是对于应用端/前端来说并非如此。调用的服务变多了，在应用程序端进行功能测试变得更复杂，需要Mock的API变多了。</p>
 <h3 id="hybird与viewmodel">Hybird与ViewModel</h3>
@@ -693,7 +693,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>微服务与Django</p>
 <p>Django 应用架构 Django MVC结构如下如示:</p>
 <figure>
-<img src="http://repractise.phodal.com/img/backend/django_mvc.png" alt="Django MVC" /><figcaption>Django MVC</figcaption>
+<img src="./img/backend/django_mvc.png" alt="Django MVC" /><figcaption>Django MVC</figcaption>
 </figure>
 <p>然后，记住这张图，忘记上面的MVC，Django实际上是一个MTV</p>
 <ul>
@@ -704,32 +704,32 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>主要是Django中的views.py通常是在做Controller的事。</p>
 <p>然而对于一个Django的应用来说，他的架构如下所示:</p>
 <figure>
-<img src="http://repractise.phodal.com/img/backend/django-app.jpg" alt="Django apps architecture" /><figcaption>Django apps architecture</figcaption>
+<img src="./img/backend/django-app.jpg" alt="Django apps architecture" /><figcaption>Django apps architecture</figcaption>
 </figure>
 <p>Django的每个App就代表着程序的一个功能。每个App有自己的models、views、urls、templates所以对于一个app来说他的结构如下:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">.</span>
-<span class="kw">|______init__.py</span>
-<span class="kw">|____models.py</span>
-<span class="kw">|____tests.py</span>
-<span class="kw">|____views.py</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">.</span>
+<span class="kw">|</span><span class="ex">______init__.py</span>
+<span class="kw">|</span><span class="ex">____models.py</span>
+<span class="kw">|</span><span class="ex">____tests.py</span>
+<span class="kw">|</span><span class="ex">____views.py</span></code></pre></div>
 <p>如果是新版的Django那么它的结构如下:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">.</span>
-<span class="kw">|______init__.py</span>
-<span class="kw">|____admin.py</span>
-<span class="kw">|____migrations</span>
-<span class="kw">|</span> <span class="kw">|______init__.py</span>
-<span class="kw">|____models.py</span>
-<span class="kw">|____tests.py</span>
-<span class="kw">|____views.py</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">.</span>
+<span class="kw">|</span><span class="ex">______init__.py</span>
+<span class="kw">|</span><span class="ex">____admin.py</span>
+<span class="kw">|</span><span class="ex">____migrations</span>
+<span class="kw">|</span> <span class="kw">|</span><span class="ex">______init__.py</span>
+<span class="kw">|</span><span class="ex">____models.py</span>
+<span class="kw">|</span><span class="ex">____tests.py</span>
+<span class="kw">|</span><span class="ex">____views.py</span></code></pre></div>
 <p>上面少了templates，最后会有一个总的URL，即第一张图的URL Dispatcher。接着，让我们看看微服务是怎样的。</p>
 <p>一个典型的微服务如下所示:</p>
 <figure>
-<img src="http://repractise.phodal.com/img/backend/microservices_a.jpg" alt="microservices architecture" /><figcaption>microservices architecture</figcaption>
+<img src="./img/backend/microservices_a.jpg" alt="microservices architecture" /><figcaption>microservices architecture</figcaption>
 </figure>
 <p>有不同的技术栈python、spring、scala，但是他们看上去和Django应用的图差不多，除了数据库不一样。</p>
 <p>与其将复杂的测试、逻辑部分变得不可测，不如把这些部分放置于系统内部。</p>
 <figure>
-<img src="http://repractise.phodal.com/img/backend/linux_os.jpg" alt="Linux OS Hybrid" /><figcaption>Linux OS Hybrid</figcaption>
+<img src="./img/backend/linux_os.jpg" alt="Linux OS Hybrid" /><figcaption>Linux OS Hybrid</figcaption>
 </figure>
 <p>当我们在我们的服务器上部署微服务的时候，也就意味着实现所以的服务都是在我们系统的内部，我们有一个Kernel以及他们的Kernel Moduels，即微服务群们。他们调用DB，或者某些第三方服务。</p>
 <p>System Libraries相当于我们的URL Dispatcher。而我们的URL Dispatcher实际上所做的便是将各自调用的服务指向各自的app。</p>
@@ -749,7 +749,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 </blockquote>
 <p>换成中文，即：<strong>设计系统的组织，其产生的设计和架构等价于组织间的沟通结构</strong>。上图</p>
 <figure>
-<img src="http://repractise.phodal.com/img/front-back-end/conway.jpg" alt="Conway" /><figcaption>Conway</figcaption>
+<img src="./img/front-back-end/conway.jpg" alt="Conway" /><figcaption>Conway</figcaption>
 </figure>
 <p>这张图可以解释相当多的软件开发过程中的问题，而我们知道软件开发的主要问题是沟通问题。组织结构影响了我们的沟通结构，进而影响了我们的软件系统结构。好吧，我承认可能离题有点远。不过，我想说的是组织结构可能不允许我们做出一些好的系统架构。</p>
 <p>如我们在《<a href="http://mp.weixin.qq.com/s?src=3&amp;timestamp=1467515714&amp;ver=1&amp;signature=z1onJvKn4TSrUmXm384CQUF1IZBVsLShsQ4DpmumN6xY0Gm5RR9XKdbf6ELzdRqg-mxdtxceTg-4-KrhYHZQC6wiSEWsP64vh0sl2Je4G16hnS6MsuZaD-u01HAENCSKuw3mQL-F2Gc5WYvti9SQlw==">RePractise前端篇: 前端演进史</a>》中提到的那样：我们已经有了一个桌面版网页，然后我们打造了一个APP。然而，总有些客户想在手机上浏览但是又不想下APP，我们就需要一个移动版。为什么会这样？因为用户已经被养成了这样的习惯，大部分的网站提到了桌面版、移动版、APP。要维护这样的三个不同的系统，对于大部分的业务公司来说成本太高了。</p>
@@ -767,7 +767,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>我接触的第一个SPA应用是一个基于Spring MVC和Backbone的移动网站，但是它比一般的SPA应该要复杂——由于SEO的缘故，它需要支持后台渲染。</p>
 <p>当搜索引擎通过URL访问我们的网站的时候，我们就需要返回相应的HTML。这意味着我们需要在后台有对应的模板引擎来支持，而由于SPA的性质又决定了，这需要使用一个纯前端的模板引擎。因此，我们并不能使用两个模板引擎来做这件事，维护两套模板注定会是一件痛苦的事，并且当时还没有React这种模板引擎在。不过，后来我们发现维护两种不同的渲染方式也是一件痛苦的事。因此，我们就会有了类似于下图的架构：</p>
 <figure>
-<img src="http://repractise.phodal.com/img/front-back-end/spring-backbone.png" alt="Spring MVC Backbone" /><figcaption>Spring MVC Backbone</figcaption>
+<img src="./img/front-back-end/spring-backbone.png" alt="Spring MVC Backbone" /><figcaption>Spring MVC Backbone</figcaption>
 </figure>
 <p>我们在后台使用Spring MVC作为基础架构、Mustache作为模板引擎，和使用JSP作为模板引擎相比没有多大的区别——由Controller去获取对应的Model，再渲染给用户。多数时候搜索引擎都是依据Sitemap来进行索引的，所以我们的后台很容易就可以处理这些请求。同样的当用户访问相应的页面的时候，也返回同样的页面内容。当完成页面渲染的时候，就交由Backbone来处理相应的逻辑了。换句话来说，从这时候它就变成了一个单页面应用。</p>
 <p>尽管这是一个三年年前开始的项目，但是在今天看来，这种做法仍然相应地有趣： 大部分的单页面应用只有一个首页，并由HTTP服务器（如Nginx）、Web框架（如Express、Koa）对路由做一些处理，可以让用户通过特定地URL访问特定地页面。而我们需要保证所有的用户访问地都是真实的页面，既然JavaScript没有加载完，用户也能看到完整的页面。</p>
@@ -777,18 +777,18 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>在我们重新设计系统的时候，曾经考虑过类似的做法。将我们的所有页面渲染成静态的HTML，然后用爬虫抓取我们的所有页面，再上传到AWS即可。当时我们咨询了其他小组的做法，其中有一个小组正是采用了这种PreRender的方式——在本地运行起一个Server，由PhantomJS来渲染页面，再保存为对应的HTML。</p>
 <p>PreRender就是预先渲染好HTML，并针对于爬虫返回特定的HTML。（PS：不过作为一个很有经验的SEO开发人员，我一点不喜欢这种作法。要知道Google有时候会模拟成真实的用户，不带有爬虫的那些参数和标志，去访问页面。如果你返回给Google的两个页面差异太大——可能是你忘记更新了频率，那么Google可能就会认为你在<strong>作弊</strong>。）</p>
 <figure>
-<img src="http://repractise.phodal.com/img/front-back-end/angular-prerender.jpg" alt="PreRender" /><figcaption>PreRender</figcaption>
+<img src="./img/front-back-end/angular-prerender.jpg" alt="PreRender" /><figcaption>PreRender</figcaption>
 </figure>
 <p>对于一般用户来说就不会返回后台渲染的结果了：</p>
 <figure>
-<img src="http://repractise.phodal.com/img/front-back-end/angular-phantomjs-prereder.jpg" alt="Angular PreRender" /><figcaption>Angular PreRender</figcaption>
+<img src="./img/front-back-end/angular-phantomjs-prereder.jpg" alt="Angular PreRender" /><figcaption>Angular PreRender</figcaption>
 </figure>
 <p>和上面的第一种情况相比，这种作法可以大大减少服务器地负担，并且可以直接交由CDN就可以了。这时我们只需要考虑要渲染哪些页面即可，对于数据量比较少的网站来说这是一个不错的做法，但是多了就不一样了。</p>
 <p>对于我们来说，有两个问题：一个是速度的问题，他们有上万条数据就需要近一天左右的时间来生成（渲染时间长），而我们有上百万条数据。二是数据的实时问题，我们的产品数据每天都会更新一次。</p>
 <h3 id="react">React</h3>
 <p>对于使用React的开发人员来说，要处理后台渲染就是一种更简单的事，毕竟React中提供了一个方法叫 renderToString()。我们所要做的就是用Express或者Koa对路由进行处理，然后返回对应的内容即可：</p>
 <figure>
-<img src="http://repractise.phodal.com/img/front-back-end/react-server-side-render.png" alt="React Server Side Render" /><figcaption>React Server Side Render</figcaption>
+<img src="./img/front-back-end/react-server-side-render.png" alt="React Server Side Render" /><figcaption>React Server Side Render</figcaption>
 </figure>
 <p>然后，剩下的事都可以交由React来解决，就是这么简单。</p>
 <p>因为在这个时候我们在前后台使用的都是JavaScript，我们可以在这个地方直接实现对数据库的操作，就会出现我们在开头说到的前后台分离的问题。这样做并不合理，后台只应该返回我们所需要的数据，并且它可以随时被其他语言替换掉。</p>
@@ -798,7 +798,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <h2 id="从真实世界到前后端-1">从真实世界到前后端</h2>
 <p>我们所写的代码在某种程度上都反应了真实世界的模型、行为等等。一个比较常见的模型就是：购物模型。同时， 这也是一个很好的展示前后端分离的模型。</p>
 <figure>
-<img src="http://repractise.phodal.com/img/no-stacks/store-model.jpg" alt="store-model.jpg" /><figcaption>store-model.jpg</figcaption>
+<img src="./img/no-stacks/store-model.jpg" alt="store-model.jpg" /><figcaption>store-model.jpg</figcaption>
 </figure>
 <p>（PS: 原谅我的画工）</p>
 <h3 id="便利店与售货员">便利店与售货员</h3>
@@ -811,7 +811,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 </ul>
 <p>如果我们要构建这样一个系统，我们只需要区分出系统的各个部分，那么剩下的事情就变得很简单了。</p>
 <figure>
-<img src="http://repractise.phodal.com/img/no-stacks/domain.jpg" alt="domain.jpg" /><figcaption>domain.jpg</figcaption>
+<img src="./img/no-stacks/domain.jpg" alt="domain.jpg" /><figcaption>domain.jpg</figcaption>
 </figure>
 <p>由于整个系统仍然是相当复杂的，我们在这里只关注于用户购买的过程。</p>
 <h3 id="模型领域抽象">模型、领域、抽象</h3>
@@ -826,12 +826,12 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>这些商品实现上就是相当于一系列的模型及数据。在用户购买之前，我们只需要一个去获取一个个的数据接口，并展示这些数据。</p>
 <p>对应于这些商品要建起Schema来是一件容易的事。作为一个商品，他们都拥有着一些共同的元素：price, name, description, location, manufacturer等等的信息。其中一些属性，还会有复杂的对应关系：</p>
 <figure>
-<img src="http://repractise.phodal.com/img/no-stacks/product-schema.png" alt="Product Schema" /><figcaption>Product Schema</figcaption>
+<img src="./img/no-stacks/product-schema.png" alt="Product Schema" /><figcaption>Product Schema</figcaption>
 </figure>
 <p>这些需要在我们建立数据库的时候，尽可能地明确好这些关系。由于业务本身是难以预料的，你可能和我们之前的项目一样需要一个addtionInfo的字段，来用JSON存储一些额外的字段。当然如果你使用的是NoSQL，那就再好不过了。</p>
 <p>最好你还使用了<strong>读写分离架构</strong>，一种比较常见的用法就是CMS网站，人们使用数据库来存储内容，使用静态页面来展示这些内容。比较好的实践还有CQRS(Command Query Responsibility Segregation， 命令查询职责分离模式)，用于CRUD（增、删、改，当然也可以查）的Command，以及Query的查询分开。简单的来说，就是有两个不同的数据持久化中心：</p>
 <figure>
-<img src="http://repractise.phodal.com/img/no-stacks/basic-cqrs.png" alt="Basic CQRS" /><figcaption>Basic CQRS</figcaption>
+<img src="./img/no-stacks/basic-cqrs.png" alt="Basic CQRS" /><figcaption>Basic CQRS</figcaption>
 </figure>
 <p>这一点特别适合于那些查询、搜索为主的网站，如淘宝。哈哈，我们离题有点远了，总之我们就是在这里提供了数据库的灵气，并对一些字段做一些简单的处理。听上去感觉GraphQL更适合做这样的事。</p>
 <h4 id="领域"><strong>领域</strong></h4>
@@ -861,7 +861,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>抽象本来不打算写的，但是后来想了想还是写。总的来说整个过程还是需要相对比较好的抽象能力，要不我就很难讲述清楚这里面的过程了。</p>
 <p>抽象是很神奇的东西，也可以分为几个不同的境界——但是我也不知道有几个境界，简单的来说就是不同的人看上去就有不同的东西。如有的人看到下面的画就是一坨shit——还不如小学生画的呢，有的人就会惊呼大师。</p>
 <figure>
-<img src="http://repractise.phodal.com/img/no-stacks/2012070208374547914.jpg" alt="星空" /><figcaption>星空</figcaption>
+<img src="./img/no-stacks/2012070208374547914.jpg" alt="星空" /><figcaption>星空</figcaption>
 </figure>
 <p>反正，我也很看不懂。这一点倒类似于最初我对设计模型的理解一样：</p>
 <ul>
@@ -871,26 +871,26 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <li>最后就和最好的编程器Emacs一样</li>
 </ul>
 <figure>
-<img src="http://repractise.phodal.com/img/no-stacks/editor-learning-curve.png" alt="Editor Learning Curve" /><figcaption>Editor Learning Curve</figcaption>
+<img src="./img/no-stacks/editor-learning-curve.png" alt="Editor Learning Curve" /><figcaption>Editor Learning Curve</figcaption>
 </figure>
 <p>这些都在随着编程生涯的展开而发生一些变化，我们不断地抽象出一些概念，以至于到了最后刚进入这个行业的人都看不懂。但是，这些都是一点点在一层层抽象的基础上产生的。</p>
 <figure>
-<img src="http://repractise.phodal.com/img/no-stacks/needs.jpg" alt="Needs" /><figcaption>Needs</figcaption>
+<img src="./img/no-stacks/needs.jpg" alt="Needs" /><figcaption>Needs</figcaption>
 </figure>
 <p>所以，我就把这一小小节扯完了，反正我是不想说得太抽象了。接着，让我们再扯点技术性的话题。</p>
 <h2 id="前后台分离后台">前后台分离：后台</h2>
 <p>典型的Web应用框架就是类似于这样的架构：</p>
 <figure>
-<img src="http://repractise.phodal.com/img/no-stacks/spring-web-app-architecture.png" alt="Spring Web App Architecture" /><figcaption>Spring Web App Architecture</figcaption>
+<img src="./img/no-stacks/spring-web-app-architecture.png" alt="Spring Web App Architecture" /><figcaption>Spring Web App Architecture</figcaption>
 </figure>
 <p>又或者是MVC架构，但是这已经不重要了。我们都前后端分离了，是时候把V层去掉了。</p>
 <figure>
-<img src="http://repractise.phodal.com/img/no-stacks/mvc_role_diagram.png" alt="MVC Role Diagram" /><figcaption>MVC Role Diagram</figcaption>
+<img src="./img/no-stacks/mvc_role_diagram.png" alt="MVC Role Diagram" /><figcaption>MVC Role Diagram</figcaption>
 </figure>
 <p>我们继续以上面的浏览来购买流程来做扯淡，后台除了提高上面的商品信息以外，在购买的时候还需要对用户进行授权。当然注册就是另外一个话题了，另外一个很大的话题。</p>
 <p>所有的这些我们都可以向前台提供对应的API即可。理想的情况下，我们对应于不同的模块可以有不同的服务：</p>
 <figure>
-<img src="http://repractise.phodal.com/img/no-stacks/microservices.png" alt="MicroServices" /><figcaption>MicroServices</figcaption>
+<img src="./img/no-stacks/microservices.png" alt="MicroServices" /><figcaption>MicroServices</figcaption>
 </figure>
 <p>但是现实并不总是这么美好的，而在我们当前情况下则可以——毕竟所有的用户都应该能浏览所有的商品，这时就不需要做特殊的处理了。</p>
 <p>在这个过程中，我们还有一系列的操作需要在后台来完成。不过，这些都可以在内部中完成的。而复杂的过程，实际上还存在于前端的逻辑当中。</p>
@@ -1119,7 +1119,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 </table>
 <p>分享得到的最后的结果是:</p>
 <figure>
-<img src="http://repractise.phodal.com/img/refactor/coverage.png" alt="Coverage" /><figcaption>Coverage</figcaption>
+<img src="./img/refactor/coverage.png" alt="Coverage" /><figcaption>Coverage</figcaption>
 </figure>
 <h4 id="代码的坏味道">代码的坏味道</h4>
 <p>于是我们就打开<code>lib/database/sqlite_helper.js</code>，因为其中有两个坏味道</p>
@@ -1260,7 +1260,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <h3 id="cms简介">CMS简介</h3>
 <p>CMS是Content Management System的缩写，意为“内容管理系统”.它可以做很多的事情，但是总的来说就是Page和Blog——即我们要创建一些页面可以用于写一些About US、Contact Me，以及持续更新的博客或者新闻，以及其他子系统——通常更新不活跃。通过对这些博客或者新闻进行分类，我们就可以有不同的信息内容，如下图：</p>
 <figure>
-<img src="http://repractise.phodal.com/img/cms/cms-blogs.png" alt="不同分类的内容" /><figcaption>不同分类的内容</figcaption>
+<img src="./img/cms/cms-blogs.png" alt="不同分类的内容" /><figcaption>不同分类的内容</figcaption>
 </figure>
 <p>CMS是政府和企业都需要的系统，他们有很多的信息需要公开，并且需要对其组织进行宣传。在我有限的CMS交付经验里（大学时期），一般第一次交付CMS的时候，已经创建了大部分页面。有时候这些页面可能直接存储在数据库中，后来发现这不是一个好的方案，于是很多页面变成了静态页面。随后，在CMS的生命周期里就是更新内容。</p>
 <p>因而，CMS中起其主导的东西还是Content，即内容。而内容是一些持续可变的东西。这也就是为什么WordPress这么流行于CMS界，它是一个博客系统，但是多数时候我们只需要更新内容。除此不得不提及的一个CMS框架是Drupal，两者一对比会发现Drupal比较强大。通常来说，强大的一个负作用就是——复杂。</p>
@@ -1279,7 +1279,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <h3 id="cms架构与django">CMS架构与Django</h3>
 <p>说起来，我一直是一个CMS党。主要原因还在于我可以随心所欲地去修改网站的内容，修改网站的架构。好的CMS总的来说都有其架构图，下图似乎是Drupal的模块图</p>
 <figure>
-<img src="http://repractise.phodal.com/img/cms/drupal-modular.png" alt="Drupal 框架" /><figcaption>Drupal 框架</figcaption>
+<img src="./img/cms/drupal-modular.png" alt="Drupal 框架" /><figcaption>Drupal 框架</figcaption>
 </figure>
 <p>一般来说，其底层都会有：</p>
 <ul>
@@ -1313,17 +1313,17 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 </table>
 <p>从框架本身来上看它和别的系统没有太大的区别。</p>
 <figure>
-<img src="http://repractise.phodal.com/img/cms/django-architecture.jpg" alt="Django Architecture" /><figcaption>Django Architecture</figcaption>
+<img src="./img/cms/django-architecture.jpg" alt="Django Architecture" /><figcaption>Django Architecture</figcaption>
 </figure>
 <p>但是如果我们已经有多外模块（即Django中app的概念），那么系统的架构就有所不同了。</p>
 <figure>
-<img src="http://repractise.phodal.com/img/cms/django-apps.jpg" alt="Django App架构" /><figcaption>Django App架构</figcaption>
+<img src="./img/cms/django-apps.jpg" alt="Django App架构" /><figcaption>Django App架构</figcaption>
 </figure>
 <p>这就是为何我喜欢用这个CMS的原因了，我的每个子系统都以APP的形式提供服务——博客是一个app，sitemap是一个app，api是一个app。系统直接解耦为类似于混合服务的架构，即不像微服务一样多语言化，又不会有宏应用的紧耦合问题。</p>
 <h3 id="编辑-发布分离">编辑-发布分离</h3>
 <p>我们的编辑和发布系统在某种意义上紧耦合在一起了，当用户访问量特别大的时候，这样会让我们的应用变得特定慢。有时候编辑甚至发布不了新的东西，如下图引示:</p>
 <figure>
-<img src="http://repractise.phodal.com/img/cms/editor-publisher.png" alt="发布-编辑" /><figcaption>发布-编辑</figcaption>
+<img src="./img/cms/editor-publisher.png" alt="发布-编辑" /><figcaption>发布-编辑</figcaption>
 </figure>
 <p>或者你认识出了上图是源自Martin Folwer的<a href="http://martinfowler.com/bliki/EditingPublishingSeparation.html">编辑-发布分离</a></p>
 <p>编辑-发布分离是几年前解耦复杂系统游来开来带来的一个成果。今天这个似乎已经很常见了，编辑的时候是在后台进行的，等到发布的时候已经变成了一个静态的HTML。</p>
@@ -1350,7 +1350,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>如Hexo这样的框架甚至提供了<code>一键部署</code>的功能。</p>
 <p>在我们写了相关的代码之后，随后要做的就是生成HTML。对于个人博客来说，这是一个非常不错的系统，但是对于一些企业级的系统来说，我们的要求就更高了。如下图是Carrot采用的架构：</p>
 <figure>
-<img src="http://repractise.phodal.com/img/cms/carrot.png" alt="Editor Develoepr" /><figcaption>Editor Develoepr</figcaption>
+<img src="./img/cms/carrot.png" alt="Editor Develoepr" /><figcaption>Editor Develoepr</figcaption>
 </figure>
 <p>这与我们在项目上的系统架构目前相似。作为一个博主，通常来说我们修改博客的主题的频率会比较低， 可能是半年一次。如果你经常修改博客的主题，你博客上的文章一定是相当的少。</p>
 <p>上图中的编辑者通过一个名为Contentful CMS来创建他们的内容，接着生成RESTful API。而类似的事情，我们也可以用Wordpress + RESTful 插件来完成。如果做得好，那么我想这个API也可以直接给APP使用。</p>
@@ -1378,7 +1378,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 </ol>
 <p>于是，有了一个名为<a href="https://github.com/haciendaio/hacienda">Hacienda</a>的框架用于管理内容，并存储为JSON。这意味着什么？</p>
 <figure>
-<img src="http://repractise.phodal.com/img/cms/github-edit-publish-code.png" alt="基于Github的编辑-发布-开发分离" /><figcaption>基于Github的编辑-发布-开发分离</figcaption>
+<img src="./img/cms/github-edit-publish-code.png" alt="基于Github的编辑-发布-开发分离" /><figcaption>基于Github的编辑-发布-开发分离</figcaption>
 </figure>
 <p>因为使用了Git，我们可以了解到一个文件内容的历史版本，相比于WordPress来说更直观，而且更容易 上手。</p>
 <p>开发人员修改完他们的代码后，就可以直接提交，不会影响到Editor使用网站。Editor通过一个编辑器添加内容，在保存后，内容以JSON的形式出现直接提交代码到Github上相应的代码库中。CI或者Builder监测到他们的办法，就会生成新的静态页面。在这时候，我们可以选择有一个预览的平台，并且可以一键部署。那么，事情似乎就完成得差不多了。</p>
@@ -1391,7 +1391,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 </blockquote>
 <p>思考完这些后，我想到了一个符合学习的场景。</p>
 <figure>
-<img src="http://repractise.phodal.com/img/cms/travis-edit-publish-code.png" alt="基于Travis CI的编辑-发布-开发分离" /><figcaption>基于Travis CI的编辑-发布-开发分离</figcaption>
+<img src="./img/cms/travis-edit-publish-code.png" alt="基于Travis CI的编辑-发布-开发分离" /><figcaption>基于Travis CI的编辑-发布-开发分离</figcaption>
 </figure>
 <p>我们构建的核心都可以基于Travis CI来完成，唯一存在风险的环节是我们似乎需要暴露我们的Key。</p>
 <h4 id="其他-1">其他</h4>
@@ -1483,7 +1483,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>用于开发阶段这样的代码就够了，这个和你使用WebPack + React 似乎相差不了多少。</p>
 <h2 id="builder-构建生成工具">Builder: 构建生成工具</h2>
 <p>Github与Travis之间，可以做一个自动部署的工具。相信已经有很多人在Github上玩过这样的东西——先在Github上生成Token，然后用travis加密：</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">travis</span> encrypt-file ssh_key --add</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">travis</span> encrypt-file ssh_key --add</code></pre></div>
 <p>加密后的Key就会保存到<code>.travis.yml</code>文件里，然后就可以在Travis CI上push你的代码到Github上了。</p>
 <p>接着，你需要创建个deploy脚本，并且在<code>after_success</code>执行它：</p>
 <div class="sourceCode"><pre class="sourceCode yml"><code class="sourceCode yaml"><span class="fu">after_success:</span>
@@ -1622,12 +1622,12 @@ git push -q upstream HEAD:gh-pages</code></pre>
 </ol>
 <p>于是，就会有一个很忙的Travis-Github Robot在默默地为你工作。</p>
 <figure>
-<img src="http://repractise.phodal.com/img/basis/robot-commit.png" alt="Robot提交代码" /><figcaption>Robot提交代码</figcaption>
+<img src="./img/basis/robot-commit.png" alt="Robot提交代码" /><figcaption>Robot提交代码</figcaption>
 </figure>
 <h2 id="一键发布编辑器">一键发布：编辑器</h2>
 <p>为了实现之前说到的<code>编辑-发布-开发分离</code>的CMS，我还是花了两天的时间打造了一个面向普通用户的编辑器。效果截图如下所示：</p>
 <figure>
-<img src="http://repractise.phodal.com/img/cms/editor.png" alt="编辑器" /><figcaption>编辑器</figcaption>
+<img src="./img/cms/editor.png" alt="编辑器" /><figcaption>编辑器</figcaption>
 </figure>
 <p>作为一个普通用户，这是一个很简单的软件。除了Electron + Node.js + React作了一个140M左右的软件，尽管压缩完只有40M左右 ，但是还是会把用户吓跑的。不过作为一个快速构建的原型已经很不错了——构建速度很快、并且运行良好。</p>
 <ul>
@@ -1691,7 +1691,7 @@ git push -q upstream HEAD:gh-pages</code></pre>
 <h2 id="移动应用">移动应用</h2>
 <p>为了快速开发，这里我们使用了Ionic + ngCordova来开发 ，最后效果图如下所示：</p>
 <figure>
-<img src="http://repractise.phodal.com/img/basis/app.png" alt="移动应用" /><figcaption>移动应用</figcaption>
+<img src="./img/basis/app.png" alt="移动应用" /><figcaption>移动应用</figcaption>
 </figure>
 <p>在这个代码库里，主要由两部分组成：</p>
 <ol type="1">
@@ -1891,14 +1891,14 @@ describe <span class="dt">LedStatus</span> <span class="kw">do</span>
   <span class="kw">end</span>
 <span class="kw">end</span></code></pre></div>
 <p>测试结果如下所示</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">phodal@linux-dlkp</span>:~/tw/observer<span class="kw">&amp;gt;</span> <span class="kw">rake</span>
-<span class="kw">/usr/bin/ruby1.9</span> -S rspec ./spec/getdata_spec.rb ./spec/ledstatus_spec.rb
-<span class="kw">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
-<span class="kw">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
-<span class="kw">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
-<span class="kw">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
-<span class="kw">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
-<span class="kw">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">phodal@linux-dlkp</span>:~/tw/observer<span class="kw">&amp;</span><span class="ex">gt</span><span class="kw">;</span> <span class="ex">rake</span>
+<span class="ex">/usr/bin/ruby1.9</span> -S rspec ./spec/getdata_spec.rb ./spec/ledstatus_spec.rb
+<span class="ex">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
+<span class="ex">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+<span class="ex">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:0
+<span class="ex">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+<span class="ex">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1
+<span class="ex">id</span>:1,sensors1:22.0,sensors2:11.0,temperature:10.0,led1:1</code></pre></div>
 <p>使用Ruby自带的Observer库的优点是，让我们可以简化相互之间的依赖性。同时，也能简化程序的结构，相比于自己写observer的情况下。</p>
 <h3 id="pubsub">PUB/SUB</h3>
 <h2 id="模板方法">模板方法</h2>
@@ -1907,15 +1907,15 @@ describe <span class="dt">LedStatus</span> <span class="kw">do</span>
 <p>对于一个基本的C/C++/Java/Python的Application来说，他只需要有一个Main函数就够了。对于一个好一点的APP来说，他可能是下面的步骤，</p>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">main(){
     init();
-    <span class="kw">while</span>(!condition()){
-        <span class="kw">do</span>();
+    <span class="cf">while</span>(!condition()){
+        <span class="cf">do</span>();
     }
 }</code></pre></div>
 <p>上面的代码是我在学51/AVR等各式嵌入式设备时，经常是按上面的写法写的，对于一个更符合人性的App来说他应该会有一个退出函数。</p>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">main(){
     init();
-    <span class="kw">while</span>(!condition()){
-        <span class="kw">do</span>();
+    <span class="cf">while</span>(!condition()){
+        <span class="cf">do</span>();
     }
     exit();
 }</code></pre></div>
@@ -1927,18 +1927,18 @@ describe <span class="dt">LedStatus</span> <span class="kw">do</span>
 <span class="dt">void</span> loop() {
 }</code></pre></div>
 <p>setup()函数相当于上面的init()，而loop()函数刚相当于上面的do()。似乎这就是我们想要的东西，看看Arduino目录中的Arduino.h就会发现，如下的代码(删减部分代码)</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="ot">#include &lt;Arduino.h&gt;</span>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Arduino.h&gt;</span>
 
 <span class="dt">int</span> main(<span class="dt">void</span>)
 {
     init();
     setup();        
-    <span class="kw">for</span> (;;) {
+    <span class="cf">for</span> (;;) {
         loop();
-        <span class="kw">if</span> (serialEventRun) serialEventRun();
+        <span class="cf">if</span> (serialEventRun) serialEventRun();
     }
         
-    <span class="kw">return</span> <span class="dv">0</span>;
+    <span class="cf">return</span> <span class="dv">0</span>;
 }</code></pre></div>
 <p>代码中的for(;;)看上去似乎比while(True)容易理解得多，这也就是为什么嵌入式中经常用到的是for(;;)，从某种意义上来说两者是等价的。再有不同的地方，就是gcc规定了,main()函数不能是void。so,两者是差不多的。只是没有，并没有在上面看到模板方法，等等。我们在上面所做的事情，便是创建一个框架。</p>
 <h3 id="template-method">Template Method</h3>
@@ -1946,7 +1946,7 @@ describe <span class="dt">LedStatus</span> <span class="kw">do</span>
 <p><strong>模板方法</strong>： 在一方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。</p>
 </blockquote>
 <p>对于我来说，我就是在基本的App中遇到的情况是一样的，在我的例子中，一开始我的代码是这样写的。</p>
-<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(String[] args) <span class="kw">throws</span> IOException {
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) <span class="kw">throws</span> <span class="bu">IOException</span> {
     <span class="fu">initLibrary</span>();
     <span class="kw">while</span>(!isQuit){
         <span class="fu">loop</span>();
@@ -1955,28 +1955,28 @@ describe <span class="dt">LedStatus</span> <span class="kw">do</span>
 }
 
 <span class="kw">protected</span> <span class="dt">void</span> <span class="fu">initLibrary</span>(); {
-    System.<span class="fu">out</span>.<span class="fu">println</span>(welcomeMessage);
+    <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(welcomeMessage);
 }
 
 <span class="kw">protected</span> <span class="dt">void</span> <span class="fu">loop</span>() {
-    String key = <span class="st">&quot;&quot;</span>;
-    Scanner sc = <span class="kw">new</span> Scanner(System.<span class="fu">in</span>);
+    <span class="bu">String</span> key = <span class="st">&quot;&quot;</span>;
+    <span class="bu">Scanner</span> sc = <span class="kw">new</span> <span class="bu">Scanner</span>(<span class="bu">System</span>.<span class="fu">in</span>);
     key = sc.<span class="fu">nextLine</span>();
 
-    System.<span class="fu">out</span>.<span class="fu">println</span>(results);
+    <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(results);
     <span class="kw">if</span>(key.<span class="fu">equals</span>(<span class="st">&quot;Quit&quot;</span>)){
         <span class="fu">setQuit</span>();
     }
 }
 
 <span class="kw">protected</span> <span class="dt">void</span> <span class="fu">exit</span>() {
-    System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Quit Library&quot;</span>);
+    <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Quit Library&quot;</span>);
 }</code></pre></div>
 <p>只是这样写感觉很是别扭，看上去一点高大上的感觉，也木有。于是，打开书，找找灵感，就在《敏捷软件开发》一书中找到了类似的案例。Template Method模式可以分离能用的算法和具体的上下文，而我们通用的算法便是。</p>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">main(){
     init();
-    <span class="kw">while</span>(!condition()){
-        <span class="kw">do</span>();
+    <span class="cf">while</span>(!condition()){
+        <span class="cf">do</span>();
     }
     exit();
 }</code></pre></div>
@@ -2009,19 +2009,19 @@ describe <span class="dt">LedStatus</span> <span class="kw">do</span>
 }</code></pre></div>
 <p>而这个也和书中的一样，是一个通用的主循环应用程序。从应用的run函数中，可以看到主循环。而所有的工作也都交付给抽象方法，于是我们的LibraryApp就变成了</p>
 <div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> LibraryApp <span class="kw">extends</span> App {
-    <span class="kw">private</span> <span class="dt">static</span> String welcomeMessage = <span class="st">&quot;Welcome to Biblioteca library&quot;</span>;
+    <span class="kw">private</span> <span class="dt">static</span> <span class="bu">String</span> welcomeMessage = <span class="st">&quot;Welcome to Biblioteca library&quot;</span>;
 
-    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(String[] args) <span class="kw">throws</span> IOException {
+    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) <span class="kw">throws</span> <span class="bu">IOException</span> {
         (<span class="kw">new</span> <span class="fu">LibraryApp</span>()).<span class="fu">run</span>();
     }
 
     <span class="kw">protected</span> <span class="dt">void</span> <span class="fu">init</span>() {
-        System.<span class="fu">out</span>.<span class="fu">println</span>(welcomeMessage);
+        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(welcomeMessage);
     }
 
     <span class="kw">protected</span> <span class="dt">void</span> <span class="fu">loop</span>() {
-        String key = <span class="st">&quot;&quot;</span>;
-        Scanner sc = <span class="kw">new</span> Scanner(System.<span class="fu">in</span>);
+        <span class="bu">String</span> key = <span class="st">&quot;&quot;</span>;
+        <span class="bu">Scanner</span> sc = <span class="kw">new</span> <span class="bu">Scanner</span>(<span class="bu">System</span>.<span class="fu">in</span>);
         key = sc.<span class="fu">nextLine</span>();
 
         <span class="kw">if</span>(key.<span class="fu">equals</span>(<span class="st">&quot;Quit&quot;</span>)){
@@ -2030,7 +2030,7 @@ describe <span class="dt">LedStatus</span> <span class="kw">do</span>
     }
 
     <span class="kw">protected</span> <span class="dt">void</span> <span class="fu">exit</span>() {
-        System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Quit Library&quot;</span>);
+        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Quit Library&quot;</span>);
     }
 }</code></pre></div>
 <p>然而，如书中所说<code>这是一个很好的用于示范TEMPLATE METHOD模式的例子，却不是一个合适的例子。</code></p>
@@ -2041,9 +2041,9 @@ describe <span class="dt">LedStatus</span> <span class="kw">do</span>
 <p>最出名的Pipe便是Unix中的Shell</p>
 <p><strong>管道（英语：Pipeline）是原始的软件管道：即是一个由标准输入输出链接起来的进程集合，所以每一个进程的输出（stdout）被直接作为下一个进程的输入（stdin）。 每一个链接都由未命名管道实现。过滤程序经常被用于这种设置。</strong></p>
 <p>所以对于这样一个很好的操作便是，统计某种类型的文件的个数:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> -alh dot <span class="kw">|</span> <span class="kw">grep</span> .dot <span class="kw">|</span> <span class="kw">wc</span> -l</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">ls</span> -alh dot <span class="kw">|</span> <span class="fu">grep</span> .dot <span class="kw">|</span> <span class="fu">wc</span> -l</code></pre></div>
 <p>在执行</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> -alh dot</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">ls</span> -alh dot</code></pre></div>
 <p>的输出便是下一个的输入，直至最后一个输出。</p>
 <p>这个过程有点类似于工厂处理废水，</p>
 <p>[pipe and filter][1]</p>

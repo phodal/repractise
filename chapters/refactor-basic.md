@@ -110,7 +110,7 @@ A |	lib/url_handler.js |	9 |	0	| 5 |	2.2	| 94.1% |	0
 
 分享得到的最后的结果是:
 
-![Coverage](http://repractise.phodal.com/img/refactor/coverage.png)
+![Coverage](./img/refactor/coverage.png)
 
 ####代码的坏味道
 

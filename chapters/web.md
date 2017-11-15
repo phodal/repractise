@@ -7,7 +7,7 @@
 
 其实对于Web开发，有下面这张图就足够了。
 
-![Web开发的七天里](http://repractise.phodal.com/img/web/web.png)
+![Web开发的七天里](./img/web/web.png)
 
 ###第一天：新的开始
 

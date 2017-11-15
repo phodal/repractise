@@ -10,7 +10,7 @@
 
 换成中文，即：**设计系统的组织，其产生的设计和架构等价于组织间的沟通结构**。上图
 
-![Conway](http://repractise.phodal.com/img/front-back-end/conway.jpg)
+![Conway](./img/front-back-end/conway.jpg)
 
 这张图可以解释相当多的软件开发过程中的问题，而我们知道软件开发的主要问题是沟通问题。组织结构影响了我们的沟通结构，进而影响了我们的软件系统结构。好吧，我承认可能离题有点远。不过，我想说的是组织结构可能不允许我们做出一些好的系统架构。
 
@@ -37,7 +37,7 @@
 
 当搜索引擎通过URL访问我们的网站的时候，我们就需要返回相应的HTML。这意味着我们需要在后台有对应的模板引擎来支持，而由于SPA的性质又决定了，这需要使用一个纯前端的模板引擎。因此，我们并不能使用两个模板引擎来做这件事，维护两套模板注定会是一件痛苦的事，并且当时还没有React这种模板引擎在。不过，后来我们发现维护两种不同的渲染方式也是一件痛苦的事。因此，我们就会有了类似于下图的架构：
 
-![Spring MVC Backbone](http://repractise.phodal.com/img/front-back-end/spring-backbone.png)
+![Spring MVC Backbone](./img/front-back-end/spring-backbone.png)
 
 我们在后台使用Spring MVC作为基础架构、Mustache作为模板引擎，和使用JSP作为模板引擎相比没有多大的区别——由Controller去获取对应的Model，再渲染给用户。多数时候搜索引擎都是依据Sitemap来进行索引的，所以我们的后台很容易就可以处理这些请求。同样的当用户访问相应的页面的时候，也返回同样的页面内容。当完成页面渲染的时候，就交由Backbone来处理相应的逻辑了。换句话来说，从这时候它就变成了一个单页面应用。
 
@@ -53,11 +53,11 @@
 
 PreRender就是预先渲染好HTML，并针对于爬虫返回特定的HTML。（PS：不过作为一个很有经验的SEO开发人员，我一点不喜欢这种作法。要知道Google有时候会模拟成真实的用户，不带有爬虫的那些参数和标志，去访问页面。如果你返回给Google的两个页面差异太大——可能是你忘记更新了频率，那么Google可能就会认为你在**作弊**。）
 
-![PreRender](http://repractise.phodal.com/img/front-back-end/angular-prerender.jpg)
+![PreRender](./img/front-back-end/angular-prerender.jpg)
 
 对于一般用户来说就不会返回后台渲染的结果了：
 
-![Angular PreRender](http://repractise.phodal.com/img/front-back-end/angular-phantomjs-prereder.jpg)
+![Angular PreRender](./img/front-back-end/angular-phantomjs-prereder.jpg)
 
 和上面的第一种情况相比，这种作法可以大大减少服务器地负担，并且可以直接交由CDN就可以了。这时我们只需要考虑要渲染哪些页面即可，对于数据量比较少的网站来说这是一个不错的做法，但是多了就不一样了。
 
@@ -67,7 +67,7 @@ PreRender就是预先渲染好HTML，并针对于爬虫返回特定的HTML。（
 
 对于使用React的开发人员来说，要处理后台渲染就是一种更简单的事，毕竟React中提供了一个方法叫 renderToString()。我们所要做的就是用Express或者Koa对路由进行处理，然后返回对应的内容即可：
 
-![React Server Side Render](http://repractise.phodal.com/img/front-back-end/react-server-side-render.png)
+![React Server Side Render](./img/front-back-end/react-server-side-render.png)
 
 然后，剩下的事都可以交由React来解决，就是这么简单。
 

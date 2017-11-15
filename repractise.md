@@ -229,13 +229,13 @@ public ModelAndView processUserDisable(HttpServletRequest request, ModelMap mode
 
 在多数时候，Controller不应该直接与数据层的一部分，而将业务逻辑放在Controller层又是一种错误，这时就有了Service层，如下图：
 
-![Service MVC](http://repractise.phodal.com/img/frontend/service-mvc.png)
+![Service MVC](./img/frontend/service-mvc.png)
 
 然而对于Domain相关的Service应该放在哪一层，总会有不同的意见：
 
-![MVC Player](http://repractise.phodal.com/img/frontend/mvcplayer.gif)
+![MVC Player](./img/frontend/mvcplayer.gif)
 
-![MS MVC](http://repractise.phodal.com/img/frontend/ms-mvc.png)
+![MS MVC](./img/frontend/ms-mvc.png)
 
 Domain（业务）是一个相当复杂的层级，这里是业务的核心。一个合理的Controller只应该做自己应该做的事，它不应该处理业务相关的代码：
 
@@ -324,7 +324,7 @@ View层是一直在变化的层级，人们的品味一直在更新，有时甚�
 
 Wap出现了，并带来了更多的挑战。随后，分辨率从1024x768变成了176×208，开发人员不得不面临这些挑战。当时所需要做的仅仅是修改View层，而View层随着iPhone的出现又发生了变化。
 
-![WAP 网站](http://repractise.phodal.com/img/frontend/wap.gif)
+![WAP 网站](./img/frontend/wap.gif)
 
 这是一个短暂的历史，PO还需要为手机用户制作一个怎样的网站？于是他们把桌面版的网站搬了过去变成了移动版。由于网络的原因，每次都需要重新加载页面，这带来了不佳的用户体验。
 
@@ -379,7 +379,7 @@ Wap出现了，并带来了更多的挑战。随后，分辨率从1024x768变成
 
 人们所做的只是**重载View层**。这也是一个有效的SEO策略，上面这些代码是我博客过去的代码。对于桌面版和移动版都是不同的模板和不同的JS、CSS。
 
-![移动版网页](http://repractise.phodal.com/img/frontend/mobile-web.png)
+![移动版网页](./img/frontend/mobile-web.png)
 
 在这一时期，桌面版和移动版的代码可能在同一个代码库中。他们使用相同的代码，调用相同的逻辑，只是View层不同了。但是，每次改动我们都要维护两份代码。
 
@@ -391,7 +391,7 @@ Wap出现了，并带来了更多的挑战。随后，分辨率从1024x768变成
 
 我们是选择重新开发一个结合第一和第二系统的最佳特性的第三个系统，还是继续臃肿下去。我想你已经有答案了。随后我们就有了APP API，构建出了博客的APP。
 
-![应用](http://repractise.phodal.com/img/frontend/mobile-app.jpg)
+![应用](./img/frontend/mobile-app.jpg)
 
 最开始，人们越来越喜欢用APP，因为与移动版网页相比，其响应速度更快，而且更流畅。对于服务器来说，也是一件好事，因为请求变少了。
 
@@ -447,11 +447,11 @@ define([
 
 一些团队便将Services抽成多个Services，美其名为微服务。传统架构下的API从下图
 
-![API Gateway](http://repractise.phodal.com/img/frontend/api-gateway.png)
+![API Gateway](./img/frontend/api-gateway.png)
 
 变成了直接调用的微服务：
 
-![Micro Services](http://repractise.phodal.com/img/frontend/microservices.png)
+![Micro Services](./img/frontend/microservices.png)
 
 对于后台开发者来说，这是一件大快人心的大好事，但是对于应用端/前端来说并非如此。调用的服务变多了，在应用程序端进行功能测试变得更复杂，需要Mock的API变多了。
 
@@ -655,7 +655,7 @@ DELETE      | Delete Resource
 Django 应用架构
 Django MVC结构如下如示:
 
-![Django MVC](http://repractise.phodal.com/img/backend/django_mvc.png)
+![Django MVC](./img/backend/django_mvc.png)
 
 然后，记住这张图，忘记上面的MVC，Django实际上是一个MTV
 
@@ -667,7 +667,7 @@ Django MVC结构如下如示:
 
 然而对于一个Django的应用来说，他的架构如下所示:
 
-![Django apps architecture](http://repractise.phodal.com/img/backend/django-app.jpg)
+![Django apps architecture](./img/backend/django-app.jpg)
 
 Django的每个App就代表着程序的一个功能。每个App有自己的models、views、urls、templates所以对于一个app来说他的结构如下:
 
@@ -696,14 +696,14 @@ Django的每个App就代表着程序的一个功能。每个App有自己的model
 
 一个典型的微服务如下所示:
 
-![microservices architecture](http://repractise.phodal.com/img/backend/microservices_a.jpg)
+![microservices architecture](./img/backend/microservices_a.jpg)
 
 有不同的技术栈python、spring、scala，但是他们看上去和Django应用的图差不多，除了数据库不一样。
 
 
 与其将复杂的测试、逻辑部分变得不可测，不如把这些部分放置于系统内部。
 
-![Linux OS Hybrid](http://repractise.phodal.com/img/backend/linux_os.jpg)
+![Linux OS Hybrid](./img/backend/linux_os.jpg)
 
 当我们在我们的服务器上部署微服务的时候，也就意味着实现所以的服务都是在我们系统的内部，我们有一个Kernel以及他们的Kernel Moduels，即微服务群们。他们调用DB，或者某些第三方服务。
 
@@ -735,7 +735,7 @@ System Libraries相当于我们的URL Dispatcher。而我们的URL Dispatcher实
 
 换成中文，即：**设计系统的组织，其产生的设计和架构等价于组织间的沟通结构**。上图
 
-![Conway](http://repractise.phodal.com/img/front-back-end/conway.jpg)
+![Conway](./img/front-back-end/conway.jpg)
 
 这张图可以解释相当多的软件开发过程中的问题，而我们知道软件开发的主要问题是沟通问题。组织结构影响了我们的沟通结构，进而影响了我们的软件系统结构。好吧，我承认可能离题有点远。不过，我想说的是组织结构可能不允许我们做出一些好的系统架构。
 
@@ -762,7 +762,7 @@ System Libraries相当于我们的URL Dispatcher。而我们的URL Dispatcher实
 
 当搜索引擎通过URL访问我们的网站的时候，我们就需要返回相应的HTML。这意味着我们需要在后台有对应的模板引擎来支持，而由于SPA的性质又决定了，这需要使用一个纯前端的模板引擎。因此，我们并不能使用两个模板引擎来做这件事，维护两套模板注定会是一件痛苦的事，并且当时还没有React这种模板引擎在。不过，后来我们发现维护两种不同的渲染方式也是一件痛苦的事。因此，我们就会有了类似于下图的架构：
 
-![Spring MVC Backbone](http://repractise.phodal.com/img/front-back-end/spring-backbone.png)
+![Spring MVC Backbone](./img/front-back-end/spring-backbone.png)
 
 我们在后台使用Spring MVC作为基础架构、Mustache作为模板引擎，和使用JSP作为模板引擎相比没有多大的区别——由Controller去获取对应的Model，再渲染给用户。多数时候搜索引擎都是依据Sitemap来进行索引的，所以我们的后台很容易就可以处理这些请求。同样的当用户访问相应的页面的时候，也返回同样的页面内容。当完成页面渲染的时候，就交由Backbone来处理相应的逻辑了。换句话来说，从这时候它就变成了一个单页面应用。
 
@@ -778,11 +778,11 @@ System Libraries相当于我们的URL Dispatcher。而我们的URL Dispatcher实
 
 PreRender就是预先渲染好HTML，并针对于爬虫返回特定的HTML。（PS：不过作为一个很有经验的SEO开发人员，我一点不喜欢这种作法。要知道Google有时候会模拟成真实的用户，不带有爬虫的那些参数和标志，去访问页面。如果你返回给Google的两个页面差异太大——可能是你忘记更新了频率，那么Google可能就会认为你在**作弊**。）
 
-![PreRender](http://repractise.phodal.com/img/front-back-end/angular-prerender.jpg)
+![PreRender](./img/front-back-end/angular-prerender.jpg)
 
 对于一般用户来说就不会返回后台渲染的结果了：
 
-![Angular PreRender](http://repractise.phodal.com/img/front-back-end/angular-phantomjs-prereder.jpg)
+![Angular PreRender](./img/front-back-end/angular-phantomjs-prereder.jpg)
 
 和上面的第一种情况相比，这种作法可以大大减少服务器地负担，并且可以直接交由CDN就可以了。这时我们只需要考虑要渲染哪些页面即可，对于数据量比较少的网站来说这是一个不错的做法，但是多了就不一样了。
 
@@ -792,7 +792,7 @@ PreRender就是预先渲染好HTML，并针对于爬虫返回特定的HTML。（
 
 对于使用React的开发人员来说，要处理后台渲染就是一种更简单的事，毕竟React中提供了一个方法叫 renderToString()。我们所要做的就是用Express或者Koa对路由进行处理，然后返回对应的内容即可：
 
-![React Server Side Render](http://repractise.phodal.com/img/front-back-end/react-server-side-render.png)
+![React Server Side Render](./img/front-back-end/react-server-side-render.png)
 
 然后，剩下的事都可以交由React来解决，就是这么简单。
 
@@ -811,7 +811,7 @@ RePractise终于又迎来了新的一篇，要知道上一篇可是在半年前�
 
 我们所写的代码在某种程度上都反应了真实世界的模型、行为等等。一个比较常见的模型就是：购物模型。同时， 这也是一个很好的展示前后端分离的模型。
 
-![store-model.jpg](http://repractise.phodal.com/img/no-stacks/store-model.jpg)
+![store-model.jpg](./img/no-stacks/store-model.jpg)
 
 （PS: 原谅我的画工）
 
@@ -827,7 +827,7 @@ RePractise终于又迎来了新的一篇，要知道上一篇可是在半年前�
 
 如果我们要构建这样一个系统，我们只需要区分出系统的各个部分，那么剩下的事情就变得很简单了。
 
-![domain.jpg](http://repractise.phodal.com/img/no-stacks/domain.jpg)
+![domain.jpg](./img/no-stacks/domain.jpg)
 
 由于整个系统仍然是相当复杂的，我们在这里只关注于用户购买的过程。
 
@@ -847,13 +847,13 @@ RePractise终于又迎来了新的一篇，要知道上一篇可是在半年前�
 
 对应于这些商品要建起Schema来是一件容易的事。作为一个商品，他们都拥有着一些共同的元素：price, name, description, location, manufacturer等等的信息。其中一些属性，还会有复杂的对应关系：
 
-![Product Schema](http://repractise.phodal.com/img/no-stacks/product-schema.png)
+![Product Schema](./img/no-stacks/product-schema.png)
 
 这些需要在我们建立数据库的时候，尽可能地明确好这些关系。由于业务本身是难以预料的，你可能和我们之前的项目一样需要一个addtionInfo的字段，来用JSON存储一些额外的字段。当然如果你使用的是NoSQL，那就再好不过了。
 
 最好你还使用了**读写分离架构**，一种比较常见的用法就是CMS网站，人们使用数据库来存储内容，使用静态页面来展示这些内容。比较好的实践还有CQRS(Command Query Responsibility Segregation， 命令查询职责分离模式)，用于CRUD（增、删、改，当然也可以查）的Command，以及Query的查询分开。简单的来说，就是有两个不同的数据持久化中心：
 
-![Basic CQRS](http://repractise.phodal.com/img/no-stacks/basic-cqrs.png)
+![Basic CQRS](./img/no-stacks/basic-cqrs.png)
 
 这一点特别适合于那些查询、搜索为主的网站，如淘宝。哈哈，我们离题有点远了，总之我们就是在这里提供了数据库的灵气，并对一些字段做一些简单的处理。听上去感觉GraphQL更适合做这样的事。
 
@@ -891,7 +891,7 @@ RePractise终于又迎来了新的一篇，要知道上一篇可是在半年前�
 
 抽象是很神奇的东西，也可以分为几个不同的境界——但是我也不知道有几个境界，简单的来说就是不同的人看上去就有不同的东西。如有的人看到下面的画就是一坨shit——还不如小学生画的呢，有的人就会惊呼大师。
 
-![星空](http://repractise.phodal.com/img/no-stacks/2012070208374547914.jpg)
+![星空](./img/no-stacks/2012070208374547914.jpg)
 
 反正，我也很看不懂。这一点倒类似于最初我对设计模型的理解一样：
 
@@ -900,11 +900,11 @@ RePractise终于又迎来了新的一篇，要知道上一篇可是在半年前�
  - 接着使用过度
  - 最后就和最好的编程器Emacs一样
 
-![Editor Learning Curve](http://repractise.phodal.com/img/no-stacks/editor-learning-curve.png)
+![Editor Learning Curve](./img/no-stacks/editor-learning-curve.png)
 
 这些都在随着编程生涯的展开而发生一些变化，我们不断地抽象出一些概念，以至于到了最后刚进入这个行业的人都看不懂。但是，这些都是一点点在一层层抽象的基础上产生的。
 
-![Needs](http://repractise.phodal.com/img/no-stacks/needs.jpg)
+![Needs](./img/no-stacks/needs.jpg)
 
 所以，我就把这一小小节扯完了，反正我是不想说得太抽象了。接着，让我们再扯点技术性的话题。
 
@@ -913,17 +913,17 @@ RePractise终于又迎来了新的一篇，要知道上一篇可是在半年前�
 
 典型的Web应用框架就是类似于这样的架构：
 
-![Spring Web App Architecture](http://repractise.phodal.com/img/no-stacks/spring-web-app-architecture.png)
+![Spring Web App Architecture](./img/no-stacks/spring-web-app-architecture.png)
 
 又或者是MVC架构，但是这已经不重要了。我们都前后端分离了，是时候把V层去掉了。
 
-![MVC Role Diagram](http://repractise.phodal.com/img/no-stacks/mvc_role_diagram.png)
+![MVC Role Diagram](./img/no-stacks/mvc_role_diagram.png)
 
 我们继续以上面的浏览来购买流程来做扯淡，后台除了提高上面的商品信息以外，在购买的时候还需要对用户进行授权。当然注册就是另外一个话题了，另外一个很大的话题。
 
 所有的这些我们都可以向前台提供对应的API即可。理想的情况下，我们对应于不同的模块可以有不同的服务：
 
-![MicroServices](http://repractise.phodal.com/img/no-stacks/microservices.png)
+![MicroServices](./img/no-stacks/microservices.png)
 
 但是现实并不总是这么美好的，而在我们当前情况下则可以——毕竟所有的用户都应该能浏览所有的商品，这时就不需要做特殊的处理了。
 
@@ -1071,7 +1071,7 @@ A |	lib/url_handler.js |	9 |	0	| 5 |	2.2	| 94.1% |	0
 
 分享得到的最后的结果是:
 
-![Coverage](http://repractise.phodal.com/img/refactor/coverage.png)
+![Coverage](./img/refactor/coverage.png)
 
 ####代码的坏味道
 
@@ -1264,7 +1264,7 @@ SQLiteHelper.prototype.getData = function (url, callback) {
 
 CMS是Content Management System的缩写，意为"内容管理系统".它可以做很多的事情，但是总的来说就是Page和Blog——即我们要创建一些页面可以用于写一些About US、Contact Me，以及持续更新的博客或者新闻，以及其他子系统——通常更新不活跃。通过对这些博客或者新闻进行分类，我们就可以有不同的信息内容，如下图：
 
-![不同分类的内容](http://repractise.phodal.com/img/cms/cms-blogs.png)
+![不同分类的内容](./img/cms/cms-blogs.png)
 
 CMS是政府和企业都需要的系统，他们有很多的信息需要公开，并且需要对其组织进行宣传。在我有限的CMS交付经验里（大学时期），一般第一次交付CMS的时候，已经创建了大部分页面。有时候这些页面可能直接存储在数据库中，后来发现这不是一个好的方案，于是很多页面变成了静态页面。随后，在CMS的生命周期里就是更新内容。
 
@@ -1288,7 +1288,7 @@ CMS一直就是这样一个紧耦合的系统。
 
 说起来，我一直是一个CMS党。主要原因还在于我可以随心所欲地去修改网站的内容，修改网站的架构。好的CMS总的来说都有其架构图，下图似乎是Drupal的模块图
 
-![Drupal 框架](http://repractise.phodal.com/img/cms/drupal-modular.png)
+![Drupal 框架](./img/cms/drupal-modular.png)
 
 一般来说，其底层都会有：
 
@@ -1308,11 +1308,11 @@ CMS一直就是这样一个紧耦合的系统。
 
 从框架本身来上看它和别的系统没有太大的区别。
 
-![Django Architecture](http://repractise.phodal.com/img/cms/django-architecture.jpg)
+![Django Architecture](./img/cms/django-architecture.jpg)
 
 但是如果我们已经有多外模块（即Django中app的概念），那么系统的架构就有所不同了。
 
-![Django App架构 ](http://repractise.phodal.com/img/cms/django-apps.jpg)
+![Django App架构 ](./img/cms/django-apps.jpg)
 
 这就是为何我喜欢用这个CMS的原因了，我的每个子系统都以APP的形式提供服务——博客是一个app，sitemap是一个app，api是一个app。系统直接解耦为类似于混合服务的架构，即不像微服务一样多语言化，又不会有宏应用的紧耦合问题。
 
@@ -1320,7 +1320,7 @@ CMS一直就是这样一个紧耦合的系统。
 
 我们的编辑和发布系统在某种意义上紧耦合在一起了，当用户访问量特别大的时候，这样会让我们的应用变得特定慢。有时候编辑甚至发布不了新的东西，如下图引示:
 
-![发布-编辑](http://repractise.phodal.com/img/cms/editor-publisher.png)
+![发布-编辑](./img/cms/editor-publisher.png)
 
 或者你认识出了上图是源自Martin Folwer的[编辑-发布分离](http://martinfowler.com/bliki/EditingPublishingSeparation.html)
 
@@ -1357,7 +1357,7 @@ CMS一直就是这样一个紧耦合的系统。
 
 在我们写了相关的代码之后，随后要做的就是生成HTML。对于个人博客来说，这是一个非常不错的系统，但是对于一些企业级的系统来说，我们的要求就更高了。如下图是Carrot采用的架构：
 
-![Editor Develoepr](http://repractise.phodal.com/img/cms/carrot.png)
+![Editor Develoepr](./img/cms/carrot.png)
 
 这与我们在项目上的系统架构目前相似。作为一个博主，通常来说我们修改博客的主题的频率会比较低， 可能是半年一次。如果你经常修改博客的主题，你博客上的文章一定是相当的少。
 
@@ -1392,7 +1392,7 @@ So，so，这些开发人员做了些什么：
 
 于是，有了一个名为[Hacienda](https://github.com/haciendaio/hacienda)的框架用于管理内容，并存储为JSON。这意味着什么？
 
-![基于Github的编辑-发布-开发分离](http://repractise.phodal.com/img/cms/github-edit-publish-code.png)
+![基于Github的编辑-发布-开发分离](./img/cms/github-edit-publish-code.png)
 
 因为使用了Git，我们可以了解到一个文件内容的历史版本，相比于WordPress来说更直观，而且更容易 上手。
 
@@ -1410,7 +1410,7 @@ So，so，这些开发人员做了些什么：
 
 思考完这些后，我想到了一个符合学习的场景。
 
-![基于Travis CI的编辑-发布-开发分离](http://repractise.phodal.com/img/cms/travis-edit-publish-code.png)
+![基于Travis CI的编辑-发布-开发分离](./img/cms/travis-edit-publish-code.png)
 
 我们构建的核心都可以基于Travis CI来完成，唯一存在风险的环节是我们似乎需要暴露我们的Key。
 
@@ -1711,13 +1711,13 @@ git的“API”提供了丰富的增、删、改功能——你需要commit就�
 
 于是，就会有一个很忙的Travis-Github Robot在默默地为你工作。
 
-![Robot提交代码](http://repractise.phodal.com/img/basis/robot-commit.png)
+![Robot提交代码](./img/basis/robot-commit.png)
 
 ## 一键发布：编辑器
 
 为了实现之前说到的``编辑-发布-开发分离``的CMS，我还是花了两天的时间打造了一个面向普通用户的编辑器。效果截图如下所示：
 
-![编辑器](http://repractise.phodal.com/img/cms/editor.png)
+![编辑器](./img/cms/editor.png)
 
 作为一个普通用户，这是一个很简单的软件。除了Electron + Node.js + React作了一个140M左右的软件，尽管压缩完只有40M左右 ，但是还是会把用户吓跑的。不过作为一个快速构建的原型已经很不错了——构建速度很快、并且运行良好。
 
@@ -1802,7 +1802,7 @@ travis.authenticate({
 
 为了快速开发，这里我们使用了Ionic + ngCordova来开发 ，最后效果图如下所示：
 
-![移动应用](http://repractise.phodal.com/img/basis/app.png)
+![移动应用](./img/basis/app.png)
 
 在这个代码库里，主要由两部分组成：
 

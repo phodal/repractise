@@ -12,7 +12,7 @@
 
 CMS是Content Management System的缩写，意为"内容管理系统".它可以做很多的事情，但是总的来说就是Page和Blog——即我们要创建一些页面可以用于写一些About US、Contact Me，以及持续更新的博客或者新闻，以及其他子系统——通常更新不活跃。通过对这些博客或者新闻进行分类，我们就可以有不同的信息内容，如下图：
 
-![不同分类的内容](http://repractise.phodal.com/img/cms/cms-blogs.png)
+![不同分类的内容](./img/cms/cms-blogs.png)
 
 CMS是政府和企业都需要的系统，他们有很多的信息需要公开，并且需要对其组织进行宣传。在我有限的CMS交付经验里（大学时期），一般第一次交付CMS的时候，已经创建了大部分页面。有时候这些页面可能直接存储在数据库中，后来发现这不是一个好的方案，于是很多页面变成了静态页面。随后，在CMS的生命周期里就是更新内容。
 
@@ -36,7 +36,7 @@ CMS一直就是这样一个紧耦合的系统。
 
 说起来，我一直是一个CMS党。主要原因还在于我可以随心所欲地去修改网站的内容，修改网站的架构。好的CMS总的来说都有其架构图，下图似乎是Drupal的模块图
 
-![Drupal 框架](http://repractise.phodal.com/img/cms/drupal-modular.png)
+![Drupal 框架](./img/cms/drupal-modular.png)
 
 一般来说，其底层都会有：
 
@@ -56,11 +56,11 @@ CMS一直就是这样一个紧耦合的系统。
 
 从框架本身来上看它和别的系统没有太大的区别。
 
-![Django Architecture](http://repractise.phodal.com/img/cms/django-architecture.jpg)
+![Django Architecture](./img/cms/django-architecture.jpg)
 
 但是如果我们已经有多外模块（即Django中app的概念），那么系统的架构就有所不同了。
 
-![Django App架构 ](http://repractise.phodal.com/img/cms/django-apps.jpg)
+![Django App架构 ](./img/cms/django-apps.jpg)
 
 这就是为何我喜欢用这个CMS的原因了，我的每个子系统都以APP的形式提供服务——博客是一个app，sitemap是一个app，api是一个app。系统直接解耦为类似于混合服务的架构，即不像微服务一样多语言化，又不会有宏应用的紧耦合问题。
 
@@ -68,7 +68,7 @@ CMS一直就是这样一个紧耦合的系统。
 
 我们的编辑和发布系统在某种意义上紧耦合在一起了，当用户访问量特别大的时候，这样会让我们的应用变得特定慢。有时候编辑甚至发布不了新的东西，如下图引示:
 
-![发布-编辑](http://repractise.phodal.com/img/cms/editor-publisher.png)
+![发布-编辑](./img/cms/editor-publisher.png)
 
 或者你认识出了上图是源自Martin Folwer的[编辑-发布分离](http://martinfowler.com/bliki/EditingPublishingSeparation.html)
 
@@ -105,7 +105,7 @@ CMS一直就是这样一个紧耦合的系统。
 
 在我们写了相关的代码之后，随后要做的就是生成HTML。对于个人博客来说，这是一个非常不错的系统，但是对于一些企业级的系统来说，我们的要求就更高了。如下图是Carrot采用的架构：
 
-![Editor Develoepr](http://repractise.phodal.com/img/cms/carrot.png)
+![Editor Develoepr](./img/cms/carrot.png)
 
 这与我们在项目上的系统架构目前相似。作为一个博主，通常来说我们修改博客的主题的频率会比较低， 可能是半年一次。如果你经常修改博客的主题，你博客上的文章一定是相当的少。
 
@@ -140,7 +140,7 @@ So，so，这些开发人员做了些什么：
 
 于是，有了一个名为[Hacienda](https://github.com/haciendaio/hacienda)的框架用于管理内容，并存储为JSON。这意味着什么？
 
-![基于Github的编辑-发布-开发分离](http://repractise.phodal.com/img/cms/github-edit-publish-code.png)
+![基于Github的编辑-发布-开发分离](./img/cms/github-edit-publish-code.png)
 
 因为使用了Git，我们可以了解到一个文件内容的历史版本，相比于WordPress来说更直观，而且更容易 上手。
 
@@ -158,7 +158,7 @@ So，so，这些开发人员做了些什么：
 
 思考完这些后，我想到了一个符合学习的场景。
 
-![基于Travis CI的编辑-发布-开发分离](http://repractise.phodal.com/img/cms/travis-edit-publish-code.png)
+![基于Travis CI的编辑-发布-开发分离](./img/cms/travis-edit-publish-code.png)
 
 我们构建的核心都可以基于Travis CI来完成，唯一存在风险的环节是我们似乎需要暴露我们的Key。
 
@@ -459,13 +459,13 @@ git的“API”提供了丰富的增、删、改功能——你需要commit就�
 
 于是，就会有一个很忙的Travis-Github Robot在默默地为你工作。
 
-![Robot提交代码](http://repractise.phodal.com/img/basis/robot-commit.png)
+![Robot提交代码](./img/basis/robot-commit.png)
 
 ## 一键发布：编辑器
 
 为了实现之前说到的``编辑-发布-开发分离``的CMS，我还是花了两天的时间打造了一个面向普通用户的编辑器。效果截图如下所示：
 
-![编辑器](http://repractise.phodal.com/img/cms/editor.png)
+![编辑器](./img/cms/editor.png)
 
 作为一个普通用户，这是一个很简单的软件。除了Electron + Node.js + React作了一个140M左右的软件，尽管压缩完只有40M左右 ，但是还是会把用户吓跑的。不过作为一个快速构建的原型已经很不错了——构建速度很快、并且运行良好。
 
@@ -550,7 +550,7 @@ travis.authenticate({
 
 为了快速开发，这里我们使用了Ionic + ngCordova来开发 ，最后效果图如下所示：
 
-![移动应用](http://repractise.phodal.com/img/basis/app.png)
+![移动应用](./img/basis/app.png)
 
 在这个代码库里，主要由两部分组成：
 

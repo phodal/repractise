@@ -11,7 +11,7 @@ RePractise终于又迎来了新的一篇，要知道上一篇可是在半年前�
 
 我们所写的代码在某种程度上都反应了真实世界的模型、行为等等。一个比较常见的模型就是：购物模型。同时， 这也是一个很好的展示前后端分离的模型。
 
-![store-model.jpg](http://repractise.phodal.com/img/no-stacks/store-model.jpg)
+![store-model.jpg](./img/no-stacks/store-model.jpg)
 
 （PS: 原谅我的画工）
 
@@ -27,7 +27,7 @@ RePractise终于又迎来了新的一篇，要知道上一篇可是在半年前�
 
 如果我们要构建这样一个系统，我们只需要区分出系统的各个部分，那么剩下的事情就变得很简单了。
 
-![domain.jpg](http://repractise.phodal.com/img/no-stacks/domain.jpg)
+![domain.jpg](./img/no-stacks/domain.jpg)
 
 由于整个系统仍然是相当复杂的，我们在这里只关注于用户购买的过程。
 
@@ -47,13 +47,13 @@ RePractise终于又迎来了新的一篇，要知道上一篇可是在半年前�
 
 对应于这些商品要建起Schema来是一件容易的事。作为一个商品，他们都拥有着一些共同的元素：price, name, description, location, manufacturer等等的信息。其中一些属性，还会有复杂的对应关系：
 
-![Product Schema](http://repractise.phodal.com/img/no-stacks/product-schema.png)
+![Product Schema](./img/no-stacks/product-schema.png)
 
 这些需要在我们建立数据库的时候，尽可能地明确好这些关系。由于业务本身是难以预料的，你可能和我们之前的项目一样需要一个addtionInfo的字段，来用JSON存储一些额外的字段。当然如果你使用的是NoSQL，那就再好不过了。
 
 最好你还使用了**读写分离架构**，一种比较常见的用法就是CMS网站，人们使用数据库来存储内容，使用静态页面来展示这些内容。比较好的实践还有CQRS(Command Query Responsibility Segregation， 命令查询职责分离模式)，用于CRUD（增、删、改，当然也可以查）的Command，以及Query的查询分开。简单的来说，就是有两个不同的数据持久化中心：
 
-![Basic CQRS](http://repractise.phodal.com/img/no-stacks/basic-cqrs.png)
+![Basic CQRS](./img/no-stacks/basic-cqrs.png)
 
 这一点特别适合于那些查询、搜索为主的网站，如淘宝。哈哈，我们离题有点远了，总之我们就是在这里提供了数据库的灵气，并对一些字段做一些简单的处理。听上去感觉GraphQL更适合做这样的事。
 
@@ -91,7 +91,7 @@ RePractise终于又迎来了新的一篇，要知道上一篇可是在半年前�
 
 抽象是很神奇的东西，也可以分为几个不同的境界——但是我也不知道有几个境界，简单的来说就是不同的人看上去就有不同的东西。如有的人看到下面的画就是一坨shit——还不如小学生画的呢，有的人就会惊呼大师。
 
-![星空](http://repractise.phodal.com/img/no-stacks/2012070208374547914.jpg)
+![星空](./img/no-stacks/2012070208374547914.jpg)
 
 反正，我也很看不懂。这一点倒类似于最初我对设计模型的理解一样：
 
@@ -100,11 +100,11 @@ RePractise终于又迎来了新的一篇，要知道上一篇可是在半年前�
  - 接着使用过度
  - 最后就和最好的编程器Emacs一样
 
-![Editor Learning Curve](http://repractise.phodal.com/img/no-stacks/editor-learning-curve.png)
+![Editor Learning Curve](./img/no-stacks/editor-learning-curve.png)
 
 这些都在随着编程生涯的展开而发生一些变化，我们不断地抽象出一些概念，以至于到了最后刚进入这个行业的人都看不懂。但是，这些都是一点点在一层层抽象的基础上产生的。
 
-![Needs](http://repractise.phodal.com/img/no-stacks/needs.jpg)
+![Needs](./img/no-stacks/needs.jpg)
 
 所以，我就把这一小小节扯完了，反正我是不想说得太抽象了。接着，让我们再扯点技术性的话题。
 
@@ -113,17 +113,17 @@ RePractise终于又迎来了新的一篇，要知道上一篇可是在半年前�
 
 典型的Web应用框架就是类似于这样的架构：
 
-![Spring Web App Architecture](http://repractise.phodal.com/img/no-stacks/spring-web-app-architecture.png)
+![Spring Web App Architecture](./img/no-stacks/spring-web-app-architecture.png)
 
 又或者是MVC架构，但是这已经不重要了。我们都前后端分离了，是时候把V层去掉了。
 
-![MVC Role Diagram](http://repractise.phodal.com/img/no-stacks/mvc_role_diagram.png)
+![MVC Role Diagram](./img/no-stacks/mvc_role_diagram.png)
 
 我们继续以上面的浏览来购买流程来做扯淡，后台除了提高上面的商品信息以外，在购买的时候还需要对用户进行授权。当然注册就是另外一个话题了，另外一个很大的话题。
 
 所有的这些我们都可以向前台提供对应的API即可。理想的情况下，我们对应于不同的模块可以有不同的服务：
 
-![MicroServices](http://repractise.phodal.com/img/no-stacks/microservices.png)
+![MicroServices](./img/no-stacks/microservices.png)
 
 但是现实并不总是这么美好的，而在我们当前情况下则可以——毕竟所有的用户都应该能浏览所有的商品，这时就不需要做特殊的处理了。
 
