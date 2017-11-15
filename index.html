@@ -62,6 +62,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div>
 <nav id="TOC">
 <ul>
+<li><a href="#repractise">RePractise</a><ul>
+<li><a href="#关于作者">关于作者</a></li>
+</ul></li>
 <li><a href="#引言">引言</a><ul>
 <li><a href="#re-practise">Re-Practise</a></li>
 <li><a href="#技术与业务">技术与业务</a></li>
@@ -79,7 +82,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#hybird与viewmodel">Hybird与ViewModel</a></li>
 <li><a href="#一次构建跨平台运行">一次构建，跨平台运行</a></li>
 </ul></li>
-<li><a href="#repractise">RePractise</a></li>
+<li><a href="#repractise-1">RePractise</a></li>
 </ul></li>
 <li><a href="#后台与服务篇">后台与服务篇</a><ul>
 <li><a href="#restful与服务化">RESTful与服务化</a><ul>
@@ -107,7 +110,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li><a href="#前后台分离后台">前后台分离：后台</a></li>
 <li><a href="#前后台分离前端">前后台分离：前端</a></li>
-<li><a href="#repractise-1">RePractise</a></li>
+<li><a href="#repractise-2">RePractise</a></li>
 </ul></li>
 <li><a href="#重构篇">重构篇</a><ul>
 <li><a href="#网站重构">网站重构</a><ul>
@@ -130,7 +133,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#cms架构与django">CMS架构与Django</a></li>
 <li><a href="#编辑-发布分离">编辑-发布分离</a></li>
 <li><a href="#基于github的编辑-发布-开发分离">基于Github的编辑-发布-开发分离</a></li>
-<li><a href="#repractise-2">Repractise</a></li>
+<li><a href="#repractise-3">Repractise</a></li>
 </ul></li>
 <li><a href="#构建基于git为数据中心的cms">构建基于Git为数据中心的CMS</a><ul>
 <li><a href="#用户场景">用户场景</a></li>
@@ -179,6 +182,43 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul>
 </nav>
+<h1 id="repractise">RePractise</h1>
+<h2 id="关于作者">关于作者</h2>
+<p>黄峰达（Phodal Huang）是一个创客、工程师、咨询师和作家。他毕业于西安文理学院电子信息工程专业，现作为一个咨询师就职于 ThoughtWorks 深圳。长期活跃于开源软件社区 GitHub，目前专注于物联网和前端领域。</p>
+<p>作为一个开源软件作者，著有 Growth、Stepping、Lan、Echoesworks 等软件。其中开源学习应用 Growth，广受读者和用户好评，可在 APP Store 及各大 Android 应用商店下载。</p>
+<p>作为一个技术作者，著有《自己动手设计物联网》（电子工业出版社）、《全栈应用开发：精益实践》（电子工业出版社，正在出版）。并在 GitHub 上开源有《Growth: 全栈增长工程师指南》、《GitHub 漫游指南》等七本电子书。</p>
+<p>作为技术专家，他为英国 Packt 出版社审阅有物联网书籍《Learning IoT》、《Smart IoT》，前端书籍《Angular 2 Serices》、《Getting started with Angular》等技术书籍。</p>
+<p>他热爱编程、写作、设计、旅行、hacking，你可以从他的个人网站：<a href="https://www.phodal.com/" class="uri">https://www.phodal.com/</a> 了解到更多的内容。</p>
+<p>其它相关信息：</p>
+<ul>
+<li>微博：<a href="http://weibo.com/phodal" class="uri">http://weibo.com/phodal</a></li>
+<li>GitHub： <a href="https://github.com/phodal" class="uri">https://github.com/phodal</a></li>
+<li>知乎：<a href="https://www.zhihu.com/people/phodal" class="uri">https://www.zhihu.com/people/phodal</a></li>
+<li>SegmentFault：<a href="https://segmentfault.com/u/phodal" class="uri">https://segmentfault.com/u/phodal</a></li>
+</ul>
+<p>当前为预览版，在使用的过程中遇到任何问题请及时与我联系。阅读过程中的问题，不妨在GitHub上提出来： <a href="https://github.com/phodal/fe/issues">Issues</a></p>
+<p>阅读过程中遇到语法错误、拼写错误、技术错误等等，不妨来个Pull Request，这样可以帮助到其他阅读这本电子书的童鞋。</p>
+<p>我的电子书：</p>
+<ul>
+<li>《<a href="https://github.com/phodal/github-roam">GitHub 漫游指南</a>》</li>
+<li>《<a href="https://github.com/phodal/fe">我的职业是前端工程师</a>》</li>
+<li>《<a href="https://github.com/phodal/serverless">Serverless 架构应用开发指南</a>》</li>
+<li>《<a href="https://github.com/phodal/growth-ebook">Growth: 全栈增长工程师指南</a>》</li>
+<li>《<a href="https://github.com/phodal/ideabook">Phodal’s Idea实战指南</a>》</li>
+<li>《<a href="https://github.com/phodal/designiot">一步步搭建物联网系统</a>》</li>
+<li>《<a href="https://github.com/phodal/repractise">RePractise</a>》</li>
+<li>《<a href="https://github.com/phodal/growth-in-action">Growth: 全栈增长工程师实战</a>》</li>
+</ul>
+<p>我的微信公众号:</p>
+<figure>
+<img src="./img/wechat.jpg" alt="作者微信公众号：phodal-weixin" /><figcaption>作者微信公众号：phodal-weixin</figcaption>
+</figure>
+<p>支持作者，可以加入作者的小密圈:</p>
+<figure>
+<img src="./img/xiaomiquan.jpg" alt="小密圈" /><figcaption>小密圈</figcaption>
+</figure>
+<p>或者转账：</p>
+<p><img src="./img/alipay.png" alt="支付宝" /> <img src="./img/wechat-pay.png" alt="微信" /></p>
 <h1 id="引言">引言</h1>
 <p>回到一年前的今天(2014.09.29)，一边在准备着去沙漠之旅，一边在准备国庆后的印度培训。</p>
 <p>当时我还在用我的Lumia 920，上面没有各式各样的软件，除了我最需要的地图、相机。所以，我需要为我的手机写一个应用，用于在地图上显示图片信息及照片。</p>
@@ -567,7 +607,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>现在，React这样的跨平台框架又出现了，而响应式设计也是跨平台式的设计。</p>
 <p>响应式设计不得不提到的一个缺点是：<strong>他只是将原本在模板层做的事，放到了样式（CSS）层</strong>。你还是在针对着不同的设备进行设计，两种没有什么多大的不同。复杂度不会消失，也不会凭空产生，它只会从一个物体转移到另一个物体或一种形式转为另一种形式。</p>
 <p>React，将一小部分复杂度交由人来消化，将另外一部分交给了React自己来消化。在用Spring MVC之前，也许我们还在用CGI编程，而Spring降低了这部分复杂度，但是这和React一样降低的只是新手的复杂度。在我们不能以某种语言的方式写某相关的代码时，这会带来诸多麻烦。</p>
-<h2 id="repractise">RePractise</h2>
+<h2 id="repractise-1">RePractise</h2>
 <p>如果你是一只辛勤的蜜蜂，那么我想你应该都玩过上面那些技术。你是在练习前端的技术，还是在RePractise？如果你不花点时间整理一下过去，顺便预测一下未来，那么你就是在白搭。</p>
 <p>前端的演进在这一年特别快，Ruby On Rails也在一个合适的年代里出现，在那个年代里也流行得特别快。RoR开发效率高的优势已然不再突显，语法灵活性的副作用就是运行效率降低，同时后期维护难——每个人元编程了自己。</p>
 <p>如果不能把Controller、Model Mapper变成ViewModel，又或者是Micro Services来解耦，那么ES6 + React只是在现在带来更高的开发效率。而所谓的高效率，只是相比较而意淫出来的，因为他只是一层View层。将Model和Controller再加回View层，以后再拆分出来？</p>
@@ -914,7 +954,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>这就是最近火热的关于DOM的讨论的原因，当顾客想了解一下一些不一样东西的时候，我们就需要对DOM进行操作。</p>
 <p>我突然就有一个问题了，你真的有那么多DOM需要操作么？你又不是Facebook，有那么多的Timeline和事件流。还有你的用户体验是不是做得足够好了？顺便再补一刀，如果你使用了React，并且没有进行前后端分离，那就等下一个恶梦。</p>
 <p>最后，当用户买下东西的时候，我们也需要这样的交互流程。</p>
-<h2 id="repractise-1">RePractise</h2>
+<h2 id="repractise-2">RePractise</h2>
 <p>因为最近我对DDD又有了一些想法，还在想着如何直接由真实世界来建模。顺便整理了这些思路到一起，但是好似这样的设计更简单。</p>
 <h1 id="重构篇">重构篇</h1>
 <p>什么是重构?</p>
@@ -1385,7 +1425,7 @@ show_other <span class="op">=</span> show_other <span class="op">&amp;</span> <s
 <p>如果我们有APP，那么我们就可以使用Content Servies来做这些事情。甚至可以直接拿其搭建一个SPA。</p>
 <p>如果我们需要全文搜索功能，也变得很简单。我们已经不需要直接和数据库交互，我们可以直接读取JSON并且构建索引。这时候需要一个简单的Web服务，而且这个服务还是只读的。</p>
 <p>在需要的时候，如手机APP，我们可以通过Content Servies来创建博客。</p>
-<h3 id="repractise-2">Repractise</h3>
+<h3 id="repractise-3">Repractise</h3>
 <blockquote>
 <p>动态网页是下一个要解决的难题。我们从数据库中读取数据，再用动态去渲染出一个静态页面，并且缓存服务器来缓存这个页面。既然我们都可以用Varnish、Squid这样的软件来缓存页面——表明它们可以是静态的，为什么不考虑直接使用静态网页呢？</p>
 </blockquote>

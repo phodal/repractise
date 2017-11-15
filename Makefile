@@ -1,5 +1,5 @@
 include_dir=build
-source=chapters/prelude.md chapters/frontend.md chapters/backend.md chapters/front-back-end.md chapters/no-stacks.md chapters/refactor-basic.md chapters/refactor-cms.md chapters/patterns.md chapters/model.md chapters/domain.md
+source=chapters/about.md chapters/prelude.md chapters/frontend.md chapters/backend.md chapters/front-back-end.md chapters/no-stacks.md chapters/refactor-basic.md chapters/refactor-cms.md chapters/patterns.md chapters/model.md chapters/domain.md
 title='RePractise'
 filename='repractise'
 
